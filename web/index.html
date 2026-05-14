@@ -135,6 +135,72 @@
     For more details:
     * https://docs.flutter.dev/platform-integration/web/initialization
   -->
+
+  <script>
+    // ── Force SW update on page load ──
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function (regs) {
+        regs.forEach(function (reg) {
+          reg.update();
+          if (reg.waiting) {
+            reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+          }
+        });
+      });
+      // When a new SW takes over, reload
+      navigator.serviceWorker.addEventListener('controllerchange', function () {
+        if (document.getElementById('update-overlay')) {
+          window.location.reload();
+        }
+      });
+    }
+  </script>
+
+  <script>
+    // ── Version check: polls version.json every 60s ──
+    (function () {
+      var initialBuild = null;
+
+      function fetchVersion() {
+        return fetch('/version.json?_t=' + Date.now())
+          .then(function (r) { return r.json(); })
+          .then(function (j) { return j.build_number || j.version; });
+      }
+
+      fetchVersion().then(function (v) {
+        initialBuild = v;
+      });
+
+      setInterval(function () {
+        if (!initialBuild) return;
+        fetchVersion().then(function (v) {
+          if (v && v !== initialBuild) {
+            showUpdateOverlay();
+          }
+        }).catch(function () { /* network error, skip */ });
+      }, 120000); // cada 120 segundos
+
+      function showUpdateOverlay() {
+        if (document.getElementById('update-overlay')) return;
+        var overlay = document.createElement('div');
+        overlay.id = 'update-overlay';
+        overlay.style.cssText = 'position:fixed;inset:0;z-index:999999;'
+          + 'background:rgba(0,0,0,0.7);display:flex;align-items:center;'
+          + 'justify-content:center;';
+        overlay.innerHTML = '<div style="background:#fff;border-radius:12px;'
+          + 'padding:32px 40px;text-align:center;max-width:400px;'
+          + 'font-family:sans-serif;">'
+          + '<h2 style="margin:0 0 12px;">Nueva versión disponible</h2>'
+          + '<p style="color:#555;margin:0 0 24px;">Se ha publicado una '
+          + 'actualización. Pulsa el botón para cargar la nueva versión.</p>'
+          + '<button onclick="location.reload(true)" style="background:#0058bd;'
+          + 'color:#fff;border:none;padding:12px 32px;border-radius:8px;'
+          + 'font-size:16px;cursor:pointer;">Actualizar ahora</button></div>';
+        document.body.appendChild(overlay);
+      }
+    })();
+  </script>
+
   <script src="flutter_bootstrap.js" async=""></script>
 
 
