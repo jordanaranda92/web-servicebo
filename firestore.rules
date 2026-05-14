@@ -1,0 +1,108 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helper functions ──────────────────────────────────────────
+
+    /// Returns true if the request comes from an authenticated user.
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    /// Returns true if the authenticated user owns the document at
+    /// users/{uid} (i.e. the uid matches their auth uid).
+    function isOwner(uid) {
+      return isAuthenticated() && request.auth.uid == uid;
+    }
+
+    /// Returns true if the authenticated user has the 'admin' role
+    /// stored in their Firestore user profile.
+    function isAdmin() {
+      return isAuthenticated()
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // ── Default: deny all ─────────────────────────────────────────
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // ── users/{uid} ───────────────────────────────────────────────
+    // Each user can read and update their own profile.
+    // Only admins can read other users' profiles (needed for userName
+    // resolution in presence/cursors).
+    // Nobody can create or delete user documents from the client —
+    // creation is done via Firebase Console / Admin SDK, and deletion
+    // is handled by the onUserDeleted Cloud Function.
+    match /users/{uid} {
+      allow read: if isOwner(uid) || isAdmin() || isAuthenticated();
+      allow update: if isOwner(uid)
+        && request.resource.data.diff(resource.data).affectedKeys()
+            .hasOnly(['userName']);
+      allow create, delete: if false;
+    }
+
+    // ── clients/{clientId} ────────────────────────────────────────
+    // All authenticated users can read clients.
+    // All authenticated users can create and update clients
+    // (sync from FacturaDirecta, batch updates).
+    // Only admins can delete clients.
+    match /clients/{clientId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+
+    // ── products/{productId} ──────────────────────────────────────
+    // All authenticated users can read products.
+    // All authenticated users can create and update products.
+    // Only admins can delete products.
+    match /products/{productId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+
+    // ── shipping_methods/{methodId} ───────────────────────────────
+    // All authenticated users can read shipping methods.
+    // All authenticated users can create and update shipping methods.
+    // Only admins can delete shipping methods.
+    match /shipping_methods/{methodId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+
+    // ── client_categories/{categoryId} ────────────────────────────
+    // All authenticated users can read client categories.
+    // All authenticated users can create and update client categories.
+    // Only admins can delete client categories.
+    match /client_categories/{categoryId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+
+    // ── orders/{date} ─────────────────────────────────────────────
+    // All authenticated users can read and write orders (collaborative
+    // editing of the daily order sheet).
+    // Includes the rows subcollection.
+    match /orders/{date} {
+      allow read, write: if isAuthenticated();
+
+      match /rows/{productId} {
+        allow read, write: if isAuthenticated();
+      }
+    }
+
+    // ── factura_directa_configuration/{docId} ─────────────────────
+    // All authenticated users can read the configuration.
+    // Only admins can write (create/update/delete) configuration.
+    match /factura_directa_configuration/{docId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+    "rules": {
+        ".read": false,
+        ".write": false,
+        "today": {
+            "date": {
+                ".read": "auth != null",
+                ".write": "auth != null",
+                ".validate": "newData.isString() && newData.val().length <= 10"
+            },
+            "locks": {
+                ".read": "auth != null",
+                "$cellKey": {
+                    ".write": "auth != null",
+                    ".validate": "newData.hasChildren(['user', 'ts']) && newData.child('user').isString() && newData.child('ts').isNumber() && newData.child('user').val().length <= 50 && newData.child('ts').val() <= now"
+                }
+            },
+            "cursors": {
+                ".read": "auth != null",
+                "$userId": {
+                    ".write": "auth != null && auth.uid != null",
+                    ".validate": "newData.hasChildren(['color', 'userName']) && newData.child('color').isString() && newData.child('userName').isString() && newData.child('userName').val().length <= 100"
+                }
+            }
+        }
+    }
+}

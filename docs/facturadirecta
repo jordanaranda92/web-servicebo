@@ -1,0 +1,20 @@
+En el excel 4 productos tienen el mismo codigo en la factura con el mismo precio
+Por ejemplo, cangrejos son todos el mismo. Rosca también. Muergo pequeño y
+Muergo grande. Funda santander y Funda gallega. En el caso de Rosca extra (en
+factura directa) aparecen 2 lineas una para rosca pasta y otra para rosca
+serrin. Controlar que productos tienen que tener varias lineas en la factura.
+
+Se comparte el excel por drive, trabajan 3 a la vez. Pedidos entre 13:30 y 15:30
+pero otros hacen más tarde o amplian el pedido. La columna de stocks se mete
+antes de empezar los pedidos. Si hay algún producto que no hay más del stock
+puesto se sombrea en rojo. Para indicar que no se debe sobrepasar. Si algún
+centro/tienda quiere reservar productos se le pone la casilla en azul. Se tienen
+que ver hasta 80 columnas.
+
+En lugar de Generar factura, tiene que poner Generar albarán.
+
+Factura directa jaservicebo@gmail.com Aaa41974
+
+Los stocks pueden estar en rojo, si NO HAY MAS stock exacto.
+
+En la columna Quedan si hay menos de x (10 por ejemplo) poner en naranja.

@@ -1,0 +1,1919 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Spanish Castilian (`es`).
+class AppLocalizationsEs extends AppLocalizations {
+  AppLocalizationsEs([String locale = 'es']) : super(locale);
+
+  @override
+  String get appTitle => 'Servicebo';
+
+  @override
+  String get welcomeMessage => '¡Bienvenido a tu aplicación Flutter!';
+
+  @override
+  String get menuHome => 'Inicio';
+
+  @override
+  String get menuOrdersToday => 'Pedidos de hoy';
+
+  @override
+  String get ordersTodayHeaderLabel => 'HOY';
+
+  @override
+  String get menuOrdersHistory => 'Historial de pedidos';
+
+  @override
+  String get menuSettings => 'Ajustes';
+
+  @override
+  String get pagePlaceholderMessage => 'Esta funcionalidad está en desarrollo';
+
+  @override
+  String get settingsFacturaDirectaTitle => 'FacturaDirecta';
+
+  @override
+  String get settingsFacturaDirectaDescription =>
+      'Conecta tu cuenta de FacturaDirecta para volcar los pedidos vía API.';
+
+  @override
+  String get settingsFacturaDirectaCompanyId => 'ID de empresa';
+
+  @override
+  String get settingsFacturaDirectaCompanyIdHint => 'mi-empresa';
+
+  @override
+  String get settingsFacturaDirectaApiToken => 'API Token';
+
+  @override
+  String get settingsFacturaDirectaApiTokenHint => 'Introduce tu API token';
+
+  @override
+  String settingsFacturaDirectaAccount(String companyId) {
+    return 'Cuenta de Factura Directa configurada: $companyId';
+  }
+
+  @override
+  String get settingsFacturaDirectaVerify => 'Verificar conexión';
+
+  @override
+  String get settingsFacturaDirectaVerifyDescription =>
+      'Introduce tu API token para verificar la conexión con FacturaDirecta.';
+
+  @override
+  String get settingsFacturaDirectaVerified =>
+      'Conexión verificada correctamente';
+
+  @override
+  String get settingsInvoiceSeriesLabel => 'Serie facturas';
+
+  @override
+  String get settingsInvoiceSeriesSaved => 'Serie guardada';
+
+  @override
+  String get settingsInvoiceSeriesEmpty => 'La serie no puede estar vacía';
+
+  @override
+  String get settingsSyncProductsButton => 'Sincronizar productos';
+
+  @override
+  String get settingsFacturaDirectaEdit => 'Editar configuración';
+
+  @override
+  String get settingsDisconnect => 'Desconectar';
+
+  @override
+  String get settingsSave => 'Guardar';
+
+  @override
+  String get settingsCancel => 'Cancelar';
+
+  @override
+  String get ordersTodayNoFolderTitle => 'Carpeta de trabajo no configurada';
+
+  @override
+  String get ordersTodayNoFolderMessage =>
+      'Configura la carpeta de trabajo en Ajustes para poder ver los pedidos.';
+
+  @override
+  String get ordersTodayGoToSettings => 'Ir a Ajustes';
+
+  @override
+  String get ordersTodayNoFileTitle => 'No hay pedidos para hoy';
+
+  @override
+  String get ordersTodayNoFileMessage =>
+      'El archivo de pedidos de hoy aún no existe. Puedes crearlo a partir de la plantilla.';
+
+  @override
+  String get ordersTodayCreateFile => 'Crear pedido de hoy';
+
+  @override
+  String get ordersTodayErrorTemplateNotFound =>
+      'No se encontró la plantilla (plantilla.xlsx) en la carpeta de trabajo.';
+
+  @override
+  String get ordersTodayErrorFileSystem =>
+      'Error al acceder a los archivos. Verifica los permisos de la carpeta de trabajo.';
+
+  @override
+  String get ordersTodayErrorInvalidFormat =>
+      'El archivo Excel tiene un formato no válido.';
+
+  @override
+  String get ordersTodayErrorUnknown => 'Ha ocurrido un error inesperado.';
+
+  @override
+  String get ordersTodayVersionOutdated =>
+      'La estructura del archivo difiere de la plantilla actual.';
+
+  @override
+  String get ordersTodayUpdateStructure => 'Actualizar estructura';
+
+  @override
+  String get ordersTodayColumnClient => 'Cliente';
+
+  @override
+  String get ordersTodayColumnProduct => 'Producto';
+
+  @override
+  String get ordersTodayColumnTotal => 'Total';
+
+  @override
+  String get ordersTodayColumnPedidos => 'PEDIDOS';
+
+  @override
+  String get ordersTodayColumnStocks => 'STOCKS';
+
+  @override
+  String get ordersTodayColumnQuedan => 'QUEDAN';
+
+  @override
+  String get ordersTodayRowTotals => 'Totales';
+
+  @override
+  String get ordersTodayRetry => 'Reintentar';
+
+  @override
+  String get ordersTodaySearchClient => 'Buscar cliente...';
+
+  @override
+  String get ordersTodayDelete => 'Eliminar';
+
+  @override
+  String get ordersTodayAddRow => 'Añadir fila';
+
+  @override
+  String get ordersTodayAddRowTitle => 'Nueva fila';
+
+  @override
+  String get ordersTodayAddRowHint => 'Nombre del cliente';
+
+  @override
+  String get ordersTodayAddRowConfirm => 'Añadir';
+
+  @override
+  String get ordersTodaySyncExcel => 'Sincronizar excel';
+
+  @override
+  String get ordersTodaySaveExcel => 'Guardar excel';
+
+  @override
+  String get ordersTodaySaveAsNew => 'Guardar como nuevo Excel';
+
+  @override
+  String get ordersTodayExportPdf => 'Exportar como PDF';
+
+  @override
+  String get ordersTodayExportExcel => 'Exportar Excel';
+
+  @override
+  String get ordersTodayExportExcelSuccess => 'Excel exportado correctamente';
+
+  @override
+  String get ordersTodayExportExcelError => 'Error al exportar el Excel';
+
+  @override
+  String get ordersTodayShowPreview => 'Mostrar preview';
+
+  @override
+  String get ordersTodaySaveSuccess => 'Excel guardado correctamente';
+
+  @override
+  String get ordersTodaySaveError => 'Error al guardar el Excel';
+
+  @override
+  String ordersTodayLastSaved(String date) {
+    return 'Último guardado: $date';
+  }
+
+  @override
+  String get ordersTodayGenerateInvoice => 'Generar factura';
+
+  @override
+  String get ordersTodayViewOrders => 'Visualizar pedidos';
+
+  @override
+  String get ordersTodayViewTitle => 'Pedidos de hoy';
+
+  @override
+  String ordersTodayViewUpdatedAgo(int seconds) {
+    return 'Actualizado hace $seconds s';
+  }
+
+  @override
+  String ordersTodaySelectedCount(int count) {
+    return '$count seleccionado(s)';
+  }
+
+  @override
+  String get ordersTodayDeleteConfirmTitle => 'Eliminar clientes';
+
+  @override
+  String ordersTodayDeleteConfirmMessage(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          '¿Eliminar los $count clientes seleccionados?\nEsta acción no se puede deshacer.',
+      one:
+          '¿Eliminar el cliente seleccionado?\nEsta acción no se puede deshacer.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get ordersTodayDeleteConfirm => 'Eliminar';
+
+  @override
+  String get ordersTodayUnsavedTitle => 'Cambios sin guardar';
+
+  @override
+  String get ordersTodayUnsavedMessage =>
+      'Tienes cambios sin guardar en la tabla de pedidos. Si sales ahora, se perderán.';
+
+  @override
+  String get ordersTodayUnsavedStay => 'Quedarse';
+
+  @override
+  String get ordersTodayUnsavedLeave => 'Salir sin guardar';
+
+  @override
+  String get ordersTodaySyncUnsavedMessage =>
+      'Tienes cambios sin guardar. Si sincronizas ahora, se descartarán todos los cambios y se recargará el archivo del disco.';
+
+  @override
+  String get ordersTodaySyncConfirm => 'Sincronizar';
+
+  @override
+  String get settingsFacturaDirectaErrorValidation =>
+      'El subdominio y el token API son obligatorios';
+
+  @override
+  String get settingsFacturaDirectaErrorSaveFailed =>
+      'Error al guardar la configuración';
+
+  @override
+  String get settingsFacturaDirectaErrorVerifyFailed =>
+      'No se pudo verificar la conexión';
+
+  @override
+  String get settingsFacturaDirectaErrorInvalidCredentials =>
+      'Credenciales inválidas';
+
+  @override
+  String get settingsErrorDisconnectFailed => 'Error al desconectar';
+
+  @override
+  String get ordersHistoryHeaderLabel => 'HISTORIAL';
+
+  @override
+  String get ordersHistoryGoToSettings => 'Ir a Ajustes';
+
+  @override
+  String get ordersHistoryEmptyTitle => 'Sin pedidos anteriores';
+
+  @override
+  String get ordersHistoryEmptyMessage =>
+      'No hay pedidos de días anteriores registrados.';
+
+  @override
+  String get ordersHistoryErrorServer =>
+      'Error al conectar con el servidor. Comprueba tu conexión e inténtalo de nuevo.';
+
+  @override
+  String get ordersHistoryErrorUnknown => 'Ha ocurrido un error inesperado.';
+
+  @override
+  String get ordersHistoryRetry => 'Reintentar';
+
+  @override
+  String get ordersHistoryBackToList => 'Volver al listado';
+
+  @override
+  String get ordersHistorySearchClient => 'Buscar cliente...';
+
+  @override
+  String get ordersHistoryColumnClient => 'Cliente';
+
+  @override
+  String get ordersHistoryColumnTotal => 'Total';
+
+  @override
+  String get ordersHistoryRowTotals => 'Totales';
+
+  @override
+  String ordersHistoryDateClients(int count) {
+    return '$count clientes';
+  }
+
+  @override
+  String ordersHistoryDateProducts(int count) {
+    return '$count productos';
+  }
+
+  @override
+  String get ordersHistoryFilterByDate => 'Filtrar por fecha';
+
+  @override
+  String get ordersHistoryFilterFrom => 'Desde';
+
+  @override
+  String get ordersHistoryFilterTo => 'Hasta';
+
+  @override
+  String get ordersHistoryFilterClear => 'Limpiar filtro';
+
+  @override
+  String ordersHistoryFilterActive(String start, String end) {
+    return 'Filtro activo: $start – $end';
+  }
+
+  @override
+  String ordersHistoryDateCount(int count) {
+    return '$count fecha(s) disponible(s)';
+  }
+
+  @override
+  String get ordersHistoryLastWeek => 'Última semana';
+
+  @override
+  String get dashboardProducts => 'Tipos de productos';
+
+  @override
+  String get dashboardTotalUnits => 'Unidades';
+
+  @override
+  String get dashboardTopProduct => 'Producto estrella';
+
+  @override
+  String get dashboardTopProductNone => '—';
+
+  @override
+  String get dashboardInvoices => 'Número de facturas';
+
+  @override
+  String get dashboardInvoicesTotal => 'Importe facturado';
+
+  @override
+  String get dashboardFdNotConfigured => 'Sin configurar';
+
+  @override
+  String get dashboardFdError => 'Error al cargar';
+
+  @override
+  String get dashboardVsYesterday => 'Hoy vs. ayer';
+
+  @override
+  String get dashboardVsSameWeekday => 'Hoy vs. mismo día semana anterior';
+
+  @override
+  String get dashboardVsLastWeek => 'Semana actual vs. anterior';
+
+  @override
+  String get dashboardVsLastMonth => 'Mes actual vs. mes anterior';
+
+  @override
+  String get dashboardNoData => 'Sin datos';
+
+  @override
+  String get dashboardUnitsLabel => 'uds';
+
+  @override
+  String get dashboardClientsLabel => 'pedidos';
+
+  @override
+  String get dashboardInvoicesLabel => 'facturas';
+
+  @override
+  String get dashboardInvoicesTotalLabel => 'importe';
+
+  @override
+  String get dashboardGoToSettings => 'Ir a Ajustes';
+
+  @override
+  String get dashboardTodaySummary => 'Resumen del día';
+
+  @override
+  String get dashboardComparisons => 'Comparativas';
+
+  @override
+  String get menuClients => 'Clientes';
+
+  @override
+  String get menuProducts => 'Productos';
+
+  @override
+  String get menuInvoices => 'Facturas';
+
+  @override
+  String get menuStatistics => 'Estadísticas';
+
+  @override
+  String get menuClientCategories => 'Categorías clientes';
+
+  @override
+  String get clientCategoriesEmpty =>
+      'No se encontraron categorías de clientes';
+
+  @override
+  String get clientCategoriesColumnId => 'ID';
+
+  @override
+  String get clientCategoriesColumnName => 'Nombre';
+
+  @override
+  String get clientCategoriesColumnActive => 'Activo';
+
+  @override
+  String get clientCategoriesSearch => 'Buscar categoría...';
+
+  @override
+  String get clientCategoriesAdd => 'Añadir categoría';
+
+  @override
+  String get clientCategoriesNameRequired => 'El nombre es obligatorio';
+
+  @override
+  String get clientCategoriesColumnActions => 'Acciones';
+
+  @override
+  String get clientCategoriesEdit => 'Editar';
+
+  @override
+  String get clientCategoriesEditName => 'Editar nombre';
+
+  @override
+  String get clientCategoriesEditColor => 'Editar color';
+
+  @override
+  String get clientCategoriesDelete => 'Eliminar';
+
+  @override
+  String get clientCategoriesDeleteTitle => 'Eliminar categoría';
+
+  @override
+  String clientCategoriesDeleteMessage(String name) {
+    return '¿Estás seguro de que quieres eliminar la categoría \"$name\"?\nEsta acción no se puede deshacer.';
+  }
+
+  @override
+  String get clientCategoriesActivate => 'Activar';
+
+  @override
+  String get clientCategoriesDeactivate => 'Desactivar';
+
+  @override
+  String get clientCategoriesProgressSaving => 'Guardando cambios...';
+
+  @override
+  String get clientCategoriesProgressDeleting => 'Eliminando categoría...';
+
+  @override
+  String get clientCategoriesSuccessCreated => 'Categoría creada correctamente';
+
+  @override
+  String get clientCategoriesDiscardChanges => 'Cancelar cambios';
+
+  @override
+  String get clientCategoriesSaveChanges => 'Guardar cambios';
+
+  @override
+  String get clientCategoriesSuccessSaved => 'Cambios guardados correctamente';
+
+  @override
+  String get clientCategoriesSuccessUpdated =>
+      'Categoría actualizada correctamente';
+
+  @override
+  String get clientCategoriesSuccessToggled =>
+      'Estado de la categoría actualizado';
+
+  @override
+  String get clientCategoriesSuccessDeleted =>
+      'Categoría eliminada correctamente';
+
+  @override
+  String get clientCategoriesErrorOperation => 'Error al realizar la operación';
+
+  @override
+  String get clientCategoriesAssociateClients => 'Asociar clientes';
+
+  @override
+  String clientCategoriesAssociateTitle(String name) {
+    return 'Asociar clientes a \"$name\"';
+  }
+
+  @override
+  String get clientCategoriesAssociateSearch => 'Buscar cliente...';
+
+  @override
+  String get clientCategoriesAssociateNoClients =>
+      'No hay clientes disponibles';
+
+  @override
+  String get clientCategoriesAssociateLoading => 'Cargando clientes...';
+
+  @override
+  String get clientCategoriesAssociateError => 'Error al cargar clientes';
+
+  @override
+  String get clientCategoriesAssociateProgressSaving => 'Asociando clientes...';
+
+  @override
+  String get clientCategoriesAssociateSuccess =>
+      'Clientes asociados correctamente';
+
+  @override
+  String get commonUnsavedTitle => 'Cambios sin guardar';
+
+  @override
+  String get commonUnsavedMessage =>
+      'Tienes cambios sin guardar. Si sales ahora, se perderán.';
+
+  @override
+  String get commonUnsavedStay => 'Quedarse';
+
+  @override
+  String get commonUnsavedLeave => 'Salir sin guardar';
+
+  @override
+  String get clientsSearch => 'Buscar cliente...';
+
+  @override
+  String get clientsSyncFromFd => 'Sincronizar desde Factura Directa';
+
+  @override
+  String get clientsSyncingFromFd =>
+      'Sincronizando clientes desde Factura Directa…';
+
+  @override
+  String get clientsSyncSuccess => 'Clientes sincronizados correctamente';
+
+  @override
+  String get clientsSyncError => 'Error al sincronizar clientes';
+
+  @override
+  String get clientsAddFromFd => 'Añadir desde Factura Directa';
+
+  @override
+  String get clientsAddFromFdLoading =>
+      'Buscando nuevos contactos en Factura Directa…';
+
+  @override
+  String get clientsAddFromFdAdding => 'Añadiendo clientes seleccionados…';
+
+  @override
+  String get clientsAddFromFdNoNewTitle => 'Todo al día';
+
+  @override
+  String get clientsAddFromFdNoNew =>
+      'Todos los contactos de Factura Directa ya están registrados como clientes.\nNo hay nuevos contactos pendientes de añadir.';
+
+  @override
+  String get clientsAddFromFdNoNewOk => 'Entendido';
+
+  @override
+  String get clientsAddFromFdError =>
+      'Error al obtener contactos de Factura Directa';
+
+  @override
+  String clientsAddFromFdSuccess(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count clientes añadidos correctamente',
+      one: '1 cliente añadido correctamente',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clientsAddFromFdDialogTitle => 'Seleccionar contactos';
+
+  @override
+  String clientsAddFromFdSelectedCount(int selected, int total) {
+    return '$selected de $total seleccionados';
+  }
+
+  @override
+  String get clientsAddFromFdSelectAll => 'Seleccionar todos';
+
+  @override
+  String get clientsAddFromFdDeselectAll => 'Deseleccionar todos';
+
+  @override
+  String get clientsAddFromFdNoName => '(Sin nombre)';
+
+  @override
+  String get clientsAddFromFdCancel => 'Cancelar';
+
+  @override
+  String clientsAddFromFdConfirm(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Añadir $count clientes',
+      one: 'Añadir 1 cliente',
+      zero: 'Añadir',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get clientsEmpty => 'No se encontraron clientes';
+
+  @override
+  String get clientsConfigMissingTitle => 'Configuración necesaria';
+
+  @override
+  String get clientsConfigMissingFacturaDirecta =>
+      'Configura tu cuenta de FacturaDirecta en Ajustes.';
+
+  @override
+  String get clientsConfigMissingBoth =>
+      'Conecta Google Drive y configura FacturaDirecta en Ajustes para ver los clientes.';
+
+  @override
+  String get clientsGoToSettings => 'Ir a Ajustes';
+
+  @override
+  String get clientsColumnName => 'Nombre';
+
+  @override
+  String get clientsColumnNameFd => 'Nombre Factura Directa';
+
+  @override
+  String get clientsColumnFiscalId => 'NIF/CIF';
+
+  @override
+  String get clientsColumnEmail => 'Email';
+
+  @override
+  String get clientsColumnPhone => 'Teléfono';
+
+  @override
+  String get clientsColumnCity => 'Ciudad';
+
+  @override
+  String get productsSearch => 'Buscar producto...';
+
+  @override
+  String get productsEmpty => 'No se encontraron productos';
+
+  @override
+  String get productsColumnName => 'Nombre';
+
+  @override
+  String get productsColumnSku => 'Código';
+
+  @override
+  String get productsColumnPrice => 'Precio';
+
+  @override
+  String get productsColumnId => 'ID';
+
+  @override
+  String get productsColumnActive => 'Activo';
+
+  @override
+  String get productsColumnInactive => 'Inactivo';
+
+  @override
+  String get productsColumnShowInOrders => 'Visible pedidos';
+
+  @override
+  String get productsColumnOrderInOrders => 'Orden';
+
+  @override
+  String get productsColumnFdProduct => 'Producto Factura Directa';
+
+  @override
+  String get productsColumnActions => 'Acciones';
+
+  @override
+  String get productsFdWarning =>
+      'Algunos productos no pudieron cargarse desde Factura Directa';
+
+  @override
+  String get productsSelectFdProduct => 'Vincular producto';
+
+  @override
+  String get productsSelectFdTitle => 'Seleccionar producto de Factura Directa';
+
+  @override
+  String get productsSelectFdSearch => 'Buscar producto...';
+
+  @override
+  String get productsSelectFdEmpty =>
+      'No se encontraron productos en Factura Directa';
+
+  @override
+  String get productsSelectFdError =>
+      'Error al cargar productos de Factura Directa';
+
+  @override
+  String get productsEdit => 'Editar';
+
+  @override
+  String get productsEditName => 'Editar nombre';
+
+  @override
+  String get productsModifyFdProduct => 'Modificar producto FD';
+
+  @override
+  String get productsActivate => 'Activar producto';
+
+  @override
+  String get productsDeactivate => 'Desactivar producto';
+
+  @override
+  String get productsDelete => 'Eliminar';
+
+  @override
+  String get productsDeleteTitle => 'Eliminar producto';
+
+  @override
+  String productsDeleteMessage(String name) {
+    return '¿Estás seguro de que quieres eliminar el producto \"$name\"?\nEsta acción no se puede deshacer.';
+  }
+
+  @override
+  String get productsNameRequired => 'El nombre es obligatorio';
+
+  @override
+  String get productsProgressSaving => 'Guardando cambios...';
+
+  @override
+  String get productsProgressDeleting => 'Eliminando producto...';
+
+  @override
+  String get productsSuccessUpdated => 'Producto actualizado correctamente';
+
+  @override
+  String get productsSuccessDeleted => 'Producto eliminado correctamente';
+
+  @override
+  String get productsSuccessToggled => 'Estado del producto actualizado';
+
+  @override
+  String get productsSuccessLinked => 'Producto vinculado correctamente';
+
+  @override
+  String get productsNoFdLinked => 'Producto Factura Directa no vinculado';
+
+  @override
+  String get productsUnlinkFdProduct => 'Desvincular producto FD';
+
+  @override
+  String get productsSuccessUnlinked => 'Producto desvinculado correctamente';
+
+  @override
+  String get productsErrorOperation => 'Error al realizar la operación';
+
+  @override
+  String get productsAdd => 'Añadir producto';
+
+  @override
+  String get productsAddTitle => 'Nuevo producto';
+
+  @override
+  String get productsSaveChanges => 'Guardar cambios';
+
+  @override
+  String get productsDiscardChanges => 'Cancelar cambios';
+
+  @override
+  String get productsSuccessCreated => 'Producto creado correctamente';
+
+  @override
+  String get productsSuccessSaved => 'Cambios guardados correctamente';
+
+  @override
+  String get productsColumnNameFd => 'Nombre FD';
+
+  @override
+  String get productsColumnOrder => 'Orden';
+
+  @override
+  String get productsSaving => 'Guardando cambios...';
+
+  @override
+  String get productsErrorSaving => 'Error al guardar los cambios';
+
+  @override
+  String get productsReorder => 'Reordenar productos';
+
+  @override
+  String get productsReorderTitle => 'Ordenar productos';
+
+  @override
+  String get productsReorderSubtitle =>
+      'Arrastra los productos para cambiar su orden';
+
+  @override
+  String get productsReorderSaved => 'Orden actualizado correctamente';
+
+  @override
+  String get invoicesSearchClient => 'Buscar factura...';
+
+  @override
+  String get invoicesEmpty => 'No se encontraron facturas';
+
+  @override
+  String get invoicesColumnNumber => 'Nº Factura';
+
+  @override
+  String get invoicesColumnClient => 'Cliente';
+
+  @override
+  String get invoicesColumnDate => 'Fecha';
+
+  @override
+  String get invoicesColumnTotal => 'Total';
+
+  @override
+  String get invoicesColumnSubtotal => 'Subtotal';
+
+  @override
+  String get invoicesColumnStatus => 'Estado';
+
+  @override
+  String invoicesSelectedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count facturas seleccionadas',
+      one: '1 factura seleccionada',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get invoicesActionConvertDefinitive => 'Convertir definitiva';
+
+  @override
+  String get invoicesNoActionsAvailable => 'No hay opciones disponibles';
+
+  @override
+  String get invoicesFilter => 'Filtrar';
+
+  @override
+  String get invoicesFilterTitle => 'Filtros';
+
+  @override
+  String get invoicesFilterStatus => 'Estado';
+
+  @override
+  String get invoicesFilterClients => 'Clientes';
+
+  @override
+  String get invoicesFilterDateFrom => 'Desde';
+
+  @override
+  String get invoicesFilterDateTo => 'Hasta';
+
+  @override
+  String get invoicesFilterApply => 'Aplicar';
+
+  @override
+  String get invoicesFilterClear => 'Limpiar filtros';
+
+  @override
+  String get invoicesFilterDateError =>
+      'Fecha desde debe ser anterior a fecha hasta';
+
+  @override
+  String get invoicesFilterSearchClients => 'Buscar cliente...';
+
+  @override
+  String get invoicesLoadMore => 'Cargar más';
+
+  @override
+  String get invoicesLoadingMore => 'Cargando más facturas...';
+
+  @override
+  String invoicesFilterChipFrom(String date) {
+    return 'Desde: $date';
+  }
+
+  @override
+  String invoicesFilterChipTo(String date) {
+    return 'Hasta: $date';
+  }
+
+  @override
+  String get invoicesFilterCancel => 'Cancelar';
+
+  @override
+  String get invoiceDetailTitle => 'Detalle de factura';
+
+  @override
+  String get invoiceDetailDate => 'Fecha';
+
+  @override
+  String get invoiceDetailClient => 'Cliente';
+
+  @override
+  String get invoiceDetailStatus => 'Estado';
+
+  @override
+  String get invoiceDetailCurrency => 'Moneda';
+
+  @override
+  String get invoiceDetailLines => 'Líneas de factura';
+
+  @override
+  String get invoiceDetailLineDescription => 'Descripción';
+
+  @override
+  String get invoiceDetailLineQuantity => 'Cantidad';
+
+  @override
+  String get invoiceDetailLinePrice => 'Precio ud.';
+
+  @override
+  String get invoiceDetailLineTax => 'IVA';
+
+  @override
+  String get invoiceDetailLineTotal => 'Total';
+
+  @override
+  String get invoiceDetailNoLines => 'No hay líneas en esta factura';
+
+  @override
+  String get invoiceDetailSubtotal => 'Subtotal';
+
+  @override
+  String get invoiceDetailTaxBreakdown => 'Impuestos';
+
+  @override
+  String get invoiceDetailTotal => 'Total';
+
+  @override
+  String get invoiceDetailNotFound => 'Factura no encontrada';
+
+  @override
+  String get invoiceDetailGoBack => 'Volver a facturas';
+
+  @override
+  String get paginationRowsPerPage => 'Filas por página:';
+
+  @override
+  String paginationRange(int start, int end, int total) {
+    return '$start–$end de $total';
+  }
+
+  @override
+  String get fdConfigNotFound =>
+      'Configura tu cuenta de FacturaDirecta en Ajustes';
+
+  @override
+  String get fdNetworkError => 'Error de conexión. Verifica tu red';
+
+  @override
+  String get fdServerError => 'Error del servidor. Inténtalo más tarde';
+
+  @override
+  String get fdUnknownError => 'Error inesperado';
+
+  @override
+  String get fdRetry => 'Reintentar';
+
+  @override
+  String get clientsColumnActive => 'Activo';
+
+  @override
+  String get clientsColumnCategory => 'Categoría';
+
+  @override
+  String get clientsCategoryUnspecified => 'Categoría no asignada';
+
+  @override
+  String get clientsColumnShowInOrders => 'Mostrar en nuevos pedidos';
+
+  @override
+  String get genericYes => 'Sí';
+
+  @override
+  String get genericNo => 'No';
+
+  @override
+  String get clientsDiscardChanges => 'Cancelar cambios';
+
+  @override
+  String get clientsSuccessSaved => 'Cambios guardados correctamente';
+
+  @override
+  String get clientsErrorSaving => 'Error al guardar los cambios';
+
+  @override
+  String get clientsSaving => 'Guardando cambios...';
+
+  @override
+  String get clientsSelectCategory => 'Seleccionar categoría';
+
+  @override
+  String get clientsSelectCategoryButton => 'Asignar categoría';
+
+  @override
+  String get clientsSelectCategorySearch => 'Buscar categoría...';
+
+  @override
+  String get clientsSelectCategoryError => 'Error al cargar las categorías';
+
+  @override
+  String get clientsSelectCategoryEmpty => 'No hay categorías disponibles';
+
+  @override
+  String get clientsLoadingCategories => 'Cargando categorías...';
+
+  @override
+  String get clientsUnlinkCategory => 'Desvincular categoría';
+
+  @override
+  String get clientsSuccessUnlinked => 'Categoría desvinculada correctamente';
+
+  @override
+  String get ordersTodayDeleteClients => 'Eliminar clientes';
+
+  @override
+  String get ordersTodayResetOrders => 'Restablecer pedidos';
+
+  @override
+  String ordersTodaySelectedClients(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'clientes seleccionados',
+      one: 'cliente seleccionado',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get ordersTodayAdd => 'Añadir';
+
+  @override
+  String get ordersTodayAddClient => 'Añadir cliente';
+
+  @override
+  String get ordersTodayAddProduct => 'Añadir producto';
+
+  @override
+  String get ordersTodayAddClientDialogTitle => 'Añadir clientes';
+
+  @override
+  String get ordersTodayAddProductDialogTitle => 'Añadir productos';
+
+  @override
+  String get ordersTodayAddDialogEmpty =>
+      'Todos los elementos activos ya están en el pedido';
+
+  @override
+  String get ordersTodayAddDialogSearch => 'Buscar...';
+
+  @override
+  String get ordersTodayAddDialogColumnName => 'Nombre';
+
+  @override
+  String get ordersTodayAddDialogNoResults => 'Sin resultados';
+
+  @override
+  String ordersTodayAddDialogConfirm(int count) {
+    return 'Añadir ($count)';
+  }
+
+  @override
+  String get ordersTodayExport => 'Exportar';
+
+  @override
+  String get ordersTodayRemoveFromTable => 'Quitar de la tabla';
+
+  @override
+  String get ordersTodayDeleteBothConfirmTitle => 'Quitar de la tabla';
+
+  @override
+  String ordersTodayDeleteBothConfirmMessage(
+    int clientCount,
+    int productCount,
+  ) {
+    String _temp0 = intl.Intl.pluralLogic(
+      clientCount,
+      locale: localeName,
+      other: '$clientCount clientes',
+      one: '1 cliente',
+    );
+    String _temp1 = intl.Intl.pluralLogic(
+      productCount,
+      locale: localeName,
+      other: '$productCount productos',
+      one: '1 producto',
+    );
+    return '¿Quitar $_temp0 y $_temp1 de la tabla?\nEsta acción no se puede deshacer.';
+  }
+
+  @override
+  String get ordersTodayDeleteProductsConfirmTitle => 'Quitar productos';
+
+  @override
+  String ordersTodayDeleteProductsConfirmMessage(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          '¿Quitar los $count productos seleccionados de la tabla?\nEsta acción no se puede deshacer.',
+      one:
+          '¿Quitar el producto seleccionado de la tabla?\nEsta acción no se puede deshacer.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get ordersTodayResetConfirmTitle => 'Restablecer pedidos';
+
+  @override
+  String ordersTodayResetConfirmMessage(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          '¿Restablecer los pedidos de los $count clientes seleccionados? Los valores se pondrán a cero.',
+      one:
+          '¿Restablecer los pedidos del cliente seleccionado? Los valores se pondrán a cero.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get ordersTodayResetConfirm => 'Restablecer';
+
+  @override
+  String get settingsUserIdentityTitle => 'Identidad de usuario';
+
+  @override
+  String get settingsUserIdentityDescription =>
+      'Este nombre identifica tus acciones cuando varios usuarios trabajan simultáneamente en los pedidos del día.';
+
+  @override
+  String get settingsUserNameLabel => 'Nombre de usuario';
+
+  @override
+  String get settingsUserNameSaved => 'Nombre de usuario guardado';
+
+  @override
+  String get settingsUserNameEmpty => 'El nombre no puede estar vacío';
+
+  @override
+  String ordersTodayCellLocked(String user) {
+    return 'Celda bloqueada por $user';
+  }
+
+  @override
+  String ordersTodayConnectedUsers(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count usuarios conectados',
+      one: '1 usuario conectado',
+      zero: 'Sin usuarios',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get invoiceStatusPaid => 'Pagada';
+
+  @override
+  String get invoiceStatusPending => 'Pendiente';
+
+  @override
+  String get invoiceStatusOverdue => 'Vencida';
+
+  @override
+  String get invoiceStatusDraft => 'Provisional';
+
+  @override
+  String get invoiceStatusVoided => 'Anulada';
+
+  @override
+  String get invoiceStatusOverpaid => 'Sobrepagada';
+
+  @override
+  String get ordersHistoryNavigation => 'Navegación';
+
+  @override
+  String productsLinkDialogSubtitle(String productName) {
+    return 'Para vincular a: $productName';
+  }
+
+  @override
+  String get ordersTodaySourceDialogTitle => 'Pedidos de hoy';
+
+  @override
+  String get ordersTodaySourceDialogSubtitle =>
+      '¿Cómo quieres consultar los pedidos de hoy?';
+
+  @override
+  String get ordersTodaySourceApp => 'Pedidos de hoy (aplicación)';
+
+  @override
+  String get ordersTodaySourceAppDescription =>
+      'Gestionar los pedidos desde la aplicación';
+
+  @override
+  String get ordersTodaySourceDriveNotConfigured =>
+      'Configura Google Drive en Ajustes para acceder a las hojas de cálculo.';
+
+  @override
+  String get ordersTodayNoClients => 'No hay clientes añadidos';
+
+  @override
+  String get ordersTodayNoClientsHint =>
+      'Pulsa el botón + de la cabecera para añadir clientes.';
+
+  @override
+  String get ordersTodayMarkCompensation => 'Marcar como compensación';
+
+  @override
+  String get ordersTodayUnmarkCompensation => 'Desmarcar como compensación';
+
+  @override
+  String get ordersTodayMarkReservation => 'Marcar como reserva';
+
+  @override
+  String get ordersTodayUnmarkReservation => 'Desmarcar como reserva';
+
+  @override
+  String get ordersTodayMarkStrictStock => 'Marcar como stock estricto';
+
+  @override
+  String get ordersTodayUnmarkStrictStock => 'Desmarcar como stock estricto';
+
+  @override
+  String get ordersTodayTooltipCompensation => 'Compensación';
+
+  @override
+  String get ordersTodayTooltipReservation => 'Reserva';
+
+  @override
+  String get ordersTodayTooltipStrictStock => 'Stock estricto';
+
+  @override
+  String get ordersTodayAddNote => 'Añadir nota';
+
+  @override
+  String get ordersTodayEditNote => 'Editar nota';
+
+  @override
+  String get ordersTodayRemoveNote => 'Eliminar nota';
+
+  @override
+  String get ordersTodayNoteDialogTitle => 'Nota';
+
+  @override
+  String get ordersTodayNoteDialogHint =>
+      'Escribe una nota (máx. 100 caracteres)';
+
+  @override
+  String get ordersTodayNoteDialogSave => 'Guardar';
+
+  @override
+  String get ordersTodayNoteDialogCancel => 'Cancelar';
+
+  @override
+  String get ordersTodayAddRefund => 'Añadir abono';
+
+  @override
+  String get ordersTodayEditRefund => 'Editar abono';
+
+  @override
+  String get ordersTodayRemoveRefund => 'Eliminar abono';
+
+  @override
+  String get ordersTodayRefundDialogTitle => 'Abono';
+
+  @override
+  String get ordersTodayRefundDialogLabel => 'Cantidad de productos';
+
+  @override
+  String get ordersTodayTooltipRefund => 'Abono';
+
+  @override
+  String get ordersTodayContextMenuGenerateOrderSheet =>
+      'Generar hoja de pedido';
+
+  @override
+  String get ordersTodayGenerateOrderSheetEmpty =>
+      'Este cliente no tiene productos con cantidad asignada.';
+
+  @override
+  String get ordersTodayContextMenuGenerateProvisionalInvoice =>
+      'Generar factura provisional';
+
+  @override
+  String get ordersTodayContextMenuResetOrder => 'Restablecer pedido';
+
+  @override
+  String get ordersTodayContextMenuDeleteClient => 'Eliminar cliente';
+
+  @override
+  String get ordersTodayContextMenuDeleteProduct => 'Eliminar producto';
+
+  @override
+  String get ordersTodayInfoDialogTitle => 'Ayuda de la tabla de pedidos';
+
+  @override
+  String get ordersTodayInfoDialogClose => 'Entendido';
+
+  @override
+  String get ordersTodayInfoAddClientTitle => 'Añadir un cliente';
+
+  @override
+  String get ordersTodayInfoAddClientDesc =>
+      'Pulsa el botón «+ Añadir cliente» en la parte superior derecha de la tabla.';
+
+  @override
+  String get ordersTodayInfoAddProductTitle => 'Añadir un producto';
+
+  @override
+  String get ordersTodayInfoAddProductDesc =>
+      'Pulsa el botón «+ Añadir producto» en la parte inferior izquierda de la tabla.';
+
+  @override
+  String get ordersTodayInfoEditStockTitle => 'Modificar el stock';
+
+  @override
+  String get ordersTodayInfoEditStockDesc =>
+      'Haz clic sobre la celda de la columna STOCKS del producto que deseas modificar e introduce el nuevo valor.';
+
+  @override
+  String get ordersTodayInfoStrictStockTitle => 'Poner stock como estricto';
+
+  @override
+  String get ordersTodayInfoStrictStockDesc =>
+      'Haz clic derecho (o mantén pulsado en tablet) sobre la celda de stock de un producto y selecciona «Marcar stock estricto» en el menú contextual.';
+
+  @override
+  String get ordersTodayInfoAssignQtyTitle => 'Asignar cantidad a un cliente';
+
+  @override
+  String get ordersTodayInfoAssignQtyDesc =>
+      'Haz clic sobre la celda en la intersección del producto y el cliente, e introduce la cantidad deseada. Usa las flechas del teclado o Tab para moverte entre celdas.';
+
+  @override
+  String get ordersTodayInfoCompensationTitle => 'Marcar compensación';
+
+  @override
+  String get ordersTodayInfoCompensationDesc =>
+      'Haz clic derecho (o mantén pulsado en tablet) sobre una celda de cantidad de un cliente y selecciona «Marcar compensación» en el menú contextual.';
+
+  @override
+  String get ordersTodayInfoReservationTitle => 'Marcar reserva';
+
+  @override
+  String get ordersTodayInfoReservationDesc =>
+      'Haz clic derecho (o mantén pulsado en tablet) sobre una celda de cantidad de un cliente y selecciona «Marcar reserva» en el menú contextual.';
+
+  @override
+  String get ordersTodayInfoRemoveClientTitle => 'Quitar un cliente';
+
+  @override
+  String get ordersTodayInfoRemoveClientDesc =>
+      'Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera de la tabla y selecciona «Eliminar cliente» en el menú contextual.';
+
+  @override
+  String get ordersTodayInfoRemoveProductTitle => 'Quitar un producto';
+
+  @override
+  String get ordersTodayInfoRemoveProductDesc =>
+      'Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del producto en la columna izquierda y selecciona «Eliminar producto» en el menú contextual.';
+
+  @override
+  String get ordersTodayInfoResetOrderTitle =>
+      'Restablecer pedido de un cliente';
+
+  @override
+  String get ordersTodayInfoResetOrderDesc =>
+      'Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera y selecciona «Restablecer pedido» en el menú contextual. Esto pondrá a cero todas las cantidades de ese cliente.';
+
+  @override
+  String get ordersTodayInfoOrderSheetTitle => 'Generar hoja de pedido';
+
+  @override
+  String get ordersTodayInfoOrderSheetDesc =>
+      'Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera y selecciona «Generar hoja de pedido». Genera un documento con las cantidades de productos solicitadas por el cliente, útil para que los trabajadores preparen el pedido.';
+
+  @override
+  String get ordersTodayInfoProvisionalInvoiceTitle =>
+      'Generar factura provisional';
+
+  @override
+  String get ordersTodayInfoProvisionalInvoiceDesc =>
+      'Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera y selecciona «Generar factura provisional». Crea la factura en estado provisional en Factura Directa con los productos y cantidades del pedido del cliente.';
+
+  @override
+  String get ordersTodayInfoCellNoteTitle => 'Crear una nota en una celda';
+
+  @override
+  String get ordersTodayInfoCellNoteDesc =>
+      'Haz clic derecho (o mantén pulsado en tablet) sobre una celda de cantidad de un cliente y selecciona «Añadir nota». La nota se mostrará como un indicador en la celda y podrás verla al pasar el cursor por encima. Para editarla o eliminarla, vuelve a abrir el menú sobre la misma celda.';
+
+  @override
+  String get ordersTodayPreparingTemplate =>
+      'Preparando plantilla para pedidos de hoy…';
+
+  @override
+  String get provisionalInvoiceLoading => 'Preparando factura provisional…';
+
+  @override
+  String get provisionalInvoicePreviewTitle =>
+      'Vista previa de factura provisional';
+
+  @override
+  String get provisionalInvoiceDraftBadge => 'PROVISIONAL';
+
+  @override
+  String get provisionalInvoiceDuplicateWarning =>
+      'Ya existe una factura provisional para este cliente en esta fecha. Si continúas, se creará otra factura provisional.';
+
+  @override
+  String get provisionalInvoiceProduct => 'Producto';
+
+  @override
+  String get provisionalInvoiceQty => 'Ud.';
+
+  @override
+  String get provisionalInvoicePrice => 'Precio';
+
+  @override
+  String get provisionalInvoiceTax => 'IVA';
+
+  @override
+  String get provisionalInvoiceLineTotal => 'Total';
+
+  @override
+  String get provisionalInvoiceSubtotal => 'Subtotal';
+
+  @override
+  String get provisionalInvoiceTaxLabel => 'IVA';
+
+  @override
+  String get provisionalInvoiceTaxHeader => 'Impuesto';
+
+  @override
+  String get provisionalInvoiceTaxBase => 'Base imponible';
+
+  @override
+  String get provisionalInvoiceTaxAmount => 'Cuota';
+
+  @override
+  String get provisionalInvoiceNotesLabel => 'Notas';
+
+  @override
+  String get provisionalInvoiceTotal => 'Total';
+
+  @override
+  String get provisionalInvoiceCancel => 'Cancelar';
+
+  @override
+  String get provisionalInvoiceConfirm => 'Generar factura provisional';
+
+  @override
+  String get provisionalInvoiceSuccessTitle => 'Factura provisional creada';
+
+  @override
+  String provisionalInvoiceSuccessMessage(String docNumber) {
+    return 'La factura provisional $docNumber se ha creado correctamente en Factura Directa.';
+  }
+
+  @override
+  String get provisionalInvoiceClose => 'Cerrar';
+
+  @override
+  String get provisionalInvoiceErrorTitle => 'Error';
+
+  @override
+  String get provisionalInvoiceErrorConfigNotFound =>
+      'No se ha configurado Factura Directa. Ve a Ajustes para configurarla.';
+
+  @override
+  String get provisionalInvoiceErrorClientNotLinked =>
+      'Este cliente no está vinculado a Factura Directa. Vincúlalo desde la sección Clientes.';
+
+  @override
+  String get provisionalInvoiceErrorProductsNotLinked =>
+      'Los siguientes productos no están vinculados a Factura Directa. Vincúlalos desde la sección Productos:';
+
+  @override
+  String get provisionalInvoiceErrorProductNotFoundInFd =>
+      'Un producto vinculado no se ha encontrado en Factura Directa. Puede haber sido eliminado.';
+
+  @override
+  String get provisionalInvoiceErrorNoLines =>
+      'No hay productos con cantidad para este cliente.';
+
+  @override
+  String get provisionalInvoiceErrorNetwork =>
+      'No se ha podido conectar con Factura Directa. Comprueba tu conexión a internet.';
+
+  @override
+  String get provisionalInvoiceErrorServer =>
+      'Error del servidor de Factura Directa. Inténtalo de nuevo más tarde.';
+
+  @override
+  String get provisionalInvoiceErrorUnknown =>
+      'Se ha producido un error inesperado. Inténtalo de nuevo.';
+
+  @override
+  String get dashboardToday => 'Hoy,';
+
+  @override
+  String get weekdayMonday => 'Lunes';
+
+  @override
+  String get weekdayTuesday => 'Martes';
+
+  @override
+  String get weekdayWednesday => 'Miércoles';
+
+  @override
+  String get weekdayThursday => 'Jueves';
+
+  @override
+  String get weekdayFriday => 'Viernes';
+
+  @override
+  String get weekdaySaturday => 'Sábado';
+
+  @override
+  String get weekdaySunday => 'Domingo';
+
+  @override
+  String get monthJanuary => 'enero';
+
+  @override
+  String get monthFebruary => 'febrero';
+
+  @override
+  String get monthMarch => 'marzo';
+
+  @override
+  String get monthApril => 'abril';
+
+  @override
+  String get monthMay => 'mayo';
+
+  @override
+  String get monthJune => 'junio';
+
+  @override
+  String get monthJuly => 'julio';
+
+  @override
+  String get monthAugust => 'agosto';
+
+  @override
+  String get monthSeptember => 'septiembre';
+
+  @override
+  String get monthOctober => 'octubre';
+
+  @override
+  String get monthNovember => 'noviembre';
+
+  @override
+  String get monthDecember => 'diciembre';
+
+  @override
+  String dashboardDateFormat(int day, String month) {
+    return '$day de $month';
+  }
+
+  @override
+  String get clientCategoriesEditTitle => 'Editar categoría';
+
+  @override
+  String get clientCategoriesColumnColor => 'Color';
+
+  @override
+  String get clientCategoriesColumnAssociatedClients => 'Clientes';
+
+  @override
+  String get clientCategoriesColorLabel => 'Color de categoría';
+
+  @override
+  String get clientCategoriesRemoveColor => 'Quitar color';
+
+  @override
+  String get clientsEdit => 'Editar';
+
+  @override
+  String get clientsView => 'Ver';
+
+  @override
+  String get clientsEditTitle => 'Editar cliente';
+
+  @override
+  String get clientsColumnShippingMethods => 'Métodos de envío';
+
+  @override
+  String get clientsColumnActions => 'Acciones';
+
+  @override
+  String get clientsColumnProvince => 'Provincia';
+
+  @override
+  String get clientsColumnCountry => 'País';
+
+  @override
+  String get clientsColumnPaymentMethod => 'Método de cobro';
+
+  @override
+  String get clientsColumnCurrency => 'Moneda';
+
+  @override
+  String get clientsDetailTitle => 'Detalle de cliente';
+
+  @override
+  String get clientsClientDataSection => 'Datos del cliente';
+
+  @override
+  String get clientsFdDataSection => 'Datos de Factura Directa';
+
+  @override
+  String clientsShippingMethodsAssigned(int count) {
+    return '$count días asignados';
+  }
+
+  @override
+  String get clientsShippingMethodsTitle => 'Métodos de envío';
+
+  @override
+  String get clientsShippingMethodsSubtitle =>
+      'Asigna un método de envío por día';
+
+  @override
+  String get clientsShippingMethodsButton => 'Asignar métodos de envío';
+
+  @override
+  String get dayMonday => 'Lunes';
+
+  @override
+  String get dayTuesday => 'Martes';
+
+  @override
+  String get dayWednesday => 'Miércoles';
+
+  @override
+  String get dayThursday => 'Jueves';
+
+  @override
+  String get dayFriday => 'Viernes';
+
+  @override
+  String get daySaturday => 'Sábado';
+
+  @override
+  String get daySunday => 'Domingo';
+
+  @override
+  String get clientsShippingMethodNone => 'Sin método';
+
+  @override
+  String get clientsShippingMethodUndefined => 'Sin definir';
+
+  @override
+  String get menuShippingMethods => 'Métodos de envío';
+
+  @override
+  String get shippingMethodsSearch => 'Buscar método de envío...';
+
+  @override
+  String get shippingMethodsAdd => 'Añadir método';
+
+  @override
+  String get shippingMethodsEmpty => 'No se encontraron métodos de envío';
+
+  @override
+  String get shippingMethodsColumnName => 'Nombre';
+
+  @override
+  String get shippingMethodsColumnPhone => 'Teléfono';
+
+  @override
+  String get shippingMethodsColumnActions => 'Acciones';
+
+  @override
+  String get shippingMethodsEdit => 'Editar';
+
+  @override
+  String get shippingMethodsEditName => 'Editar nombre';
+
+  @override
+  String get shippingMethodsEditPhone => 'Editar teléfono';
+
+  @override
+  String get shippingMethodsAssociateClients => 'Asociar clientes';
+
+  @override
+  String shippingMethodsAssociateTitle(String name) {
+    return 'Asociar clientes a \"$name\"';
+  }
+
+  @override
+  String get shippingMethodsAssociateSearch => 'Buscar cliente...';
+
+  @override
+  String get shippingMethodsAssociateNoClients => 'No hay clientes disponibles';
+
+  @override
+  String get shippingMethodsAssociateLoading => 'Cargando clientes...';
+
+  @override
+  String get shippingMethodsAssociateError => 'Error al cargar clientes';
+
+  @override
+  String get shippingMethodsAssociateSelectAll => 'Todos los días';
+
+  @override
+  String get shippingMethodsAssociateDaysLabel => 'Selecciona los días';
+
+  @override
+  String get shippingMethodsAssociateSelectAllClients => 'Seleccionar todos';
+
+  @override
+  String get shippingMethodsAssociateProgressSaving =>
+      'Guardando asociaciones...';
+
+  @override
+  String get shippingMethodsDelete => 'Eliminar';
+
+  @override
+  String get shippingMethodsNameRequired => 'El nombre es obligatorio';
+
+  @override
+  String get shippingMethodsProgressSaving => 'Guardando...';
+
+  @override
+  String get shippingMethodsSuccessCreated =>
+      'Método de envío creado correctamente';
+
+  @override
+  String get shippingMethodsDeleteTitle => 'Eliminar método de envío';
+
+  @override
+  String shippingMethodsDeleteMessage(String name) {
+    return '¿Estás seguro de que quieres eliminar el método \"$name\"?\nEsta acción no se puede deshacer.';
+  }
+
+  @override
+  String get shippingMethodsProgressDeleting => 'Eliminando método de envío...';
+
+  @override
+  String get shippingMethodsSuccessDeleted =>
+      'Método de envío eliminado correctamente';
+
+  @override
+  String get shippingMethodsErrorOperation => 'Error al realizar la operación';
+
+  @override
+  String get shippingMethodsEditTitle => 'Editar método de envío';
+
+  @override
+  String get shippingMethodsPhoneHint => 'Teléfono de contacto';
+
+  @override
+  String get shippingMethodsSuccessSaved =>
+      'Método de envío actualizado correctamente';
+
+  @override
+  String get clientsFdLoadError =>
+      'No se pudieron cargar los datos de Factura Directa';
+
+  @override
+  String get loginTitle => 'Iniciar sesión';
+
+  @override
+  String get loginSubtitle => 'Introduce tus credenciales para acceder';
+
+  @override
+  String get loginEmailLabel => 'Email';
+
+  @override
+  String get loginEmailHint => 'usuario@ejemplo.com';
+
+  @override
+  String get loginPasswordLabel => 'Contraseña';
+
+  @override
+  String get loginRememberMe => 'Recordarme';
+
+  @override
+  String get loginSignInButton => 'Iniciar sesión';
+
+  @override
+  String get loginErrorEmailEmpty => 'Introduce tu email';
+
+  @override
+  String get loginErrorEmailInvalid => 'Formato de email no válido';
+
+  @override
+  String get loginErrorPasswordEmpty => 'Introduce tu contraseña';
+
+  @override
+  String get loginErrorInvalidCredentials => 'Email o contraseña incorrectos';
+
+  @override
+  String get loginErrorUserDisabled =>
+      'Cuenta deshabilitada. Contacta al administrador';
+
+  @override
+  String get loginErrorTooManyRequests =>
+      'Demasiados intentos. Inténtalo más tarde';
+
+  @override
+  String get loginErrorNetwork => 'Sin conexión a internet';
+
+  @override
+  String get loginErrorUnknown => 'Error de autenticación inesperado';
+
+  @override
+  String get settingsSignOut => 'Cerrar sesión';
+
+  @override
+  String get settingsSignOutConfirmTitle => 'Cerrar sesión';
+
+  @override
+  String get settingsSignOutConfirmMessage =>
+      '¿Estás seguro de que quieres cerrar sesión?';
+
+  @override
+  String get settingsSignOutConfirmCancel => 'Cancelar';
+
+  @override
+  String get settingsSignOutConfirmAccept => 'Cerrar sesión';
+
+  @override
+  String get notFoundMessage => 'La página que buscas no existe.';
+
+  @override
+  String get notFoundGoHome => 'Ir al inicio';
+
+  @override
+  String get clientNotFoundMessage =>
+      'No se ha encontrado el cliente solicitado.';
+
+  @override
+  String get clientNotFoundGoBack => 'Volver a clientes';
+
+  @override
+  String get clientSaveSuccess => 'Cambios guardados correctamente';
+
+  @override
+  String get ordersTodayMobileTitle => 'Pantalla no disponible';
+
+  @override
+  String get ordersTodayMobileDescription =>
+      'La gestión de pedidos de hoy solo está disponible en pantallas de mayor tamaño. Por favor, accede desde un ordenador o una tablet.';
+
+  @override
+  String get ordersTodayReadonlyTitle => 'Pedidos de hoy (solo lectura)';
+
+  @override
+  String ordersTodayLastModified(String date) {
+    return 'Última actualización: $date';
+  }
+
+  @override
+  String get ordersTodayNoOrdersToday => 'No hay pedidos para hoy';
+
+  @override
+  String get ordersTodayLiveConnected => 'Conectado en tiempo real';
+
+  @override
+  String get ordersTodayLiveDisconnected => 'Desconectado';
+}

@@ -1,0 +1,53 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Local (debug)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_local.dart",
+      "flutterMode": "debug",
+      "args": ["--flavor", "local"]
+    },
+    {
+      "name": "Local (profile)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_local.dart",
+      "flutterMode": "profile",
+      "args": ["--flavor", "local"]
+    },
+    {
+      "name": "Local (release)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_local.dart",
+      "flutterMode": "release",
+      "args": ["--flavor", "local"]
+    },
+    {
+      "name": "Pro (debug)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_pro.dart",
+      "flutterMode": "debug",
+      "args": ["--flavor", "pro"]
+    },
+    {
+      "name": "Pro (profile)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_pro.dart",
+      "flutterMode": "profile",
+      "args": ["--flavor", "pro"]
+    },
+    {
+      "name": "Pro (release)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_pro.dart",
+      "flutterMode": "release",
+      "args": ["--flavor", "pro"]
+    }
+  ]
+}

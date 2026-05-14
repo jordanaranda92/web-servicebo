@@ -1,0 +1,2440 @@
+{
+  "@@locale": "es",
+  "appTitle": "Servicebo",
+  "@appTitle": {
+    "description": "Título de la aplicación"
+  },
+  "welcomeMessage": "¡Bienvenido a tu aplicación Flutter!",
+  "@welcomeMessage": {
+    "description": "Mensaje de bienvenida en la página principal"
+  },
+  "menuHome": "Inicio",
+  "@menuHome": {
+    "description": "Ítem de menú: Inicio"
+  },
+  "menuOrdersToday": "Pedidos de hoy",
+  "@menuOrdersToday": {
+    "description": "Ítem de menú: Pedidos de hoy"
+  },
+  "ordersTodayHeaderLabel": "HOY",
+  "@ordersTodayHeaderLabel": {
+    "description": "Etiqueta superior del header de pedidos de hoy"
+  },
+  "menuOrdersHistory": "Historial de pedidos",
+  "@menuOrdersHistory": {
+    "description": "Ítem de menú: Historial de pedidos"
+  },
+  "menuSettings": "Ajustes",
+  "@menuSettings": {
+    "description": "Ítem de menú: Ajustes"
+  },
+  "pagePlaceholderMessage": "Esta funcionalidad está en desarrollo",
+  "@pagePlaceholderMessage": {
+    "description": "Mensaje mostrado en páginas placeholder"
+  },
+  "settingsFacturaDirectaTitle": "FacturaDirecta",
+  "@settingsFacturaDirectaTitle": {
+    "description": "Título de la sección de FacturaDirecta en Ajustes"
+  },
+  "settingsFacturaDirectaDescription": "Conecta tu cuenta de FacturaDirecta para volcar los pedidos vía API.",
+  "@settingsFacturaDirectaDescription": {
+    "description": "Descripción de la sección de FacturaDirecta"
+  },
+  "settingsFacturaDirectaCompanyId": "ID de empresa",
+  "@settingsFacturaDirectaCompanyId": {
+    "description": "Label del campo ID de empresa de FacturaDirecta"
+  },
+  "settingsFacturaDirectaCompanyIdHint": "mi-empresa",
+  "@settingsFacturaDirectaCompanyIdHint": {
+    "description": "Hint del campo ID de empresa de FacturaDirecta"
+  },
+  "settingsFacturaDirectaApiToken": "API Token",
+  "@settingsFacturaDirectaApiToken": {
+    "description": "Label del campo API token de FacturaDirecta"
+  },
+  "settingsFacturaDirectaApiTokenHint": "Introduce tu API token",
+  "@settingsFacturaDirectaApiTokenHint": {
+    "description": "Hint del campo API token de FacturaDirecta"
+  },
+  "settingsFacturaDirectaAccount": "Cuenta de Factura Directa configurada: {companyId}",
+  "@settingsFacturaDirectaAccount": {
+    "description": "Label que muestra la cuenta configurada",
+    "placeholders": {
+      "companyId": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsFacturaDirectaVerify": "Verificar conexión",
+  "@settingsFacturaDirectaVerify": {
+    "description": "Botón para verificar la conexión con FacturaDirecta"
+  },
+  "settingsFacturaDirectaVerifyDescription": "Introduce tu API token para verificar la conexión con FacturaDirecta.",
+  "@settingsFacturaDirectaVerifyDescription": {
+    "description": "Descripción del diálogo de verificación"
+  },
+  "settingsFacturaDirectaVerified": "Conexión verificada correctamente",
+  "@settingsFacturaDirectaVerified": {
+    "description": "Mensaje de éxito al verificar la conexión"
+  },
+  "settingsInvoiceSeriesLabel": "Serie facturas",
+  "@settingsInvoiceSeriesLabel": {
+    "description": "Label del campo de serie de facturas en ajustes"
+  },
+  "settingsInvoiceSeriesSaved": "Serie guardada",
+  "@settingsInvoiceSeriesSaved": {
+    "description": "Mensaje de éxito al guardar la serie de facturas"
+  },
+  "settingsInvoiceSeriesEmpty": "La serie no puede estar vacía",
+  "@settingsInvoiceSeriesEmpty": {
+    "description": "Error cuando la serie de facturas está vacía"
+  },
+  "settingsSyncProductsButton": "Sincronizar productos",
+  "@settingsSyncProductsButton": {
+    "description": "Botón para sincronizar productos desde FacturaDirecta"
+  },
+  "settingsFacturaDirectaEdit": "Editar configuración",
+  "@settingsFacturaDirectaEdit": {
+    "description": "Botón para editar la configuración de FacturaDirecta"
+  },
+  "settingsDisconnect": "Desconectar",
+  "@settingsDisconnect": {
+    "description": "Botón para desconectar un servicio"
+  },
+  "settingsSave": "Guardar",
+  "@settingsSave": {
+    "description": "Botón para guardar configuración"
+  },
+  "settingsCancel": "Cancelar",
+  "@settingsCancel": {
+    "description": "Botón para cancelar una acción"
+  },
+  "ordersTodayNoFolderTitle": "Carpeta de trabajo no configurada",
+  "@ordersTodayNoFolderTitle": {
+    "description": "Título cuando no hay carpeta de trabajo configurada en pedidos de hoy"
+  },
+  "ordersTodayNoFolderMessage": "Configura la carpeta de trabajo en Ajustes para poder ver los pedidos.",
+  "@ordersTodayNoFolderMessage": {
+    "description": "Mensaje cuando no hay carpeta de trabajo configurada"
+  },
+  "ordersTodayGoToSettings": "Ir a Ajustes",
+  "@ordersTodayGoToSettings": {
+    "description": "Botón para navegar a la página de ajustes desde pedidos de hoy"
+  },
+  "ordersTodayNoFileTitle": "No hay pedidos para hoy",
+  "@ordersTodayNoFileTitle": {
+    "description": "Título cuando no existe el archivo del día"
+  },
+  "ordersTodayNoFileMessage": "El archivo de pedidos de hoy aún no existe. Puedes crearlo a partir de la plantilla.",
+  "@ordersTodayNoFileMessage": {
+    "description": "Mensaje cuando no existe el archivo del día"
+  },
+  "ordersTodayCreateFile": "Crear pedido de hoy",
+  "@ordersTodayCreateFile": {
+    "description": "Botón para crear el archivo del día desde la plantilla"
+  },
+  "ordersTodayErrorTemplateNotFound": "No se encontró la plantilla (plantilla.xlsx) en la carpeta de trabajo.",
+  "@ordersTodayErrorTemplateNotFound": {
+    "description": "Error cuando falta la plantilla"
+  },
+  "ordersTodayErrorFileSystem": "Error al acceder a los archivos. Verifica los permisos de la carpeta de trabajo.",
+  "@ordersTodayErrorFileSystem": {
+    "description": "Error de acceso a archivos"
+  },
+  "ordersTodayErrorInvalidFormat": "El archivo Excel tiene un formato no válido.",
+  "@ordersTodayErrorInvalidFormat": {
+    "description": "Error de formato del Excel"
+  },
+  "ordersTodayErrorUnknown": "Ha ocurrido un error inesperado.",
+  "@ordersTodayErrorUnknown": {
+    "description": "Error desconocido en pedidos de hoy"
+  },
+  "ordersTodayVersionOutdated": "La estructura del archivo difiere de la plantilla actual.",
+  "@ordersTodayVersionOutdated": {
+    "description": "Aviso de versión desactualizada"
+  },
+  "ordersTodayUpdateStructure": "Actualizar estructura",
+  "@ordersTodayUpdateStructure": {
+    "description": "Botón para actualizar la estructura del archivo según la plantilla"
+  },
+  "ordersTodayColumnClient": "Cliente",
+  "@ordersTodayColumnClient": {
+    "description": "Cabecera de la columna de clientes"
+  },
+  "ordersTodayColumnProduct": "Producto",
+  "@ordersTodayColumnProduct": {
+    "description": "Cabecera de la columna de productos"
+  },
+  "ordersTodayColumnTotal": "Total",
+  "@ordersTodayColumnTotal": {
+    "description": "Cabecera de la columna/fila de totales"
+  },
+  "ordersTodayColumnPedidos": "PEDIDOS",
+  "@ordersTodayColumnPedidos": {
+    "description": "Cabecera de la columna de pedidos totales por producto"
+  },
+  "ordersTodayColumnStocks": "STOCKS",
+  "@ordersTodayColumnStocks": {
+    "description": "Cabecera de la columna de stock disponible"
+  },
+  "ordersTodayColumnQuedan": "QUEDAN",
+  "@ordersTodayColumnQuedan": {
+    "description": "Cabecera de la columna de unidades restantes (stocks - pedidos)"
+  },
+  "ordersTodayRowTotals": "Totales",
+  "@ordersTodayRowTotals": {
+    "description": "Etiqueta de la fila de totales"
+  },
+  "ordersTodayRetry": "Reintentar",
+  "@ordersTodayRetry": {
+    "description": "Botón para reintentar la carga"
+  },
+  "ordersTodaySearchClient": "Buscar cliente...",
+  "@ordersTodaySearchClient": {
+    "description": "Placeholder del campo de búsqueda de clientes"
+  },
+  "ordersTodayDelete": "Eliminar",
+  "@ordersTodayDelete": {
+    "description": "Botón para eliminar filas seleccionadas"
+  },
+  "ordersTodayAddRow": "Añadir fila",
+  "@ordersTodayAddRow": {
+    "description": "Botón para añadir una nueva fila de cliente"
+  },
+  "ordersTodayAddRowTitle": "Nueva fila",
+  "@ordersTodayAddRowTitle": {
+    "description": "Título del diálogo para añadir una nueva fila"
+  },
+  "ordersTodayAddRowHint": "Nombre del cliente",
+  "@ordersTodayAddRowHint": {
+    "description": "Placeholder del campo de nombre de cliente en el diálogo"
+  },
+  "ordersTodayAddRowConfirm": "Añadir",
+  "@ordersTodayAddRowConfirm": {
+    "description": "Botón de confirmación del diálogo de añadir fila"
+  },
+  "ordersTodaySyncExcel": "Sincronizar excel",
+  "@ordersTodaySyncExcel": {
+    "description": "Botón para recargar los datos desde el archivo Excel"
+  },
+  "ordersTodaySaveExcel": "Guardar excel",
+  "@ordersTodaySaveExcel": {
+    "description": "Botón con desplegable para guardar el Excel"
+  },
+  "ordersTodaySaveAsNew": "Guardar como nuevo Excel",
+  "@ordersTodaySaveAsNew": {
+    "description": "Opción del desplegable para guardar en un nuevo archivo Excel"
+  },
+  "ordersTodayExportPdf": "Exportar como PDF",
+  "@ordersTodayExportPdf": {
+    "description": "Opción para exportar pedidos como PDF"
+  },
+  "ordersTodayExportExcel": "Exportar Excel",
+  "@ordersTodayExportExcel": {
+    "description": "Botón para exportar la tabla de pedidos de hoy como Excel"
+  },
+  "ordersTodayExportExcelSuccess": "Excel exportado correctamente",
+  "@ordersTodayExportExcelSuccess": {
+    "description": "Mensaje de éxito al exportar el Excel"
+  },
+  "ordersTodayExportExcelError": "Error al exportar el Excel",
+  "@ordersTodayExportExcelError": {
+    "description": "Mensaje de error al exportar el Excel"
+  },
+  "ordersTodayShowPreview": "Mostrar preview",
+  "@ordersTodayShowPreview": {
+    "description": "Botón para mostrar la previsualización de pedidos"
+  },
+  "ordersTodaySaveSuccess": "Excel guardado correctamente",
+  "@ordersTodaySaveSuccess": {
+    "description": "Mensaje de éxito al guardar el Excel"
+  },
+  "ordersTodaySaveError": "Error al guardar el Excel",
+  "@ordersTodaySaveError": {
+    "description": "Mensaje de error al guardar el Excel"
+  },
+  "ordersTodayLastSaved": "Último guardado: {date}",
+  "@ordersTodayLastSaved": {
+    "description": "Fecha de último guardado del archivo Excel",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "ordersTodayGenerateInvoice": "Generar factura",
+  "@ordersTodayGenerateInvoice": {
+    "description": "Botón para generar factura de las filas seleccionadas"
+  },
+  "ordersTodayViewOrders": "Visualizar pedidos",
+  "@ordersTodayViewOrders": {
+    "description": "Botón para abrir la vista de solo lectura de los pedidos"
+  },
+  "ordersTodayViewTitle": "Pedidos de hoy",
+  "@ordersTodayViewTitle": {
+    "description": "Título de la ventana de visualización de pedidos"
+  },
+  "ordersTodayViewUpdatedAgo": "Actualizado hace {seconds} s",
+  "@ordersTodayViewUpdatedAgo": {
+    "description": "Indicador de tiempo desde la última actualización de la tabla",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "ordersTodaySelectedCount": "{count} seleccionado(s)",
+  "@ordersTodaySelectedCount": {
+    "description": "Contador de filas seleccionadas",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ordersTodayDeleteConfirmTitle": "Eliminar clientes",
+  "@ordersTodayDeleteConfirmTitle": {
+    "description": "Título del diálogo de confirmación para eliminar clientes"
+  },
+  "ordersTodayDeleteConfirmMessage": "{count, plural, =1{¿Eliminar el cliente seleccionado?\nEsta acción no se puede deshacer.} other{¿Eliminar los {count} clientes seleccionados?\nEsta acción no se puede deshacer.}}",
+  "@ordersTodayDeleteConfirmMessage": {
+    "description": "Mensaje del diálogo de confirmación para eliminar clientes",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ordersTodayDeleteConfirm": "Eliminar",
+  "@ordersTodayDeleteConfirm": {
+    "description": "Botón de confirmar eliminación en el diálogo"
+  },
+  "ordersTodayUnsavedTitle": "Cambios sin guardar",
+  "@ordersTodayUnsavedTitle": {
+    "description": "Título del diálogo de cambios sin guardar"
+  },
+  "ordersTodayUnsavedMessage": "Tienes cambios sin guardar en la tabla de pedidos. Si sales ahora, se perderán.",
+  "@ordersTodayUnsavedMessage": {
+    "description": "Mensaje del diálogo de cambios sin guardar al navegar"
+  },
+  "ordersTodayUnsavedStay": "Quedarse",
+  "@ordersTodayUnsavedStay": {
+    "description": "Botón para quedarse en la página y no perder cambios"
+  },
+  "ordersTodayUnsavedLeave": "Salir sin guardar",
+  "@ordersTodayUnsavedLeave": {
+    "description": "Botón para salir de la página descartando cambios"
+  },
+  "ordersTodaySyncUnsavedMessage": "Tienes cambios sin guardar. Si sincronizas ahora, se descartarán todos los cambios y se recargará el archivo del disco.",
+  "@ordersTodaySyncUnsavedMessage": {
+    "description": "Mensaje de advertencia al sincronizar con cambios sin guardar"
+  },
+  "ordersTodaySyncConfirm": "Sincronizar",
+  "@ordersTodaySyncConfirm": {
+    "description": "Botón de confirmación para sincronizar descartando cambios"
+  },
+  "settingsFacturaDirectaErrorValidation": "El subdominio y el token API son obligatorios",
+  "@settingsFacturaDirectaErrorValidation": {
+    "description": "Error de validación en FacturaDirecta"
+  },
+  "settingsFacturaDirectaErrorSaveFailed": "Error al guardar la configuración",
+  "@settingsFacturaDirectaErrorSaveFailed": {
+    "description": "Error al guardar la configuración de FacturaDirecta"
+  },
+  "settingsFacturaDirectaErrorVerifyFailed": "No se pudo verificar la conexión",
+  "@settingsFacturaDirectaErrorVerifyFailed": {
+    "description": "Error al verificar la conexión con FacturaDirecta"
+  },
+  "settingsFacturaDirectaErrorInvalidCredentials": "Credenciales inválidas",
+  "@settingsFacturaDirectaErrorInvalidCredentials": {
+    "description": "Error de credenciales inválidas en FacturaDirecta"
+  },
+  "settingsErrorDisconnectFailed": "Error al desconectar",
+  "@settingsErrorDisconnectFailed": {
+    "description": "Error genérico al desconectar un servicio"
+  },
+  "ordersHistoryHeaderLabel": "HISTORIAL",
+  "@ordersHistoryHeaderLabel": {
+    "description": "Etiqueta superior del header de historial de pedidos"
+  },
+  "ordersHistoryGoToSettings": "Ir a Ajustes",
+  "@ordersHistoryGoToSettings": {
+    "description": "Botón para navegar a ajustes desde historial"
+  },
+  "ordersHistoryEmptyTitle": "Sin pedidos anteriores",
+  "@ordersHistoryEmptyTitle": {
+    "description": "Título cuando no hay archivos históricos"
+  },
+  "ordersHistoryEmptyMessage": "No hay pedidos de días anteriores registrados.",
+  "@ordersHistoryEmptyMessage": {
+    "description": "Mensaje cuando no hay pedidos históricos"
+  },
+  "ordersHistoryErrorServer": "Error al conectar con el servidor. Comprueba tu conexión e inténtalo de nuevo.",
+  "@ordersHistoryErrorServer": {
+    "description": "Error de servidor en historial"
+  },
+  "ordersHistoryErrorUnknown": "Ha ocurrido un error inesperado.",
+  "@ordersHistoryErrorUnknown": {
+    "description": "Error desconocido en historial"
+  },
+  "ordersHistoryRetry": "Reintentar",
+  "@ordersHistoryRetry": {
+    "description": "Botón para reintentar la carga en historial"
+  },
+  "ordersHistoryBackToList": "Volver al listado",
+  "@ordersHistoryBackToList": {
+    "description": "Botón para volver al listado de fechas"
+  },
+  "ordersHistorySearchClient": "Buscar cliente...",
+  "@ordersHistorySearchClient": {
+    "description": "Placeholder del campo de búsqueda de clientes en historial"
+  },
+  "ordersHistoryColumnClient": "Cliente",
+  "@ordersHistoryColumnClient": {
+    "description": "Cabecera de la columna de clientes en historial"
+  },
+  "ordersHistoryColumnTotal": "Total",
+  "@ordersHistoryColumnTotal": {
+    "description": "Cabecera de la columna de totales en historial"
+  },
+  "ordersHistoryRowTotals": "Totales",
+  "@ordersHistoryRowTotals": {
+    "description": "Etiqueta de la fila de totales en historial"
+  },
+  "ordersHistoryDateClients": "{count} clientes",
+  "@ordersHistoryDateClients": {
+    "description": "Conteo de clientes en el listado de fechas",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ordersHistoryDateProducts": "{count} productos",
+  "@ordersHistoryDateProducts": {
+    "description": "Conteo de productos en el listado de fechas",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ordersHistoryFilterByDate": "Filtrar por fecha",
+  "@ordersHistoryFilterByDate": {
+    "description": "Tooltip del botón de filtro por rango de fechas"
+  },
+  "ordersHistoryFilterFrom": "Desde",
+  "@ordersHistoryFilterFrom": {
+    "description": "Label del campo de fecha desde"
+  },
+  "ordersHistoryFilterTo": "Hasta",
+  "@ordersHistoryFilterTo": {
+    "description": "Label del campo de fecha hasta"
+  },
+  "ordersHistoryFilterClear": "Limpiar filtro",
+  "@ordersHistoryFilterClear": {
+    "description": "Botón para limpiar el filtro de fechas"
+  },
+  "ordersHistoryFilterActive": "Filtro activo: {start} – {end}",
+  "@ordersHistoryFilterActive": {
+    "description": "Indicador de filtro de fechas activo",
+    "placeholders": {
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "ordersHistoryDateCount": "{count} fecha(s) disponible(s)",
+  "@ordersHistoryDateCount": {
+    "description": "Contador de fechas disponibles en el listado",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ordersHistoryLastWeek": "Última semana",
+  "@ordersHistoryLastWeek": {
+    "description": "Encabezado de sección para las fechas de la última semana"
+  },
+  "dashboardProducts": "Tipos de productos",
+  "@dashboardProducts": {
+    "description": "Etiqueta del contador de tipos de productos en el dashboard"
+  },
+  "dashboardTotalUnits": "Unidades",
+  "@dashboardTotalUnits": {
+    "description": "Etiqueta del contador de unidades totales en el dashboard"
+  },
+  "dashboardTopProduct": "Producto estrella",
+  "@dashboardTopProduct": {
+    "description": "Etiqueta del producto más pedido en el dashboard"
+  },
+  "dashboardTopProductNone": "—",
+  "@dashboardTopProductNone": {
+    "description": "Valor mostrado cuando no hay producto estrella"
+  },
+  "dashboardInvoices": "Número de facturas",
+  "@dashboardInvoices": {
+    "description": "Etiqueta del contador de facturas del día en el dashboard"
+  },
+  "dashboardInvoicesTotal": "Importe facturado",
+  "@dashboardInvoicesTotal": {
+    "description": "Etiqueta del importe total de facturas del día en el dashboard"
+  },
+  "dashboardFdNotConfigured": "Sin configurar",
+  "@dashboardFdNotConfigured": {
+    "description": "Aviso en cards de FacturaDirecta cuando no hay configuración"
+  },
+  "dashboardFdError": "Error al cargar",
+  "@dashboardFdError": {
+    "description": "Aviso en cards de FacturaDirecta cuando falla la carga"
+  },
+  "dashboardVsYesterday": "Hoy vs. ayer",
+  "@dashboardVsYesterday": {
+    "description": "Título de la comparativa hoy vs ayer"
+  },
+  "dashboardVsSameWeekday": "Hoy vs. mismo día semana anterior",
+  "@dashboardVsSameWeekday": {
+    "description": "Título de la comparativa hoy vs mismo día de la semana pasada"
+  },
+  "dashboardVsLastWeek": "Semana actual vs. anterior",
+  "@dashboardVsLastWeek": {
+    "description": "Título de la comparativa semanal"
+  },
+  "dashboardVsLastMonth": "Mes actual vs. mes anterior",
+  "@dashboardVsLastMonth": {
+    "description": "Título de la comparativa mensual"
+  },
+  "dashboardNoData": "Sin datos",
+  "@dashboardNoData": {
+    "description": "Texto mostrado cuando no hay datos para una comparativa"
+  },
+  "dashboardUnitsLabel": "uds",
+  "@dashboardUnitsLabel": {
+    "description": "Abreviatura de unidades en comparativas"
+  },
+  "dashboardClientsLabel": "pedidos",
+  "@dashboardClientsLabel": {
+    "description": "Etiqueta de pedidos en comparativas"
+  },
+  "dashboardInvoicesLabel": "facturas",
+  "@dashboardInvoicesLabel": {
+    "description": "Etiqueta de facturas en comparativas"
+  },
+  "dashboardInvoicesTotalLabel": "importe",
+  "@dashboardInvoicesTotalLabel": {
+    "description": "Etiqueta de importe facturado en comparativas"
+  },
+  "dashboardGoToSettings": "Ir a Ajustes",
+  "@dashboardGoToSettings": {
+    "description": "Botón para navegar a ajustes desde el dashboard"
+  },
+  "dashboardTodaySummary": "Resumen del día",
+  "@dashboardTodaySummary": {
+    "description": "Título de la sección de contadores del día"
+  },
+  "dashboardComparisons": "Comparativas",
+  "@dashboardComparisons": {
+    "description": "Título de la sección de comparativas"
+  },
+  "menuClients": "Clientes",
+  "@menuClients": {
+    "description": "Ítem de menú: Clientes"
+  },
+  "menuProducts": "Productos",
+  "@menuProducts": {
+    "description": "Ítem de menú: Productos"
+  },
+  "menuInvoices": "Facturas",
+  "@menuInvoices": {
+    "description": "Ítem de menú: Facturas"
+  },
+  "menuStatistics": "Estadísticas",
+  "@menuStatistics": {
+    "description": "Ítem de menú: Estadísticas (solo admin)"
+  },
+  "menuClientCategories": "Categorías clientes",
+  "@menuClientCategories": {
+    "description": "Ítem de menú: Categorías de clientes"
+  },
+  "clientCategoriesEmpty": "No se encontraron categorías de clientes",
+  "@clientCategoriesEmpty": {
+    "description": "Mensaje cuando no hay categorías de clientes"
+  },
+  "clientCategoriesColumnId": "ID",
+  "@clientCategoriesColumnId": {
+    "description": "Cabecera de columna ID en tabla de categorías de clientes"
+  },
+  "clientCategoriesColumnName": "Nombre",
+  "@clientCategoriesColumnName": {
+    "description": "Cabecera de columna nombre en tabla de categorías de clientes"
+  },
+  "clientCategoriesColumnActive": "Activo",
+  "@clientCategoriesColumnActive": {
+    "description": "Cabecera de columna activo en tabla de categorías de clientes"
+  },
+  "clientCategoriesSearch": "Buscar categoría...",
+  "@clientCategoriesSearch": {
+    "description": "Placeholder del buscador de categorías de clientes"
+  },
+  "clientCategoriesAdd": "Añadir categoría",
+  "@clientCategoriesAdd": {
+    "description": "Botón para añadir una nueva categoría de clientes"
+  },
+  "clientCategoriesNameRequired": "El nombre es obligatorio",
+  "@clientCategoriesNameRequired": {
+    "description": "Validación: nombre de categoría vacío"
+  },
+  "clientCategoriesColumnActions": "Acciones",
+  "@clientCategoriesColumnActions": {
+    "description": "Cabecera de columna acciones en tabla de categorías de clientes"
+  },
+  "clientCategoriesEdit": "Editar",
+  "@clientCategoriesEdit": {
+    "description": "Tooltip botón editar categoría"
+  },
+  "clientCategoriesEditName": "Editar nombre",
+  "@clientCategoriesEditName": {
+    "description": "Opción de menú para editar el nombre de la categoría"
+  },
+  "clientCategoriesEditColor": "Editar color",
+  "@clientCategoriesEditColor": {
+    "description": "Opción de menú para editar el color de la categoría"
+  },
+  "clientCategoriesDelete": "Eliminar",
+  "@clientCategoriesDelete": {
+    "description": "Tooltip y botón eliminar categoría"
+  },
+  "clientCategoriesDeleteTitle": "Eliminar categoría",
+  "@clientCategoriesDeleteTitle": {
+    "description": "Título del diálogo de confirmación de eliminación"
+  },
+  "clientCategoriesDeleteMessage": "¿Estás seguro de que quieres eliminar la categoría \"{name}\"?\nEsta acción no se puede deshacer.",
+  "@clientCategoriesDeleteMessage": {
+    "description": "Mensaje de confirmación de eliminación de categoría",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clientCategoriesActivate": "Activar",
+  "@clientCategoriesActivate": {
+    "description": "Tooltip botón activar categoría"
+  },
+  "clientCategoriesDeactivate": "Desactivar",
+  "@clientCategoriesDeactivate": {
+    "description": "Tooltip botón desactivar categoría"
+  },
+  "clientCategoriesProgressSaving": "Guardando cambios...",
+  "@clientCategoriesProgressSaving": {
+    "description": "Texto del diálogo de progreso al guardar"
+  },
+  "clientCategoriesProgressDeleting": "Eliminando categoría...",
+  "@clientCategoriesProgressDeleting": {
+    "description": "Texto del diálogo de progreso al eliminar"
+  },
+  "clientCategoriesSuccessCreated": "Categoría creada correctamente",
+  "@clientCategoriesSuccessCreated": {
+    "description": "Toast tras crear categoría"
+  },
+  "clientCategoriesDiscardChanges": "Cancelar cambios",
+  "@clientCategoriesDiscardChanges": {
+    "description": "Botón para deshacer cambios pendientes en categorías"
+  },
+  "clientCategoriesSaveChanges": "Guardar cambios",
+  "@clientCategoriesSaveChanges": {
+    "description": "Botón para guardar cambios pendientes en categorías"
+  },
+  "clientCategoriesSuccessSaved": "Cambios guardados correctamente",
+  "@clientCategoriesSuccessSaved": {
+    "description": "Toast tras guardar cambios en lote"
+  },
+  "clientCategoriesSuccessUpdated": "Categoría actualizada correctamente",
+  "@clientCategoriesSuccessUpdated": {
+    "description": "Toast tras actualizar categoría"
+  },
+  "clientCategoriesSuccessToggled": "Estado de la categoría actualizado",
+  "@clientCategoriesSuccessToggled": {
+    "description": "Toast tras activar/desactivar categoría"
+  },
+  "clientCategoriesSuccessDeleted": "Categoría eliminada correctamente",
+  "@clientCategoriesSuccessDeleted": {
+    "description": "Toast tras eliminar categoría"
+  },
+  "clientCategoriesErrorOperation": "Error al realizar la operación",
+  "@clientCategoriesErrorOperation": {
+    "description": "Toast de error genérico en operación de categoría"
+  },
+  "clientCategoriesAssociateClients": "Asociar clientes",
+  "@clientCategoriesAssociateClients": {
+    "description": "Tooltip del botón para asociar clientes a una categoría"
+  },
+  "clientCategoriesAssociateTitle": "Asociar clientes a \"{name}\"",
+  "@clientCategoriesAssociateTitle": {
+    "description": "Título del diálogo de asociación de clientes",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Decathlon"
+      }
+    }
+  },
+  "clientCategoriesAssociateSearch": "Buscar cliente...",
+  "@clientCategoriesAssociateSearch": {
+    "description": "Hint del campo de búsqueda en el diálogo de asociación"
+  },
+  "clientCategoriesAssociateNoClients": "No hay clientes disponibles",
+  "@clientCategoriesAssociateNoClients": {
+    "description": "Mensaje cuando no hay clientes para asociar"
+  },
+  "clientCategoriesAssociateLoading": "Cargando clientes...",
+  "@clientCategoriesAssociateLoading": {
+    "description": "Mensaje de carga en el diálogo de asociación"
+  },
+  "clientCategoriesAssociateError": "Error al cargar clientes",
+  "@clientCategoriesAssociateError": {
+    "description": "Mensaje de error al cargar clientes en el diálogo de asociación"
+  },
+  "clientCategoriesAssociateProgressSaving": "Asociando clientes...",
+  "@clientCategoriesAssociateProgressSaving": {
+    "description": "Mensaje de progreso al guardar asociaciones"
+  },
+  "clientCategoriesAssociateSuccess": "Clientes asociados correctamente",
+  "@clientCategoriesAssociateSuccess": {
+    "description": "Toast de éxito tras asociar clientes"
+  },
+  "commonUnsavedTitle": "Cambios sin guardar",
+  "@commonUnsavedTitle": {
+    "description": "Título del diálogo de cambios sin guardar"
+  },
+  "commonUnsavedMessage": "Tienes cambios sin guardar. Si sales ahora, se perderán.",
+  "@commonUnsavedMessage": {
+    "description": "Mensaje del diálogo de cambios sin guardar"
+  },
+  "commonUnsavedStay": "Quedarse",
+  "@commonUnsavedStay": {
+    "description": "Botón para quedarse en la página actual"
+  },
+  "commonUnsavedLeave": "Salir sin guardar",
+  "@commonUnsavedLeave": {
+    "description": "Botón para salir descartando cambios"
+  },
+  "clientsSearch": "Buscar cliente...",
+  "@clientsSearch": {
+    "description": "Placeholder de búsqueda de clientes"
+  },
+  "clientsSyncFromFd": "Sincronizar desde Factura Directa",
+  "@clientsSyncFromFd": {
+    "description": "Botón para sincronizar clientes desde FacturaDirecta en la vista de clientes"
+  },
+  "clientsSyncingFromFd": "Sincronizando clientes desde Factura Directa…",
+  "@clientsSyncingFromFd": {
+    "description": "Mensaje del diálogo bloqueante durante la sincronización de clientes"
+  },
+  "clientsSyncSuccess": "Clientes sincronizados correctamente",
+  "@clientsSyncSuccess": {
+    "description": "Snackbar de éxito tras sincronizar clientes"
+  },
+  "clientsSyncError": "Error al sincronizar clientes",
+  "@clientsSyncError": {
+    "description": "Snackbar de error tras sincronizar clientes"
+  },
+  "clientsAddFromFd": "Añadir desde Factura Directa",
+  "@clientsAddFromFd": {
+    "description": "Botón para añadir clientes desde FacturaDirecta"
+  },
+  "clientsAddFromFdLoading": "Buscando nuevos contactos en Factura Directa…",
+  "@clientsAddFromFdLoading": {
+    "description": "Mensaje del diálogo de carga mientras se buscan contactos nuevos"
+  },
+  "clientsAddFromFdAdding": "Añadiendo clientes seleccionados…",
+  "@clientsAddFromFdAdding": {
+    "description": "Mensaje del diálogo de carga mientras se añaden clientes"
+  },
+  "clientsAddFromFdNoNewTitle": "Todo al día",
+  "@clientsAddFromFdNoNewTitle": {
+    "description": "Título del diálogo cuando no hay contactos nuevos"
+  },
+  "clientsAddFromFdNoNew": "Todos los contactos de Factura Directa ya están registrados como clientes.\nNo hay nuevos contactos pendientes de añadir.",
+  "@clientsAddFromFdNoNew": {
+    "description": "Mensaje cuando no se encuentran contactos nuevos"
+  },
+  "clientsAddFromFdNoNewOk": "Entendido",
+  "@clientsAddFromFdNoNewOk": {
+    "description": "Botón aceptar del diálogo sin contactos nuevos"
+  },
+  "clientsAddFromFdError": "Error al obtener contactos de Factura Directa",
+  "@clientsAddFromFdError": {
+    "description": "Mensaje de error al buscar o añadir contactos"
+  },
+  "clientsAddFromFdSuccess": "{count, plural, =1{1 cliente añadido correctamente} other{{count} clientes añadidos correctamente}}",
+  "@clientsAddFromFdSuccess": {
+    "description": "Mensaje de éxito tras añadir clientes",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "clientsAddFromFdDialogTitle": "Seleccionar contactos",
+  "@clientsAddFromFdDialogTitle": {
+    "description": "Título del diálogo de selección de contactos"
+  },
+  "clientsAddFromFdSelectedCount": "{selected} de {total} seleccionados",
+  "@clientsAddFromFdSelectedCount": {
+    "description": "Contador de contactos seleccionados",
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "clientsAddFromFdSelectAll": "Seleccionar todos",
+  "@clientsAddFromFdSelectAll": {
+    "description": "Botón para seleccionar todos los contactos"
+  },
+  "clientsAddFromFdDeselectAll": "Deseleccionar todos",
+  "@clientsAddFromFdDeselectAll": {
+    "description": "Botón para deseleccionar todos los contactos"
+  },
+  "clientsAddFromFdNoName": "(Sin nombre)",
+  "@clientsAddFromFdNoName": {
+    "description": "Texto para contactos sin nombre"
+  },
+  "clientsAddFromFdCancel": "Cancelar",
+  "@clientsAddFromFdCancel": {
+    "description": "Botón cancelar del diálogo de selección"
+  },
+  "clientsAddFromFdConfirm": "{count, plural, =0{Añadir} =1{Añadir 1 cliente} other{Añadir {count} clientes}}",
+  "@clientsAddFromFdConfirm": {
+    "description": "Botón confirmar del diálogo de selección",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "clientsEmpty": "No se encontraron clientes",
+  "@clientsEmpty": {
+    "description": "Mensaje cuando no hay clientes"
+  },
+  "clientsConfigMissingTitle": "Configuración necesaria",
+  "@clientsConfigMissingTitle": {
+    "description": "Título del empty state cuando falta configuración en clientes"
+  },
+  "clientsConfigMissingFacturaDirecta": "Configura tu cuenta de FacturaDirecta en Ajustes.",
+  "@clientsConfigMissingFacturaDirecta": {
+    "description": "Mensaje cuando falta la configuración de FacturaDirecta"
+  },
+  "clientsConfigMissingBoth": "Conecta Google Drive y configura FacturaDirecta en Ajustes para ver los clientes.",
+  "@clientsConfigMissingBoth": {
+    "description": "Mensaje cuando falta tanto Google Drive como FacturaDirecta"
+  },
+  "clientsGoToSettings": "Ir a Ajustes",
+  "@clientsGoToSettings": {
+    "description": "Botón para navegar a la pantalla de Ajustes desde clientes"
+  },
+  "clientsColumnName": "Nombre",
+  "@clientsColumnName": {
+    "description": "Cabecera de columna nombre en tabla de clientes"
+  },
+  "clientsColumnNameFd": "Nombre Factura Directa",
+  "@clientsColumnNameFd": {
+    "description": "Cabecera de columna nombre de FacturaDirecta en tabla de clientes"
+  },
+  "clientsColumnFiscalId": "NIF/CIF",
+  "@clientsColumnFiscalId": {
+    "description": "Cabecera de columna NIF/CIF en tabla de clientes"
+  },
+  "clientsColumnEmail": "Email",
+  "@clientsColumnEmail": {
+    "description": "Cabecera de columna email en tabla de clientes"
+  },
+  "clientsColumnPhone": "Teléfono",
+  "@clientsColumnPhone": {
+    "description": "Cabecera de columna teléfono en tabla de clientes"
+  },
+  "clientsColumnCity": "Ciudad",
+  "@clientsColumnCity": {
+    "description": "Cabecera de columna ciudad en tabla de clientes"
+  },
+  "productsSearch": "Buscar producto...",
+  "@productsSearch": {
+    "description": "Placeholder de búsqueda de productos"
+  },
+  "productsEmpty": "No se encontraron productos",
+  "@productsEmpty": {
+    "description": "Mensaje cuando no hay productos"
+  },
+  "productsColumnName": "Nombre",
+  "@productsColumnName": {
+    "description": "Cabecera de columna nombre en tabla de productos"
+  },
+  "productsColumnSku": "Código",
+  "@productsColumnSku": {
+    "description": "Cabecera de columna código en tabla de productos"
+  },
+  "productsColumnPrice": "Precio",
+  "@productsColumnPrice": {
+    "description": "Cabecera de columna precio en tabla de productos"
+  },
+  "productsColumnId": "ID",
+  "@productsColumnId": {
+    "description": "Cabecera de columna ID en tabla de productos"
+  },
+  "productsColumnActive": "Activo",
+  "@productsColumnActive": {
+    "description": "Cabecera de columna activo en tabla de productos"
+  },
+  "productsColumnInactive": "Inactivo",
+  "@productsColumnInactive": {
+    "description": "Etiqueta para producto inactivo"
+  },
+  "productsColumnShowInOrders": "Visible pedidos",
+  "@productsColumnShowInOrders": {
+    "description": "Cabecera de columna visible en pedidos"
+  },
+  "productsColumnOrderInOrders": "Orden",
+  "@productsColumnOrderInOrders": {
+    "description": "Cabecera de columna orden en pedidos"
+  },
+  "productsColumnFdProduct": "Producto Factura Directa",
+  "@productsColumnFdProduct": {
+    "description": "Cabecera de columna producto Factura Directa"
+  },
+  "productsColumnActions": "Acciones",
+  "@productsColumnActions": {
+    "description": "Cabecera de columna acciones en tabla de productos"
+  },
+  "productsFdWarning": "Algunos productos no pudieron cargarse desde Factura Directa",
+  "@productsFdWarning": {
+    "description": "Aviso de problemas de carga desde FD"
+  },
+  "productsSelectFdProduct": "Vincular producto",
+  "@productsSelectFdProduct": {
+    "description": "Placeholder selector producto FD"
+  },
+  "productsSelectFdTitle": "Seleccionar producto de Factura Directa",
+  "@productsSelectFdTitle": {
+    "description": "Título del diálogo de selección de producto FD"
+  },
+  "productsSelectFdSearch": "Buscar producto...",
+  "@productsSelectFdSearch": {
+    "description": "Placeholder de búsqueda en selector FD"
+  },
+  "productsSelectFdEmpty": "No se encontraron productos en Factura Directa",
+  "@productsSelectFdEmpty": {
+    "description": "Mensaje vacío en selector FD"
+  },
+  "productsSelectFdError": "Error al cargar productos de Factura Directa",
+  "@productsSelectFdError": {
+    "description": "Error al cargar productos FD"
+  },
+  "productsEdit": "Editar",
+  "@productsEdit": {
+    "description": "Tooltip y botón editar producto"
+  },
+  "productsEditName": "Editar nombre",
+  "@productsEditName": {
+    "description": "Opción de menú para editar el nombre del producto"
+  },
+  "productsModifyFdProduct": "Modificar producto FD",
+  "@productsModifyFdProduct": {
+    "description": "Opción de menú para cambiar el producto de Factura Directa vinculado"
+  },
+  "productsActivate": "Activar producto",
+  "@productsActivate": {
+    "description": "Opción de menú para activar un producto inactivo"
+  },
+  "productsDeactivate": "Desactivar producto",
+  "@productsDeactivate": {
+    "description": "Opción de menú para desactivar un producto activo"
+  },
+  "productsDelete": "Eliminar",
+  "@productsDelete": {
+    "description": "Tooltip y botón eliminar producto"
+  },
+  "productsDeleteTitle": "Eliminar producto",
+  "@productsDeleteTitle": {
+    "description": "Título del diálogo de confirmación de eliminación"
+  },
+  "productsDeleteMessage": "¿Estás seguro de que quieres eliminar el producto \"{name}\"?\nEsta acción no se puede deshacer.",
+  "@productsDeleteMessage": {
+    "description": "Mensaje de confirmación de eliminación de producto",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "productsNameRequired": "El nombre es obligatorio",
+  "@productsNameRequired": {
+    "description": "Validación: nombre de producto vacío"
+  },
+  "productsProgressSaving": "Guardando cambios...",
+  "@productsProgressSaving": {
+    "description": "Texto del diálogo de progreso al guardar producto"
+  },
+  "productsProgressDeleting": "Eliminando producto...",
+  "@productsProgressDeleting": {
+    "description": "Texto del diálogo de progreso al eliminar producto"
+  },
+  "productsSuccessUpdated": "Producto actualizado correctamente",
+  "@productsSuccessUpdated": {
+    "description": "Toast tras actualizar producto"
+  },
+  "productsSuccessDeleted": "Producto eliminado correctamente",
+  "@productsSuccessDeleted": {
+    "description": "Toast tras eliminar producto"
+  },
+  "productsSuccessToggled": "Estado del producto actualizado",
+  "@productsSuccessToggled": {
+    "description": "Toast tras activar/desactivar producto"
+  },
+  "productsSuccessLinked": "Producto vinculado correctamente",
+  "@productsSuccessLinked": {
+    "description": "Toast tras vincular producto con FD"
+  },
+  "productsNoFdLinked": "Producto Factura Directa no vinculado",
+  "@productsNoFdLinked": {
+    "description": "Texto en card cuando el producto no tiene producto FD vinculado"
+  },
+  "productsUnlinkFdProduct": "Desvincular producto FD",
+  "@productsUnlinkFdProduct": {
+    "description": "Tooltip del botón para desvincular producto de FD"
+  },
+  "productsSuccessUnlinked": "Producto desvinculado correctamente",
+  "@productsSuccessUnlinked": {
+    "description": "Toast tras desvincular producto de FD"
+  },
+  "productsErrorOperation": "Error al realizar la operación",
+  "@productsErrorOperation": {
+    "description": "Toast de error genérico en operación de producto"
+  },
+  "productsAdd": "Añadir producto",
+  "@productsAdd": {
+    "description": "Botón para añadir un nuevo producto"
+  },
+  "productsAddTitle": "Nuevo producto",
+  "@productsAddTitle": {
+    "description": "Título del diálogo de nuevo producto"
+  },
+  "productsSaveChanges": "Guardar cambios",
+  "@productsSaveChanges": {
+    "description": "Botón para guardar cambios pendientes en productos"
+  },
+  "productsDiscardChanges": "Cancelar cambios",
+  "@productsDiscardChanges": {
+    "description": "Botón para descartar cambios pendientes en productos"
+  },
+  "productsSuccessCreated": "Producto creado correctamente",
+  "@productsSuccessCreated": {
+    "description": "Toast tras crear un producto"
+  },
+  "productsSuccessSaved": "Cambios guardados correctamente",
+  "@productsSuccessSaved": {
+    "description": "Toast tras guardar cambios en lote de productos"
+  },
+  "productsColumnNameFd": "Nombre FD",
+  "@productsColumnNameFd": {
+    "description": "Cabecera columna nombre Factura Directa en tabla de productos"
+  },
+  "productsColumnOrder": "Orden",
+  "@productsColumnOrder": {
+    "description": "Cabecera columna orden en tabla de productos"
+  },
+  "productsSaving": "Guardando cambios...",
+  "@productsSaving": {
+    "description": "Mensaje de progreso al guardar campo de producto"
+  },
+  "productsErrorSaving": "Error al guardar los cambios",
+  "@productsErrorSaving": {
+    "description": "Mensaje de error al guardar campo de producto"
+  },
+  "productsReorder": "Reordenar productos",
+  "@productsReorder": {
+    "description": "Botón para abrir el diálogo de reordenación de productos"
+  },
+  "productsReorderTitle": "Ordenar productos",
+  "@productsReorderTitle": {
+    "description": "Título del diálogo de reordenación de productos"
+  },
+  "productsReorderSubtitle": "Arrastra los productos para cambiar su orden",
+  "@productsReorderSubtitle": {
+    "description": "Subtítulo del diálogo de reordenación de productos"
+  },
+  "productsReorderSaved": "Orden actualizado correctamente",
+  "@productsReorderSaved": {
+    "description": "Toast tras guardar el nuevo orden de productos"
+  },
+  "invoicesSearchClient": "Buscar factura...",
+  "@invoicesSearchClient": {
+    "description": "Placeholder de búsqueda de facturas"
+  },
+  "invoicesEmpty": "No se encontraron facturas",
+  "@invoicesEmpty": {
+    "description": "Mensaje cuando no hay facturas"
+  },
+  "invoicesColumnNumber": "Nº Factura",
+  "@invoicesColumnNumber": {
+    "description": "Cabecera de columna número en tabla de facturas"
+  },
+  "invoicesColumnClient": "Cliente",
+  "@invoicesColumnClient": {
+    "description": "Cabecera de columna cliente en tabla de facturas"
+  },
+  "invoicesColumnDate": "Fecha",
+  "@invoicesColumnDate": {
+    "description": "Cabecera de columna fecha en tabla de facturas"
+  },
+  "invoicesColumnTotal": "Total",
+  "@invoicesColumnTotal": {
+    "description": "Cabecera de columna total en tabla de facturas"
+  },
+  "invoicesColumnSubtotal": "Subtotal",
+  "@invoicesColumnSubtotal": {
+    "description": "Cabecera de columna subtotal en tabla de facturas"
+  },
+  "invoicesColumnStatus": "Estado",
+  "@invoicesColumnStatus": {
+    "description": "Cabecera de columna estado en tabla de facturas"
+  },
+  "invoicesSelectedCount": "{count, plural, =1{1 factura seleccionada} other{{count} facturas seleccionadas}}",
+  "@invoicesSelectedCount": {
+    "description": "Número de facturas seleccionadas en la barra de acciones",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "invoicesActionConvertDefinitive": "Convertir definitiva",
+  "@invoicesActionConvertDefinitive": {
+    "description": "Acción para convertir facturas provisionales en definitivas"
+  },
+  "invoicesNoActionsAvailable": "No hay opciones disponibles",
+  "@invoicesNoActionsAvailable": {
+    "description": "Mensaje cuando las facturas seleccionadas no permiten acciones"
+  },
+  "invoicesFilter": "Filtrar",
+  "@invoicesFilter": {
+    "description": "Texto del botón de filtrar facturas"
+  },
+  "invoicesFilterTitle": "Filtros",
+  "@invoicesFilterTitle": {
+    "description": "Título del diálogo de filtros de facturas"
+  },
+  "invoicesFilterStatus": "Estado",
+  "@invoicesFilterStatus": {
+    "description": "Label de sección estado en filtros"
+  },
+  "invoicesFilterClients": "Clientes",
+  "@invoicesFilterClients": {
+    "description": "Label de sección clientes en filtros"
+  },
+  "invoicesFilterDateFrom": "Desde",
+  "@invoicesFilterDateFrom": {
+    "description": "Label del campo fecha desde en filtros"
+  },
+  "invoicesFilterDateTo": "Hasta",
+  "@invoicesFilterDateTo": {
+    "description": "Label del campo fecha hasta en filtros"
+  },
+  "invoicesFilterApply": "Aplicar",
+  "@invoicesFilterApply": {
+    "description": "Texto del botón aplicar filtros"
+  },
+  "invoicesFilterClear": "Limpiar filtros",
+  "@invoicesFilterClear": {
+    "description": "Texto del botón limpiar todos los filtros"
+  },
+  "invoicesFilterDateError": "Fecha desde debe ser anterior a fecha hasta",
+  "@invoicesFilterDateError": {
+    "description": "Error de validación de rango de fechas"
+  },
+  "invoicesFilterSearchClients": "Buscar cliente...",
+  "@invoicesFilterSearchClients": {
+    "description": "Placeholder del campo buscar cliente en filtros"
+  },
+  "invoicesLoadMore": "Cargar más",
+  "@invoicesLoadMore": {
+    "description": "Texto del botón cargar más facturas"
+  },
+  "invoicesLoadingMore": "Cargando más facturas...",
+  "@invoicesLoadingMore": {
+    "description": "Texto mostrado mientras se cargan más facturas"
+  },
+  "invoicesFilterChipFrom": "Desde: {date}",
+  "@invoicesFilterChipFrom": {
+    "description": "Chip de filtro fecha desde",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "invoicesFilterChipTo": "Hasta: {date}",
+  "@invoicesFilterChipTo": {
+    "description": "Chip de filtro fecha hasta",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "invoicesFilterCancel": "Cancelar",
+  "@invoicesFilterCancel": {
+    "description": "Texto del botón cancelar en filtros"
+  },
+  "invoiceDetailTitle": "Detalle de factura",
+  "@invoiceDetailTitle": {
+    "description": "Título de la página de detalle de factura"
+  },
+  "invoiceDetailDate": "Fecha",
+  "@invoiceDetailDate": {
+    "description": "Etiqueta de fecha en detalle de factura"
+  },
+  "invoiceDetailClient": "Cliente",
+  "@invoiceDetailClient": {
+    "description": "Etiqueta de cliente en detalle de factura"
+  },
+  "invoiceDetailStatus": "Estado",
+  "@invoiceDetailStatus": {
+    "description": "Etiqueta de estado en detalle de factura"
+  },
+  "invoiceDetailCurrency": "Moneda",
+  "@invoiceDetailCurrency": {
+    "description": "Etiqueta de moneda en detalle de factura"
+  },
+  "invoiceDetailLines": "Líneas de factura",
+  "@invoiceDetailLines": {
+    "description": "Título de la sección de líneas de factura"
+  },
+  "invoiceDetailLineDescription": "Descripción",
+  "@invoiceDetailLineDescription": {
+    "description": "Cabecera de columna descripción en líneas"
+  },
+  "invoiceDetailLineQuantity": "Cantidad",
+  "@invoiceDetailLineQuantity": {
+    "description": "Cabecera de columna cantidad en líneas"
+  },
+  "invoiceDetailLinePrice": "Precio ud.",
+  "@invoiceDetailLinePrice": {
+    "description": "Cabecera de columna precio unitario en líneas"
+  },
+  "invoiceDetailLineTax": "IVA",
+  "@invoiceDetailLineTax": {
+    "description": "Cabecera de columna IVA en líneas"
+  },
+  "invoiceDetailLineTotal": "Total",
+  "@invoiceDetailLineTotal": {
+    "description": "Cabecera de columna total en líneas"
+  },
+  "invoiceDetailNoLines": "No hay líneas en esta factura",
+  "@invoiceDetailNoLines": {
+    "description": "Mensaje cuando la factura no tiene líneas"
+  },
+  "invoiceDetailSubtotal": "Subtotal",
+  "@invoiceDetailSubtotal": {
+    "description": "Etiqueta de subtotal en detalle de factura"
+  },
+  "invoiceDetailTaxBreakdown": "Impuestos",
+  "@invoiceDetailTaxBreakdown": {
+    "description": "Etiqueta de sección de desglose de impuestos"
+  },
+  "invoiceDetailTotal": "Total",
+  "@invoiceDetailTotal": {
+    "description": "Etiqueta de total en detalle de factura"
+  },
+  "invoiceDetailNotFound": "Factura no encontrada",
+  "@invoiceDetailNotFound": {
+    "description": "Mensaje cuando la factura no existe"
+  },
+  "invoiceDetailGoBack": "Volver a facturas",
+  "@invoiceDetailGoBack": {
+    "description": "Texto del botón volver al listado de facturas"
+  },
+  "paginationRowsPerPage": "Filas por página:",
+  "@paginationRowsPerPage": {
+    "description": "Etiqueta del selector de filas por página"
+  },
+  "paginationRange": "{start}–{end} de {total}",
+  "@paginationRange": {
+    "description": "Rango de paginación",
+    "placeholders": {
+      "start": {
+        "type": "int"
+      },
+      "end": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "fdConfigNotFound": "Configura tu cuenta de FacturaDirecta en Ajustes",
+  "@fdConfigNotFound": {
+    "description": "Error: configuración de FacturaDirecta no encontrada"
+  },
+  "fdNetworkError": "Error de conexión. Verifica tu red",
+  "@fdNetworkError": {
+    "description": "Error de red al conectar con FacturaDirecta"
+  },
+  "fdServerError": "Error del servidor. Inténtalo más tarde",
+  "@fdServerError": {
+    "description": "Error del servidor de FacturaDirecta"
+  },
+  "fdUnknownError": "Error inesperado",
+  "@fdUnknownError": {
+    "description": "Error desconocido de FacturaDirecta"
+  },
+  "fdRetry": "Reintentar",
+  "@fdRetry": {
+    "description": "Botón de reintentar"
+  },
+  "clientsColumnActive": "Activo",
+  "@clientsColumnActive": {
+    "description": "Cabecera de columna activo en tabla de clientes"
+  },
+  "clientsColumnCategory": "Categoría",
+  "@clientsColumnCategory": {
+    "description": "Cabecera de columna categoría en tabla de clientes"
+  },
+  "clientsCategoryUnspecified": "Categoría no asignada",
+  "@clientsCategoryUnspecified": {
+    "description": "Texto cuando un cliente no tiene categoría asignada"
+  },
+  "clientsColumnShowInOrders": "Mostrar en nuevos pedidos",
+  "@clientsColumnShowInOrders": {
+    "description": "Cabecera de columna mostrar en nuevos pedidos en tabla de clientes"
+  },
+  "genericYes": "Sí",
+  "@genericYes": {
+    "description": "Etiqueta genérica para valor booleano verdadero"
+  },
+  "genericNo": "No",
+  "@genericNo": {
+    "description": "Etiqueta genérica para valor booleano falso"
+  },
+  "clientsDiscardChanges": "Cancelar cambios",
+  "@clientsDiscardChanges": {
+    "description": "Botón para descartar cambios pendientes en clientes"
+  },
+  "clientsSuccessSaved": "Cambios guardados correctamente",
+  "@clientsSuccessSaved": {
+    "description": "Mensaje de éxito al guardar cambios en clientes"
+  },
+  "clientsErrorSaving": "Error al guardar los cambios",
+  "@clientsErrorSaving": {
+    "description": "Mensaje de error al guardar cambios en clientes"
+  },
+  "clientsSaving": "Guardando cambios...",
+  "@clientsSaving": {
+    "description": "Mensaje durante el guardado de cambios en clientes"
+  },
+  "clientsSelectCategory": "Seleccionar categoría",
+  "@clientsSelectCategory": {
+    "description": "Título del diálogo para seleccionar categoría de cliente"
+  },
+  "clientsSelectCategoryButton": "Asignar categoría",
+  "@clientsSelectCategoryButton": {
+    "description": "Texto del botón cuando no hay categoría asignada"
+  },
+  "clientsSelectCategorySearch": "Buscar categoría...",
+  "@clientsSelectCategorySearch": {
+    "description": "Placeholder del buscador en el selector de categoría"
+  },
+  "clientsSelectCategoryError": "Error al cargar las categorías",
+  "@clientsSelectCategoryError": {
+    "description": "Mensaje de error al cargar categorías"
+  },
+  "clientsSelectCategoryEmpty": "No hay categorías disponibles",
+  "@clientsSelectCategoryEmpty": {
+    "description": "Mensaje cuando no hay categorías"
+  },
+  "clientsLoadingCategories": "Cargando categorías...",
+  "@clientsLoadingCategories": {
+    "description": "Mensaje mientras se cargan las categorías"
+  },
+  "clientsUnlinkCategory": "Desvincular categoría",
+  "@clientsUnlinkCategory": {
+    "description": "Tooltip del botón para desvincular la categoría de un cliente"
+  },
+  "clientsSuccessUnlinked": "Categoría desvinculada correctamente",
+  "@clientsSuccessUnlinked": {
+    "description": "Mensaje de éxito al desvincular la categoría de un cliente"
+  },
+  "ordersTodayDeleteClients": "Eliminar clientes",
+  "@ordersTodayDeleteClients": {
+    "description": "Botón para eliminar columnas de clientes seleccionados"
+  },
+  "ordersTodayResetOrders": "Restablecer pedidos",
+  "@ordersTodayResetOrders": {
+    "description": "Botón para restablecer los pedidos de los clientes seleccionados"
+  },
+  "ordersTodaySelectedClients": "{count, plural, =1{cliente seleccionado} other{clientes seleccionados}}",
+  "@ordersTodaySelectedClients": {
+    "description": "Número de clientes seleccionados en la barra de acciones",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ordersTodayAdd": "Añadir",
+  "@ordersTodayAdd": {
+    "description": "Botón para añadir cliente o producto"
+  },
+  "ordersTodayAddClient": "Añadir cliente",
+  "@ordersTodayAddClient": {
+    "description": "Opción del menú para añadir un cliente"
+  },
+  "ordersTodayAddProduct": "Añadir producto",
+  "@ordersTodayAddProduct": {
+    "description": "Opción del menú para añadir un producto"
+  },
+  "ordersTodayAddClientDialogTitle": "Añadir clientes",
+  "@ordersTodayAddClientDialogTitle": {
+    "description": "Título del diálogo para seleccionar clientes a añadir"
+  },
+  "ordersTodayAddProductDialogTitle": "Añadir productos",
+  "@ordersTodayAddProductDialogTitle": {
+    "description": "Título del diálogo para seleccionar productos a añadir"
+  },
+  "ordersTodayAddDialogEmpty": "Todos los elementos activos ya están en el pedido",
+  "@ordersTodayAddDialogEmpty": {
+    "description": "Mensaje cuando no hay elementos disponibles para añadir"
+  },
+  "ordersTodayAddDialogSearch": "Buscar...",
+  "@ordersTodayAddDialogSearch": {
+    "description": "Placeholder del campo de búsqueda en el diálogo de añadir"
+  },
+  "ordersTodayAddDialogColumnName": "Nombre",
+  "@ordersTodayAddDialogColumnName": {
+    "description": "Cabecera de la columna de nombre en el diálogo de añadir"
+  },
+  "ordersTodayAddDialogNoResults": "Sin resultados",
+  "@ordersTodayAddDialogNoResults": {
+    "description": "Mensaje cuando la búsqueda no encuentra coincidencias"
+  },
+  "ordersTodayAddDialogConfirm": "Añadir ({count})",
+  "@ordersTodayAddDialogConfirm": {
+    "description": "Botón de confirmar en el diálogo de añadir con contador",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ordersTodayExport": "Exportar",
+  "@ordersTodayExport": {
+    "description": "Botón desplegable para exportar pedidos"
+  },
+  "ordersTodayRemoveFromTable": "Quitar de la tabla",
+  "@ordersTodayRemoveFromTable": {
+    "description": "Botón para quitar clientes seleccionados de la tabla"
+  },
+  "ordersTodayDeleteBothConfirmTitle": "Quitar de la tabla",
+  "@ordersTodayDeleteBothConfirmTitle": {
+    "description": "Título del diálogo de confirmación para quitar clientes y productos a la vez"
+  },
+  "ordersTodayDeleteBothConfirmMessage": "¿Quitar {clientCount, plural, =1{1 cliente} other{{clientCount} clientes}} y {productCount, plural, =1{1 producto} other{{productCount} productos}} de la tabla?\nEsta acción no se puede deshacer.",
+  "@ordersTodayDeleteBothConfirmMessage": {
+    "description": "Mensaje del diálogo de confirmación para quitar clientes y productos a la vez",
+    "placeholders": {
+      "clientCount": {
+        "type": "int"
+      },
+      "productCount": {
+        "type": "int"
+      }
+    }
+  },
+  "ordersTodayDeleteProductsConfirmTitle": "Quitar productos",
+  "@ordersTodayDeleteProductsConfirmTitle": {
+    "description": "Título del diálogo de confirmación para quitar productos"
+  },
+  "ordersTodayDeleteProductsConfirmMessage": "{count, plural, =1{¿Quitar el producto seleccionado de la tabla?\nEsta acción no se puede deshacer.} other{¿Quitar los {count} productos seleccionados de la tabla?\nEsta acción no se puede deshacer.}}",
+  "@ordersTodayDeleteProductsConfirmMessage": {
+    "description": "Mensaje del diálogo de confirmación para quitar productos",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ordersTodayResetConfirmTitle": "Restablecer pedidos",
+  "@ordersTodayResetConfirmTitle": {
+    "description": "Título del diálogo de confirmación para restablecer pedidos"
+  },
+  "ordersTodayResetConfirmMessage": "{count, plural, =1{¿Restablecer los pedidos del cliente seleccionado? Los valores se pondrán a cero.} other{¿Restablecer los pedidos de los {count} clientes seleccionados? Los valores se pondrán a cero.}}",
+  "@ordersTodayResetConfirmMessage": {
+    "description": "Mensaje del diálogo de confirmación para restablecer pedidos",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ordersTodayResetConfirm": "Restablecer",
+  "@ordersTodayResetConfirm": {
+    "description": "Botón de confirmar restablecimiento en el diálogo"
+  },
+  "settingsUserIdentityTitle": "Identidad de usuario",
+  "@settingsUserIdentityTitle": {
+    "description": "Título de la sección de identidad de usuario en ajustes"
+  },
+  "settingsUserIdentityDescription": "Este nombre identifica tus acciones cuando varios usuarios trabajan simultáneamente en los pedidos del día.",
+  "@settingsUserIdentityDescription": {
+    "description": "Descripción de la sección de identidad de usuario"
+  },
+  "settingsUserNameLabel": "Nombre de usuario",
+  "@settingsUserNameLabel": {
+    "description": "Label del campo de nombre de usuario"
+  },
+  "settingsUserNameSaved": "Nombre de usuario guardado",
+  "@settingsUserNameSaved": {
+    "description": "Mensaje de confirmación al guardar nombre de usuario"
+  },
+  "settingsUserNameEmpty": "El nombre no puede estar vacío",
+  "@settingsUserNameEmpty": {
+    "description": "Error cuando el nombre de usuario está vacío"
+  },
+  "ordersTodayCellLocked": "Celda bloqueada por {user}",
+  "@ordersTodayCellLocked": {
+    "description": "Mensaje cuando una celda está bloqueada por otro usuario",
+    "placeholders": {
+      "user": {
+        "type": "String"
+      }
+    }
+  },
+  "ordersTodayConnectedUsers": "{count, plural, =0{Sin usuarios} =1{1 usuario conectado} other{{count} usuarios conectados}}",
+  "@ordersTodayConnectedUsers": {
+    "description": "Indicador de usuarios conectados en pedidos de hoy",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "invoiceStatusPaid": "Pagada",
+  "@invoiceStatusPaid": {
+    "description": "Estado de factura: pagada"
+  },
+  "invoiceStatusPending": "Pendiente",
+  "@invoiceStatusPending": {
+    "description": "Estado de factura: pendiente"
+  },
+  "invoiceStatusOverdue": "Vencida",
+  "@invoiceStatusOverdue": {
+    "description": "Estado de factura: vencida"
+  },
+  "invoiceStatusDraft": "Provisional",
+  "@invoiceStatusDraft": {
+    "description": "Estado de factura: provisional"
+  },
+  "invoiceStatusVoided": "Anulada",
+  "@invoiceStatusVoided": {
+    "description": "Estado de factura: anulada"
+  },
+  "invoiceStatusOverpaid": "Sobrepagada",
+  "@invoiceStatusOverpaid": {
+    "description": "Estado de factura: sobrepagada"
+  },
+  "ordersHistoryNavigation": "Navegación",
+  "@ordersHistoryNavigation": {
+    "description": "Título del panel de navegación en historial de pedidos"
+  },
+  "productsLinkDialogSubtitle": "Para vincular a: {productName}",
+  "@productsLinkDialogSubtitle": {
+    "description": "Subtítulo del diálogo de vinculación de producto FD",
+    "placeholders": {
+      "productName": {
+        "type": "String"
+      }
+    }
+  },
+  "ordersTodaySourceDialogTitle": "Pedidos de hoy",
+  "@ordersTodaySourceDialogTitle": {
+    "description": "Título del diálogo de selección de origen de pedidos"
+  },
+  "ordersTodaySourceDialogSubtitle": "¿Cómo quieres consultar los pedidos de hoy?",
+  "@ordersTodaySourceDialogSubtitle": {
+    "description": "Subtítulo del diálogo de selección de origen"
+  },
+  "ordersTodaySourceApp": "Pedidos de hoy (aplicación)",
+  "@ordersTodaySourceApp": {
+    "description": "Opción para abrir pedidos desde la aplicación (Firestore)"
+  },
+  "ordersTodaySourceAppDescription": "Gestionar los pedidos desde la aplicación",
+  "@ordersTodaySourceAppDescription": {
+    "description": "Descripción de la opción de pedidos desde la aplicación"
+  },
+  "ordersTodaySourceDriveNotConfigured": "Configura Google Drive en Ajustes para acceder a las hojas de cálculo.",
+  "@ordersTodaySourceDriveNotConfigured": {
+    "description": "Mensaje cuando Google Drive no está configurado al intentar abrir hoja de cálculo"
+  },
+  "ordersTodayNoClients": "No hay clientes añadidos",
+  "@ordersTodayNoClients": {
+    "description": "Placeholder en la tabla de pedidos cuando no hay clientes"
+  },
+  "ordersTodayNoClientsHint": "Pulsa el botón + de la cabecera para añadir clientes.",
+  "@ordersTodayNoClientsHint": {
+    "description": "Hint debajo del placeholder de no clientes indicando cómo añadir uno"
+  },
+  "ordersTodayMarkCompensation": "Marcar como compensación",
+  "@ordersTodayMarkCompensation": {
+    "description": "Opción del menú contextual para marcar una celda como compensación"
+  },
+  "ordersTodayUnmarkCompensation": "Desmarcar como compensación",
+  "@ordersTodayUnmarkCompensation": {
+    "description": "Opción del menú contextual para desmarcar una celda como compensación"
+  },
+  "ordersTodayMarkReservation": "Marcar como reserva",
+  "@ordersTodayMarkReservation": {
+    "description": "Opción del menú contextual para marcar una celda como reserva"
+  },
+  "ordersTodayUnmarkReservation": "Desmarcar como reserva",
+  "@ordersTodayUnmarkReservation": {
+    "description": "Opción del menú contextual para desmarcar una celda como reserva"
+  },
+  "ordersTodayMarkStrictStock": "Marcar como stock estricto",
+  "@ordersTodayMarkStrictStock": {
+    "description": "Opción del menú contextual para marcar stock estricto"
+  },
+  "ordersTodayUnmarkStrictStock": "Desmarcar como stock estricto",
+  "@ordersTodayUnmarkStrictStock": {
+    "description": "Opción del menú contextual para desmarcar stock estricto"
+  },
+  "ordersTodayTooltipCompensation": "Compensación",
+  "@ordersTodayTooltipCompensation": {
+    "description": "Tooltip para celda marcada como compensación"
+  },
+  "ordersTodayTooltipReservation": "Reserva",
+  "@ordersTodayTooltipReservation": {
+    "description": "Tooltip para celda marcada como reserva"
+  },
+  "ordersTodayTooltipStrictStock": "Stock estricto",
+  "@ordersTodayTooltipStrictStock": {
+    "description": "Tooltip para celda marcada como stock estricto"
+  },
+  "ordersTodayAddNote": "Añadir nota",
+  "@ordersTodayAddNote": {
+    "description": "Opción del menú contextual para añadir nota a una celda"
+  },
+  "ordersTodayEditNote": "Editar nota",
+  "@ordersTodayEditNote": {
+    "description": "Opción del menú contextual para editar nota existente"
+  },
+  "ordersTodayRemoveNote": "Eliminar nota",
+  "@ordersTodayRemoveNote": {
+    "description": "Opción del menú contextual para eliminar nota de una celda"
+  },
+  "ordersTodayNoteDialogTitle": "Nota",
+  "@ordersTodayNoteDialogTitle": {
+    "description": "Título del diálogo para añadir o editar nota"
+  },
+  "ordersTodayNoteDialogHint": "Escribe una nota (máx. 100 caracteres)",
+  "@ordersTodayNoteDialogHint": {
+    "description": "Hint del campo de texto en el diálogo de nota"
+  },
+  "ordersTodayNoteDialogSave": "Guardar",
+  "@ordersTodayNoteDialogSave": {
+    "description": "Botón de guardar en el diálogo de nota"
+  },
+  "ordersTodayNoteDialogCancel": "Cancelar",
+  "@ordersTodayNoteDialogCancel": {
+    "description": "Botón de cancelar en el diálogo de nota"
+  },
+  "ordersTodayAddRefund": "Añadir abono",
+  "@ordersTodayAddRefund": {
+    "description": "Opción del menú contextual para añadir abono"
+  },
+  "ordersTodayEditRefund": "Editar abono",
+  "@ordersTodayEditRefund": {
+    "description": "Opción del menú contextual para editar abono existente"
+  },
+  "ordersTodayRemoveRefund": "Eliminar abono",
+  "@ordersTodayRemoveRefund": {
+    "description": "Opción del menú contextual para eliminar abono"
+  },
+  "ordersTodayRefundDialogTitle": "Abono",
+  "@ordersTodayRefundDialogTitle": {
+    "description": "Título del diálogo de abono"
+  },
+  "ordersTodayRefundDialogLabel": "Cantidad de productos",
+  "@ordersTodayRefundDialogLabel": {
+    "description": "Label del campo de texto en el diálogo de abono"
+  },
+  "ordersTodayTooltipRefund": "Abono",
+  "@ordersTodayTooltipRefund": {
+    "description": "Tooltip para celda con abono"
+  },
+  "ordersTodayContextMenuGenerateOrderSheet": "Generar hoja de pedido",
+  "@ordersTodayContextMenuGenerateOrderSheet": {
+    "description": "Opción del menú contextual de cliente para generar hoja de pedido"
+  },
+  "ordersTodayGenerateOrderSheetEmpty": "Este cliente no tiene productos con cantidad asignada.",
+  "@ordersTodayGenerateOrderSheetEmpty": {
+    "description": "Mensaje cuando se intenta generar hoja de pedido de un cliente sin productos"
+  },
+  "ordersTodayContextMenuGenerateProvisionalInvoice": "Generar factura provisional",
+  "@ordersTodayContextMenuGenerateProvisionalInvoice": {
+    "description": "Opción del menú contextual de cliente para generar factura provisional (deshabilitada)"
+  },
+  "ordersTodayContextMenuResetOrder": "Restablecer pedido",
+  "@ordersTodayContextMenuResetOrder": {
+    "description": "Opción del menú contextual de cliente para restablecer pedido"
+  },
+  "ordersTodayContextMenuDeleteClient": "Eliminar cliente",
+  "@ordersTodayContextMenuDeleteClient": {
+    "description": "Opción del menú contextual de cliente para eliminar cliente"
+  },
+  "ordersTodayContextMenuDeleteProduct": "Eliminar producto",
+  "@ordersTodayContextMenuDeleteProduct": {
+    "description": "Opción del menú contextual de producto para eliminar producto"
+  },
+  "ordersTodayInfoDialogTitle": "Ayuda de la tabla de pedidos",
+  "@ordersTodayInfoDialogTitle": {
+    "description": "Título del diálogo de ayuda informativa de la tabla de pedidos"
+  },
+  "ordersTodayInfoDialogClose": "Entendido",
+  "@ordersTodayInfoDialogClose": {
+    "description": "Botón para cerrar el diálogo de ayuda informativa"
+  },
+  "ordersTodayInfoAddClientTitle": "Añadir un cliente",
+  "@ordersTodayInfoAddClientTitle": {
+    "description": "Título de la acción añadir cliente en el diálogo de ayuda"
+  },
+  "ordersTodayInfoAddClientDesc": "Pulsa el botón «+ Añadir cliente» en la parte superior derecha de la tabla.",
+  "@ordersTodayInfoAddClientDesc": {
+    "description": "Descripción de la acción añadir cliente en el diálogo de ayuda"
+  },
+  "ordersTodayInfoAddProductTitle": "Añadir un producto",
+  "@ordersTodayInfoAddProductTitle": {
+    "description": "Título de la acción añadir producto en el diálogo de ayuda"
+  },
+  "ordersTodayInfoAddProductDesc": "Pulsa el botón «+ Añadir producto» en la parte inferior izquierda de la tabla.",
+  "@ordersTodayInfoAddProductDesc": {
+    "description": "Descripción de la acción añadir producto en el diálogo de ayuda"
+  },
+  "ordersTodayInfoEditStockTitle": "Modificar el stock",
+  "@ordersTodayInfoEditStockTitle": {
+    "description": "Título de la acción modificar stock en el diálogo de ayuda"
+  },
+  "ordersTodayInfoEditStockDesc": "Haz clic sobre la celda de la columna STOCKS del producto que deseas modificar e introduce el nuevo valor.",
+  "@ordersTodayInfoEditStockDesc": {
+    "description": "Descripción de la acción modificar stock en el diálogo de ayuda"
+  },
+  "ordersTodayInfoStrictStockTitle": "Poner stock como estricto",
+  "@ordersTodayInfoStrictStockTitle": {
+    "description": "Título de la acción stock estricto en el diálogo de ayuda"
+  },
+  "ordersTodayInfoStrictStockDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre la celda de stock de un producto y selecciona «Marcar stock estricto» en el menú contextual.",
+  "@ordersTodayInfoStrictStockDesc": {
+    "description": "Descripción de la acción stock estricto en el diálogo de ayuda"
+  },
+  "ordersTodayInfoAssignQtyTitle": "Asignar cantidad a un cliente",
+  "@ordersTodayInfoAssignQtyTitle": {
+    "description": "Título de la acción asignar cantidad en el diálogo de ayuda"
+  },
+  "ordersTodayInfoAssignQtyDesc": "Haz clic sobre la celda en la intersección del producto y el cliente, e introduce la cantidad deseada. Usa las flechas del teclado o Tab para moverte entre celdas.",
+  "@ordersTodayInfoAssignQtyDesc": {
+    "description": "Descripción de la acción asignar cantidad en el diálogo de ayuda"
+  },
+  "ordersTodayInfoCompensationTitle": "Marcar compensación",
+  "@ordersTodayInfoCompensationTitle": {
+    "description": "Título de la acción compensación en el diálogo de ayuda"
+  },
+  "ordersTodayInfoCompensationDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre una celda de cantidad de un cliente y selecciona «Marcar compensación» en el menú contextual.",
+  "@ordersTodayInfoCompensationDesc": {
+    "description": "Descripción de la acción compensación en el diálogo de ayuda"
+  },
+  "ordersTodayInfoReservationTitle": "Marcar reserva",
+  "@ordersTodayInfoReservationTitle": {
+    "description": "Título de la acción reserva en el diálogo de ayuda"
+  },
+  "ordersTodayInfoReservationDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre una celda de cantidad de un cliente y selecciona «Marcar reserva» en el menú contextual.",
+  "@ordersTodayInfoReservationDesc": {
+    "description": "Descripción de la acción reserva en el diálogo de ayuda"
+  },
+  "ordersTodayInfoRemoveClientTitle": "Quitar un cliente",
+  "@ordersTodayInfoRemoveClientTitle": {
+    "description": "Título de la acción quitar cliente en el diálogo de ayuda"
+  },
+  "ordersTodayInfoRemoveClientDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera de la tabla y selecciona «Eliminar cliente» en el menú contextual.",
+  "@ordersTodayInfoRemoveClientDesc": {
+    "description": "Descripción de la acción quitar cliente en el diálogo de ayuda"
+  },
+  "ordersTodayInfoRemoveProductTitle": "Quitar un producto",
+  "@ordersTodayInfoRemoveProductTitle": {
+    "description": "Título de la acción quitar producto en el diálogo de ayuda"
+  },
+  "ordersTodayInfoRemoveProductDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del producto en la columna izquierda y selecciona «Eliminar producto» en el menú contextual.",
+  "@ordersTodayInfoRemoveProductDesc": {
+    "description": "Descripción de la acción quitar producto en el diálogo de ayuda"
+  },
+  "ordersTodayInfoResetOrderTitle": "Restablecer pedido de un cliente",
+  "@ordersTodayInfoResetOrderTitle": {
+    "description": "Título de la acción restablecer pedido en el diálogo de ayuda"
+  },
+  "ordersTodayInfoResetOrderDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera y selecciona «Restablecer pedido» en el menú contextual. Esto pondrá a cero todas las cantidades de ese cliente.",
+  "@ordersTodayInfoResetOrderDesc": {
+    "description": "Descripción de la acción restablecer pedido en el diálogo de ayuda"
+  },
+  "ordersTodayInfoOrderSheetTitle": "Generar hoja de pedido",
+  "@ordersTodayInfoOrderSheetTitle": {
+    "description": "Título de la acción generar hoja de pedido en el diálogo de ayuda"
+  },
+  "ordersTodayInfoOrderSheetDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera y selecciona «Generar hoja de pedido». Genera un documento con las cantidades de productos solicitadas por el cliente, útil para que los trabajadores preparen el pedido.",
+  "@ordersTodayInfoOrderSheetDesc": {
+    "description": "Descripción de la acción generar hoja de pedido en el diálogo de ayuda"
+  },
+  "ordersTodayInfoProvisionalInvoiceTitle": "Generar factura provisional",
+  "@ordersTodayInfoProvisionalInvoiceTitle": {
+    "description": "Título de la acción generar factura provisional en el diálogo de ayuda"
+  },
+  "ordersTodayInfoProvisionalInvoiceDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera y selecciona «Generar factura provisional». Crea la factura en estado provisional en Factura Directa con los productos y cantidades del pedido del cliente.",
+  "@ordersTodayInfoProvisionalInvoiceDesc": {
+    "description": "Descripción de la acción generar factura provisional en el diálogo de ayuda"
+  },
+  "ordersTodayInfoCellNoteTitle": "Crear una nota en una celda",
+  "@ordersTodayInfoCellNoteTitle": {
+    "description": "Título de la acción crear nota en el diálogo de ayuda"
+  },
+  "ordersTodayInfoCellNoteDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre una celda de cantidad de un cliente y selecciona «Añadir nota». La nota se mostrará como un indicador en la celda y podrás verla al pasar el cursor por encima. Para editarla o eliminarla, vuelve a abrir el menú sobre la misma celda.",
+  "@ordersTodayInfoCellNoteDesc": {
+    "description": "Descripción de la acción crear nota en el diálogo de ayuda"
+  },
+  "ordersTodayPreparingTemplate": "Preparando plantilla para pedidos de hoy…",
+  "@ordersTodayPreparingTemplate": {
+    "description": "Mensaje mostrado durante la animación de auto-creación del documento de pedidos del día"
+  },
+  "provisionalInvoiceLoading": "Preparando factura provisional…",
+  "@provisionalInvoiceLoading": {
+    "description": "Mensaje de carga mientras se prepara la preview de factura"
+  },
+  "provisionalInvoicePreviewTitle": "Vista previa de factura provisional",
+  "@provisionalInvoicePreviewTitle": {
+    "description": "Título del diálogo de preview de factura provisional"
+  },
+  "provisionalInvoiceDraftBadge": "PROVISIONAL",
+  "@provisionalInvoiceDraftBadge": {
+    "description": "Badge que indica que la factura es provisional"
+  },
+  "provisionalInvoiceDuplicateWarning": "Ya existe una factura provisional para este cliente en esta fecha. Si continúas, se creará otra factura provisional.",
+  "@provisionalInvoiceDuplicateWarning": {
+    "description": "Aviso de factura provisional duplicada"
+  },
+  "provisionalInvoiceProduct": "Producto",
+  "@provisionalInvoiceProduct": {
+    "description": "Cabecera columna producto en tabla de preview"
+  },
+  "provisionalInvoiceQty": "Ud.",
+  "@provisionalInvoiceQty": {
+    "description": "Cabecera columna cantidad en tabla de preview"
+  },
+  "provisionalInvoicePrice": "Precio",
+  "@provisionalInvoicePrice": {
+    "description": "Cabecera columna precio en tabla de preview"
+  },
+  "provisionalInvoiceTax": "IVA",
+  "@provisionalInvoiceTax": {
+    "description": "Cabecera columna impuesto en tabla de preview"
+  },
+  "provisionalInvoiceLineTotal": "Total",
+  "@provisionalInvoiceLineTotal": {
+    "description": "Cabecera columna total de línea en tabla de preview"
+  },
+  "provisionalInvoiceSubtotal": "Subtotal",
+  "@provisionalInvoiceSubtotal": {
+    "description": "Etiqueta subtotal en resumen de factura"
+  },
+  "provisionalInvoiceTaxLabel": "IVA",
+  "@provisionalInvoiceTaxLabel": {
+    "description": "Etiqueta de impuesto en desglose de factura"
+  },
+  "provisionalInvoiceTaxHeader": "Impuesto",
+  "@provisionalInvoiceTaxHeader": {
+    "description": "Cabecera columna impuesto en tabla de desglose fiscal"
+  },
+  "provisionalInvoiceTaxBase": "Base imponible",
+  "@provisionalInvoiceTaxBase": {
+    "description": "Cabecera columna base imponible en tabla de desglose fiscal"
+  },
+  "provisionalInvoiceTaxAmount": "Cuota",
+  "@provisionalInvoiceTaxAmount": {
+    "description": "Cabecera columna cuota en tabla de desglose fiscal"
+  },
+  "provisionalInvoiceNotesLabel": "Notas",
+  "@provisionalInvoiceNotesLabel": {
+    "description": "Etiqueta de la sección de notas en la preview de factura"
+  },
+  "provisionalInvoiceTotal": "Total",
+  "@provisionalInvoiceTotal": {
+    "description": "Etiqueta total final en resumen de factura"
+  },
+  "provisionalInvoiceCancel": "Cancelar",
+  "@provisionalInvoiceCancel": {
+    "description": "Botón cancelar en diálogo de factura provisional"
+  },
+  "provisionalInvoiceConfirm": "Generar factura provisional",
+  "@provisionalInvoiceConfirm": {
+    "description": "Botón confirmar en diálogo de factura provisional"
+  },
+  "provisionalInvoiceSuccessTitle": "Factura provisional creada",
+  "@provisionalInvoiceSuccessTitle": {
+    "description": "Título del mensaje de éxito al crear factura"
+  },
+  "provisionalInvoiceSuccessMessage": "La factura provisional {docNumber} se ha creado correctamente en Factura Directa.",
+  "@provisionalInvoiceSuccessMessage": {
+    "description": "Mensaje de éxito con número de documento",
+    "placeholders": {
+      "docNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "provisionalInvoiceClose": "Cerrar",
+  "@provisionalInvoiceClose": {
+    "description": "Botón cerrar en diálogo de factura provisional"
+  },
+  "provisionalInvoiceErrorTitle": "Error",
+  "@provisionalInvoiceErrorTitle": {
+    "description": "Título del diálogo de error de factura provisional"
+  },
+  "provisionalInvoiceErrorConfigNotFound": "No se ha configurado Factura Directa. Ve a Ajustes para configurarla.",
+  "@provisionalInvoiceErrorConfigNotFound": {
+    "description": "Error cuando no hay config de FD"
+  },
+  "provisionalInvoiceErrorClientNotLinked": "Este cliente no está vinculado a Factura Directa. Vincúlalo desde la sección Clientes.",
+  "@provisionalInvoiceErrorClientNotLinked": {
+    "description": "Error cuando el cliente no tiene UUID de FD"
+  },
+  "provisionalInvoiceErrorProductsNotLinked": "Los siguientes productos no están vinculados a Factura Directa. Vincúlalos desde la sección Productos:",
+  "@provisionalInvoiceErrorProductsNotLinked": {
+    "description": "Error cuando hay productos sin vincular a FD"
+  },
+  "provisionalInvoiceErrorProductNotFoundInFd": "Un producto vinculado no se ha encontrado en Factura Directa. Puede haber sido eliminado.",
+  "@provisionalInvoiceErrorProductNotFoundInFd": {
+    "description": "Error cuando un producto local vinculado no existe en la API de FD"
+  },
+  "provisionalInvoiceErrorNoLines": "No hay productos con cantidad para este cliente.",
+  "@provisionalInvoiceErrorNoLines": {
+    "description": "Error cuando no hay líneas para facturar"
+  },
+  "provisionalInvoiceErrorNetwork": "No se ha podido conectar con Factura Directa. Comprueba tu conexión a internet.",
+  "@provisionalInvoiceErrorNetwork": {
+    "description": "Error de red al conectar con FD"
+  },
+  "provisionalInvoiceErrorServer": "Error del servidor de Factura Directa. Inténtalo de nuevo más tarde.",
+  "@provisionalInvoiceErrorServer": {
+    "description": "Error del servidor FD"
+  },
+  "provisionalInvoiceErrorUnknown": "Se ha producido un error inesperado. Inténtalo de nuevo.",
+  "@provisionalInvoiceErrorUnknown": {
+    "description": "Error desconocido"
+  },
+  "dashboardToday": "Hoy,",
+  "@dashboardToday": {
+    "description": "Encabezado de la fecha actual en el dashboard"
+  },
+  "weekdayMonday": "Lunes",
+  "@weekdayMonday": {
+    "description": "Día de la semana: lunes"
+  },
+  "weekdayTuesday": "Martes",
+  "@weekdayTuesday": {
+    "description": "Día de la semana: martes"
+  },
+  "weekdayWednesday": "Miércoles",
+  "@weekdayWednesday": {
+    "description": "Día de la semana: miércoles"
+  },
+  "weekdayThursday": "Jueves",
+  "@weekdayThursday": {
+    "description": "Día de la semana: jueves"
+  },
+  "weekdayFriday": "Viernes",
+  "@weekdayFriday": {
+    "description": "Día de la semana: viernes"
+  },
+  "weekdaySaturday": "Sábado",
+  "@weekdaySaturday": {
+    "description": "Día de la semana: sábado"
+  },
+  "weekdaySunday": "Domingo",
+  "@weekdaySunday": {
+    "description": "Día de la semana: domingo"
+  },
+  "monthJanuary": "enero",
+  "@monthJanuary": {
+    "description": "Mes: enero"
+  },
+  "monthFebruary": "febrero",
+  "@monthFebruary": {
+    "description": "Mes: febrero"
+  },
+  "monthMarch": "marzo",
+  "@monthMarch": {
+    "description": "Mes: marzo"
+  },
+  "monthApril": "abril",
+  "@monthApril": {
+    "description": "Mes: abril"
+  },
+  "monthMay": "mayo",
+  "@monthMay": {
+    "description": "Mes: mayo"
+  },
+  "monthJune": "junio",
+  "@monthJune": {
+    "description": "Mes: junio"
+  },
+  "monthJuly": "julio",
+  "@monthJuly": {
+    "description": "Mes: julio"
+  },
+  "monthAugust": "agosto",
+  "@monthAugust": {
+    "description": "Mes: agosto"
+  },
+  "monthSeptember": "septiembre",
+  "@monthSeptember": {
+    "description": "Mes: septiembre"
+  },
+  "monthOctober": "octubre",
+  "@monthOctober": {
+    "description": "Mes: octubre"
+  },
+  "monthNovember": "noviembre",
+  "@monthNovember": {
+    "description": "Mes: noviembre"
+  },
+  "monthDecember": "diciembre",
+  "@monthDecember": {
+    "description": "Mes: diciembre"
+  },
+  "dashboardDateFormat": "{day} de {month}",
+  "@dashboardDateFormat": {
+    "description": "Formato de fecha en el dashboard",
+    "placeholders": {
+      "day": {
+        "type": "int"
+      },
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "clientCategoriesEditTitle": "Editar categoría",
+  "@clientCategoriesEditTitle": {
+    "description": "Título del diálogo de edición de categoría de clientes"
+  },
+  "clientCategoriesColumnColor": "Color",
+  "@clientCategoriesColumnColor": {
+    "description": "Cabecera de columna color en tabla de categorías de clientes"
+  },
+  "clientCategoriesColumnAssociatedClients": "Clientes",
+  "@clientCategoriesColumnAssociatedClients": {
+    "description": "Cabecera de columna de clientes asociados en tabla de categorías"
+  },
+  "clientCategoriesColorLabel": "Color de categoría",
+  "@clientCategoriesColorLabel": {
+    "description": "Etiqueta del selector de color en diálogos de categorías"
+  },
+  "clientCategoriesRemoveColor": "Quitar color",
+  "@clientCategoriesRemoveColor": {
+    "description": "Botón para quitar el color asignado a una categoría"
+  },
+  "clientsEdit": "Editar",
+  "@clientsEdit": {
+    "description": "Botón para editar un cliente"
+  },
+  "clientsView": "Ver",
+  "@clientsView": {
+    "description": "Botón para ver el detalle de un cliente"
+  },
+  "clientsEditTitle": "Editar cliente",
+  "@clientsEditTitle": {
+    "description": "Título de la vista de edición de un cliente"
+  },
+  "clientsColumnShippingMethods": "Métodos de envío",
+  "@clientsColumnShippingMethods": {
+    "description": "Cabecera de columna métodos de envío en tabla de clientes"
+  },
+  "clientsColumnActions": "Acciones",
+  "@clientsColumnActions": {
+    "description": "Cabecera de columna acciones en tabla de clientes"
+  },
+  "clientsColumnProvince": "Provincia",
+  "@clientsColumnProvince": {
+    "description": "Cabecera de columna provincia en tabla de clientes"
+  },
+  "clientsColumnCountry": "País",
+  "@clientsColumnCountry": {
+    "description": "Cabecera de columna país en tabla de clientes"
+  },
+  "clientsColumnPaymentMethod": "Método de cobro",
+  "@clientsColumnPaymentMethod": {
+    "description": "Cabecera de columna método de cobro en tabla de clientes"
+  },
+  "clientsColumnCurrency": "Moneda",
+  "@clientsColumnCurrency": {
+    "description": "Cabecera de columna moneda en tabla de clientes"
+  },
+  "clientsDetailTitle": "Detalle de cliente",
+  "@clientsDetailTitle": {
+    "description": "Título del AppBar en la vista de detalle de cliente en mobile"
+  },
+  "clientsClientDataSection": "Datos del cliente",
+  "@clientsClientDataSection": {
+    "description": "Título de la sección de datos del cliente en el detalle de cliente"
+  },
+  "clientsFdDataSection": "Datos de Factura Directa",
+  "@clientsFdDataSection": {
+    "description": "Título de la sección de datos de Factura Directa en el detalle de cliente"
+  },
+  "clientsShippingMethodsAssigned": "{count} días asignados",
+  "@clientsShippingMethodsAssigned": {
+    "description": "Número de días con método de envío asignado",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "clientsShippingMethodsTitle": "Métodos de envío",
+  "@clientsShippingMethodsTitle": {
+    "description": "Título del diálogo de métodos de envío por día"
+  },
+  "clientsShippingMethodsSubtitle": "Asigna un método de envío por día",
+  "@clientsShippingMethodsSubtitle": {
+    "description": "Subtítulo del diálogo de métodos de envío por día"
+  },
+  "clientsShippingMethodsButton": "Asignar métodos de envío",
+  "@clientsShippingMethodsButton": {
+    "description": "Botón para abrir el diálogo de métodos de envío por día"
+  },
+  "dayMonday": "Lunes",
+  "@dayMonday": {
+    "description": "Día de la semana: lunes (abreviado/corto)"
+  },
+  "dayTuesday": "Martes",
+  "@dayTuesday": {
+    "description": "Día de la semana: martes (abreviado/corto)"
+  },
+  "dayWednesday": "Miércoles",
+  "@dayWednesday": {
+    "description": "Día de la semana: miércoles (abreviado/corto)"
+  },
+  "dayThursday": "Jueves",
+  "@dayThursday": {
+    "description": "Día de la semana: jueves (abreviado/corto)"
+  },
+  "dayFriday": "Viernes",
+  "@dayFriday": {
+    "description": "Día de la semana: viernes (abreviado/corto)"
+  },
+  "daySaturday": "Sábado",
+  "@daySaturday": {
+    "description": "Día de la semana: sábado (abreviado/corto)"
+  },
+  "daySunday": "Domingo",
+  "@daySunday": {
+    "description": "Día de la semana: domingo (abreviado/corto)"
+  },
+  "clientsShippingMethodNone": "Sin método",
+  "@clientsShippingMethodNone": {
+    "description": "Opción sin método de envío asignado en el selector por día"
+  },
+  "clientsShippingMethodUndefined": "Sin definir",
+  "@clientsShippingMethodUndefined": {
+    "description": "Texto mostrado cuando un día no tiene método de envío asignado"
+  },
+  "menuShippingMethods": "Métodos de envío",
+  "@menuShippingMethods": {
+    "description": "Ítem de menú: Métodos de envío"
+  },
+  "shippingMethodsSearch": "Buscar método de envío...",
+  "@shippingMethodsSearch": {
+    "description": "Placeholder de búsqueda de métodos de envío"
+  },
+  "shippingMethodsAdd": "Añadir método",
+  "@shippingMethodsAdd": {
+    "description": "Botón para añadir un nuevo método de envío"
+  },
+  "shippingMethodsEmpty": "No se encontraron métodos de envío",
+  "@shippingMethodsEmpty": {
+    "description": "Mensaje cuando no hay métodos de envío"
+  },
+  "shippingMethodsColumnName": "Nombre",
+  "@shippingMethodsColumnName": {
+    "description": "Cabecera de columna nombre en tabla de métodos de envío"
+  },
+  "shippingMethodsColumnPhone": "Teléfono",
+  "@shippingMethodsColumnPhone": {
+    "description": "Cabecera de columna teléfono en tabla de métodos de envío"
+  },
+  "shippingMethodsColumnActions": "Acciones",
+  "@shippingMethodsColumnActions": {
+    "description": "Cabecera de columna acciones en tabla de métodos de envío"
+  },
+  "shippingMethodsEdit": "Editar",
+  "@shippingMethodsEdit": {
+    "description": "Tooltip botón editar método de envío"
+  },
+  "shippingMethodsEditName": "Editar nombre",
+  "@shippingMethodsEditName": {
+    "description": "Opción de menú para editar el nombre del método de envío"
+  },
+  "shippingMethodsEditPhone": "Editar teléfono",
+  "@shippingMethodsEditPhone": {
+    "description": "Opción de menú para editar el teléfono del método de envío"
+  },
+  "shippingMethodsAssociateClients": "Asociar clientes",
+  "@shippingMethodsAssociateClients": {
+    "description": "Opción de menú para asociar clientes al método de envío"
+  },
+  "shippingMethodsAssociateTitle": "Asociar clientes a \"{name}\"",
+  "@shippingMethodsAssociateTitle": {
+    "description": "Título del diálogo de asociación de clientes a método de envío",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "shippingMethodsAssociateSearch": "Buscar cliente...",
+  "@shippingMethodsAssociateSearch": {
+    "description": "Placeholder del campo de búsqueda en diálogo de asociación"
+  },
+  "shippingMethodsAssociateNoClients": "No hay clientes disponibles",
+  "@shippingMethodsAssociateNoClients": {
+    "description": "Texto cuando no hay clientes para asociar"
+  },
+  "shippingMethodsAssociateLoading": "Cargando clientes...",
+  "@shippingMethodsAssociateLoading": {
+    "description": "Texto de carga en diálogo de asociación"
+  },
+  "shippingMethodsAssociateError": "Error al cargar clientes",
+  "@shippingMethodsAssociateError": {
+    "description": "Texto de error en diálogo de asociación"
+  },
+  "shippingMethodsAssociateSelectAll": "Todos los días",
+  "@shippingMethodsAssociateSelectAll": {
+    "description": "Opción para asignar el método de envío a todos los días"
+  },
+  "shippingMethodsAssociateDaysLabel": "Selecciona los días",
+  "@shippingMethodsAssociateDaysLabel": {
+    "description": "Etiqueta de la sección de selección de días"
+  },
+  "shippingMethodsAssociateSelectAllClients": "Seleccionar todos",
+  "@shippingMethodsAssociateSelectAllClients": {
+    "description": "Opción para seleccionar todos los clientes"
+  },
+  "shippingMethodsAssociateProgressSaving": "Guardando asociaciones...",
+  "@shippingMethodsAssociateProgressSaving": {
+    "description": "Texto del diálogo de progreso al guardar asociaciones"
+  },
+  "shippingMethodsDelete": "Eliminar",
+  "@shippingMethodsDelete": {
+    "description": "Tooltip y botón eliminar método de envío"
+  },
+  "shippingMethodsNameRequired": "El nombre es obligatorio",
+  "@shippingMethodsNameRequired": {
+    "description": "Validación: nombre de método de envío vacío"
+  },
+  "shippingMethodsProgressSaving": "Guardando...",
+  "@shippingMethodsProgressSaving": {
+    "description": "Texto del diálogo de progreso al guardar método de envío"
+  },
+  "shippingMethodsSuccessCreated": "Método de envío creado correctamente",
+  "@shippingMethodsSuccessCreated": {
+    "description": "Toast tras crear método de envío"
+  },
+  "shippingMethodsDeleteTitle": "Eliminar método de envío",
+  "@shippingMethodsDeleteTitle": {
+    "description": "Título del diálogo de confirmación de eliminación de método de envío"
+  },
+  "shippingMethodsDeleteMessage": "¿Estás seguro de que quieres eliminar el método \"{name}\"?\nEsta acción no se puede deshacer.",
+  "@shippingMethodsDeleteMessage": {
+    "description": "Mensaje de confirmación de eliminación de método de envío",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "shippingMethodsProgressDeleting": "Eliminando método de envío...",
+  "@shippingMethodsProgressDeleting": {
+    "description": "Texto del diálogo de progreso al eliminar método de envío"
+  },
+  "shippingMethodsSuccessDeleted": "Método de envío eliminado correctamente",
+  "@shippingMethodsSuccessDeleted": {
+    "description": "Toast tras eliminar método de envío"
+  },
+  "shippingMethodsErrorOperation": "Error al realizar la operación",
+  "@shippingMethodsErrorOperation": {
+    "description": "Toast de error genérico en operación de método de envío"
+  },
+  "shippingMethodsEditTitle": "Editar método de envío",
+  "@shippingMethodsEditTitle": {
+    "description": "Título del diálogo de edición de método de envío"
+  },
+  "shippingMethodsPhoneHint": "Teléfono de contacto",
+  "@shippingMethodsPhoneHint": {
+    "description": "Hint del campo de teléfono en formulario de método de envío"
+  },
+  "shippingMethodsSuccessSaved": "Método de envío actualizado correctamente",
+  "@shippingMethodsSuccessSaved": {
+    "description": "Toast tras actualizar método de envío"
+  },
+  "clientsFdLoadError": "No se pudieron cargar los datos de Factura Directa",
+  "@clientsFdLoadError": {
+    "description": "Mensaje de error al fallar la carga de datos FD en detalle de cliente"
+  },
+  "loginTitle": "Iniciar sesión",
+  "@loginTitle": {
+    "description": "Título de la pantalla de login"
+  },
+  "loginSubtitle": "Introduce tus credenciales para acceder",
+  "@loginSubtitle": {
+    "description": "Subtítulo de la pantalla de login"
+  },
+  "loginEmailLabel": "Email",
+  "@loginEmailLabel": {
+    "description": "Label del campo de email en login"
+  },
+  "loginEmailHint": "usuario@ejemplo.com",
+  "@loginEmailHint": {
+    "description": "Hint del campo de email en login"
+  },
+  "loginPasswordLabel": "Contraseña",
+  "@loginPasswordLabel": {
+    "description": "Label del campo de contraseña en login"
+  },
+  "loginRememberMe": "Recordarme",
+  "@loginRememberMe": {
+    "description": "Label del checkbox de recordar sesión"
+  },
+  "loginSignInButton": "Iniciar sesión",
+  "@loginSignInButton": {
+    "description": "Texto del botón de inicio de sesión"
+  },
+  "loginErrorEmailEmpty": "Introduce tu email",
+  "@loginErrorEmailEmpty": {
+    "description": "Error cuando el campo de email está vacío"
+  },
+  "loginErrorEmailInvalid": "Formato de email no válido",
+  "@loginErrorEmailInvalid": {
+    "description": "Error cuando el email tiene formato inválido"
+  },
+  "loginErrorPasswordEmpty": "Introduce tu contraseña",
+  "@loginErrorPasswordEmpty": {
+    "description": "Error cuando el campo de contraseña está vacío"
+  },
+  "loginErrorInvalidCredentials": "Email o contraseña incorrectos",
+  "@loginErrorInvalidCredentials": {
+    "description": "Error de credenciales incorrectas"
+  },
+  "loginErrorUserDisabled": "Cuenta deshabilitada. Contacta al administrador",
+  "@loginErrorUserDisabled": {
+    "description": "Error cuando la cuenta está deshabilitada"
+  },
+  "loginErrorTooManyRequests": "Demasiados intentos. Inténtalo más tarde",
+  "@loginErrorTooManyRequests": {
+    "description": "Error por demasiados intentos de login"
+  },
+  "loginErrorNetwork": "Sin conexión a internet",
+  "@loginErrorNetwork": {
+    "description": "Error de conexión de red en login"
+  },
+  "loginErrorUnknown": "Error de autenticación inesperado",
+  "@loginErrorUnknown": {
+    "description": "Error desconocido en login"
+  },
+  "settingsSignOut": "Cerrar sesión",
+  "@settingsSignOut": {
+    "description": "Botón de cerrar sesión en ajustes"
+  },
+  "settingsSignOutConfirmTitle": "Cerrar sesión",
+  "@settingsSignOutConfirmTitle": {
+    "description": "Título del diálogo de confirmación de cierre de sesión"
+  },
+  "settingsSignOutConfirmMessage": "¿Estás seguro de que quieres cerrar sesión?",
+  "@settingsSignOutConfirmMessage": {
+    "description": "Mensaje del diálogo de confirmación de cierre de sesión"
+  },
+  "settingsSignOutConfirmCancel": "Cancelar",
+  "@settingsSignOutConfirmCancel": {
+    "description": "Botón cancelar del diálogo de cierre de sesión"
+  },
+  "settingsSignOutConfirmAccept": "Cerrar sesión",
+  "@settingsSignOutConfirmAccept": {
+    "description": "Botón confirmar del diálogo de cierre de sesión"
+  },
+  "notFoundMessage": "La página que buscas no existe.",
+  "@notFoundMessage": {
+    "description": "Mensaje de error 404"
+  },
+  "notFoundGoHome": "Ir al inicio",
+  "@notFoundGoHome": {
+    "description": "Botón para volver al inicio desde la página 404"
+  },
+  "clientNotFoundMessage": "No se ha encontrado el cliente solicitado.",
+  "@clientNotFoundMessage": {
+    "description": "Mensaje de error cuando un cliente no se encuentra por ID"
+  },
+  "clientNotFoundGoBack": "Volver a clientes",
+  "@clientNotFoundGoBack": {
+    "description": "Botón para volver a la lista de clientes desde error de cliente no encontrado"
+  },
+  "clientSaveSuccess": "Cambios guardados correctamente",
+  "@clientSaveSuccess": {
+    "description": "Mensaje de éxito al guardar cambios de un cliente"
+  },
+  "ordersTodayMobileTitle": "Pantalla no disponible",
+  "@ordersTodayMobileTitle": {
+    "description": "Título del placeholder cuando se accede a Pedidos de hoy desde un dispositivo con pantalla pequeña"
+  },
+  "ordersTodayMobileDescription": "La gestión de pedidos de hoy solo está disponible en pantallas de mayor tamaño. Por favor, accede desde un ordenador o una tablet.",
+  "@ordersTodayMobileDescription": {
+    "description": "Descripción del placeholder cuando se accede a Pedidos de hoy desde un dispositivo con pantalla pequeña"
+  },
+  "ordersTodayReadonlyTitle": "Pedidos de hoy (solo lectura)",
+  "@ordersTodayReadonlyTitle": {
+    "description": "Título de la página de pedidos de hoy en modo solo lectura"
+  },
+  "ordersTodayLastModified": "Última actualización: {date}",
+  "@ordersTodayLastModified": {
+    "description": "Fecha y hora de la última modificación del documento de pedidos",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "13/05/2026 14:32:05"
+      }
+    }
+  },
+  "ordersTodayNoOrdersToday": "No hay pedidos para hoy",
+  "@ordersTodayNoOrdersToday": {
+    "description": "Mensaje cuando no existe el documento de pedidos del día en la vista de solo lectura"
+  },
+  "ordersTodayLiveConnected": "Conectado en tiempo real",
+  "@ordersTodayLiveConnected": {
+    "description": "Tooltip del indicador de conexión en vivo"
+  },
+  "ordersTodayLiveDisconnected": "Desconectado",
+  "@ordersTodayLiveDisconnected": {
+    "description": "Tooltip del indicador cuando se pierde la conexión"
+  }
+}
