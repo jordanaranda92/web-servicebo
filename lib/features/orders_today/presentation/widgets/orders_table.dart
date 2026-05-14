@@ -109,7 +109,7 @@ class _OrdersTableState extends State<OrdersTable> {
   static const double _minHeaderHeight = 180;
   static const double _maxHeaderHeight = 250;
   static const double _rowHeight = 32;
-  static const double _defaultHeaderHeight = 150;
+  static const double _defaultHeaderHeight = _minHeaderHeight;
   static const String _headerHeightKey = 'orders_table_header_height';
 
   static const double _defaultProductColWidth = 200;
