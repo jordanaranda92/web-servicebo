@@ -59,7 +59,7 @@ class OrdersHistoryRepositoryImpl implements OrdersHistoryRepository {
     } on ServerException catch (e) {
       _logger.error('Error loading available dates', e);
       return Left(ServerFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Unexpected error loading available dates', e, st);
       return Left(InternalFailure());
     }
@@ -93,7 +93,7 @@ class OrdersHistoryRepositoryImpl implements OrdersHistoryRepository {
     } on ServerException catch (e) {
       _logger.error('Error loading history orders', e);
       return Left(ServerFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Unexpected error loading history orders', e, st);
       return Left(InternalFailure());
     }

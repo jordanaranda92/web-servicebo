@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:excel/excel.dart';
 import 'package:intl/intl.dart';
 
+import '../../domain/entities/order_action_entry.dart';
 import '../../domain/entities/order_sheet.dart';
 import '../../domain/services/order_sheet_excel_generator.dart';
 
@@ -21,7 +22,10 @@ class OrderSheetExcelService implements OrderSheetExcelGenerator {
   /// Genera el archivo .xlsx en memoria para el [orderSheet] dado.
   /// Retorna los bytes del archivo listos para guardar.
   @override
-  Future<Uint8List> generate({required OrderSheet orderSheet}) async {
+  Future<Uint8List> generate({
+    required OrderSheet orderSheet,
+    List<OrderActionEntry> history = const [],
+  }) async {
     final excel = Excel.createExcel();
 
     // Crear la hoja destino primero; luego eliminar la hoja por defecto.
@@ -241,6 +245,11 @@ class OrderSheetExcelService implements OrderSheetExcelGenerator {
     }
     sheet.setRowHeight(0, 28); // fila de números más alta
 
+    // ── Hoja 2: Historial ──────────────────────────────────────────
+    if (history.isNotEmpty) {
+      _buildHistorySheet(excel, history);
+    }
+
     final bytes = excel.save();
     if (bytes == null) {
       throw StateError('excel.save() returned null');
@@ -283,5 +292,68 @@ class OrderSheetExcelService implements OrderSheetExcelGenerator {
       topBorder: border,
       bottomBorder: border,
     );
+  }
+
+  // ── Hoja "Historial" ───────────────────────────────────────────
+
+  void _buildHistorySheet(Excel excel, List<OrderActionEntry> history) {
+    const name = 'Historial';
+    final sheet = excel[name];
+
+    final dateFormat = DateFormat('dd/MM/yyyy HH:mm:ss');
+
+    // Headers
+    const headers = ['Fecha/Hora', 'Usuario', 'Acción', 'Detalles'];
+    final headerStyle = CellStyle(
+      bold: true,
+      backgroundColorHex: ExcelColor.fromHexString('FF37474F'),
+      fontColorHex: ExcelColor.fromHexString('FFFFFFFF'),
+    );
+    for (var c = 0; c < headers.length; c++) {
+      final cell = sheet.cell(
+        CellIndex.indexByColumnRow(columnIndex: c, rowIndex: 0),
+      );
+      cell.value = TextCellValue(headers[c]);
+      cell.cellStyle = headerStyle;
+    }
+
+    // Data rows
+    for (var i = 0; i < history.length; i++) {
+      final entry = history[i];
+      final row = i + 1;
+
+      sheet
+          .cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: row))
+          .value = TextCellValue(
+        dateFormat.format(entry.timestamp),
+      );
+
+      sheet
+          .cell(CellIndex.indexByColumnRow(columnIndex: 1, rowIndex: row))
+          .value = TextCellValue(
+        entry.userName,
+      );
+
+      sheet
+          .cell(CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: row))
+          .value = TextCellValue(
+        entry.actionType.name,
+      );
+
+      final detailStr = entry.details.entries
+          .map((e) => '${e.key}: ${e.value}')
+          .join(', ');
+      sheet
+          .cell(CellIndex.indexByColumnRow(columnIndex: 3, rowIndex: row))
+          .value = TextCellValue(
+        detailStr,
+      );
+    }
+
+    // Column widths
+    sheet.setColumnWidth(0, 22);
+    sheet.setColumnWidth(1, 20);
+    sheet.setColumnWidth(2, 30);
+    sheet.setColumnWidth(3, 50);
   }
 }

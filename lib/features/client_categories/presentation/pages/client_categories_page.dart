@@ -10,7 +10,7 @@ import '../../../../app/theme/theme_constants.dart';
 import '../../../../app/theme/theme_extensions.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/presentation/bloc/feedback_cubit.dart';
-import '../../../../core/presentation/bloc/feedback_state.dart';
+import '../../../../core/presentation/widgets/feedback_banner.dart';
 import '../../../../core/presentation/widgets/page_header.dart';
 import '../../../../core/utils/category_color_utils.dart';
 import '../../../clients/domain/entities/client.dart';
@@ -138,69 +138,7 @@ class _ClientCategoriesPageState extends State<ClientCategoriesPage> {
                     icon: const Icon(Icons.add_rounded),
                     label: Text(l10n.clientCategoriesAdd),
                   ),
-                  BlocBuilder<FeedbackCubit, FeedbackState>(
-                    buildWhen: (previous, current) =>
-                        previous.message != current.message ||
-                        previous.isSuccess != current.isSuccess,
-                    builder: (context, feedback) {
-                      if (!feedback.hasMessage) {
-                        return const SizedBox.shrink();
-                      }
-                      return Padding(
-                        padding: const EdgeInsets.only(left: AppSpacing.md),
-                        child: SizedBox(
-                          height: 40,
-                          child: Card(
-                            elevation: 2,
-                            margin: EdgeInsets.zero,
-                            color: feedback.isSuccess
-                                ? Theme.of(
-                                    context,
-                                  ).extension<CustomColors>()?.success
-                                : colorScheme.error,
-                            shadowColor:
-                                (feedback.isSuccess
-                                        ? (Theme.of(context)
-                                                  .extension<CustomColors>()
-                                                  ?.success ??
-                                              colorScheme.primary)
-                                        : colorScheme.error)
-                                    .withValues(alpha: 0.3),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                AppRadii.small,
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: AppSpacing.md,
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(
-                                    feedback.isSuccess
-                                        ? Icons.check_circle_rounded
-                                        : Icons.error_rounded,
-                                    size: 18,
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(width: AppSpacing.xs),
-                                  Text(
-                                    feedback.message!,
-                                    style: textTheme.bodySmall?.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                  const FeedbackBanner(),
                 ],
               ),
             );
@@ -1495,12 +1433,12 @@ class _AssociateClientsDialogState extends State<_AssociateClientsDialog> {
           FilledButton(
             onPressed: _isSaving || !_hasChanges ? null : _save,
             child: _isSaving
-                ? const SizedBox(
+                ? SizedBox(
                     width: 18,
                     height: 18,
                     child: CircularProgressIndicator(
                       strokeWidth: 2,
-                      color: Colors.white,
+                      color: colorScheme.surface,
                     ),
                   )
                 : Text(l10n.settingsSave),

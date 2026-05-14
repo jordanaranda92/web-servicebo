@@ -13,4 +13,7 @@ abstract class InvoicesRepository {
 
   /// Returns a map of FD contact UUID → display name (title or name).
   Future<Either<Failure, Map<String, String>>> getContactNames();
+
+  /// Creates a provisional (draft) invoice via Factura Directa API.
+  Future<Either<Failure, Invoice>> createInvoice(Map<String, dynamic> body);
 }

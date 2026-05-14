@@ -48,7 +48,7 @@ class ProductsRepositoryImpl implements ProductsRepository {
       return Left(ServerFailure());
     } on NetworkException {
       return Left(NetworkFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('[ProductsRepo] unexpected error: $e', e, st);
       return Left(InternalFailure());
     }
@@ -136,7 +136,7 @@ class ProductsRepositoryImpl implements ProductsRepository {
       return Left(ServerFailure());
     } on NetworkException {
       return Left(NetworkFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('[ProductsRepo] unexpected error: $e', e, st);
       return Left(InternalFailure());
     }
@@ -158,7 +158,7 @@ class ProductsRepositoryImpl implements ProductsRepository {
       return Left(ServerFailure());
     } on NetworkException {
       return Left(NetworkFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('[ProductsRepo] unexpected error: $e', e, st);
       return Left(InternalFailure());
     }
@@ -175,7 +175,7 @@ class ProductsRepositoryImpl implements ProductsRepository {
       return Left(ServerFailure());
     } on NetworkException {
       return Left(NetworkFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('[ProductsRepo] unexpected error: $e', e, st);
       return Left(InternalFailure());
     }
@@ -233,7 +233,7 @@ class ProductsRepositoryImpl implements ProductsRepository {
       return Left(ServerFailure());
     } on NetworkException {
       return Left(NetworkFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('[ProductsRepo] getFdProducts unexpected error: $e', e, st);
       return Left(InternalFailure());
     }
@@ -261,7 +261,7 @@ class ProductsRepositoryImpl implements ProductsRepository {
       return Left(ServerFailure());
     } on NetworkException {
       return Left(NetworkFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('[ProductsRepo] linkFdProduct unexpected error: $e', e, st);
       return Left(InternalFailure());
     }

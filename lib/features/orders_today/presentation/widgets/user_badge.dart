@@ -11,9 +11,10 @@ class UserBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final textColor = color.computeLuminance() > 0.5
-        ? Colors.black87
-        : Colors.white;
+        ? colorScheme.onSurface
+        : colorScheme.surface;
 
     return Container(
       padding: const EdgeInsets.symmetric(

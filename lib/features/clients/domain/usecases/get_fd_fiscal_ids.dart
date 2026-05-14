@@ -2,23 +2,22 @@ import 'dart:developer' as dev;
 
 import 'package:fpdart/fpdart.dart';
 
-import '../../../../core/data/datasources/factura_directa_api_data_source.dart';
-import '../../../../core/error/exceptions.dart';
+import '../../../../core/domain/repositories/factura_directa_repository.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/usecase/usecase.dart';
 
 /// Returns a map of FD contact UUID → fiscalId (NIF/CIF).
 class GetFdFiscalIds extends UseCase<Map<String, String>, NoParams> {
-  final FacturaDirectaApiDataSource _fdApi;
+  final FacturaDirectaRepository _fdRepo;
 
-  GetFdFiscalIds(this._fdApi);
+  GetFdFiscalIds(this._fdRepo);
 
   @override
   Future<Either<Failure, Map<String, String>>> call(NoParams params) async {
     dev.log('[GetFdFiscalIds] fetching fiscal IDs from FD', name: 'Clients');
 
-    try {
-      final rawContacts = await _fdApi.getContacts();
+    final contactsResult = await _fdRepo.getContacts();
+    return contactsResult.fold((failure) => Left(failure), (rawContacts) {
       final fiscalIds = <String, String>{};
 
       for (final json in rawContacts) {
@@ -38,22 +37,6 @@ class GetFdFiscalIds extends UseCase<Map<String, String>, NoParams> {
       );
 
       return Right(fiscalIds);
-    } on ServerException catch (e) {
-      dev.log(
-        '[GetFdFiscalIds] ServerException: ${e.message}',
-        name: 'Clients',
-      );
-      return Left(ServerFailure());
-    } on NetworkException {
-      return Left(NetworkFailure());
-    } catch (e, st) {
-      dev.log(
-        '[GetFdFiscalIds] unexpected error: $e',
-        name: 'Clients',
-        error: e,
-        stackTrace: st,
-      );
-      return Left(ServerFailure());
-    }
+    });
   }
 }

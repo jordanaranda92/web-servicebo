@@ -6,6 +6,8 @@ import 'package:get_it/get_it.dart';
 import 'package:servicebo/app/config/app_config.dart';
 import 'package:servicebo/core/data/datasources/factura_directa_api_data_source.dart';
 import 'package:servicebo/core/data/datasources/factura_directa_api_data_source_impl.dart';
+import 'package:servicebo/core/data/repositories/factura_directa_repository_impl.dart';
+import 'package:servicebo/core/domain/repositories/factura_directa_repository.dart';
 import 'package:servicebo/core/log/log.dart';
 import 'package:servicebo/core/services/navigation_guard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,6 +29,11 @@ Future<void> registerCoreModule(
   // FacturaDirecta API DataSource
   sl.registerLazySingleton<FacturaDirectaApiDataSource>(
     () => FacturaDirectaApiDataSourceImpl(sl()),
+  );
+
+  // FacturaDirecta Repository
+  sl.registerLazySingleton<FacturaDirectaRepository>(
+    () => FacturaDirectaRepositoryImpl(sl()),
   );
 
   // Navigation guard (unsaved changes)

@@ -34,7 +34,6 @@ class _InvoicesPageState extends State<InvoicesPage> {
     super.initState();
     _cubit = sl<InvoicesCubit>();
     _cubit.loadInvoices(filters: InvoiceFilters.defaultFilters());
-    _mobileScrollController.addListener(_onScroll);
   }
 
   @override
@@ -43,16 +42,6 @@ class _InvoicesPageState extends State<InvoicesPage> {
     _mobileScrollController.dispose();
     _cubit.close();
     super.dispose();
-  }
-
-  void _onScroll() {
-    if (_mobileScrollController.position.pixels >=
-        _mobileScrollController.position.maxScrollExtent - 200) {
-      final s = _cubit.state;
-      if (s is InvoicesLoaded && s.hasMore && !s.isLoadingMore) {
-        // loadMore not implemented yet (PA-04 pending)
-      }
-    }
   }
 
   Future<void> _showFiltersDialog(InvoicesLoaded state) async {

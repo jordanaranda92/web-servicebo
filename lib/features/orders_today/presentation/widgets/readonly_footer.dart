@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/theme_constants.dart';
+import '../../../../app/theme/theme_extensions.dart';
 
 /// Footer for the read-only orders view.
 ///
@@ -88,8 +89,12 @@ class _ReadonlyFooterState extends State<ReadonlyFooter>
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: widget.isConnected
-                        ? Colors.green.withValues(alpha: _pulseAnimation.value)
-                        : Colors.grey,
+                        ? (Theme.of(
+                                    context,
+                                  ).extension<CustomColors>()?.success ??
+                                  Colors.green)
+                              .withValues(alpha: _pulseAnimation.value)
+                        : colorScheme.outline,
                   ),
                 );
               },

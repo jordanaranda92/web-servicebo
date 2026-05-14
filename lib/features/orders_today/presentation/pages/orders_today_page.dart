@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -32,9 +33,13 @@ import '../../../../core/utils/web_open_url_stub.dart'
     // ignore: uri_does_not_exist
     if (dart.library.html) '../../../../core/utils/web_open_url_web.dart';
 import '../../domain/repositories/orders_presence_repository.dart';
-import '../../domain/repositories/orders_today_repository.dart';
 import '../../domain/services/order_sheet_excel_generator.dart';
+import '../../domain/usecases/get_action_history.dart';
+import '../widgets/order_action_history_dialog.dart';
 import '../widgets/orders_table.dart';
+
+/// Default color hex for invoice user badge when no presence color is available.
+const _kDefaultInvoiceColor = '#607D8B';
 
 /// Index of this page inside [SideMenuShell].
 
@@ -256,8 +261,14 @@ class _OrdersTodayContentState extends State<_OrdersTodayContent> {
     setState(() => _isExporting = true);
     final l10n = AppLocalizations.of(context)!;
     try {
+      final historyResult = await sl<GetActionHistory>()(
+        GetActionHistoryParams(date: DateTime.now()),
+      );
+      final history = historyResult.getOrElse((_) => []);
+
       final bytes = await sl<OrderSheetExcelGenerator>().generate(
         orderSheet: state.orderSheet,
+        history: history,
       );
       final fileName = 'Pedidos_${state.orderSheet.date}.xlsx';
 
@@ -269,7 +280,7 @@ class _OrdersTodayContentState extends State<_OrdersTodayContent> {
           SnackBar(content: Text(l10n.ordersTodayExportExcelSuccess)),
         );
       }
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       sl<AppLogger>().error('Error exporting Excel', e, st);
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -321,13 +332,13 @@ class _OrdersTodayContentState extends State<_OrdersTodayContent> {
                       ? null
                       : () => _exportExcel(context, state),
                   icon: _isExporting
-                      ? const SizedBox(
+                      ? SizedBox(
                           width: 16,
                           height: 16,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
                             valueColor: AlwaysStoppedAnimation<Color>(
-                              Colors.white,
+                              Theme.of(context).colorScheme.surface,
                             ),
                           ),
                         )
@@ -335,6 +346,26 @@ class _OrdersTodayContentState extends State<_OrdersTodayContent> {
                   label: Text(
                     AppLocalizations.of(context)!.ordersTodayExportExcel,
                   ),
+                ),
+                const SizedBox(width: 8),
+                IconButton.filled(
+                  onPressed: () {
+                    OrderActionHistoryDialog.show(
+                      context,
+                      getActionHistory: sl<GetActionHistory>(),
+                      date: DateTime.now(),
+                      firestore: sl<FirebaseFirestore>(),
+                    );
+                  },
+                  style: IconButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  icon: const Icon(Icons.history),
+                  tooltip: AppLocalizations.of(
+                    context,
+                  )!.ordersTodayHistoryButton,
                 ),
                 const SizedBox(width: 8),
                 IconButton.filled(
@@ -475,19 +506,25 @@ class _OrdersTodayContentState extends State<_OrdersTodayContent> {
                   presenceCubit?.userName ??
                   firebaseAuth.currentUser?.email ??
                   uid;
-              final invoiceColor = presenceCubit?.myColor ?? '#607D8B';
+              final invoiceColorValue = presenceCubit?.myColor;
+              final invoiceColor = invoiceColorValue != null
+                  ? '#${invoiceColorValue.toARGB32().toRadixString(16).substring(2).toUpperCase()}'
+                  : _kDefaultInvoiceColor;
 
-              // Listen for success to save invoicedBy
+              final bloc = context.read<OrdersTodayBloc>();
+
+              // Listen for success to save invoicedBy via BLoC
               StreamSubscription<ProvisionalInvoiceState>? invoiceSub;
               invoiceSub = cubit.stream.listen((cubitState) {
                 if (cubitState is ProvisionalInvoiceSuccess) {
                   invoiceSub?.cancel();
-                  sl<OrdersTodayRepository>().saveInvoicedBy(
-                    date: orderSheet.date,
-                    clientId: clientId,
-                    userId: uid,
-                    userName: invoiceUserName,
-                    color: invoiceColor,
+                  bloc.add(
+                    OrdersTodaySaveInvoicedByRequested(
+                      clientId: clientId,
+                      userId: uid,
+                      userName: invoiceUserName,
+                      color: invoiceColor,
+                    ),
                   );
                 }
               });

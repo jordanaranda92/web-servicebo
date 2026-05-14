@@ -14,7 +14,6 @@ class OrdersPresenceCubit extends Cubit<OrdersPresenceState> {
     required this.userId,
     required this.userName,
   }) : _repository = repository,
-       myColor = _computeColor(userId),
        super(const OrdersPresenceState());
 
   final OrdersPresenceRepository _repository;
@@ -24,52 +23,68 @@ class OrdersPresenceCubit extends Cubit<OrdersPresenceState> {
   StreamSubscription<CellLockChange>? _lockSub;
   StreamSubscription<RemoteCursorChange>? _cursorSub;
 
-  /// Color assigned to this user, derived from userId hash.
-  final String myColor;
+  /// Color assigned to the current user locally.
+  late final Color myColor;
 
-  static const _userColorPalette = [
-    '#FF5722',
-    '#E91E63',
-    '#9C27B0',
-    '#673AB7',
-    '#3F51B5',
-    '#2196F3',
-    '#009688',
-    '#4CAF50',
-    '#FF9800',
-    '#795548',
-    '#607D8B',
-    '#F44336',
+  static const _colorPalette = [
+    Color(0xFFFF5722),
+    Color(0xFFE91E63),
+    Color(0xFF9C27B0),
+    Color(0xFF673AB7),
+    Color(0xFF3F51B5),
+    Color(0xFF2196F3),
+    Color(0xFF009688),
+    Color(0xFF4CAF50),
+    Color(0xFFFF9800),
+    Color(0xFF795548),
+    Color(0xFF607D8B),
+    Color(0xFFF44336),
   ];
 
-  static String _computeColor(String userId) {
-    return _userColorPalette[userId.hashCode.abs() % _userColorPalette.length];
+  /// Map of userId → locally-assigned Color (no two users share a color).
+  final Map<String, Color> _assignedColors = {};
+
+  /// Pick the next palette color not already assigned.
+  Color _assignColor(String uid) {
+    if (_assignedColors.containsKey(uid)) return _assignedColors[uid]!;
+    final usedColors = _assignedColors.values.toSet();
+    final available = _colorPalette.where((c) => !usedColors.contains(c));
+    final color = available.isNotEmpty
+        ? available.elementAt(uid.hashCode.abs() % available.length)
+        : _colorPalette[uid.hashCode.abs() % _colorPalette.length];
+    _assignedColors[uid] = color;
+    return color;
   }
 
   /// Initialize presence: register cursor, subscribe to changes.
   Future<void> init() async {
+    // Assign own color first so it's reserved
+    myColor = _assignColor(userId);
+
     await _repository.setupDisconnectCleanup(userId);
     await _repository.updateMyCursor(
       userId: userId,
       productId: null,
       clientId: null,
-      color: myColor,
       userName: userName,
     );
     await _repository.cleanExpiredLocks();
 
     _lockSub = _repository.onLockChanged().listen(_onLockUpdate);
-    _cursorSub = _repository
-        .onCursorChanged(_parseColor)
-        .listen(_onCursorUpdate);
+    _cursorSub = _repository.onCursorChanged().listen(_onCursorUpdate);
 
     // Load initial snapshots
     final lockEntities = await _repository.getAllLocks();
-    final allCursors = await _repository.getAllCursors(_parseColor);
+    final allCursors = await _repository.getAllCursors();
 
-    // Remove own cursor from remote list
-    final cursorEntities = Map<String, RemoteCursor>.from(allCursors)
-      ..remove(userId);
+    // Remove own cursor from remote list and assign local colors
+    final cursorEntities = <String, RemoteCursor>{};
+    for (final entry in allCursors.entries) {
+      if (entry.key == userId) continue;
+      cursorEntities[entry.key] = entry.value.withColor(
+        _assignColor(entry.key),
+      );
+    }
 
     if (isClosed) return;
     emit(
@@ -101,13 +116,16 @@ class OrdersPresenceCubit extends Cubit<OrdersPresenceState> {
 
     if (change.removed) {
       newCursors.remove(change.userId);
+      _assignedColors.remove(change.userId);
       count = (count - 1).clamp(0, 999);
     } else if (change.cursor case final cursor?) {
       if (change.userId == userId) {
         // Don't add own cursor to remote list, but count it
         count = newCursors.length + 1;
       } else {
-        newCursors[change.userId] = cursor;
+        newCursors[change.userId] = cursor.withColor(
+          _assignColor(change.userId),
+        );
         count = newCursors.length + 1; // +1 for self
       }
     }
@@ -131,14 +149,8 @@ class OrdersPresenceCubit extends Cubit<OrdersPresenceState> {
       userId: userId,
       productId: productId,
       clientId: clientId,
-      color: myColor,
       userName: userName,
     );
-  }
-
-  Color _parseColor(String hex) {
-    final code = hex.replaceFirst('#', '');
-    return Color(int.parse('FF$code', radix: 16));
   }
 
   @override

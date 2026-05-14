@@ -9,6 +9,7 @@ import '../../../../core/presentation/widgets/page_header.dart';
 import '../../../auth/domain/usecases/sign_out.dart';
 import '../../../auth/presentation/bloc/auth_cubit.dart';
 import '../../../../core/usecase/usecase.dart';
+import '../widgets/app_version_section.dart';
 import '../widgets/invoice_series_section.dart';
 import '../widgets/user_identity_section.dart';
 
@@ -34,6 +35,8 @@ class SettingsPage extends StatelessWidget {
                 const UserIdentitySection(),
                 const SizedBox(height: AppSpacing.md),
                 const InvoiceSeriesSection(),
+                const SizedBox(height: AppSpacing.md),
+                const AppVersionSection(),
                 const SizedBox(height: AppSpacing.lg),
                 Align(
                   alignment: Alignment.centerRight,

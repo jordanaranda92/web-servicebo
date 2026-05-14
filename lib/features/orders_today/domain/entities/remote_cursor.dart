@@ -15,8 +15,17 @@ class RemoteCursor extends Equatable {
     required this.userName,
     this.productId,
     this.clientId,
-    required this.color,
+    this.color = const Color(0xFF9E9E9E),
   });
+
+  /// Returns a copy with a different color assigned locally.
+  RemoteCursor withColor(Color newColor) => RemoteCursor(
+    userId: userId,
+    userName: userName,
+    productId: productId,
+    clientId: clientId,
+    color: newColor,
+  );
 
   @override
   List<Object?> get props => [userId, userName, productId, clientId, color];

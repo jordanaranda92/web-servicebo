@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/theme_constants.dart';
+import '../../../../app/theme/theme_extensions.dart';
 
 /// Chip that displays an invoice status with appropriate colors.
 class InvoiceStatusChip extends StatelessWidget {
@@ -12,22 +13,26 @@ class InvoiceStatusChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final customColors = Theme.of(context).extension<CustomColors>();
     final l10n = AppLocalizations.of(context)!;
+    final successColor = customColors?.success ?? Colors.green;
+    final pendingColor = Colors.orange;
+    final dangerColor = customColors?.danger ?? Colors.red;
     final (label, bgColor, fgColor) = switch (status.toLowerCase()) {
       'paid' => (
         l10n.invoiceStatusPaid,
-        Colors.green.shade100,
-        Colors.green.shade900,
+        successColor.withValues(alpha: 0.15),
+        successColor,
       ),
       'pending' => (
         l10n.invoiceStatusPending,
-        Colors.orange.shade100,
-        Colors.orange.shade900,
+        pendingColor.withValues(alpha: 0.15),
+        pendingColor,
       ),
       'overdue' => (
         l10n.invoiceStatusOverdue,
-        Colors.red.shade100,
-        Colors.red.shade900,
+        dangerColor.withValues(alpha: 0.15),
+        dangerColor,
       ),
       'draft' => (
         l10n.invoiceStatusDraft,
@@ -36,8 +41,8 @@ class InvoiceStatusChip extends StatelessWidget {
       ),
       'voided' => (
         l10n.invoiceStatusVoided,
-        Colors.grey.shade200,
-        Colors.grey.shade700,
+        colorScheme.outlineVariant.withValues(alpha: 0.3),
+        colorScheme.onSurfaceVariant,
       ),
       'overpaid' => (
         l10n.invoiceStatusOverpaid,

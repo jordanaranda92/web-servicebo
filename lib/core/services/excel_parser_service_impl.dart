@@ -184,7 +184,7 @@ class ExcelParserServiceImpl implements ExcelParserService {
       );
     } on ParsingException {
       rethrow;
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error al parsear bytes Excel', e, st);
       throw const ParsingException('Error al leer el archivo Excel');
     }
@@ -200,7 +200,7 @@ class ExcelParserServiceImpl implements ExcelParserService {
           .where((cell) => cell != null && cell.value != null)
           .map((cell) => cell!.value.toString())
           .toList();
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error al leer cabeceras de bytes', e, st);
       throw const ParsingException('Error al leer las cabeceras del archivo');
     }
@@ -235,7 +235,7 @@ class ExcelParserServiceImpl implements ExcelParserService {
       }
 
       return _encode(excel);
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error al codificar OrderSheet', e, st);
       throw const ParsingException('Error al codificar el archivo Excel');
     }
@@ -279,7 +279,7 @@ class ExcelParserServiceImpl implements ExcelParserService {
       return _encode(excel);
     } on ParsingException {
       rethrow;
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error al actualizar estructura', e, st);
       throw const ParsingException(
         'Error al actualizar la estructura del archivo',
@@ -320,7 +320,7 @@ class ExcelParserServiceImpl implements ExcelParserService {
       return _encode(ctx.excel);
     } on ParsingException {
       rethrow;
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error al actualizar celda en bytes', e, st);
       throw const ParsingException('Error al actualizar el valor');
     }
@@ -348,7 +348,7 @@ class ExcelParserServiceImpl implements ExcelParserService {
       return _encode(ctx.excel);
     } on ParsingException {
       rethrow;
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error al renombrar cliente en bytes', e, st);
       throw const ParsingException('Error al renombrar el cliente');
     }
@@ -370,7 +370,7 @@ class ExcelParserServiceImpl implements ExcelParserService {
       return _encode(ctx.excel);
     } on ParsingException {
       rethrow;
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error al añadir fila en bytes', e, st);
       throw const ParsingException('Error al añadir la fila');
     }
@@ -398,7 +398,7 @@ class ExcelParserServiceImpl implements ExcelParserService {
       return _encode(ctx.excel);
     } on ParsingException {
       rethrow;
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error al eliminar filas en bytes', e, st);
       throw const ParsingException('Error al eliminar las filas');
     }

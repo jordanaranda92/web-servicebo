@@ -24,7 +24,9 @@ void registerInvoicesModule(GetIt sl) {
   sl.registerLazySingleton(() => GetFdContactNames(sl()));
   sl.registerLazySingleton(() => PrepareInvoicePreview(sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => CheckDuplicateInvoice(sl()));
-  sl.registerLazySingleton(() => CreateProvisionalInvoice(sl(), sl()));
+  sl.registerLazySingleton(
+    () => CreateProvisionalInvoice(sl<InvoicesRepository>(), sl()),
+  );
 
   sl.registerFactory(
     () => InvoicesCubit(

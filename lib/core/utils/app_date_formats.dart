@@ -17,6 +17,9 @@ class AppDateFormats {
   /// "28/03/2026"
   static DateFormat shortDate() => DateFormat('dd/MM/yyyy', locale);
 
+  /// "28 de marzo"
+  static DateFormat dayMonth() => DateFormat("d 'de' MMMM", locale);
+
   /// "14:30:00"
   static DateFormat time() => DateFormat('HH:mm:ss', locale);
 }

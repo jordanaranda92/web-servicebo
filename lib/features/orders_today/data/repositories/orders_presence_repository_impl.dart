@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import '../../domain/entities/cell_lock.dart';
 import '../../domain/entities/remote_cursor.dart';
 import '../../domain/repositories/orders_presence_repository.dart';
@@ -19,10 +17,8 @@ class OrdersPresenceRepositoryImpl implements OrdersPresenceRepository {
     required String userId,
     String? productId,
     String? clientId,
-    required String color,
     required String userName,
-  }) =>
-      _dataSource.updateMyCursor(userId, productId, clientId, color, userName);
+  }) => _dataSource.updateMyCursor(userId, productId, clientId, userName);
 
   @override
   Future<void> cleanExpiredLocks() => _dataSource.cleanExpiredLocks();
@@ -47,9 +43,7 @@ class OrdersPresenceRepositoryImpl implements OrdersPresenceRepository {
   }
 
   @override
-  Stream<RemoteCursorChange> onCursorChanged(
-    Color Function(String hex) colorParser,
-  ) {
+  Stream<RemoteCursorChange> onCursorChanged() {
     return _dataSource.onCursorChanged().map((update) {
       RemoteCursor? cursor;
       if (update.cursor case final info?) {
@@ -58,7 +52,6 @@ class OrdersPresenceRepositoryImpl implements OrdersPresenceRepository {
           userName: info.userName ?? update.userId,
           productId: info.productId,
           clientId: info.clientId,
-          color: colorParser(info.color),
         );
       }
       return RemoteCursorChange(
@@ -92,9 +85,7 @@ class OrdersPresenceRepositoryImpl implements OrdersPresenceRepository {
   }
 
   @override
-  Future<Map<String, RemoteCursor>> getAllCursors(
-    Color Function(String hex) colorParser,
-  ) async {
+  Future<Map<String, RemoteCursor>> getAllCursors() async {
     final cursors = await _dataSource.getAllCursors();
     return cursors.map(
       (key, info) => MapEntry(
@@ -104,7 +95,6 @@ class OrdersPresenceRepositoryImpl implements OrdersPresenceRepository {
           userName: info.userName ?? key,
           productId: info.productId,
           clientId: info.clientId,
-          color: colorParser(info.color),
         ),
       ),
     );

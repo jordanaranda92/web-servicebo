@@ -12,9 +12,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get appTitle => 'Servicebo';
 
   @override
-  String get welcomeMessage => '¡Bienvenido a tu aplicación Flutter!';
-
-  @override
   String get menuHome => 'Inicio';
 
   @override
@@ -30,42 +27,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get menuSettings => 'Ajustes';
 
   @override
-  String get pagePlaceholderMessage => 'Esta funcionalidad está en desarrollo';
-
-  @override
   String get settingsFacturaDirectaTitle => 'FacturaDirecta';
 
   @override
   String get settingsFacturaDirectaDescription =>
       'Conecta tu cuenta de FacturaDirecta para volcar los pedidos vía API.';
-
-  @override
-  String get settingsFacturaDirectaCompanyId => 'ID de empresa';
-
-  @override
-  String get settingsFacturaDirectaCompanyIdHint => 'mi-empresa';
-
-  @override
-  String get settingsFacturaDirectaApiToken => 'API Token';
-
-  @override
-  String get settingsFacturaDirectaApiTokenHint => 'Introduce tu API token';
-
-  @override
-  String settingsFacturaDirectaAccount(String companyId) {
-    return 'Cuenta de Factura Directa configurada: $companyId';
-  }
-
-  @override
-  String get settingsFacturaDirectaVerify => 'Verificar conexión';
-
-  @override
-  String get settingsFacturaDirectaVerifyDescription =>
-      'Introduce tu API token para verificar la conexión con FacturaDirecta.';
-
-  @override
-  String get settingsFacturaDirectaVerified =>
-      'Conexión verificada correctamente';
 
   @override
   String get settingsInvoiceSeriesLabel => 'Serie facturas';
@@ -77,13 +43,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsInvoiceSeriesEmpty => 'La serie no puede estar vacía';
 
   @override
-  String get settingsSyncProductsButton => 'Sincronizar productos';
-
-  @override
-  String get settingsFacturaDirectaEdit => 'Editar configuración';
-
-  @override
-  String get settingsDisconnect => 'Desconectar';
+  String get settingsInvoiceSeriesSaveError =>
+      'Error al guardar la serie de facturas';
 
   @override
   String get settingsSave => 'Guardar';
@@ -127,22 +88,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get ordersTodayErrorUnknown => 'Ha ocurrido un error inesperado.';
 
   @override
-  String get ordersTodayVersionOutdated =>
-      'La estructura del archivo difiere de la plantilla actual.';
-
-  @override
-  String get ordersTodayUpdateStructure => 'Actualizar estructura';
-
-  @override
-  String get ordersTodayColumnClient => 'Cliente';
-
-  @override
-  String get ordersTodayColumnProduct => 'Producto';
-
-  @override
-  String get ordersTodayColumnTotal => 'Total';
-
-  @override
   String get ordersTodayColumnPedidos => 'PEDIDOS';
 
   @override
@@ -152,40 +97,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get ordersTodayColumnQuedan => 'QUEDAN';
 
   @override
-  String get ordersTodayRowTotals => 'Totales';
-
-  @override
   String get ordersTodayRetry => 'Reintentar';
 
   @override
-  String get ordersTodaySearchClient => 'Buscar cliente...';
-
-  @override
   String get ordersTodayDelete => 'Eliminar';
-
-  @override
-  String get ordersTodayAddRow => 'Añadir fila';
-
-  @override
-  String get ordersTodayAddRowTitle => 'Nueva fila';
-
-  @override
-  String get ordersTodayAddRowHint => 'Nombre del cliente';
-
-  @override
-  String get ordersTodayAddRowConfirm => 'Añadir';
-
-  @override
-  String get ordersTodaySyncExcel => 'Sincronizar excel';
-
-  @override
-  String get ordersTodaySaveExcel => 'Guardar excel';
-
-  @override
-  String get ordersTodaySaveAsNew => 'Guardar como nuevo Excel';
-
-  @override
-  String get ordersTodayExportPdf => 'Exportar como PDF';
 
   @override
   String get ordersTodayExportExcel => 'Exportar Excel';
@@ -198,36 +113,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get ordersTodayShowPreview => 'Mostrar preview';
-
-  @override
-  String get ordersTodaySaveSuccess => 'Excel guardado correctamente';
-
-  @override
-  String get ordersTodaySaveError => 'Error al guardar el Excel';
-
-  @override
-  String ordersTodayLastSaved(String date) {
-    return 'Último guardado: $date';
-  }
-
-  @override
-  String get ordersTodayGenerateInvoice => 'Generar factura';
-
-  @override
-  String get ordersTodayViewOrders => 'Visualizar pedidos';
-
-  @override
-  String get ordersTodayViewTitle => 'Pedidos de hoy';
-
-  @override
-  String ordersTodayViewUpdatedAgo(int seconds) {
-    return 'Actualizado hace $seconds s';
-  }
-
-  @override
-  String ordersTodaySelectedCount(int count) {
-    return '$count seleccionado(s)';
-  }
 
   @override
   String get ordersTodayDeleteConfirmTitle => 'Eliminar clientes';
@@ -247,51 +132,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get ordersTodayDeleteConfirm => 'Eliminar';
-
-  @override
-  String get ordersTodayUnsavedTitle => 'Cambios sin guardar';
-
-  @override
-  String get ordersTodayUnsavedMessage =>
-      'Tienes cambios sin guardar en la tabla de pedidos. Si sales ahora, se perderán.';
-
-  @override
-  String get ordersTodayUnsavedStay => 'Quedarse';
-
-  @override
-  String get ordersTodayUnsavedLeave => 'Salir sin guardar';
-
-  @override
-  String get ordersTodaySyncUnsavedMessage =>
-      'Tienes cambios sin guardar. Si sincronizas ahora, se descartarán todos los cambios y se recargará el archivo del disco.';
-
-  @override
-  String get ordersTodaySyncConfirm => 'Sincronizar';
-
-  @override
-  String get settingsFacturaDirectaErrorValidation =>
-      'El subdominio y el token API son obligatorios';
-
-  @override
-  String get settingsFacturaDirectaErrorSaveFailed =>
-      'Error al guardar la configuración';
-
-  @override
-  String get settingsFacturaDirectaErrorVerifyFailed =>
-      'No se pudo verificar la conexión';
-
-  @override
-  String get settingsFacturaDirectaErrorInvalidCredentials =>
-      'Credenciales inválidas';
-
-  @override
-  String get settingsErrorDisconnectFailed => 'Error al desconectar';
-
-  @override
-  String get ordersHistoryHeaderLabel => 'HISTORIAL';
-
-  @override
-  String get ordersHistoryGoToSettings => 'Ir a Ajustes';
 
   @override
   String get ordersHistoryEmptyTitle => 'Sin pedidos anteriores';
@@ -336,41 +176,7 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get ordersHistoryFilterByDate => 'Filtrar por fecha';
-
-  @override
-  String get ordersHistoryFilterFrom => 'Desde';
-
-  @override
-  String get ordersHistoryFilterTo => 'Hasta';
-
-  @override
-  String get ordersHistoryFilterClear => 'Limpiar filtro';
-
-  @override
-  String ordersHistoryFilterActive(String start, String end) {
-    return 'Filtro activo: $start – $end';
-  }
-
-  @override
-  String ordersHistoryDateCount(int count) {
-    return '$count fecha(s) disponible(s)';
-  }
-
-  @override
   String get ordersHistoryLastWeek => 'Última semana';
-
-  @override
-  String get dashboardProducts => 'Tipos de productos';
-
-  @override
-  String get dashboardTotalUnits => 'Unidades';
-
-  @override
-  String get dashboardTopProduct => 'Producto estrella';
-
-  @override
-  String get dashboardTopProductNone => '—';
 
   @override
   String get dashboardInvoices => 'Número de facturas';
@@ -394,28 +200,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get dashboardVsLastWeek => 'Semana actual vs. anterior';
 
   @override
-  String get dashboardVsLastMonth => 'Mes actual vs. mes anterior';
-
-  @override
   String get dashboardNoData => 'Sin datos';
-
-  @override
-  String get dashboardUnitsLabel => 'uds';
-
-  @override
-  String get dashboardClientsLabel => 'pedidos';
 
   @override
   String get dashboardInvoicesLabel => 'facturas';
 
   @override
   String get dashboardInvoicesTotalLabel => 'importe';
-
-  @override
-  String get dashboardGoToSettings => 'Ir a Ajustes';
-
-  @override
-  String get dashboardTodaySummary => 'Resumen del día';
 
   @override
   String get dashboardComparisons => 'Comparativas';
@@ -440,13 +231,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'No se encontraron categorías de clientes';
 
   @override
-  String get clientCategoriesColumnId => 'ID';
-
-  @override
   String get clientCategoriesColumnName => 'Nombre';
-
-  @override
-  String get clientCategoriesColumnActive => 'Activo';
 
   @override
   String get clientCategoriesSearch => 'Buscar categoría...';
@@ -481,12 +266,6 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get clientCategoriesActivate => 'Activar';
-
-  @override
-  String get clientCategoriesDeactivate => 'Desactivar';
-
-  @override
   String get clientCategoriesProgressSaving => 'Guardando cambios...';
 
   @override
@@ -496,21 +275,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get clientCategoriesSuccessCreated => 'Categoría creada correctamente';
 
   @override
-  String get clientCategoriesDiscardChanges => 'Cancelar cambios';
-
-  @override
-  String get clientCategoriesSaveChanges => 'Guardar cambios';
-
-  @override
   String get clientCategoriesSuccessSaved => 'Cambios guardados correctamente';
-
-  @override
-  String get clientCategoriesSuccessUpdated =>
-      'Categoría actualizada correctamente';
-
-  @override
-  String get clientCategoriesSuccessToggled =>
-      'Estado de la categoría actualizado';
 
   @override
   String get clientCategoriesSuccessDeleted =>
@@ -535,13 +300,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'No hay clientes disponibles';
 
   @override
-  String get clientCategoriesAssociateLoading => 'Cargando clientes...';
-
-  @override
   String get clientCategoriesAssociateError => 'Error al cargar clientes';
-
-  @override
-  String get clientCategoriesAssociateProgressSaving => 'Asociando clientes...';
 
   @override
   String get clientCategoriesAssociateSuccess =>
@@ -562,19 +321,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get clientsSearch => 'Buscar cliente...';
-
-  @override
-  String get clientsSyncFromFd => 'Sincronizar desde Factura Directa';
-
-  @override
-  String get clientsSyncingFromFd =>
-      'Sincronizando clientes desde Factura Directa…';
-
-  @override
-  String get clientsSyncSuccess => 'Clientes sincronizados correctamente';
-
-  @override
-  String get clientsSyncError => 'Error al sincronizar clientes';
 
   @override
   String get clientsAddFromFd => 'Añadir desde Factura Directa';
@@ -647,20 +393,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get clientsEmpty => 'No se encontraron clientes';
 
   @override
-  String get clientsConfigMissingTitle => 'Configuración necesaria';
-
-  @override
-  String get clientsConfigMissingFacturaDirecta =>
-      'Configura tu cuenta de FacturaDirecta en Ajustes.';
-
-  @override
-  String get clientsConfigMissingBoth =>
-      'Conecta Google Drive y configura FacturaDirecta en Ajustes para ver los clientes.';
-
-  @override
-  String get clientsGoToSettings => 'Ir a Ajustes';
-
-  @override
   String get clientsColumnName => 'Nombre';
 
   @override
@@ -688,13 +420,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get productsColumnName => 'Nombre';
 
   @override
-  String get productsColumnSku => 'Código';
-
-  @override
   String get productsColumnPrice => 'Precio';
-
-  @override
-  String get productsColumnId => 'ID';
 
   @override
   String get productsColumnActive => 'Activo';
@@ -703,20 +429,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get productsColumnInactive => 'Inactivo';
 
   @override
-  String get productsColumnShowInOrders => 'Visible pedidos';
-
-  @override
-  String get productsColumnOrderInOrders => 'Orden';
-
-  @override
   String get productsColumnFdProduct => 'Producto Factura Directa';
 
   @override
   String get productsColumnActions => 'Acciones';
-
-  @override
-  String get productsFdWarning =>
-      'Algunos productos no pudieron cargarse desde Factura Directa';
 
   @override
   String get productsSelectFdProduct => 'Vincular producto';
@@ -765,19 +481,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get productsNameRequired => 'El nombre es obligatorio';
 
   @override
-  String get productsProgressSaving => 'Guardando cambios...';
-
-  @override
-  String get productsProgressDeleting => 'Eliminando producto...';
-
-  @override
-  String get productsSuccessUpdated => 'Producto actualizado correctamente';
-
-  @override
   String get productsSuccessDeleted => 'Producto eliminado correctamente';
-
-  @override
-  String get productsSuccessToggled => 'Estado del producto actualizado';
 
   @override
   String get productsSuccessLinked => 'Producto vinculado correctamente';
@@ -801,22 +505,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get productsAddTitle => 'Nuevo producto';
 
   @override
-  String get productsSaveChanges => 'Guardar cambios';
-
-  @override
-  String get productsDiscardChanges => 'Cancelar cambios';
-
-  @override
   String get productsSuccessCreated => 'Producto creado correctamente';
 
   @override
   String get productsSuccessSaved => 'Cambios guardados correctamente';
-
-  @override
-  String get productsColumnNameFd => 'Nombre FD';
-
-  @override
-  String get productsColumnOrder => 'Orden';
 
   @override
   String get productsSaving => 'Guardando cambios...';
@@ -913,19 +605,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get invoicesLoadMore => 'Cargar más';
 
   @override
-  String get invoicesLoadingMore => 'Cargando más facturas...';
-
-  @override
-  String invoicesFilterChipFrom(String date) {
-    return 'Desde: $date';
-  }
-
-  @override
-  String invoicesFilterChipTo(String date) {
-    return 'Hasta: $date';
-  }
-
-  @override
   String get invoicesFilterCancel => 'Cancelar';
 
   @override
@@ -936,9 +615,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get invoiceDetailClient => 'Cliente';
-
-  @override
-  String get invoiceDetailStatus => 'Estado';
 
   @override
   String get invoiceDetailCurrency => 'Moneda';
@@ -971,10 +647,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get invoiceDetailTaxBreakdown => 'Impuestos';
 
   @override
-  String get invoiceDetailTotal => 'Total';
+  String get invoiceDetailTaxBase => 'Base imponible';
 
   @override
-  String get invoiceDetailNotFound => 'Factura no encontrada';
+  String get invoiceDetailTaxAmount => 'Cuota';
+
+  @override
+  String get invoiceDetailTotal => 'Total';
 
   @override
   String get invoiceDetailGoBack => 'Volver a facturas';
@@ -1004,75 +683,22 @@ class AppLocalizationsEs extends AppLocalizations {
   String get fdRetry => 'Reintentar';
 
   @override
-  String get clientsColumnActive => 'Activo';
-
-  @override
   String get clientsColumnCategory => 'Categoría';
 
   @override
   String get clientsCategoryUnspecified => 'Categoría no asignada';
 
   @override
-  String get clientsColumnShowInOrders => 'Mostrar en nuevos pedidos';
-
-  @override
-  String get genericYes => 'Sí';
-
-  @override
-  String get genericNo => 'No';
-
-  @override
-  String get clientsDiscardChanges => 'Cancelar cambios';
-
-  @override
-  String get clientsSuccessSaved => 'Cambios guardados correctamente';
-
-  @override
-  String get clientsErrorSaving => 'Error al guardar los cambios';
-
-  @override
-  String get clientsSaving => 'Guardando cambios...';
-
-  @override
   String get clientsSelectCategory => 'Seleccionar categoría';
-
-  @override
-  String get clientsSelectCategoryButton => 'Asignar categoría';
 
   @override
   String get clientsSelectCategorySearch => 'Buscar categoría...';
 
   @override
-  String get clientsSelectCategoryError => 'Error al cargar las categorías';
-
-  @override
   String get clientsSelectCategoryEmpty => 'No hay categorías disponibles';
 
   @override
-  String get clientsLoadingCategories => 'Cargando categorías...';
-
-  @override
-  String get clientsUnlinkCategory => 'Desvincular categoría';
-
-  @override
-  String get clientsSuccessUnlinked => 'Categoría desvinculada correctamente';
-
-  @override
-  String get ordersTodayDeleteClients => 'Eliminar clientes';
-
-  @override
   String get ordersTodayResetOrders => 'Restablecer pedidos';
-
-  @override
-  String ordersTodaySelectedClients(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: 'clientes seleccionados',
-      one: 'cliente seleccionado',
-    );
-    return '$_temp0';
-  }
 
   @override
   String get ordersTodayAdd => 'Añadir';
@@ -1112,29 +738,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get ordersTodayRemoveFromTable => 'Quitar de la tabla';
-
-  @override
-  String get ordersTodayDeleteBothConfirmTitle => 'Quitar de la tabla';
-
-  @override
-  String ordersTodayDeleteBothConfirmMessage(
-    int clientCount,
-    int productCount,
-  ) {
-    String _temp0 = intl.Intl.pluralLogic(
-      clientCount,
-      locale: localeName,
-      other: '$clientCount clientes',
-      one: '1 cliente',
-    );
-    String _temp1 = intl.Intl.pluralLogic(
-      productCount,
-      locale: localeName,
-      other: '$productCount productos',
-      one: '1 producto',
-    );
-    return '¿Quitar $_temp0 y $_temp1 de la tabla?\nEsta acción no se puede deshacer.';
-  }
 
   @override
   String get ordersTodayDeleteProductsConfirmTitle => 'Quitar productos';
@@ -1182,12 +785,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsUserNameLabel => 'Nombre de usuario';
 
   @override
-  String get settingsUserNameSaved => 'Nombre de usuario guardado';
-
-  @override
-  String get settingsUserNameEmpty => 'El nombre no puede estar vacío';
-
-  @override
   String ordersTodayCellLocked(String user) {
     return 'Celda bloqueada por $user';
   }
@@ -1229,24 +826,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String productsLinkDialogSubtitle(String productName) {
     return 'Para vincular a: $productName';
   }
-
-  @override
-  String get ordersTodaySourceDialogTitle => 'Pedidos de hoy';
-
-  @override
-  String get ordersTodaySourceDialogSubtitle =>
-      '¿Cómo quieres consultar los pedidos de hoy?';
-
-  @override
-  String get ordersTodaySourceApp => 'Pedidos de hoy (aplicación)';
-
-  @override
-  String get ordersTodaySourceAppDescription =>
-      'Gestionar los pedidos desde la aplicación';
-
-  @override
-  String get ordersTodaySourceDriveNotConfigured =>
-      'Configura Google Drive en Ajustes para acceder a las hojas de cálculo.';
 
   @override
   String get ordersTodayNoClients => 'No hay clientes añadidos';
@@ -1479,9 +1058,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get provisionalInvoiceSubtotal => 'Subtotal';
 
   @override
-  String get provisionalInvoiceTaxLabel => 'IVA';
-
-  @override
   String get provisionalInvoiceTaxHeader => 'Impuesto';
 
   @override
@@ -1626,22 +1202,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get clientCategoriesColorLabel => 'Color de categoría';
 
   @override
-  String get clientCategoriesRemoveColor => 'Quitar color';
-
-  @override
   String get clientsEdit => 'Editar';
-
-  @override
-  String get clientsView => 'Ver';
 
   @override
   String get clientsEditTitle => 'Editar cliente';
 
   @override
   String get clientsColumnShippingMethods => 'Métodos de envío';
-
-  @override
-  String get clientsColumnActions => 'Acciones';
 
   @override
   String get clientsColumnProvince => 'Provincia';
@@ -1665,19 +1232,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get clientsFdDataSection => 'Datos de Factura Directa';
 
   @override
-  String clientsShippingMethodsAssigned(int count) {
-    return '$count días asignados';
-  }
-
-  @override
   String get clientsShippingMethodsTitle => 'Métodos de envío';
 
   @override
   String get clientsShippingMethodsSubtitle =>
       'Asigna un método de envío por día';
-
-  @override
-  String get clientsShippingMethodsButton => 'Asignar métodos de envío';
 
   @override
   String get dayMonday => 'Lunes';
@@ -1764,10 +1323,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get shippingMethodsAssociateSelectAllClients => 'Seleccionar todos';
-
-  @override
-  String get shippingMethodsAssociateProgressSaving =>
-      'Guardando asociaciones...';
 
   @override
   String get shippingMethodsDelete => 'Eliminar';
@@ -1901,9 +1456,6 @@ class AppLocalizationsEs extends AppLocalizations {
       'La gestión de pedidos de hoy solo está disponible en pantallas de mayor tamaño. Por favor, accede desde un ordenador o una tablet.';
 
   @override
-  String get ordersTodayReadonlyTitle => 'Pedidos de hoy (solo lectura)';
-
-  @override
   String ordersTodayLastModified(String date) {
     return 'Última actualización: $date';
   }
@@ -1916,4 +1468,131 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get ordersTodayLiveDisconnected => 'Desconectado';
+
+  @override
+  String get statisticsComingSoon => 'Próximamente';
+
+  @override
+  String get pdfSelectShippingMethod => 'Seleccionar método de envío';
+
+  @override
+  String get pdfSearchShippingMethod => 'Buscar método de envío...';
+
+  @override
+  String get pdfColumnName => 'Nombre';
+
+  @override
+  String get pdfColumnPhone => 'Teléfono';
+
+  @override
+  String get pdfNoShippingMethodsFound => 'No se encontraron métodos de envío';
+
+  @override
+  String get taxLabelIva21 => 'IVA 21%';
+
+  @override
+  String get taxLabelIva10 => 'IVA 10%';
+
+  @override
+  String get taxLabelIva4 => 'IVA 4%';
+
+  @override
+  String get taxLabelRe52 => 'RE 5,20%';
+
+  @override
+  String get taxLabelRe14 => 'RE 1,40%';
+
+  @override
+  String get taxLabelRe05 => 'RE 0,50%';
+
+  @override
+  String dashboardDateRangeFormat(int startDay, int endDay, String month) {
+    return '$startDay–$endDay de $month';
+  }
+
+  @override
+  String pdfSubtitleFor(String clientName, String dayName) {
+    return 'Para: $clientName ($dayName)';
+  }
+
+  @override
+  String settingsAppVersionTitle(String version) {
+    return 'Versión de la web $version';
+  }
+
+  @override
+  String get ordersTodayHistoryTitle => 'Historial de acciones';
+
+  @override
+  String get ordersTodayHistoryButton => 'Historial';
+
+  @override
+  String get ordersTodayHistoryEmpty => 'No hay acciones registradas hoy.';
+
+  @override
+  String get ordersTodayHistoryError => 'Error al cargar el historial.';
+
+  @override
+  String get ordersTodayHistoryLoading => 'Cargando historial…';
+
+  @override
+  String get ordersTodayHistoryClose => 'Cerrar';
+
+  @override
+  String get orderActionQuantityChanged => 'Cantidad modificada';
+
+  @override
+  String get orderActionStockChanged => 'Stock modificado';
+
+  @override
+  String get orderActionCompensationMarked => 'Compensación marcada';
+
+  @override
+  String get orderActionCompensationUnmarked => 'Compensación desmarcada';
+
+  @override
+  String get orderActionReservationMarked => 'Reserva marcada';
+
+  @override
+  String get orderActionReservationUnmarked => 'Reserva desmarcada';
+
+  @override
+  String get orderActionStrictStockMarked => 'Stock estricto activado';
+
+  @override
+  String get orderActionStrictStockUnmarked => 'Stock estricto desactivado';
+
+  @override
+  String get orderActionRefundAdded => 'Abono creado';
+
+  @override
+  String get orderActionRefundEdited => 'Abono editado';
+
+  @override
+  String get orderActionRefundRemoved => 'Abono eliminado';
+
+  @override
+  String get orderActionOrdersReset => 'Pedido restablecido';
+
+  @override
+  String get orderActionClientsAdded => 'Cliente añadido';
+
+  @override
+  String get orderActionClientsRemoved => 'Cliente eliminado';
+
+  @override
+  String get orderActionProductsAdded => 'Productos añadidos';
+
+  @override
+  String get orderActionProductsRemoved => 'Productos eliminados';
+
+  @override
+  String get orderActionOrderSheetGenerated => 'Hoja de pedido generada';
+
+  @override
+  String get orderActionOrderSheetCreated => 'Hoja de pedido creada';
+
+  @override
+  String get orderActionProvisionalInvoiceGenerated =>
+      'Albarán provisional generado';
 }

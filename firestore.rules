@@ -95,14 +95,17 @@ service cloud.firestore {
       match /rows/{productId} {
         allow read, write: if isAuthenticated();
       }
+
+      match /history/{entryId} {
+        allow read, write: if isAuthenticated();
+      }
     }
 
     // ── factura_directa_configuration/{docId} ─────────────────────
-    // All authenticated users can read the configuration.
-    // Only admins can write (create/update/delete) configuration.
+    // All authenticated users can read and write the configuration
+    // (invoice series, API settings, etc.).
     match /factura_directa_configuration/{docId} {
-      allow read: if isAuthenticated();
-      allow write: if isAdmin();
+      allow read, write: if isAuthenticated();
     }
   }
 }

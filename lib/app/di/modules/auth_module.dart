@@ -39,5 +39,5 @@ void registerAuthModule(GetIt sl) {
 
   // Presentation — Cubits
   sl.registerLazySingleton(() => AuthCubit());
-  sl.registerFactory(() => LoginCubit(sl(), sl(), sl()));
+  sl.registerFactory(() => LoginCubit(sl(), sl(), sl(), sl()));
 }

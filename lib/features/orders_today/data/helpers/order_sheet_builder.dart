@@ -84,8 +84,15 @@ OrderSheet buildOrderSheet(
   );
 }
 
-/// Sorts [ids] by the `order` field from [orderMap], falling back to 9999.
+/// Fallback order value for items without an explicit sort position.
+const defaultSortOrder = 9999;
+
+/// Sorts [ids] by the `order` field from [orderMap], falling back to
+/// [defaultSortOrder].
 List<String> _sortIdsByOrder(List<String> ids, Map<String, int?> orderMap) {
-  return List<String>.from(ids)
-    ..sort((a, b) => (orderMap[a] ?? 9999).compareTo(orderMap[b] ?? 9999));
+  return List<String>.from(ids)..sort(
+    (a, b) => (orderMap[a] ?? defaultSortOrder).compareTo(
+      orderMap[b] ?? defaultSortOrder,
+    ),
+  );
 }

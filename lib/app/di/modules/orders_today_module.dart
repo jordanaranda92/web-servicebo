@@ -1,7 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../../core/auth/current_user_provider.dart';
+import '../../../features/auth/data/datasources/auth_remote_data_source.dart';
+import '../../../features/auth/data/providers/firebase_current_user_provider.dart';
 import '../../../features/orders_today/data/datasources/remote/order_firestore_data_source.dart';
 import '../../../features/orders_today/data/datasources/remote/order_firestore_data_source_impl.dart';
 import '../../../features/orders_today/data/datasources/remote/orders_rtdb_data_source.dart';
@@ -17,6 +21,7 @@ import '../../../features/orders_today/domain/services/order_sheet_pdf_generator
 import '../../../features/orders_today/domain/usecases/add_order_clients.dart';
 import '../../../features/orders_today/domain/usecases/add_order_products.dart';
 import '../../../features/orders_today/domain/usecases/create_today_file.dart';
+import '../../../features/orders_today/domain/usecases/get_action_history.dart';
 import '../../../features/orders_today/domain/usecases/get_today_orders.dart';
 import '../../../features/orders_today/domain/usecases/remove_order_clients.dart';
 import '../../../features/orders_today/domain/usecases/remove_order_products.dart';
@@ -28,9 +33,20 @@ import '../../../features/orders_today/domain/usecases/update_order_cell.dart';
 import '../../../features/orders_today/presentation/bloc/orders_today_bloc.dart';
 
 void registerOrdersTodayModule(GetIt sl) {
+  // Data — CurrentUserProvider
+  sl.registerLazySingleton<CurrentUserProvider>(
+    () => FirebaseCurrentUserProvider(
+      sl<FirebaseAuth>(),
+      sl<AuthRemoteDataSource>(),
+    ),
+  );
+
   // Data — Firestore DataSource
   sl.registerLazySingleton<OrderFirestoreDataSource>(
-    () => OrderFirestoreDataSourceImpl(sl<FirebaseFirestore>()),
+    () => OrderFirestoreDataSourceImpl(
+      sl<FirebaseFirestore>(),
+      sl<CurrentUserProvider>(),
+    ),
   );
 
   // Data — RTDB DataSource (only if Firebase is available)
@@ -65,6 +81,7 @@ void registerOrdersTodayModule(GetIt sl) {
   sl.registerLazySingleton(() => ResetClientOrders(sl()));
   sl.registerLazySingleton(() => AddOrderClients(sl()));
   sl.registerLazySingleton(() => AddOrderProducts(sl()));
+  sl.registerLazySingleton(() => GetActionHistory(sl()));
 
   // Data — Services
   sl.registerLazySingleton<OrderSheetExcelGenerator>(

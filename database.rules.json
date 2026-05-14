@@ -19,7 +19,19 @@
                 ".read": "auth != null",
                 "$userId": {
                     ".write": "auth != null && auth.uid != null",
-                    ".validate": "newData.hasChildren(['color', 'userName']) && newData.child('color').isString() && newData.child('userName').isString() && newData.child('userName').val().length <= 100"
+                    ".validate": "newData.hasChildren(['name']) && newData.child('name').isString() && newData.child('name').val().length <= 100",
+                    "pid": {
+                        ".validate": "newData.isString()"
+                    },
+                    "cid": {
+                        ".validate": "newData.isString()"
+                    },
+                    "name": {
+                        ".validate": "newData.isString() && newData.val().length <= 100"
+                    },
+                    "$other": {
+                        ".validate": false
+                    }
                 }
             }
         }

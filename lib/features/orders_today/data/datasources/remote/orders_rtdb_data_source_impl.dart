@@ -169,7 +169,6 @@ class OrdersRtdbDataSourceImpl implements OrdersRtdbDataSource {
     String userId,
     String? productId,
     String? clientId,
-    String color,
     String userName,
   ) async {
     await _cursorsRef.child(userId).set({
@@ -177,7 +176,6 @@ class OrdersRtdbDataSourceImpl implements OrdersRtdbDataSource {
       if (productId != null) 'pid': productId,
       // ignore: use_null_aware_elements
       if (clientId != null) 'cid': clientId,
-      'color': color,
       'name': userName,
     });
   }

@@ -3,8 +3,7 @@ import 'dart:developer' as dev;
 import 'package:equatable/equatable.dart';
 import 'package:fpdart/fpdart.dart';
 
-import '../../../../core/data/datasources/factura_directa_api_data_source.dart';
-import '../../../../core/error/exceptions.dart';
+import '../../../../core/domain/repositories/factura_directa_repository.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../clients/domain/repositories/clients_repository.dart';
@@ -37,7 +36,7 @@ class PrepareInvoicePreview
   final ClientsRepository _clientsRepository;
   final ProductsRepository _productsRepository;
   final GetFdProducts _getFdProducts;
-  final FacturaDirectaApiDataSource _fdApi;
+  final FacturaDirectaRepository _fdRepo;
 
   static const _reMapping = {
     'S_IVA_21': 'S_IVA_RE_5.2',
@@ -57,7 +56,7 @@ class PrepareInvoicePreview
     this._clientsRepository,
     this._productsRepository,
     this._getFdProducts,
-    this._fdApi,
+    this._fdRepo,
   );
 
   @override
@@ -159,10 +158,12 @@ class PrepareInvoicePreview
           // 9. Get contact from FD for payment method and fiscal position
           String? paymentMethod;
           String? salesFiscalPosition;
-          try {
-            final contactData = await _fdApi.getContactById(
-              client.facturaDirectaUuid,
-            );
+          final contactResult = await _fdRepo.getContactById(
+            client.facturaDirectaUuid,
+          );
+          final contactFold = contactResult.fold((failure) => failure, (
+            contactData,
+          ) {
             final main =
                 (contactData['content'] as Map<String, dynamic>?)?['main']
                     as Map<String, dynamic>?;
@@ -175,15 +176,9 @@ class PrepareInvoicePreview
               'paymentMethod=$paymentMethod',
               name: 'Invoices',
             );
-          } on ServerException catch (e) {
-            dev.log(
-              '[PrepareInvoicePreview] Error getting contact: ${e.message}',
-              name: 'Invoices',
-            );
-            return Left(ServerFailure());
-          } on NetworkException {
-            return Left(NetworkFailure());
-          }
+            return null;
+          });
+          if (contactFold is Failure) return Left(contactFold);
 
           final applyRe = salesFiscalPosition == 'aut_re';
 

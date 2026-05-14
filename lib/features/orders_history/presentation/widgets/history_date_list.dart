@@ -23,10 +23,12 @@ class _HistoryDateListState extends State<HistoryDateList> {
   final _scrollController = ScrollController();
   late List<_Section> _sections;
   late List<GlobalKey> _sectionKeys;
+  late String _lastWeekLabel;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _lastWeekLabel = AppLocalizations.of(context)!.ordersHistoryLastWeek;
     _sections = _buildSections(widget.dates);
     _sectionKeys = List.generate(_sections.length, (_) => GlobalKey());
   }
@@ -150,8 +152,6 @@ class _HistoryDateListState extends State<HistoryDateList> {
 
     return sections;
   }
-
-  static const _lastWeekLabel = 'Última semana';
 }
 
 class _Section {
@@ -243,7 +243,9 @@ class _SectionNav extends StatelessWidget {
                           const SizedBox(width: AppSpacing.sm),
                           Icon(
                             section.title ==
-                                    _HistoryDateListState._lastWeekLabel
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.ordersHistoryLastWeek
                                 ? Icons.access_time_rounded
                                 : Icons.calendar_month_rounded,
                             size: 14,

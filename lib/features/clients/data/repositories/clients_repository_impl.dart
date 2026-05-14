@@ -73,7 +73,7 @@ class ClientsRepositoryImpl implements ClientsRepository {
       return Left(ServerFailure());
     } on NetworkException {
       return Left(NetworkFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('[ClientsRepo] unexpected error: $e', e, st);
       return Left(InternalFailure());
     }
@@ -204,7 +204,7 @@ class ClientsRepositoryImpl implements ClientsRepository {
       return Left(ServerFailure());
     } on NetworkException {
       return Left(NetworkFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('[ClientsRepo] unexpected error: $e', e, st);
       return Left(InternalFailure());
     }
@@ -222,7 +222,7 @@ class ClientsRepositoryImpl implements ClientsRepository {
     } on ServerException catch (e) {
       _logger.error('[ClientsRepo] ServerException: ${e.message}');
       return Left(ServerFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('[ClientsRepo] unexpected error: $e', e, st);
       return Left(InternalFailure());
     }
@@ -252,7 +252,7 @@ class ClientsRepositoryImpl implements ClientsRepository {
     } on ServerException catch (e) {
       _logger.error('[ClientsRepo] ServerException: ${e.message}');
       return Left(ServerFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('[ClientsRepo] unexpected error: $e', e, st);
       return Left(InternalFailure());
     }

@@ -41,7 +41,7 @@ class FacturaDirectaApiDataSourceImpl implements FacturaDirectaApiDataSource {
         );
       }
       throw ServerException(message: e.message ?? 'Error del proxy');
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('[FD API] Proxy unexpected error: $e', e, st);
       throw NetworkException('Error al llamar al proxy: $e');
     }

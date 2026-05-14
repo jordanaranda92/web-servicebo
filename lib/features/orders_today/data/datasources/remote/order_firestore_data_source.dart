@@ -1,3 +1,4 @@
+import '../../models/order_action_entry_model.dart';
 import '../../models/order_document_model.dart';
 import '../../models/order_row_model.dart';
 
@@ -5,8 +6,9 @@ import '../../models/order_row_model.dart';
 ///
 /// Collection structure:
 /// ```
-/// orders/{YYYY-MM-DD}           → OrderDocumentModel
-/// orders/{YYYY-MM-DD}/rows/{id} → OrderRowModel
+/// orders/{YYYY-MM-DD}              → OrderDocumentModel
+/// orders/{YYYY-MM-DD}/rows/{id}    → OrderRowModel
+/// orders/{YYYY-MM-DD}/history/{id} → OrderActionEntryModel
 /// ```
 abstract class OrderFirestoreDataSource {
   /// Returns `true` if the order document for [date] exists.
@@ -139,4 +141,17 @@ abstract class OrderFirestoreDataSource {
   /// Returns all root order documents (without subcollections).
   /// Used by the history feature to list available dates.
   Future<List<OrderDocumentModel>> getAllOrderDocuments();
+
+  // ── Action History ────────────────────────────────────────────
+
+  /// Adds a history entry to the order's history subcollection.
+  Future<void> addHistoryEntry({
+    required String date,
+    required String actionType,
+    required String userId,
+    required Map<String, String> details,
+  });
+
+  /// Reads all history entries for a given date, ordered by timestamp desc.
+  Future<List<OrderActionEntryModel>> getHistory(String date);
 }

@@ -154,7 +154,7 @@ class _DashboardContent extends StatelessWidget {
   Widget _buildInvoicesCombinedCard(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    const accent = Colors.deepPurple;
+    final accent = colorScheme.primary;
 
     return BlocBuilder<FdCountersCubit, FdCountersState>(
       buildWhen: (previous, current) =>
@@ -282,7 +282,11 @@ class _DashboardContent extends StatelessWidget {
   String _fmtRange(DateTime start, DateTime end) {
     final months = localizedMonths(l10n);
     if (start.month == end.month) {
-      return '${start.day}–${end.day} de ${months[start.month - 1]}';
+      return l10n.dashboardDateRangeFormat(
+        start.day,
+        end.day,
+        months[start.month - 1],
+      );
     }
     return '${_fmtDay(start)} – ${_fmtDay(end)}';
   }

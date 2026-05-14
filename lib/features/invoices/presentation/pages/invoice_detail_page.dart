@@ -50,6 +50,8 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
     return BlocProvider.value(
       value: _cubit,
       child: BlocBuilder<InvoiceDetailCubit, InvoiceDetailState>(
+        buildWhen: (previous, current) =>
+            previous.runtimeType != current.runtimeType || previous != current,
         builder: (context, state) {
           if (state is InvoiceDetailLoading || state is InvoiceDetailInitial) {
             return const Center(child: CircularProgressIndicator());
@@ -178,7 +180,7 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
           isMobile: isMobile,
         ),
         const SizedBox(height: AppSpacing.lg),
-        // Totals section
+        // Totals + tax breakdown section
         _buildTotalsSection(invoice, l10n, colorScheme, textTheme, cur),
       ],
     );
@@ -368,7 +370,7 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
                   ),
                 ),
                 SizedBox(
-                  width: 70,
+                  width: 120,
                   child: Text(
                     l10n.invoiceDetailLineTax,
                     style: headerStyle,
@@ -427,13 +429,15 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
                     ),
                   ),
                   SizedBox(
-                    width: 70,
+                    width: 120,
                     child: Text(
-                      line.taxPercentage != null
-                          ? '${line.taxPercentage!.toStringAsFixed(0)}%'
-                          : '—',
-                      style: textTheme.bodyMedium,
+                      _formatTaxLabels(line.tax, l10n),
+                      style: textTheme.bodySmall?.copyWith(
+                        color: colorScheme.onSurfaceVariant,
+                      ),
                       textAlign: TextAlign.right,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   SizedBox(
@@ -513,11 +517,10 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
                     Expanded(
                       child: _buildMobileLineField(
                         l10n.invoiceDetailLineTax,
-                        line.taxPercentage != null
-                            ? '${line.taxPercentage!.toStringAsFixed(0)}%'
-                            : '—',
+                        _formatTaxLabels(line.tax, l10n),
                         textTheme,
                         colorScheme,
+                        small: true,
                       ),
                     ),
                     Expanded(
@@ -547,6 +550,7 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
     TextTheme textTheme,
     ColorScheme colorScheme, {
     bool isBold = false,
+    bool small = false,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -560,7 +564,7 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
         const SizedBox(height: 2),
         Text(
           value,
-          style: textTheme.bodyMedium?.copyWith(
+          style: (small ? textTheme.bodySmall : textTheme.bodyMedium)?.copyWith(
             fontWeight: isBold ? FontWeight.w600 : null,
           ),
         ),
@@ -575,6 +579,7 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
     TextTheme textTheme,
     String cur,
   ) {
+    final taxBreakdown = _computeTaxBreakdown(invoice.lines);
     final taxTotal = invoice.total != null && invoice.subtotal != null
         ? invoice.total! - invoice.subtotal!
         : null;
@@ -600,7 +605,16 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
               textTheme,
               colorScheme,
             ),
-            if (taxTotal != null && taxTotal != 0) ...[
+            if (taxBreakdown.isNotEmpty) ...[
+              const SizedBox(height: AppSpacing.md),
+              _buildTaxBreakdownTable(
+                taxBreakdown,
+                l10n,
+                colorScheme,
+                textTheme,
+                cur,
+              ),
+            ] else if (taxTotal != null && taxTotal != 0) ...[
               const SizedBox(height: AppSpacing.xs),
               _buildTotalRow(
                 l10n.invoiceDetailTaxBreakdown,
@@ -624,6 +638,91 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildTaxBreakdownTable(
+    Map<String, ({double base, double amount})> breakdown,
+    AppLocalizations l10n,
+    ColorScheme colorScheme,
+    TextTheme textTheme,
+    String cur,
+  ) {
+    final headerStyle = textTheme.labelSmall?.copyWith(
+      color: colorScheme.onSurfaceVariant,
+      fontWeight: FontWeight.w600,
+    );
+    final border = BorderSide(
+      color: colorScheme.outlineVariant.withValues(alpha: 0.5),
+    );
+
+    return Column(
+      children: [
+        // Header
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
+          decoration: BoxDecoration(border: Border(bottom: border)),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Text(l10n.invoiceDetailTaxBreakdown, style: headerStyle),
+              ),
+              SizedBox(
+                width: 100,
+                child: Text(
+                  l10n.invoiceDetailTaxBase,
+                  style: headerStyle,
+                  textAlign: TextAlign.right,
+                ),
+              ),
+              SizedBox(
+                width: 80,
+                child: Text(
+                  l10n.invoiceDetailTaxAmount,
+                  style: headerStyle,
+                  textAlign: TextAlign.right,
+                ),
+              ),
+            ],
+          ),
+        ),
+        // Rows
+        ...breakdown.entries.toList().asMap().entries.map((mapEntry) {
+          final entry = mapEntry.value;
+          final isLast = mapEntry.key == breakdown.length - 1;
+          return Container(
+            padding: const EdgeInsets.symmetric(vertical: AppSpacing.xs),
+            decoration: isLast
+                ? null
+                : BoxDecoration(border: Border(bottom: border)),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Text(entry.key, style: textTheme.bodySmall),
+                ),
+                SizedBox(
+                  width: 100,
+                  child: Text(
+                    '${entry.value.base.toStringAsFixed(2)} $cur'.trim(),
+                    style: textTheme.bodySmall,
+                    textAlign: TextAlign.right,
+                  ),
+                ),
+                SizedBox(
+                  width: 80,
+                  child: Text(
+                    '${entry.value.amount.toStringAsFixed(2)} $cur'.trim(),
+                    style: textTheme.bodySmall,
+                    textAlign: TextAlign.right,
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
+      ],
     );
   }
 
@@ -712,5 +811,55 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
     final parsed = DateTime.tryParse(raw);
     if (parsed == null) return raw;
     return _displayDateFmt.format(parsed);
+  }
+
+  static const _taxPercentages = {
+    'S_IVA_21': 21.0,
+    'S_IVA_10': 10.0,
+    'S_IVA_4': 4.0,
+    'S_IVA_RE_5.2': 5.2,
+    'S_IVA_RE_1.4': 1.4,
+    'S_IVA_RE_0.5': 0.5,
+  };
+
+  Map<String, String> _taxIdLabels(AppLocalizations l10n) => {
+    'S_IVA_21': l10n.taxLabelIva21,
+    'S_IVA_10': l10n.taxLabelIva10,
+    'S_IVA_4': l10n.taxLabelIva4,
+    'S_IVA_RE_5.2': l10n.taxLabelRe52,
+    'S_IVA_RE_1.4': l10n.taxLabelRe14,
+    'S_IVA_RE_0.5': l10n.taxLabelRe05,
+  };
+
+  String _formatTaxLabels(List<String> taxIds, AppLocalizations l10n) {
+    if (taxIds.isEmpty) return '—';
+    final labels = _taxIdLabels(l10n);
+    return taxIds.map((id) => labels[id] ?? id).join('\n');
+  }
+
+  Map<String, ({double base, double amount})> _computeTaxBreakdown(
+    List<InvoiceLine> lines,
+  ) {
+    final breakdown = <String, ({double base, double amount})>{};
+    for (final line in lines) {
+      if (line.tax.isEmpty || line.total == null) continue;
+      for (final taxId in line.tax) {
+        final pct = _taxPercentages[taxId];
+        if (pct == null || pct <= 0) continue;
+        final label = taxId.contains('RE')
+            ? 'IVA Recargo de Equivalencia '
+                  '${pct.toStringAsFixed(2).replaceAll('.', ',')}%'
+            : 'IVA ${pct.toStringAsFixed(0)}%';
+        final taxAmount = double.parse(
+          (line.total! * pct / 100).toStringAsFixed(2),
+        );
+        final existing = breakdown[label];
+        breakdown[label] = (
+          base: (existing?.base ?? 0) + line.total!,
+          amount: (existing?.amount ?? 0) + taxAmount,
+        );
+      }
+    }
+    return breakdown;
   }
 }

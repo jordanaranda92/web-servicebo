@@ -9,6 +9,7 @@ import 'app/config/app_config.dart';
 import 'app/config/environments/dev_config.dart';
 import 'app/di/injection.dart';
 import 'app/router/router.dart';
+import 'core/auth/current_user_provider.dart';
 import 'features/auth/data/datasources/auth_local_data_source.dart';
 import 'features/auth/domain/usecases/check_auto_login.dart';
 import 'features/auth/presentation/bloc/auth_cubit.dart';
@@ -99,6 +100,10 @@ Future<String> _initializeServices(AppConfig config) async {
           }
         },
       );
+
+      // Resolve current user name from Firestore for action history.
+      await sl<CurrentUserProvider>().resolve();
+
       return AppRoutes.home;
     }
   }

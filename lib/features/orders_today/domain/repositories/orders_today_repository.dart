@@ -1,6 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 
 import '../../../../core/error/failure.dart';
+import '../entities/order_action_entry.dart';
 import '../entities/order_sheet.dart';
 
 abstract class OrdersTodayRepository {
@@ -102,6 +103,11 @@ abstract class OrdersTodayRepository {
     required String userName,
     required String color,
   });
+
+  /// Returns the action history for the given date's order.
+  Future<Either<Failure, List<OrderActionEntry>>> getActionHistory(
+    DateTime date,
+  );
 
   /// Releases resources (e.g. catalogue cache subscriptions).
   void dispose();

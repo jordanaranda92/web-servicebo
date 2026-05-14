@@ -34,7 +34,7 @@ class ClientCategoriesRepositoryImpl implements ClientCategoriesRepository {
       return Left(ServerFailure());
     } on NetworkException {
       return Left(NetworkFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       dev.log(
         '[ClientCategoriesRepo] unexpected error: $e',
         name: 'ClientCat',
@@ -95,7 +95,7 @@ class ClientCategoriesRepositoryImpl implements ClientCategoriesRepository {
       return Left(ServerFailure());
     } on NetworkException {
       return Left(NetworkFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       dev.log(
         '[ClientCategoriesRepo] unexpected error: $e',
         name: 'ClientCat',
@@ -128,7 +128,7 @@ class ClientCategoriesRepositoryImpl implements ClientCategoriesRepository {
       return Left(ServerFailure());
     } on NetworkException {
       return Left(NetworkFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       dev.log(
         '[ClientCategoriesRepo] unexpected error: $e',
         name: 'ClientCat',
@@ -157,7 +157,7 @@ class ClientCategoriesRepositoryImpl implements ClientCategoriesRepository {
       return Left(ServerFailure());
     } on NetworkException {
       return Left(NetworkFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       dev.log(
         '[ClientCategoriesRepo] unexpected error: $e',
         name: 'ClientCat',

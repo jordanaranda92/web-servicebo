@@ -8,6 +8,7 @@ import '../../features/auth/presentation/bloc/auth_cubit.dart';
 import '../../features/auth/presentation/bloc/auth_state.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/client_categories/presentation/pages/client_categories_page.dart';
+import '../../features/clients/domain/entities/client.dart';
 import '../../features/clients/presentation/pages/client_detail_page.dart';
 import '../../features/clients/presentation/pages/clients_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
@@ -147,7 +148,7 @@ GoRouter createRouter({required String initialLocation}) {
                 pageBuilder: (context, state) => NoTransitionPage(
                   child: ClientDetailPage(
                     clientId: state.pathParameters['id']!,
-                    client: state.extra as dynamic,
+                    client: state.extra as Client?,
                   ),
                 ),
               ),

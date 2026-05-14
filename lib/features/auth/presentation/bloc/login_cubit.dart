@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/auth/current_user_provider.dart';
 import '../../../../core/error/failure.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../domain/usecases/sign_in.dart';
@@ -7,12 +8,17 @@ import 'auth_cubit.dart';
 import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit(this._signIn, this._authRepository, this._authCubit)
-    : super(const LoginInitial());
+  LoginCubit(
+    this._signIn,
+    this._authRepository,
+    this._authCubit,
+    this._currentUserProvider,
+  ) : super(const LoginInitial());
 
   final SignIn _signIn;
   final AuthRepository _authRepository;
   final AuthCubit _authCubit;
+  final CurrentUserProvider _currentUserProvider;
 
   Future<void> login({
     required String email,
@@ -49,6 +55,7 @@ class LoginCubit extends Cubit<LoginState> {
       (user) async {
         await _authRepository.setRememberMe(rememberMe);
         _authCubit.setUser(user);
+        await _currentUserProvider.resolve();
         emit(const LoginSuccess());
       },
     );

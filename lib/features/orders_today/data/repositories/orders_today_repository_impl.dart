@@ -10,6 +10,7 @@ import '../../../clients/data/datasources/client_firestore_data_source.dart';
 import '../../../clients/data/models/client_model.dart';
 import '../../../products/data/datasources/product_firestore_data_source.dart';
 import '../../../products/data/models/product_model.dart';
+import '../../domain/entities/order_action_entry.dart';
 import '../../domain/entities/order_sheet.dart';
 import '../../domain/repositories/orders_today_repository.dart';
 import '../datasources/remote/order_firestore_data_source.dart';
@@ -70,10 +71,14 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
     return '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
   }
 
-  /// Sorts [ids] by the `order` field from [orderMap], falling back to 9999.
+  /// Sorts [ids] by the `order` field from [orderMap], falling back to
+  /// [defaultSortOrder].
   List<String> _sortIdsByOrder(List<String> ids, Map<String, int?> orderMap) {
-    return List<String>.from(ids)
-      ..sort((a, b) => (orderMap[a] ?? 9999).compareTo(orderMap[b] ?? 9999));
+    return List<String>.from(ids)..sort(
+      (a, b) => (orderMap[a] ?? defaultSortOrder).compareTo(
+        orderMap[b] ?? defaultSortOrder,
+      ),
+    );
   }
 
   // ── getTodayOrders ──────────────────────────────────────────────
@@ -106,7 +111,7 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
       );
     } on ServerException {
       return Left(ServerFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error inesperado al obtener pedidos del día', e, st);
       return Left(InternalFailure());
     }
@@ -138,7 +143,11 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
       final allProducts = await _getProducts();
 
       final activeProducts = allProducts.where((p) => p.isActive).toList()
-        ..sort((a, b) => (a.order ?? 9999).compareTo(b.order ?? 9999));
+        ..sort(
+          (a, b) => (a.order ?? defaultSortOrder).compareTo(
+            b.order ?? defaultSortOrder,
+          ),
+        );
 
       final productIds = activeProducts.map((p) => p.id).toList();
 
@@ -174,7 +183,7 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
       );
     } on ServerException {
       return Left(ServerFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error inesperado al crear pedido del día', e, st);
       return Left(InternalFailure());
     }
@@ -208,7 +217,7 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
       return const Right(unit);
     } on ServerException {
       return Left(ServerFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error updating cell', e, st);
       return Left(ServerFailure());
     }
@@ -244,7 +253,7 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
       return const Right(unit);
     } on ServerException {
       return Left(ServerFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error updating cell flag', e, st);
       return Left(ServerFailure());
     }
@@ -270,7 +279,7 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
       return const Right(unit);
     } on ServerException {
       return Left(ServerFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error updating cell note', e, st);
       return Left(ServerFailure());
     }
@@ -296,7 +305,7 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
       return const Right(unit);
     } on ServerException {
       return Left(ServerFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error updating cell refund', e, st);
       return Left(ServerFailure());
     }
@@ -333,7 +342,7 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
       return _readOrderSheetWithoutSync(dateStr);
     } on ServerException {
       return Left(ServerFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error resetting client orders', e, st);
       return Left(InternalFailure());
     }
@@ -360,7 +369,7 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
       return const Right(unit);
     } on ServerException {
       return Left(ServerFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error saving invoicedBy', e, st);
       return Left(InternalFailure());
     }
@@ -418,7 +427,7 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
       return _readOrderSheetWithoutSync(dateStr);
     } on ServerException {
       return Left(ServerFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error removing clients', e, st);
       return Left(InternalFailure());
     }
@@ -460,7 +469,7 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
       return _readOrderSheetWithoutSync(dateStr);
     } on ServerException {
       return Left(ServerFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error removing products', e, st);
       return Left(InternalFailure());
     }
@@ -510,7 +519,7 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
           );
 
       return Right(available.map((c) => (id: c.id, name: c.name)).toList());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error getting available clients', e, st);
       return Left(InternalFailure());
     }
@@ -531,10 +540,14 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
           allProducts
               .where((p) => p.isActive && !currentIds.contains(p.id))
               .toList()
-            ..sort((a, b) => (a.order ?? 9999).compareTo(b.order ?? 9999));
+            ..sort(
+              (a, b) => (a.order ?? defaultSortOrder).compareTo(
+                b.order ?? defaultSortOrder,
+              ),
+            );
 
       return Right(available.map((p) => (id: p.id, name: p.name)).toList());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error getting available products', e, st);
       return Left(InternalFailure());
     }
@@ -554,7 +567,7 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
         clientIds: clientIds,
       );
       return _readOrderSheetWithoutSync(dateStr);
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error adding clients', e, st);
       return Left(InternalFailure());
     }
@@ -574,7 +587,7 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
         productIds: productIds,
       );
       return _readOrderSheetWithoutSync(dateStr);
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       _logger.error('Error adding products', e, st);
       return Left(InternalFailure());
     }
@@ -647,5 +660,23 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
       if (a[i] != b[i]) return false;
     }
     return true;
+  }
+
+  // ── getActionHistory ───────────────────────────────────────
+
+  @override
+  Future<Either<Failure, List<OrderActionEntry>>> getActionHistory(
+    DateTime date,
+  ) async {
+    try {
+      final dateStr = _formatDate(date);
+      final models = await _firestoreDataSource.getHistory(dateStr);
+      return Right(models.map((m) => m.toEntity()).toList());
+    } on ServerException {
+      return Left(ServerFailure());
+    } on Exception catch (e, st) {
+      _logger.error('Error getting action history', e, st);
+      return Left(InternalFailure());
+    }
   }
 }

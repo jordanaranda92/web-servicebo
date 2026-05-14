@@ -165,12 +165,12 @@ class _ClientDataEditDialogState extends State<ClientDataEditDialog> {
               ? null
               : _save,
           child: _saving
-              ? const SizedBox(
+              ? SizedBox(
                   width: 18,
                   height: 18,
                   child: CircularProgressIndicator(
                     strokeWidth: 2,
-                    color: Colors.white,
+                    color: colorScheme.surface,
                   ),
                 )
               : Text(l10n.settingsSave),

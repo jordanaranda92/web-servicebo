@@ -155,3 +155,20 @@ final class OrdersTodayResetOrdersRequested extends OrdersTodayEvent {
   @override
   List<Object?> get props => [clientIndices];
 }
+
+final class OrdersTodaySaveInvoicedByRequested extends OrdersTodayEvent {
+  const OrdersTodaySaveInvoicedByRequested({
+    required this.clientId,
+    required this.userId,
+    required this.userName,
+    required this.color,
+  });
+
+  final String clientId;
+  final String userId;
+  final String userName;
+  final String color;
+
+  @override
+  List<Object?> get props => [clientId, userId, userName, color];
+}

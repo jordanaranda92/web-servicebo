@@ -114,4 +114,21 @@ class InvoicesRepositoryImpl implements InvoicesRepository {
       return Left(NetworkFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, Invoice>> createInvoice(
+    Map<String, dynamic> body,
+  ) async {
+    try {
+      final response = await _apiDataSource.createInvoice(body);
+      final invoice = InvoiceDto.fromJson(response).toEntity();
+      return Right(invoice);
+    } on ServerException {
+      return Left(ServerFailure());
+    } on NetworkException {
+      return Left(NetworkFailure());
+    } on ParsingException {
+      return Left(EntityMappingFailure());
+    }
+  }
 }

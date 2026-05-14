@@ -28,7 +28,7 @@ class ShippingMethodsRepositoryImpl implements ShippingMethodsRepository {
       return Left(ServerFailure());
     } on NetworkException {
       return Left(NetworkFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       dev.log(
         '[ShippingMethodsRepo] unexpected: $e',
         name: 'Shipping',
@@ -73,7 +73,7 @@ class ShippingMethodsRepositoryImpl implements ShippingMethodsRepository {
         name: 'Shipping',
       );
       return Left(ServerFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       dev.log(
         '[ShippingMethodsRepo] add unexpected: $e',
         name: 'Shipping',
@@ -98,7 +98,7 @@ class ShippingMethodsRepositoryImpl implements ShippingMethodsRepository {
         name: 'Shipping',
       );
       return Left(ServerFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       dev.log(
         '[ShippingMethodsRepo] update unexpected: $e',
         name: 'Shipping',
@@ -123,7 +123,7 @@ class ShippingMethodsRepositoryImpl implements ShippingMethodsRepository {
         name: 'Shipping',
       );
       return Left(ServerFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       dev.log(
         '[ShippingMethodsRepo] updatePhone unexpected: $e',
         name: 'Shipping',
@@ -149,7 +149,7 @@ class ShippingMethodsRepositoryImpl implements ShippingMethodsRepository {
         name: 'Shipping',
       );
       return Left(ServerFailure());
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       dev.log(
         '[ShippingMethodsRepo] delete unexpected: $e',
         name: 'Shipping',

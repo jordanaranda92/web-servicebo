@@ -5,7 +5,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../app/di/injection.dart';
@@ -175,7 +174,7 @@ class _OrdersTableState extends State<OrdersTable> {
     final now = DateTime.now();
     final dayName = AppDateFormats.dayName().format(now);
     _dayNameCapitalized = dayName[0].toUpperCase() + dayName.substring(1);
-    _datePart = DateFormat("d 'de' MMMM", 'es').format(now);
+    _datePart = AppDateFormats.dayMonth().format(now);
 
     // Key event handler for cell editing navigation
     _editFocusNode.onKeyEvent = _handleEditKeyEvent;
@@ -862,7 +861,7 @@ class _OrdersTableState extends State<OrdersTable> {
                       textAlign: TextAlign.center,
                       style: _textTheme.labelMedium?.copyWith(
                         color: invoicedColor != null
-                            ? Colors.white
+                            ? _colorScheme.surface
                             : _colorScheme.onSurfaceVariant,
                         fontWeight: FontWeight.w600,
                       ),
@@ -1162,7 +1161,9 @@ class _OrdersTableState extends State<OrdersTable> {
         style: _textTheme.bodySmall?.copyWith(
           fontWeight: FontWeight.bold,
           fontSize: 12,
-          color: isStrictStock ? _customColors!.danger : null,
+          color: isStrictStock
+              ? (_customColors?.danger ?? _colorScheme.error)
+              : null,
         ),
       );
     } else {
@@ -1274,7 +1275,7 @@ class _OrdersTableState extends State<OrdersTable> {
               width: 6,
               height: 6,
               decoration: BoxDecoration(
-                color: _customColors!.refund,
+                color: _customColors?.refund ?? _colorScheme.tertiary,
                 shape: BoxShape.circle,
               ),
             ),
@@ -1410,8 +1411,10 @@ class _OrdersTableState extends State<OrdersTable> {
 
   // ── Cell flag colors ────────────────────────────────────────────
 
-  Color get _compensationColor => _customColors!.compensation!;
-  Color get _reservationColor => _customColors!.reservation!;
+  Color get _compensationColor =>
+      _customColors?.compensation ?? const Color(0xFFC8E6C9);
+  Color get _reservationColor =>
+      _customColors?.reservation ?? const Color(0xFFBBDEFB);
 
   Color? _dataCellColor({
     required bool isQuedan,
@@ -1430,7 +1433,7 @@ class _OrdersTableState extends State<OrdersTable> {
           : (successColor ?? _colorScheme.tertiary);
     }
     if (isPedidos) {
-      final warningColor = _customColors!.warning!;
+      final warningColor = _customColors?.warning ?? const Color(0xFFFFC107);
       return warningColor.withValues(alpha: 0.4);
     }
     if (isSelected) {
@@ -2335,8 +2338,8 @@ class _RemoteCursorBadge extends StatelessWidget {
       alignment: Alignment.center,
       child: Text(
         initial,
-        style: const TextStyle(
-          color: Colors.white,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.surface,
           fontSize: 9,
           fontWeight: FontWeight.bold,
           height: 1,

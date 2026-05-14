@@ -100,12 +100,6 @@ abstract class AppLocalizations {
   /// **'Servicebo'**
   String get appTitle;
 
-  /// Mensaje de bienvenida en la página principal
-  ///
-  /// In es, this message translates to:
-  /// **'¡Bienvenido a tu aplicación Flutter!'**
-  String get welcomeMessage;
-
   /// Ítem de menú: Inicio
   ///
   /// In es, this message translates to:
@@ -136,12 +130,6 @@ abstract class AppLocalizations {
   /// **'Ajustes'**
   String get menuSettings;
 
-  /// Mensaje mostrado en páginas placeholder
-  ///
-  /// In es, this message translates to:
-  /// **'Esta funcionalidad está en desarrollo'**
-  String get pagePlaceholderMessage;
-
   /// Título de la sección de FacturaDirecta en Ajustes
   ///
   /// In es, this message translates to:
@@ -153,54 +141,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Conecta tu cuenta de FacturaDirecta para volcar los pedidos vía API.'**
   String get settingsFacturaDirectaDescription;
-
-  /// Label del campo ID de empresa de FacturaDirecta
-  ///
-  /// In es, this message translates to:
-  /// **'ID de empresa'**
-  String get settingsFacturaDirectaCompanyId;
-
-  /// Hint del campo ID de empresa de FacturaDirecta
-  ///
-  /// In es, this message translates to:
-  /// **'mi-empresa'**
-  String get settingsFacturaDirectaCompanyIdHint;
-
-  /// Label del campo API token de FacturaDirecta
-  ///
-  /// In es, this message translates to:
-  /// **'API Token'**
-  String get settingsFacturaDirectaApiToken;
-
-  /// Hint del campo API token de FacturaDirecta
-  ///
-  /// In es, this message translates to:
-  /// **'Introduce tu API token'**
-  String get settingsFacturaDirectaApiTokenHint;
-
-  /// Label que muestra la cuenta configurada
-  ///
-  /// In es, this message translates to:
-  /// **'Cuenta de Factura Directa configurada: {companyId}'**
-  String settingsFacturaDirectaAccount(String companyId);
-
-  /// Botón para verificar la conexión con FacturaDirecta
-  ///
-  /// In es, this message translates to:
-  /// **'Verificar conexión'**
-  String get settingsFacturaDirectaVerify;
-
-  /// Descripción del diálogo de verificación
-  ///
-  /// In es, this message translates to:
-  /// **'Introduce tu API token para verificar la conexión con FacturaDirecta.'**
-  String get settingsFacturaDirectaVerifyDescription;
-
-  /// Mensaje de éxito al verificar la conexión
-  ///
-  /// In es, this message translates to:
-  /// **'Conexión verificada correctamente'**
-  String get settingsFacturaDirectaVerified;
 
   /// Label del campo de serie de facturas en ajustes
   ///
@@ -220,23 +160,11 @@ abstract class AppLocalizations {
   /// **'La serie no puede estar vacía'**
   String get settingsInvoiceSeriesEmpty;
 
-  /// Botón para sincronizar productos desde FacturaDirecta
+  /// Error cuando falla el guardado de la serie de facturas en Firestore
   ///
   /// In es, this message translates to:
-  /// **'Sincronizar productos'**
-  String get settingsSyncProductsButton;
-
-  /// Botón para editar la configuración de FacturaDirecta
-  ///
-  /// In es, this message translates to:
-  /// **'Editar configuración'**
-  String get settingsFacturaDirectaEdit;
-
-  /// Botón para desconectar un servicio
-  ///
-  /// In es, this message translates to:
-  /// **'Desconectar'**
-  String get settingsDisconnect;
+  /// **'Error al guardar la serie de facturas'**
+  String get settingsInvoiceSeriesSaveError;
 
   /// Botón para guardar configuración
   ///
@@ -310,36 +238,6 @@ abstract class AppLocalizations {
   /// **'Ha ocurrido un error inesperado.'**
   String get ordersTodayErrorUnknown;
 
-  /// Aviso de versión desactualizada
-  ///
-  /// In es, this message translates to:
-  /// **'La estructura del archivo difiere de la plantilla actual.'**
-  String get ordersTodayVersionOutdated;
-
-  /// Botón para actualizar la estructura del archivo según la plantilla
-  ///
-  /// In es, this message translates to:
-  /// **'Actualizar estructura'**
-  String get ordersTodayUpdateStructure;
-
-  /// Cabecera de la columna de clientes
-  ///
-  /// In es, this message translates to:
-  /// **'Cliente'**
-  String get ordersTodayColumnClient;
-
-  /// Cabecera de la columna de productos
-  ///
-  /// In es, this message translates to:
-  /// **'Producto'**
-  String get ordersTodayColumnProduct;
-
-  /// Cabecera de la columna/fila de totales
-  ///
-  /// In es, this message translates to:
-  /// **'Total'**
-  String get ordersTodayColumnTotal;
-
   /// Cabecera de la columna de pedidos totales por producto
   ///
   /// In es, this message translates to:
@@ -358,77 +256,17 @@ abstract class AppLocalizations {
   /// **'QUEDAN'**
   String get ordersTodayColumnQuedan;
 
-  /// Etiqueta de la fila de totales
-  ///
-  /// In es, this message translates to:
-  /// **'Totales'**
-  String get ordersTodayRowTotals;
-
   /// Botón para reintentar la carga
   ///
   /// In es, this message translates to:
   /// **'Reintentar'**
   String get ordersTodayRetry;
 
-  /// Placeholder del campo de búsqueda de clientes
-  ///
-  /// In es, this message translates to:
-  /// **'Buscar cliente...'**
-  String get ordersTodaySearchClient;
-
   /// Botón para eliminar filas seleccionadas
   ///
   /// In es, this message translates to:
   /// **'Eliminar'**
   String get ordersTodayDelete;
-
-  /// Botón para añadir una nueva fila de cliente
-  ///
-  /// In es, this message translates to:
-  /// **'Añadir fila'**
-  String get ordersTodayAddRow;
-
-  /// Título del diálogo para añadir una nueva fila
-  ///
-  /// In es, this message translates to:
-  /// **'Nueva fila'**
-  String get ordersTodayAddRowTitle;
-
-  /// Placeholder del campo de nombre de cliente en el diálogo
-  ///
-  /// In es, this message translates to:
-  /// **'Nombre del cliente'**
-  String get ordersTodayAddRowHint;
-
-  /// Botón de confirmación del diálogo de añadir fila
-  ///
-  /// In es, this message translates to:
-  /// **'Añadir'**
-  String get ordersTodayAddRowConfirm;
-
-  /// Botón para recargar los datos desde el archivo Excel
-  ///
-  /// In es, this message translates to:
-  /// **'Sincronizar excel'**
-  String get ordersTodaySyncExcel;
-
-  /// Botón con desplegable para guardar el Excel
-  ///
-  /// In es, this message translates to:
-  /// **'Guardar excel'**
-  String get ordersTodaySaveExcel;
-
-  /// Opción del desplegable para guardar en un nuevo archivo Excel
-  ///
-  /// In es, this message translates to:
-  /// **'Guardar como nuevo Excel'**
-  String get ordersTodaySaveAsNew;
-
-  /// Opción para exportar pedidos como PDF
-  ///
-  /// In es, this message translates to:
-  /// **'Exportar como PDF'**
-  String get ordersTodayExportPdf;
 
   /// Botón para exportar la tabla de pedidos de hoy como Excel
   ///
@@ -454,54 +292,6 @@ abstract class AppLocalizations {
   /// **'Mostrar preview'**
   String get ordersTodayShowPreview;
 
-  /// Mensaje de éxito al guardar el Excel
-  ///
-  /// In es, this message translates to:
-  /// **'Excel guardado correctamente'**
-  String get ordersTodaySaveSuccess;
-
-  /// Mensaje de error al guardar el Excel
-  ///
-  /// In es, this message translates to:
-  /// **'Error al guardar el Excel'**
-  String get ordersTodaySaveError;
-
-  /// Fecha de último guardado del archivo Excel
-  ///
-  /// In es, this message translates to:
-  /// **'Último guardado: {date}'**
-  String ordersTodayLastSaved(String date);
-
-  /// Botón para generar factura de las filas seleccionadas
-  ///
-  /// In es, this message translates to:
-  /// **'Generar factura'**
-  String get ordersTodayGenerateInvoice;
-
-  /// Botón para abrir la vista de solo lectura de los pedidos
-  ///
-  /// In es, this message translates to:
-  /// **'Visualizar pedidos'**
-  String get ordersTodayViewOrders;
-
-  /// Título de la ventana de visualización de pedidos
-  ///
-  /// In es, this message translates to:
-  /// **'Pedidos de hoy'**
-  String get ordersTodayViewTitle;
-
-  /// Indicador de tiempo desde la última actualización de la tabla
-  ///
-  /// In es, this message translates to:
-  /// **'Actualizado hace {seconds} s'**
-  String ordersTodayViewUpdatedAgo(int seconds);
-
-  /// Contador de filas seleccionadas
-  ///
-  /// In es, this message translates to:
-  /// **'{count} seleccionado(s)'**
-  String ordersTodaySelectedCount(int count);
-
   /// Título del diálogo de confirmación para eliminar clientes
   ///
   /// In es, this message translates to:
@@ -519,84 +309,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Eliminar'**
   String get ordersTodayDeleteConfirm;
-
-  /// Título del diálogo de cambios sin guardar
-  ///
-  /// In es, this message translates to:
-  /// **'Cambios sin guardar'**
-  String get ordersTodayUnsavedTitle;
-
-  /// Mensaje del diálogo de cambios sin guardar al navegar
-  ///
-  /// In es, this message translates to:
-  /// **'Tienes cambios sin guardar en la tabla de pedidos. Si sales ahora, se perderán.'**
-  String get ordersTodayUnsavedMessage;
-
-  /// Botón para quedarse en la página y no perder cambios
-  ///
-  /// In es, this message translates to:
-  /// **'Quedarse'**
-  String get ordersTodayUnsavedStay;
-
-  /// Botón para salir de la página descartando cambios
-  ///
-  /// In es, this message translates to:
-  /// **'Salir sin guardar'**
-  String get ordersTodayUnsavedLeave;
-
-  /// Mensaje de advertencia al sincronizar con cambios sin guardar
-  ///
-  /// In es, this message translates to:
-  /// **'Tienes cambios sin guardar. Si sincronizas ahora, se descartarán todos los cambios y se recargará el archivo del disco.'**
-  String get ordersTodaySyncUnsavedMessage;
-
-  /// Botón de confirmación para sincronizar descartando cambios
-  ///
-  /// In es, this message translates to:
-  /// **'Sincronizar'**
-  String get ordersTodaySyncConfirm;
-
-  /// Error de validación en FacturaDirecta
-  ///
-  /// In es, this message translates to:
-  /// **'El subdominio y el token API son obligatorios'**
-  String get settingsFacturaDirectaErrorValidation;
-
-  /// Error al guardar la configuración de FacturaDirecta
-  ///
-  /// In es, this message translates to:
-  /// **'Error al guardar la configuración'**
-  String get settingsFacturaDirectaErrorSaveFailed;
-
-  /// Error al verificar la conexión con FacturaDirecta
-  ///
-  /// In es, this message translates to:
-  /// **'No se pudo verificar la conexión'**
-  String get settingsFacturaDirectaErrorVerifyFailed;
-
-  /// Error de credenciales inválidas en FacturaDirecta
-  ///
-  /// In es, this message translates to:
-  /// **'Credenciales inválidas'**
-  String get settingsFacturaDirectaErrorInvalidCredentials;
-
-  /// Error genérico al desconectar un servicio
-  ///
-  /// In es, this message translates to:
-  /// **'Error al desconectar'**
-  String get settingsErrorDisconnectFailed;
-
-  /// Etiqueta superior del header de historial de pedidos
-  ///
-  /// In es, this message translates to:
-  /// **'HISTORIAL'**
-  String get ordersHistoryHeaderLabel;
-
-  /// Botón para navegar a ajustes desde historial
-  ///
-  /// In es, this message translates to:
-  /// **'Ir a Ajustes'**
-  String get ordersHistoryGoToSettings;
 
   /// Título cuando no hay archivos históricos
   ///
@@ -670,71 +382,11 @@ abstract class AppLocalizations {
   /// **'{count} productos'**
   String ordersHistoryDateProducts(int count);
 
-  /// Tooltip del botón de filtro por rango de fechas
-  ///
-  /// In es, this message translates to:
-  /// **'Filtrar por fecha'**
-  String get ordersHistoryFilterByDate;
-
-  /// Label del campo de fecha desde
-  ///
-  /// In es, this message translates to:
-  /// **'Desde'**
-  String get ordersHistoryFilterFrom;
-
-  /// Label del campo de fecha hasta
-  ///
-  /// In es, this message translates to:
-  /// **'Hasta'**
-  String get ordersHistoryFilterTo;
-
-  /// Botón para limpiar el filtro de fechas
-  ///
-  /// In es, this message translates to:
-  /// **'Limpiar filtro'**
-  String get ordersHistoryFilterClear;
-
-  /// Indicador de filtro de fechas activo
-  ///
-  /// In es, this message translates to:
-  /// **'Filtro activo: {start} – {end}'**
-  String ordersHistoryFilterActive(String start, String end);
-
-  /// Contador de fechas disponibles en el listado
-  ///
-  /// In es, this message translates to:
-  /// **'{count} fecha(s) disponible(s)'**
-  String ordersHistoryDateCount(int count);
-
-  /// Encabezado de sección para las fechas de la última semana
+  /// Etiqueta para la sección de la última semana en el historial
   ///
   /// In es, this message translates to:
   /// **'Última semana'**
   String get ordersHistoryLastWeek;
-
-  /// Etiqueta del contador de tipos de productos en el dashboard
-  ///
-  /// In es, this message translates to:
-  /// **'Tipos de productos'**
-  String get dashboardProducts;
-
-  /// Etiqueta del contador de unidades totales en el dashboard
-  ///
-  /// In es, this message translates to:
-  /// **'Unidades'**
-  String get dashboardTotalUnits;
-
-  /// Etiqueta del producto más pedido en el dashboard
-  ///
-  /// In es, this message translates to:
-  /// **'Producto estrella'**
-  String get dashboardTopProduct;
-
-  /// Valor mostrado cuando no hay producto estrella
-  ///
-  /// In es, this message translates to:
-  /// **'—'**
-  String get dashboardTopProductNone;
 
   /// Etiqueta del contador de facturas del día en el dashboard
   ///
@@ -778,29 +430,11 @@ abstract class AppLocalizations {
   /// **'Semana actual vs. anterior'**
   String get dashboardVsLastWeek;
 
-  /// Título de la comparativa mensual
-  ///
-  /// In es, this message translates to:
-  /// **'Mes actual vs. mes anterior'**
-  String get dashboardVsLastMonth;
-
   /// Texto mostrado cuando no hay datos para una comparativa
   ///
   /// In es, this message translates to:
   /// **'Sin datos'**
   String get dashboardNoData;
-
-  /// Abreviatura de unidades en comparativas
-  ///
-  /// In es, this message translates to:
-  /// **'uds'**
-  String get dashboardUnitsLabel;
-
-  /// Etiqueta de pedidos en comparativas
-  ///
-  /// In es, this message translates to:
-  /// **'pedidos'**
-  String get dashboardClientsLabel;
 
   /// Etiqueta de facturas en comparativas
   ///
@@ -813,18 +447,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'importe'**
   String get dashboardInvoicesTotalLabel;
-
-  /// Botón para navegar a ajustes desde el dashboard
-  ///
-  /// In es, this message translates to:
-  /// **'Ir a Ajustes'**
-  String get dashboardGoToSettings;
-
-  /// Título de la sección de contadores del día
-  ///
-  /// In es, this message translates to:
-  /// **'Resumen del día'**
-  String get dashboardTodaySummary;
 
   /// Título de la sección de comparativas
   ///
@@ -868,23 +490,11 @@ abstract class AppLocalizations {
   /// **'No se encontraron categorías de clientes'**
   String get clientCategoriesEmpty;
 
-  /// Cabecera de columna ID en tabla de categorías de clientes
-  ///
-  /// In es, this message translates to:
-  /// **'ID'**
-  String get clientCategoriesColumnId;
-
   /// Cabecera de columna nombre en tabla de categorías de clientes
   ///
   /// In es, this message translates to:
   /// **'Nombre'**
   String get clientCategoriesColumnName;
-
-  /// Cabecera de columna activo en tabla de categorías de clientes
-  ///
-  /// In es, this message translates to:
-  /// **'Activo'**
-  String get clientCategoriesColumnActive;
 
   /// Placeholder del buscador de categorías de clientes
   ///
@@ -946,18 +556,6 @@ abstract class AppLocalizations {
   /// **'¿Estás seguro de que quieres eliminar la categoría \"{name}\"?\nEsta acción no se puede deshacer.'**
   String clientCategoriesDeleteMessage(String name);
 
-  /// Tooltip botón activar categoría
-  ///
-  /// In es, this message translates to:
-  /// **'Activar'**
-  String get clientCategoriesActivate;
-
-  /// Tooltip botón desactivar categoría
-  ///
-  /// In es, this message translates to:
-  /// **'Desactivar'**
-  String get clientCategoriesDeactivate;
-
   /// Texto del diálogo de progreso al guardar
   ///
   /// In es, this message translates to:
@@ -976,35 +574,11 @@ abstract class AppLocalizations {
   /// **'Categoría creada correctamente'**
   String get clientCategoriesSuccessCreated;
 
-  /// Botón para deshacer cambios pendientes en categorías
-  ///
-  /// In es, this message translates to:
-  /// **'Cancelar cambios'**
-  String get clientCategoriesDiscardChanges;
-
-  /// Botón para guardar cambios pendientes en categorías
-  ///
-  /// In es, this message translates to:
-  /// **'Guardar cambios'**
-  String get clientCategoriesSaveChanges;
-
   /// Toast tras guardar cambios en lote
   ///
   /// In es, this message translates to:
   /// **'Cambios guardados correctamente'**
   String get clientCategoriesSuccessSaved;
-
-  /// Toast tras actualizar categoría
-  ///
-  /// In es, this message translates to:
-  /// **'Categoría actualizada correctamente'**
-  String get clientCategoriesSuccessUpdated;
-
-  /// Toast tras activar/desactivar categoría
-  ///
-  /// In es, this message translates to:
-  /// **'Estado de la categoría actualizado'**
-  String get clientCategoriesSuccessToggled;
 
   /// Toast tras eliminar categoría
   ///
@@ -1042,23 +616,11 @@ abstract class AppLocalizations {
   /// **'No hay clientes disponibles'**
   String get clientCategoriesAssociateNoClients;
 
-  /// Mensaje de carga en el diálogo de asociación
-  ///
-  /// In es, this message translates to:
-  /// **'Cargando clientes...'**
-  String get clientCategoriesAssociateLoading;
-
   /// Mensaje de error al cargar clientes en el diálogo de asociación
   ///
   /// In es, this message translates to:
   /// **'Error al cargar clientes'**
   String get clientCategoriesAssociateError;
-
-  /// Mensaje de progreso al guardar asociaciones
-  ///
-  /// In es, this message translates to:
-  /// **'Asociando clientes...'**
-  String get clientCategoriesAssociateProgressSaving;
 
   /// Toast de éxito tras asociar clientes
   ///
@@ -1095,30 +657,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Buscar cliente...'**
   String get clientsSearch;
-
-  /// Botón para sincronizar clientes desde FacturaDirecta en la vista de clientes
-  ///
-  /// In es, this message translates to:
-  /// **'Sincronizar desde Factura Directa'**
-  String get clientsSyncFromFd;
-
-  /// Mensaje del diálogo bloqueante durante la sincronización de clientes
-  ///
-  /// In es, this message translates to:
-  /// **'Sincronizando clientes desde Factura Directa…'**
-  String get clientsSyncingFromFd;
-
-  /// Snackbar de éxito tras sincronizar clientes
-  ///
-  /// In es, this message translates to:
-  /// **'Clientes sincronizados correctamente'**
-  String get clientsSyncSuccess;
-
-  /// Snackbar de error tras sincronizar clientes
-  ///
-  /// In es, this message translates to:
-  /// **'Error al sincronizar clientes'**
-  String get clientsSyncError;
 
   /// Botón para añadir clientes desde FacturaDirecta
   ///
@@ -1216,30 +754,6 @@ abstract class AppLocalizations {
   /// **'No se encontraron clientes'**
   String get clientsEmpty;
 
-  /// Título del empty state cuando falta configuración en clientes
-  ///
-  /// In es, this message translates to:
-  /// **'Configuración necesaria'**
-  String get clientsConfigMissingTitle;
-
-  /// Mensaje cuando falta la configuración de FacturaDirecta
-  ///
-  /// In es, this message translates to:
-  /// **'Configura tu cuenta de FacturaDirecta en Ajustes.'**
-  String get clientsConfigMissingFacturaDirecta;
-
-  /// Mensaje cuando falta tanto Google Drive como FacturaDirecta
-  ///
-  /// In es, this message translates to:
-  /// **'Conecta Google Drive y configura FacturaDirecta en Ajustes para ver los clientes.'**
-  String get clientsConfigMissingBoth;
-
-  /// Botón para navegar a la pantalla de Ajustes desde clientes
-  ///
-  /// In es, this message translates to:
-  /// **'Ir a Ajustes'**
-  String get clientsGoToSettings;
-
   /// Cabecera de columna nombre en tabla de clientes
   ///
   /// In es, this message translates to:
@@ -1294,23 +808,11 @@ abstract class AppLocalizations {
   /// **'Nombre'**
   String get productsColumnName;
 
-  /// Cabecera de columna código en tabla de productos
-  ///
-  /// In es, this message translates to:
-  /// **'Código'**
-  String get productsColumnSku;
-
   /// Cabecera de columna precio en tabla de productos
   ///
   /// In es, this message translates to:
   /// **'Precio'**
   String get productsColumnPrice;
-
-  /// Cabecera de columna ID en tabla de productos
-  ///
-  /// In es, this message translates to:
-  /// **'ID'**
-  String get productsColumnId;
 
   /// Cabecera de columna activo en tabla de productos
   ///
@@ -1324,18 +826,6 @@ abstract class AppLocalizations {
   /// **'Inactivo'**
   String get productsColumnInactive;
 
-  /// Cabecera de columna visible en pedidos
-  ///
-  /// In es, this message translates to:
-  /// **'Visible pedidos'**
-  String get productsColumnShowInOrders;
-
-  /// Cabecera de columna orden en pedidos
-  ///
-  /// In es, this message translates to:
-  /// **'Orden'**
-  String get productsColumnOrderInOrders;
-
   /// Cabecera de columna producto Factura Directa
   ///
   /// In es, this message translates to:
@@ -1347,12 +837,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Acciones'**
   String get productsColumnActions;
-
-  /// Aviso de problemas de carga desde FD
-  ///
-  /// In es, this message translates to:
-  /// **'Algunos productos no pudieron cargarse desde Factura Directa'**
-  String get productsFdWarning;
 
   /// Placeholder selector producto FD
   ///
@@ -1438,35 +922,11 @@ abstract class AppLocalizations {
   /// **'El nombre es obligatorio'**
   String get productsNameRequired;
 
-  /// Texto del diálogo de progreso al guardar producto
-  ///
-  /// In es, this message translates to:
-  /// **'Guardando cambios...'**
-  String get productsProgressSaving;
-
-  /// Texto del diálogo de progreso al eliminar producto
-  ///
-  /// In es, this message translates to:
-  /// **'Eliminando producto...'**
-  String get productsProgressDeleting;
-
-  /// Toast tras actualizar producto
-  ///
-  /// In es, this message translates to:
-  /// **'Producto actualizado correctamente'**
-  String get productsSuccessUpdated;
-
   /// Toast tras eliminar producto
   ///
   /// In es, this message translates to:
   /// **'Producto eliminado correctamente'**
   String get productsSuccessDeleted;
-
-  /// Toast tras activar/desactivar producto
-  ///
-  /// In es, this message translates to:
-  /// **'Estado del producto actualizado'**
-  String get productsSuccessToggled;
 
   /// Toast tras vincular producto con FD
   ///
@@ -1510,18 +970,6 @@ abstract class AppLocalizations {
   /// **'Nuevo producto'**
   String get productsAddTitle;
 
-  /// Botón para guardar cambios pendientes en productos
-  ///
-  /// In es, this message translates to:
-  /// **'Guardar cambios'**
-  String get productsSaveChanges;
-
-  /// Botón para descartar cambios pendientes en productos
-  ///
-  /// In es, this message translates to:
-  /// **'Cancelar cambios'**
-  String get productsDiscardChanges;
-
   /// Toast tras crear un producto
   ///
   /// In es, this message translates to:
@@ -1533,18 +981,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Cambios guardados correctamente'**
   String get productsSuccessSaved;
-
-  /// Cabecera columna nombre Factura Directa en tabla de productos
-  ///
-  /// In es, this message translates to:
-  /// **'Nombre FD'**
-  String get productsColumnNameFd;
-
-  /// Cabecera columna orden en tabla de productos
-  ///
-  /// In es, this message translates to:
-  /// **'Orden'**
-  String get productsColumnOrder;
 
   /// Mensaje de progreso al guardar campo de producto
   ///
@@ -1714,24 +1150,6 @@ abstract class AppLocalizations {
   /// **'Cargar más'**
   String get invoicesLoadMore;
 
-  /// Texto mostrado mientras se cargan más facturas
-  ///
-  /// In es, this message translates to:
-  /// **'Cargando más facturas...'**
-  String get invoicesLoadingMore;
-
-  /// Chip de filtro fecha desde
-  ///
-  /// In es, this message translates to:
-  /// **'Desde: {date}'**
-  String invoicesFilterChipFrom(String date);
-
-  /// Chip de filtro fecha hasta
-  ///
-  /// In es, this message translates to:
-  /// **'Hasta: {date}'**
-  String invoicesFilterChipTo(String date);
-
   /// Texto del botón cancelar en filtros
   ///
   /// In es, this message translates to:
@@ -1755,12 +1173,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Cliente'**
   String get invoiceDetailClient;
-
-  /// Etiqueta de estado en detalle de factura
-  ///
-  /// In es, this message translates to:
-  /// **'Estado'**
-  String get invoiceDetailStatus;
 
   /// Etiqueta de moneda en detalle de factura
   ///
@@ -1822,17 +1234,23 @@ abstract class AppLocalizations {
   /// **'Impuestos'**
   String get invoiceDetailTaxBreakdown;
 
+  /// Etiqueta columna base imponible en desglose de impuestos
+  ///
+  /// In es, this message translates to:
+  /// **'Base imponible'**
+  String get invoiceDetailTaxBase;
+
+  /// Etiqueta columna cuota en desglose de impuestos
+  ///
+  /// In es, this message translates to:
+  /// **'Cuota'**
+  String get invoiceDetailTaxAmount;
+
   /// Etiqueta de total en detalle de factura
   ///
   /// In es, this message translates to:
   /// **'Total'**
   String get invoiceDetailTotal;
-
-  /// Mensaje cuando la factura no existe
-  ///
-  /// In es, this message translates to:
-  /// **'Factura no encontrada'**
-  String get invoiceDetailNotFound;
 
   /// Texto del botón volver al listado de facturas
   ///
@@ -1882,12 +1300,6 @@ abstract class AppLocalizations {
   /// **'Reintentar'**
   String get fdRetry;
 
-  /// Cabecera de columna activo en tabla de clientes
-  ///
-  /// In es, this message translates to:
-  /// **'Activo'**
-  String get clientsColumnActive;
-
   /// Cabecera de columna categoría en tabla de clientes
   ///
   /// In es, this message translates to:
@@ -1900,59 +1312,11 @@ abstract class AppLocalizations {
   /// **'Categoría no asignada'**
   String get clientsCategoryUnspecified;
 
-  /// Cabecera de columna mostrar en nuevos pedidos en tabla de clientes
-  ///
-  /// In es, this message translates to:
-  /// **'Mostrar en nuevos pedidos'**
-  String get clientsColumnShowInOrders;
-
-  /// Etiqueta genérica para valor booleano verdadero
-  ///
-  /// In es, this message translates to:
-  /// **'Sí'**
-  String get genericYes;
-
-  /// Etiqueta genérica para valor booleano falso
-  ///
-  /// In es, this message translates to:
-  /// **'No'**
-  String get genericNo;
-
-  /// Botón para descartar cambios pendientes en clientes
-  ///
-  /// In es, this message translates to:
-  /// **'Cancelar cambios'**
-  String get clientsDiscardChanges;
-
-  /// Mensaje de éxito al guardar cambios en clientes
-  ///
-  /// In es, this message translates to:
-  /// **'Cambios guardados correctamente'**
-  String get clientsSuccessSaved;
-
-  /// Mensaje de error al guardar cambios en clientes
-  ///
-  /// In es, this message translates to:
-  /// **'Error al guardar los cambios'**
-  String get clientsErrorSaving;
-
-  /// Mensaje durante el guardado de cambios en clientes
-  ///
-  /// In es, this message translates to:
-  /// **'Guardando cambios...'**
-  String get clientsSaving;
-
   /// Título del diálogo para seleccionar categoría de cliente
   ///
   /// In es, this message translates to:
   /// **'Seleccionar categoría'**
   String get clientsSelectCategory;
-
-  /// Texto del botón cuando no hay categoría asignada
-  ///
-  /// In es, this message translates to:
-  /// **'Asignar categoría'**
-  String get clientsSelectCategoryButton;
 
   /// Placeholder del buscador en el selector de categoría
   ///
@@ -1960,53 +1324,17 @@ abstract class AppLocalizations {
   /// **'Buscar categoría...'**
   String get clientsSelectCategorySearch;
 
-  /// Mensaje de error al cargar categorías
-  ///
-  /// In es, this message translates to:
-  /// **'Error al cargar las categorías'**
-  String get clientsSelectCategoryError;
-
   /// Mensaje cuando no hay categorías
   ///
   /// In es, this message translates to:
   /// **'No hay categorías disponibles'**
   String get clientsSelectCategoryEmpty;
 
-  /// Mensaje mientras se cargan las categorías
-  ///
-  /// In es, this message translates to:
-  /// **'Cargando categorías...'**
-  String get clientsLoadingCategories;
-
-  /// Tooltip del botón para desvincular la categoría de un cliente
-  ///
-  /// In es, this message translates to:
-  /// **'Desvincular categoría'**
-  String get clientsUnlinkCategory;
-
-  /// Mensaje de éxito al desvincular la categoría de un cliente
-  ///
-  /// In es, this message translates to:
-  /// **'Categoría desvinculada correctamente'**
-  String get clientsSuccessUnlinked;
-
-  /// Botón para eliminar columnas de clientes seleccionados
-  ///
-  /// In es, this message translates to:
-  /// **'Eliminar clientes'**
-  String get ordersTodayDeleteClients;
-
   /// Botón para restablecer los pedidos de los clientes seleccionados
   ///
   /// In es, this message translates to:
   /// **'Restablecer pedidos'**
   String get ordersTodayResetOrders;
-
-  /// Número de clientes seleccionados en la barra de acciones
-  ///
-  /// In es, this message translates to:
-  /// **'{count, plural, =1{cliente seleccionado} other{clientes seleccionados}}'**
-  String ordersTodaySelectedClients(int count);
 
   /// Botón para añadir cliente o producto
   ///
@@ -2080,18 +1408,6 @@ abstract class AppLocalizations {
   /// **'Quitar de la tabla'**
   String get ordersTodayRemoveFromTable;
 
-  /// Título del diálogo de confirmación para quitar clientes y productos a la vez
-  ///
-  /// In es, this message translates to:
-  /// **'Quitar de la tabla'**
-  String get ordersTodayDeleteBothConfirmTitle;
-
-  /// Mensaje del diálogo de confirmación para quitar clientes y productos a la vez
-  ///
-  /// In es, this message translates to:
-  /// **'¿Quitar {clientCount, plural, =1{1 cliente} other{{clientCount} clientes}} y {productCount, plural, =1{1 producto} other{{productCount} productos}} de la tabla?\nEsta acción no se puede deshacer.'**
-  String ordersTodayDeleteBothConfirmMessage(int clientCount, int productCount);
-
   /// Título del diálogo de confirmación para quitar productos
   ///
   /// In es, this message translates to:
@@ -2139,18 +1455,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Nombre de usuario'**
   String get settingsUserNameLabel;
-
-  /// Mensaje de confirmación al guardar nombre de usuario
-  ///
-  /// In es, this message translates to:
-  /// **'Nombre de usuario guardado'**
-  String get settingsUserNameSaved;
-
-  /// Error cuando el nombre de usuario está vacío
-  ///
-  /// In es, this message translates to:
-  /// **'El nombre no puede estar vacío'**
-  String get settingsUserNameEmpty;
 
   /// Mensaje cuando una celda está bloqueada por otro usuario
   ///
@@ -2211,36 +1515,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Para vincular a: {productName}'**
   String productsLinkDialogSubtitle(String productName);
-
-  /// Título del diálogo de selección de origen de pedidos
-  ///
-  /// In es, this message translates to:
-  /// **'Pedidos de hoy'**
-  String get ordersTodaySourceDialogTitle;
-
-  /// Subtítulo del diálogo de selección de origen
-  ///
-  /// In es, this message translates to:
-  /// **'¿Cómo quieres consultar los pedidos de hoy?'**
-  String get ordersTodaySourceDialogSubtitle;
-
-  /// Opción para abrir pedidos desde la aplicación (Firestore)
-  ///
-  /// In es, this message translates to:
-  /// **'Pedidos de hoy (aplicación)'**
-  String get ordersTodaySourceApp;
-
-  /// Descripción de la opción de pedidos desde la aplicación
-  ///
-  /// In es, this message translates to:
-  /// **'Gestionar los pedidos desde la aplicación'**
-  String get ordersTodaySourceAppDescription;
-
-  /// Mensaje cuando Google Drive no está configurado al intentar abrir hoja de cálculo
-  ///
-  /// In es, this message translates to:
-  /// **'Configura Google Drive en Ajustes para acceder a las hojas de cálculo.'**
-  String get ordersTodaySourceDriveNotConfigured;
 
   /// Placeholder en la tabla de pedidos cuando no hay clientes
   ///
@@ -2656,12 +1930,6 @@ abstract class AppLocalizations {
   /// **'Subtotal'**
   String get provisionalInvoiceSubtotal;
 
-  /// Etiqueta de impuesto en desglose de factura
-  ///
-  /// In es, this message translates to:
-  /// **'IVA'**
-  String get provisionalInvoiceTaxLabel;
-
   /// Cabecera columna impuesto en tabla de desglose fiscal
   ///
   /// In es, this message translates to:
@@ -2926,23 +2194,11 @@ abstract class AppLocalizations {
   /// **'Color de categoría'**
   String get clientCategoriesColorLabel;
 
-  /// Botón para quitar el color asignado a una categoría
-  ///
-  /// In es, this message translates to:
-  /// **'Quitar color'**
-  String get clientCategoriesRemoveColor;
-
   /// Botón para editar un cliente
   ///
   /// In es, this message translates to:
   /// **'Editar'**
   String get clientsEdit;
-
-  /// Botón para ver el detalle de un cliente
-  ///
-  /// In es, this message translates to:
-  /// **'Ver'**
-  String get clientsView;
 
   /// Título de la vista de edición de un cliente
   ///
@@ -2955,12 +2211,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Métodos de envío'**
   String get clientsColumnShippingMethods;
-
-  /// Cabecera de columna acciones en tabla de clientes
-  ///
-  /// In es, this message translates to:
-  /// **'Acciones'**
-  String get clientsColumnActions;
 
   /// Cabecera de columna provincia en tabla de clientes
   ///
@@ -3004,12 +2254,6 @@ abstract class AppLocalizations {
   /// **'Datos de Factura Directa'**
   String get clientsFdDataSection;
 
-  /// Número de días con método de envío asignado
-  ///
-  /// In es, this message translates to:
-  /// **'{count} días asignados'**
-  String clientsShippingMethodsAssigned(int count);
-
   /// Título del diálogo de métodos de envío por día
   ///
   /// In es, this message translates to:
@@ -3021,12 +2265,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Asigna un método de envío por día'**
   String get clientsShippingMethodsSubtitle;
-
-  /// Botón para abrir el diálogo de métodos de envío por día
-  ///
-  /// In es, this message translates to:
-  /// **'Asignar métodos de envío'**
-  String get clientsShippingMethodsButton;
 
   /// Día de la semana: lunes (abreviado/corto)
   ///
@@ -3195,12 +2433,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Seleccionar todos'**
   String get shippingMethodsAssociateSelectAllClients;
-
-  /// Texto del diálogo de progreso al guardar asociaciones
-  ///
-  /// In es, this message translates to:
-  /// **'Guardando asociaciones...'**
-  String get shippingMethodsAssociateProgressSaving;
 
   /// Tooltip y botón eliminar método de envío
   ///
@@ -3442,12 +2674,6 @@ abstract class AppLocalizations {
   /// **'La gestión de pedidos de hoy solo está disponible en pantallas de mayor tamaño. Por favor, accede desde un ordenador o una tablet.'**
   String get ordersTodayMobileDescription;
 
-  /// Título de la página de pedidos de hoy en modo solo lectura
-  ///
-  /// In es, this message translates to:
-  /// **'Pedidos de hoy (solo lectura)'**
-  String get ordersTodayReadonlyTitle;
-
   /// Fecha y hora de la última modificación del documento de pedidos
   ///
   /// In es, this message translates to:
@@ -3471,6 +2697,246 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Desconectado'**
   String get ordersTodayLiveDisconnected;
+
+  /// Texto placeholder en la página de estadísticas
+  ///
+  /// In es, this message translates to:
+  /// **'Próximamente'**
+  String get statisticsComingSoon;
+
+  /// Título del diálogo de selección de método de envío para PDF
+  ///
+  /// In es, this message translates to:
+  /// **'Seleccionar método de envío'**
+  String get pdfSelectShippingMethod;
+
+  /// Hint del campo de búsqueda de método de envío en diálogo PDF
+  ///
+  /// In es, this message translates to:
+  /// **'Buscar método de envío...'**
+  String get pdfSearchShippingMethod;
+
+  /// Cabecera de columna nombre en tabla del diálogo PDF
+  ///
+  /// In es, this message translates to:
+  /// **'Nombre'**
+  String get pdfColumnName;
+
+  /// Cabecera de columna teléfono en tabla del diálogo PDF
+  ///
+  /// In es, this message translates to:
+  /// **'Teléfono'**
+  String get pdfColumnPhone;
+
+  /// Mensaje cuando no hay resultados en búsqueda de métodos de envío
+  ///
+  /// In es, this message translates to:
+  /// **'No se encontraron métodos de envío'**
+  String get pdfNoShippingMethodsFound;
+
+  /// Etiqueta del impuesto IVA al 21%
+  ///
+  /// In es, this message translates to:
+  /// **'IVA 21%'**
+  String get taxLabelIva21;
+
+  /// Etiqueta del impuesto IVA al 10%
+  ///
+  /// In es, this message translates to:
+  /// **'IVA 10%'**
+  String get taxLabelIva10;
+
+  /// Etiqueta del impuesto IVA al 4%
+  ///
+  /// In es, this message translates to:
+  /// **'IVA 4%'**
+  String get taxLabelIva4;
+
+  /// Etiqueta del recargo de equivalencia 5,20%
+  ///
+  /// In es, this message translates to:
+  /// **'RE 5,20%'**
+  String get taxLabelRe52;
+
+  /// Etiqueta del recargo de equivalencia 1,40%
+  ///
+  /// In es, this message translates to:
+  /// **'RE 1,40%'**
+  String get taxLabelRe14;
+
+  /// Etiqueta del recargo de equivalencia 0,50%
+  ///
+  /// In es, this message translates to:
+  /// **'RE 0,50%'**
+  String get taxLabelRe05;
+
+  /// Formato de rango de fechas del mismo mes en el dashboard
+  ///
+  /// In es, this message translates to:
+  /// **'{startDay}–{endDay} de {month}'**
+  String dashboardDateRangeFormat(int startDay, int endDay, String month);
+
+  /// Subtítulo del diálogo PDF con nombre de cliente y día
+  ///
+  /// In es, this message translates to:
+  /// **'Para: {clientName} ({dayName})'**
+  String pdfSubtitleFor(String clientName, String dayName);
+
+  /// Título de la sección de versión de la aplicación en Ajustes
+  ///
+  /// In es, this message translates to:
+  /// **'Versión de la web {version}'**
+  String settingsAppVersionTitle(String version);
+
+  /// Título del diálogo de historial de acciones
+  ///
+  /// In es, this message translates to:
+  /// **'Historial de acciones'**
+  String get ordersTodayHistoryTitle;
+
+  /// Tooltip del botón de historial
+  ///
+  /// In es, this message translates to:
+  /// **'Historial'**
+  String get ordersTodayHistoryButton;
+
+  /// Mensaje cuando el historial está vacío
+  ///
+  /// In es, this message translates to:
+  /// **'No hay acciones registradas hoy.'**
+  String get ordersTodayHistoryEmpty;
+
+  /// Mensaje de error al cargar historial
+  ///
+  /// In es, this message translates to:
+  /// **'Error al cargar el historial.'**
+  String get ordersTodayHistoryError;
+
+  /// Mensaje de carga del historial
+  ///
+  /// In es, this message translates to:
+  /// **'Cargando historial…'**
+  String get ordersTodayHistoryLoading;
+
+  /// Botón cerrar diálogo historial
+  ///
+  /// In es, this message translates to:
+  /// **'Cerrar'**
+  String get ordersTodayHistoryClose;
+
+  /// Acción: cambio de cantidad
+  ///
+  /// In es, this message translates to:
+  /// **'Cantidad modificada'**
+  String get orderActionQuantityChanged;
+
+  /// Acción: cambio de stock
+  ///
+  /// In es, this message translates to:
+  /// **'Stock modificado'**
+  String get orderActionStockChanged;
+
+  /// Acción: marcar compensación
+  ///
+  /// In es, this message translates to:
+  /// **'Compensación marcada'**
+  String get orderActionCompensationMarked;
+
+  /// Acción: desmarcar compensación
+  ///
+  /// In es, this message translates to:
+  /// **'Compensación desmarcada'**
+  String get orderActionCompensationUnmarked;
+
+  /// Acción: marcar reserva
+  ///
+  /// In es, this message translates to:
+  /// **'Reserva marcada'**
+  String get orderActionReservationMarked;
+
+  /// Acción: desmarcar reserva
+  ///
+  /// In es, this message translates to:
+  /// **'Reserva desmarcada'**
+  String get orderActionReservationUnmarked;
+
+  /// Acción: activar stock estricto
+  ///
+  /// In es, this message translates to:
+  /// **'Stock estricto activado'**
+  String get orderActionStrictStockMarked;
+
+  /// Acción: desactivar stock estricto
+  ///
+  /// In es, this message translates to:
+  /// **'Stock estricto desactivado'**
+  String get orderActionStrictStockUnmarked;
+
+  /// Acción: añadir devolución
+  ///
+  /// In es, this message translates to:
+  /// **'Abono creado'**
+  String get orderActionRefundAdded;
+
+  /// Acción: editar devolución
+  ///
+  /// In es, this message translates to:
+  /// **'Abono editado'**
+  String get orderActionRefundEdited;
+
+  /// Acción: eliminar devolución
+  ///
+  /// In es, this message translates to:
+  /// **'Abono eliminado'**
+  String get orderActionRefundRemoved;
+
+  /// Acción: reiniciar pedidos
+  ///
+  /// In es, this message translates to:
+  /// **'Pedido restablecido'**
+  String get orderActionOrdersReset;
+
+  /// Acción: añadir clientes
+  ///
+  /// In es, this message translates to:
+  /// **'Cliente añadido'**
+  String get orderActionClientsAdded;
+
+  /// Acción: eliminar clientes
+  ///
+  /// In es, this message translates to:
+  /// **'Cliente eliminado'**
+  String get orderActionClientsRemoved;
+
+  /// Acción: añadir productos
+  ///
+  /// In es, this message translates to:
+  /// **'Productos añadidos'**
+  String get orderActionProductsAdded;
+
+  /// Acción: eliminar productos
+  ///
+  /// In es, this message translates to:
+  /// **'Productos eliminados'**
+  String get orderActionProductsRemoved;
+
+  /// Acción: generar hoja de pedido
+  ///
+  /// In es, this message translates to:
+  /// **'Hoja de pedido generada'**
+  String get orderActionOrderSheetGenerated;
+
+  /// Acción: creación de la hoja de pedido del día
+  ///
+  /// In es, this message translates to:
+  /// **'Hoja de pedido creada'**
+  String get orderActionOrderSheetCreated;
+
+  /// Acción: generar albarán provisional
+  ///
+  /// In es, this message translates to:
+  /// **'Albarán provisional generado'**
+  String get orderActionProvisionalInvoiceGenerated;
 }
 
 class _AppLocalizationsDelegate

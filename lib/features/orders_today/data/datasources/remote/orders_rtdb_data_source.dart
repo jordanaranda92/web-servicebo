@@ -28,7 +28,6 @@ abstract class OrdersRtdbDataSource {
     String userId,
     String? productId,
     String? clientId,
-    String color,
     String userName,
   );
 

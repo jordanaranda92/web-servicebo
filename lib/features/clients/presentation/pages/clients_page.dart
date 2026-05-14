@@ -5,9 +5,8 @@ import 'package:go_router/go_router.dart';
 import '../../../../app/di/injection.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/theme_constants.dart';
-import '../../../../app/theme/theme_extensions.dart';
 import '../../../../core/presentation/bloc/feedback_cubit.dart';
-import '../../../../core/presentation/bloc/feedback_state.dart';
+import '../../../../core/presentation/widgets/feedback_banner.dart';
 import '../../../../core/presentation/widgets/page_header.dart';
 import '../../domain/entities/client.dart';
 import '../../domain/entities/fd_new_contact.dart';
@@ -205,69 +204,7 @@ class _ClientsPageState extends State<ClientsPage> {
                     icon: const Icon(Icons.person_add_rounded),
                     label: Text(l10n.clientsAddFromFd),
                   ),
-                  BlocBuilder<FeedbackCubit, FeedbackState>(
-                    buildWhen: (previous, current) =>
-                        previous.message != current.message ||
-                        previous.isSuccess != current.isSuccess,
-                    builder: (context, feedback) {
-                      if (!feedback.hasMessage) {
-                        return const SizedBox.shrink();
-                      }
-                      return Padding(
-                        padding: const EdgeInsets.only(left: AppSpacing.md),
-                        child: SizedBox(
-                          height: 40,
-                          child: Card(
-                            elevation: 2,
-                            margin: EdgeInsets.zero,
-                            color: feedback.isSuccess
-                                ? Theme.of(
-                                    context,
-                                  ).extension<CustomColors>()?.success
-                                : colorScheme.error,
-                            shadowColor:
-                                (feedback.isSuccess
-                                        ? (Theme.of(context)
-                                                  .extension<CustomColors>()
-                                                  ?.success ??
-                                              colorScheme.primary)
-                                        : colorScheme.error)
-                                    .withValues(alpha: AppOpacity.disabled),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                AppRadii.small,
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: AppSpacing.md,
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(
-                                    feedback.isSuccess
-                                        ? Icons.check_circle_rounded
-                                        : Icons.error_rounded,
-                                    size: 18,
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(width: AppSpacing.xs),
-                                  Text(
-                                    feedback.message!,
-                                    style: textTheme.bodySmall?.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                  const FeedbackBanner(),
                 ],
               ),
             );
@@ -573,14 +510,6 @@ class _ClientsPageState extends State<ClientsPage> {
                   flex: 2,
                   child: Text(l10n.clientsColumnCategory, style: headerStyle),
                 ),
-                SizedBox(
-                  width: 120,
-                  child: Text(
-                    l10n.clientsColumnActions,
-                    style: headerStyle,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
               ],
             ),
           ),
@@ -638,83 +567,58 @@ class _ClientsPageState extends State<ClientsPage> {
     final hasCategory = categoryName != null && categoryName.isNotEmpty;
     final fiscalId = fiscalIdsByUuid[client.facturaDirectaUuid];
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.md,
-        vertical: AppSpacing.sm + 2,
-      ),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 120,
-            child: Text(
-              fiscalId ?? '—',
-              style: textTheme.bodyMedium?.copyWith(
-                color: fiscalId != null ? null : colorScheme.onSurfaceVariant,
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          const SizedBox(width: AppSpacing.md),
-          Expanded(
-            flex: 3,
-            child: Text(
-              client.name,
-              style: textTheme.bodyMedium,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          const SizedBox(width: AppSpacing.md),
-          Expanded(
-            flex: 2,
-            child: Text(
-              client.facturaDirectaName,
-              overflow: TextOverflow.ellipsis,
-              style: textTheme.bodySmall,
-            ),
-          ),
-          const SizedBox(width: AppSpacing.md),
-          Expanded(
-            flex: 2,
-            child: hasCategory
-                ? Align(
-                    alignment: Alignment.centerLeft,
-                    child: CategoryBadge(
-                      name: categoryName,
-                      color: client.categoryColor,
-                    ),
-                  )
-                : const SizedBox.shrink(),
-          ),
-          SizedBox(
-            width: 120,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 32,
-                  width: 32,
-                  child: IconButton.filled(
-                    icon: const Icon(Icons.visibility_outlined, size: 16),
-                    style: IconButton.styleFrom(
-                      backgroundColor: colorScheme.surfaceContainerHighest,
-                      foregroundColor: colorScheme.onSurfaceVariant,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(AppRadii.small),
-                      ),
-                    ),
-                    tooltip: l10n.clientsView,
-                    onPressed: () => context.push(
-                      '/clients/${client.id}/detail',
-                      extra: client,
-                    ),
-                    padding: EdgeInsets.zero,
-                  ),
+    return InkWell(
+      onTap: () => context.push('/clients/${client.id}/detail', extra: client),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.md,
+          vertical: AppSpacing.sm + 2,
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 120,
+              child: Text(
+                fiscalId ?? '—',
+                style: textTheme.bodyMedium?.copyWith(
+                  color: fiscalId != null ? null : colorScheme.onSurfaceVariant,
                 ),
-              ],
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
-          ),
-        ],
+            const SizedBox(width: AppSpacing.md),
+            Expanded(
+              flex: 3,
+              child: Text(
+                client.name,
+                style: textTheme.bodyMedium,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            const SizedBox(width: AppSpacing.md),
+            Expanded(
+              flex: 2,
+              child: Text(
+                client.facturaDirectaName,
+                overflow: TextOverflow.ellipsis,
+                style: textTheme.bodySmall,
+              ),
+            ),
+            const SizedBox(width: AppSpacing.md),
+            Expanded(
+              flex: 2,
+              child: hasCategory
+                  ? Align(
+                      alignment: Alignment.centerLeft,
+                      child: CategoryBadge(
+                        name: categoryName,
+                        color: client.categoryColor,
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+            ),
+          ],
+        ),
       ),
     );
   }

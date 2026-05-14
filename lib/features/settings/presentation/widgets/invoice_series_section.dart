@@ -53,12 +53,19 @@ class _InvoiceSeriesSectionState extends State<InvoiceSeriesSection> {
     }
     final result = await _settingsRepo.saveInvoiceSeries(text);
     if (!mounted) return;
-    result.fold((_) {}, (_) {
-      setState(() => _showSavedBanner = true);
-      Future.delayed(const Duration(seconds: 3), () {
-        if (mounted) setState(() => _showSavedBanner = false);
-      });
-    });
+    result.fold(
+      (_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.settingsInvoiceSeriesSaveError)),
+        );
+      },
+      (_) {
+        setState(() => _showSavedBanner = true);
+        Future.delayed(const Duration(seconds: 3), () {
+          if (mounted) setState(() => _showSavedBanner = false);
+        });
+      },
+    );
   }
 
   @override
@@ -132,16 +139,16 @@ class _InvoiceSeriesSectionState extends State<InvoiceSeriesSection> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.check_circle_rounded,
                         size: 18,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.surface,
                       ),
                       const SizedBox(width: AppSpacing.xs),
                       Text(
                         l10n.settingsInvoiceSeriesSaved,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.surface,
                           fontWeight: FontWeight.w600,
                         ),
                       ),

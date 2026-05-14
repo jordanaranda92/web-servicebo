@@ -95,7 +95,7 @@ Future<void> showOrderSheetPdfDialog(
         'Pedido_${clientName.replaceAll(RegExp(r'[^\w\s-]'), '')}_${orderSheet.date}';
 
     await Printing.layoutPdf(onLayout: (_) async => pdfBytes, name: fileName);
-  } catch (e, st) {
+  } on Exception catch (e, st) {
     sl<AppLogger>().error('Error generating order sheet PDF', e, st);
     if (!context.mounted) return;
     ScaffoldMessenger.of(
@@ -248,6 +248,7 @@ class _ShippingMethodSelectorDialogState
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context)!;
     final headerStyle = textTheme.titleSmall?.copyWith(
       fontWeight: FontWeight.w600,
       color: colorScheme.onSurfaceVariant,
@@ -259,10 +260,10 @@ class _ShippingMethodSelectorDialogState
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('Seleccionar método de envío'),
+          Text(l10n.pdfSelectShippingMethod),
           const SizedBox(height: 4),
           Text(
-            'Para: ${widget.clientName} (${widget.localizedDayName})',
+            l10n.pdfSubtitleFor(widget.clientName, widget.localizedDayName),
             style: textTheme.bodyMedium?.copyWith(
               color: colorScheme.onSurfaceVariant,
             ),
@@ -281,7 +282,7 @@ class _ShippingMethodSelectorDialogState
                 controller: _searchController,
                 onChanged: _filter,
                 decoration: InputDecoration(
-                  hintText: 'Buscar método de envío...',
+                  hintText: l10n.pdfSearchShippingMethod,
                   prefixIcon: const Icon(Icons.search, size: 20),
                   suffixIcon: _searchController.text.isNotEmpty
                       ? IconButton(
@@ -325,11 +326,11 @@ class _ShippingMethodSelectorDialogState
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               child: Row(
                 children: [
-                  Expanded(child: Text('Nombre', style: headerStyle)),
+                  Expanded(child: Text(l10n.pdfColumnName, style: headerStyle)),
                   SizedBox(
                     width: 120,
                     child: Text(
-                      'Teléfono',
+                      l10n.pdfColumnPhone,
                       style: headerStyle,
                       textAlign: TextAlign.right,
                     ),
@@ -349,7 +350,7 @@ class _ShippingMethodSelectorDialogState
                 child: _filtered.isEmpty
                     ? Center(
                         child: Text(
-                          'No se encontraron métodos de envío',
+                          l10n.pdfNoShippingMethodsFound,
                           style: textTheme.bodyMedium?.copyWith(
                             color: colorScheme.onSurfaceVariant,
                           ),

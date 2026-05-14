@@ -285,7 +285,7 @@ class _ProvisionalInvoiceDialogState extends State<ProvisionalInvoiceDialog> {
                                 align: TextAlign.right,
                               ),
                               _dataCell(
-                                _formatTaxLabel(line.tax),
+                                _formatTaxLabel(line.tax, l10n),
                                 textTheme,
                                 align: TextAlign.right,
                               ),
@@ -642,20 +642,21 @@ class _ProvisionalInvoiceDialogState extends State<ProvisionalInvoiceDialog> {
     return '$sign${buffer.toString()},$decPart';
   }
 
-  static const _taxIdLabels = {
-    'S_IVA_21': 'IVA 21%',
-    'S_IVA_10': 'IVA 10%',
-    'S_IVA_4': 'IVA 4%',
-    'S_IVA_RE_5.2': 'RE 5,20%',
-    'S_IVA_RE_1.4': 'RE 1,40%',
-    'S_IVA_RE_0.5': 'RE 0,50%',
+  Map<String, String> _taxIdLabels(AppLocalizations l10n) => {
+    'S_IVA_21': l10n.taxLabelIva21,
+    'S_IVA_10': l10n.taxLabelIva10,
+    'S_IVA_4': l10n.taxLabelIva4,
+    'S_IVA_RE_5.2': l10n.taxLabelRe52,
+    'S_IVA_RE_1.4': l10n.taxLabelRe14,
+    'S_IVA_RE_0.5': l10n.taxLabelRe05,
   };
 
-  String _formatTaxLabel(List<String> taxIds) {
+  String _formatTaxLabel(List<String> taxIds, AppLocalizations l10n) {
     if (taxIds.isEmpty) return '-';
     final labels = <String>[];
+    final taxMap = _taxIdLabels(l10n);
     for (final id in taxIds) {
-      labels.add(_taxIdLabels[id] ?? id);
+      labels.add(taxMap[id] ?? id);
     }
     return labels.join('\n');
   }

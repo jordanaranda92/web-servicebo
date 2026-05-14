@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
 
@@ -29,7 +31,8 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(_mapAuthException(e));
     } on ServerException {
       return Left(AuthUnknownFailure());
-    } catch (_) {
+    } on Exception catch (e, st) {
+      dev.log('[Auth] signIn unexpected error', error: e, stackTrace: st);
       return Left(AuthUnknownFailure());
     }
   }
@@ -40,7 +43,8 @@ class AuthRepositoryImpl implements AuthRepository {
       await _remoteDataSource.signOut();
       await _localDataSource.setRememberMe(false);
       return const Right(unit);
-    } catch (_) {
+    } on Exception catch (e, st) {
+      dev.log('[Auth] signOut unexpected error', error: e, stackTrace: st);
       return Left(AuthUnknownFailure());
     }
   }
@@ -50,7 +54,12 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final user = _remoteDataSource.getCurrentUser();
       return Right(user);
-    } catch (_) {
+    } on Exception catch (e, st) {
+      dev.log(
+        '[Auth] getCurrentUser unexpected error',
+        error: e,
+        stackTrace: st,
+      );
       return Left(AuthUnknownFailure());
     }
   }
@@ -62,7 +71,12 @@ class AuthRepositoryImpl implements AuthRepository {
       return Right(user);
     } on ServerException {
       return Left(ServerFailure());
-    } catch (_) {
+    } on Exception catch (e, st) {
+      dev.log(
+        '[Auth] getCurrentUserWithProfile unexpected error',
+        error: e,
+        stackTrace: st,
+      );
       return Left(AuthUnknownFailure());
     }
   }
@@ -74,7 +88,8 @@ class AuthRepositoryImpl implements AuthRepository {
       return Right(name);
     } on ServerException {
       return Left(ServerFailure());
-    } catch (_) {
+    } on Exception catch (e, st) {
+      dev.log('[Auth] getUserName unexpected error', error: e, stackTrace: st);
       return Left(InternalFailure());
     }
   }
@@ -86,7 +101,8 @@ class AuthRepositoryImpl implements AuthRepository {
       return const Right(unit);
     } on ServerException {
       return Left(ServerFailure());
-    } catch (_) {
+    } on Exception catch (e, st) {
+      dev.log('[Auth] saveUserName unexpected error', error: e, stackTrace: st);
       return Left(InternalFailure());
     }
   }

@@ -14,7 +14,7 @@ class StatisticsPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         PageHeader(title: l10n.menuStatistics),
-        const Expanded(child: Center(child: Text('Próximamente'))),
+        Expanded(child: Center(child: Text(l10n.statisticsComingSoon))),
       ],
     );
   }

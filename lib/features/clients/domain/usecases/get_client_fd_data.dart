@@ -2,16 +2,15 @@ import 'dart:developer' as dev;
 
 import 'package:fpdart/fpdart.dart';
 
-import '../../../../core/data/datasources/factura_directa_api_data_source.dart';
-import '../../../../core/error/exceptions.dart';
+import '../../../../core/domain/repositories/factura_directa_repository.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../entities/fd_contact_data.dart';
 
 class GetClientFdData extends UseCase<FdContactData, String> {
-  final FacturaDirectaApiDataSource _fdApi;
+  final FacturaDirectaRepository _fdRepo;
 
-  GetClientFdData(this._fdApi);
+  GetClientFdData(this._fdRepo);
 
   /// [params] is the FacturaDirecta contact UUID.
   @override
@@ -21,12 +20,12 @@ class GetClientFdData extends UseCase<FdContactData, String> {
       name: 'Clients',
     );
 
-    try {
-      final json = await _fdApi.getContactById(
-        params,
-        queryParameters: {'related': 'receivePaymentMethod'},
-      );
+    final result = await _fdRepo.getContactById(
+      params,
+      queryParameters: {'related': 'receivePaymentMethod'},
+    );
 
+    return result.fold((failure) => Left(failure), (json) {
       final content = json['content'] as Map<String, dynamic>?;
       final main = content?['main'] as Map<String, dynamic>? ?? {};
       final uuid = content?['uuid'] as String? ?? params;
@@ -60,23 +59,7 @@ class GetClientFdData extends UseCase<FdContactData, String> {
           currency: main['currency'] as String?,
         ),
       );
-    } on ServerException catch (e) {
-      dev.log(
-        '[GetClientFdData] ServerException: ${e.message}',
-        name: 'Clients',
-      );
-      return Left(ServerFailure());
-    } on NetworkException {
-      return Left(NetworkFailure());
-    } catch (e, st) {
-      dev.log(
-        '[GetClientFdData] unexpected error: $e',
-        name: 'Clients',
-        error: e,
-        stackTrace: st,
-      );
-      return Left(InternalFailure());
-    }
+    });
   }
 
   static String? _provinceName(String? code) {

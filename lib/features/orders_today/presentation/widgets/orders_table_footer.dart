@@ -80,7 +80,7 @@ class _ConnectedUsersSection extends StatelessWidget {
             const SizedBox(width: AppSpacing.xs),
             UserBadge(
               name: presenceCubit.userName,
-              color: _parseHexColor(presenceCubit.myColor),
+              color: presenceCubit.myColor,
             ),
             ...cursors.map(
               (cursor) => Padding(
@@ -93,9 +93,4 @@ class _ConnectedUsersSection extends StatelessWidget {
       },
     );
   }
-}
-
-Color _parseHexColor(String hex) {
-  final code = hex.replaceFirst('#', '');
-  return Color(int.parse('FF$code', radix: 16));
 }

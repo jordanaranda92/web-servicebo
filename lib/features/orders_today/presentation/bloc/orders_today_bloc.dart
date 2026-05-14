@@ -63,6 +63,7 @@ class OrdersTodayBloc extends Bloc<OrdersTodayEvent, OrdersTodayState> {
     on<OrdersTodayCellNoteUpdateRequested>(_onCellNoteUpdate);
     on<OrdersTodayCellRefundUpdateRequested>(_onCellRefundUpdate);
     on<OrdersTodayResetOrdersRequested>(_onResetOrders);
+    on<OrdersTodaySaveInvoicedByRequested>(_onSaveInvoicedBy);
   }
 
   final GetTodayOrders _getTodayOrders;
@@ -618,6 +619,21 @@ class OrdersTodayBloc extends Bloc<OrdersTodayEvent, OrdersTodayState> {
         ),
       ),
       failureMessage: 'Failed to update cell refund',
+    );
+  }
+
+  Future<void> _onSaveInvoicedBy(
+    OrdersTodaySaveInvoicedByRequested event,
+    Emitter<OrdersTodayState> emit,
+  ) async {
+    final currentState = state;
+    if (currentState is! OrdersTodayLoaded) return;
+    await _repository.saveInvoicedBy(
+      date: currentState.orderSheet.date,
+      clientId: event.clientId,
+      userId: event.userId,
+      userName: event.userName,
+      color: event.color,
     );
   }
 

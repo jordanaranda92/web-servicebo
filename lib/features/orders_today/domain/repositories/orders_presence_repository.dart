@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import '../entities/cell_lock.dart';
 import '../entities/remote_cursor.dart';
 
@@ -35,7 +33,6 @@ abstract class OrdersPresenceRepository {
     required String userId,
     String? productId,
     String? clientId,
-    required String color,
     required String userName,
   });
 
@@ -46,9 +43,7 @@ abstract class OrdersPresenceRepository {
   Stream<CellLockChange> onLockChanged();
 
   /// Stream of cursor changes.
-  Stream<RemoteCursorChange> onCursorChanged(
-    Color Function(String hex) colorParser,
-  );
+  Stream<RemoteCursorChange> onCursorChanged();
 
   /// Attempts to acquire a lock. Returns `true` if acquired.
   Future<bool> acquireLock(String cellKey, String userId);
@@ -60,9 +55,7 @@ abstract class OrdersPresenceRepository {
   Future<Map<String, CellLock>> getAllLocks();
 
   /// Returns all current cursors as domain entities.
-  Future<Map<String, RemoteCursor>> getAllCursors(
-    Color Function(String hex) colorParser,
-  );
+  Future<Map<String, RemoteCursor>> getAllCursors();
 
   /// Removes the user's cursor.
   Future<void> removeMyCursor(String userId);
