@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
 import 'app/config/app_config.dart';
-import 'app/config/environments/local_config.dart';
+import 'app/config/environments/dev_config.dart';
 import 'app/di/injection.dart';
 import 'app/router/router.dart';
 import 'features/auth/data/datasources/auth_local_data_source.dart';
@@ -21,11 +21,11 @@ import 'features/home/presentation/bloc/side_menu_cubit.dart';
 import 'features/locale/presentation/bloc/locale_cubit.dart';
 import 'features/locale/presentation/bloc/locale_state.dart';
 
-/// Default entry point - uses local configuration.
+/// Default entry point - uses dev configuration.
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await runApplication(LocalConfig());
+  await runApplication(DevConfig());
 }
 
 /// Runs the application with the provided configuration.

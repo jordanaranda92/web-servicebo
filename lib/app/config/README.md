@@ -7,7 +7,7 @@ Esta carpeta contiene archivos de configuración global de la aplicación.
 - `app_config.dart` - Clase abstracta base de configuración
 - `environment.dart` - Enum con los diferentes entornos
 - `environments/` - Configuraciones específicas por entorno:
-- `local_config.dart` - Configuración del entorno **local**
+- `dev_config.dart` - Configuración del entorno **dev**
 - `pro_config.dart` - Configuración del entorno **pro**
 
 ## Contenido Sugerido Adicional

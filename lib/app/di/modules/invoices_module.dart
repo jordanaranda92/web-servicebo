@@ -1,10 +1,10 @@
 import 'package:get_it/get_it.dart';
 
-import '../../../features/clients/domain/usecases/get_clients.dart';
 import '../../../features/invoices/data/repositories/invoices_repository_impl.dart';
 import '../../../features/invoices/domain/repositories/invoices_repository.dart';
 import '../../../features/invoices/domain/usecases/check_duplicate_invoice.dart';
 import '../../../features/invoices/domain/usecases/create_provisional_invoice.dart';
+import '../../../features/invoices/domain/usecases/get_fd_contact_names.dart';
 import '../../../features/invoices/domain/usecases/get_invoice_by_id.dart';
 import '../../../features/invoices/domain/usecases/get_invoices.dart';
 import '../../../features/invoices/domain/usecases/get_invoices_by_date_range.dart';
@@ -21,12 +21,17 @@ void registerInvoicesModule(GetIt sl) {
   sl.registerLazySingleton(() => GetInvoices(sl()));
   sl.registerLazySingleton(() => GetInvoiceById(sl()));
   sl.registerLazySingleton(() => GetInvoicesByDateRange(sl()));
+  sl.registerLazySingleton(() => GetFdContactNames(sl()));
   sl.registerLazySingleton(() => PrepareInvoicePreview(sl(), sl(), sl(), sl()));
   sl.registerLazySingleton(() => CheckDuplicateInvoice(sl()));
   sl.registerLazySingleton(() => CreateProvisionalInvoice(sl(), sl()));
 
   sl.registerFactory(
-    () => InvoicesCubit(sl(), sl<GetInvoicesByDateRange>(), sl<GetClients>()),
+    () => InvoicesCubit(
+      sl(),
+      sl<GetInvoicesByDateRange>(),
+      sl<GetFdContactNames>(),
+    ),
   );
   sl.registerFactory(() => ProvisionalInvoiceCubit(sl(), sl(), sl()));
   sl.registerFactory(() => InvoiceDetailCubit(sl()));

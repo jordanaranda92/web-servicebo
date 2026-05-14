@@ -1,7 +1,7 @@
 /// Represents the different environments the application can run in.
 enum Environment {
-  /// Local environment
-  local,
+  /// Dev environment
+  dev,
 
   /// Pro environment
   pro;
@@ -9,17 +9,16 @@ enum Environment {
   /// Returns a human-readable name for the environment.
   String get displayName {
     switch (this) {
-      case Environment.local:
-        return 'Local';
+      case Environment.dev:
+        return 'Dev';
       case Environment.pro:
         return 'Pro';
     }
   }
 
-  /// Returns true if the environment is local.
-  bool get isLocal => this == Environment.local;
+  /// Returns true if the environment is dev.
+  bool get isDev => this == Environment.dev;
 
   /// Returns true if the environment is pro.
   bool get isPro => this == Environment.pro;
-
 }

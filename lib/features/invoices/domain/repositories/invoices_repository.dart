@@ -10,4 +10,7 @@ abstract class InvoicesRepository {
     required String maxDate,
   });
   Future<Either<Failure, Invoice>> getInvoiceById(String id);
+
+  /// Returns a map of FD contact UUID → display name (title or name).
+  Future<Either<Failure, Map<String, String>>> getContactNames();
 }

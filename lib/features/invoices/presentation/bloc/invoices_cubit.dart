@@ -3,8 +3,8 @@ import 'package:intl/intl.dart';
 
 import '../../../../core/error/failure.dart';
 import '../../../../core/usecase/usecase.dart';
-import '../../../clients/domain/usecases/get_clients.dart';
 import '../../domain/entities/invoice.dart';
+import '../../domain/usecases/get_fd_contact_names.dart';
 import '../../domain/usecases/get_invoices.dart';
 import '../../domain/usecases/get_invoices_by_date_range.dart';
 import 'invoices_state.dart';
@@ -12,7 +12,7 @@ import 'invoices_state.dart';
 class InvoicesCubit extends Cubit<InvoicesState> {
   final GetInvoices _getInvoices;
   final GetInvoicesByDateRange _getInvoicesByDateRange;
-  final GetClients _getClients;
+  final GetFdContactNames _getFdContactNames;
 
   static const _apiPageSize = 500;
   static final _dateFmt = DateFormat('yyyy-MM-dd');
@@ -25,7 +25,7 @@ class InvoicesCubit extends Cubit<InvoicesState> {
   InvoicesCubit(
     this._getInvoices,
     this._getInvoicesByDateRange,
-    this._getClients,
+    this._getFdContactNames,
   ) : super(const InvoicesInitial());
 
   Future<void> loadInvoices({InvoiceFilters? filters}) async {
@@ -248,14 +248,11 @@ class InvoicesCubit extends Cubit<InvoicesState> {
   }
 
   Future<void> _loadClientNameMap() async {
-    final result = await _getClients(NoParams());
+    final result = await _getFdContactNames(NoParams());
     result.fold(
-      (_) {}, // best-effort: if clients fail, keep using invoice contactName
-      (clients) {
-        _clientNameMap = {
-          for (final c in clients)
-            if (c.facturaDirectaUuid.isNotEmpty) c.facturaDirectaUuid: c.name,
-        };
+      (_) {}, // best-effort: if contacts fail, keep using invoice contactName
+      (contactNames) {
+        _clientNameMap = contactNames;
       },
     );
   }

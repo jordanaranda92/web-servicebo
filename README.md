@@ -56,8 +56,8 @@ flutter pub get
 # Generar traducciones
 flutter gen-l10n
 
-# Ejecutar en entorno local
-flutter run -t lib/main_local.dart
+# Ejecutar en entorno dev
+flutter run -t lib/main_dev.dart
 ```
 
 Para las Cloud Functions:
@@ -76,7 +76,7 @@ por cada feature:
 ```
 lib/
 ├── app/
-│   ├── config/              # Configuración y entornos (local, pro)
+│   ├── config/              # Configuración y entornos (dev, pro)
 │   ├── di/                  # Inyección de dependencias (GetIt)
 │   │   └── modules/         # Un módulo por feature
 │   ├── localization/        # i18n (ARB + gen-l10n)
@@ -99,7 +99,7 @@ lib/
 │   ├── products/            # 📦 Catálogo de productos
 │   ├── invoices/            # 🧾 Facturación
 │   └── settings/            # ⚙️ Configuración
-└── main.dart / main_local.dart / main_pro.dart
+└── main.dart / main_dev.dart / main_pro.dart
 ```
 
 Cada feature sigue la estructura de capas:
@@ -130,10 +130,10 @@ Cada feature sigue la estructura de capas:
 
 ### Entornos
 
-| Entorno    | Entrypoint            | URL base                    | Logging  | Debug banner |
-| ---------- | --------------------- | --------------------------- | -------- | ------------ |
-| Local      | `lib/main_local.dart` | `http://localhost:8080`     | ✅ DEBUG | ✅           |
-| Producción | `lib/main_pro.dart`   | `https://api.servicebo.com` | ❌       | ❌           |
+| Entorno    | Entrypoint          | URL base                    | Logging  | Debug banner |
+| ---------- | ------------------- | --------------------------- | -------- | ------------ |
+| Dev        | `lib/main_dev.dart` | `http://localhost:8080`     | ✅ DEBUG | ✅           |
+| Producción | `lib/main_pro.dart` | `https://api.servicebo.com` | ❌       | ❌           |
 
 ### Firebase
 
@@ -167,7 +167,7 @@ El token de FacturaDirecta se almacena en **Google Secret Manager**
 | Comando                                            | Descripción                    |
 | -------------------------------------------------- | ------------------------------ |
 | `flutter pub get`                                  | Instalar dependencias          |
-| `flutter run -t lib/main_local.dart`               | Ejecutar en entorno local      |
+| `flutter run -t lib/main_dev.dart`                 | Ejecutar en entorno dev        |
 | `flutter run -t lib/main_pro.dart`                 | Ejecutar en entorno producción |
 | `flutter gen-l10n`                                 | Generar archivos de traducción |
 | `flutter test`                                     | Ejecutar tests unitarios       |
@@ -253,24 +253,6 @@ firebase deploy --only functions
 > [!TIP]
 > Los builds de producción deben usar siempre el entrypoint `lib/main_pro.dart`.
 > | `dio` | Cliente HTTP |
-
-FacturaDirecta\
-APIKEY DdaxdT.4QY1XXjF3qd3pRDGMEvvarMb5uxyllsx
-
-Pendiente:
-
-- Pantalla visualización de pedidos de hoy (solo lectura)
-- Opción de exportar pedidos de hoy a Excel
-- Mejorar vista de facturas
-- Crear detalles de factura\
-
-  Hoja de pedido:
-- Poder asociar a los clientes MRW o GLS y en la hoja de pedido indicarlo. Los
-  domingos es siempre con GLS (opcional).
-  - Nombre más grande.
-  - Número de pedido: número que aparece encima del cliente en la tabla.
-
----
 
 FacturaDirecta\
 APIKEY DdaxdT.4QY1XXjF3qd3pRDGMEvvarMb5uxyllsx

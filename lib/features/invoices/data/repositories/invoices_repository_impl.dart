@@ -87,4 +87,31 @@ class InvoicesRepositoryImpl implements InvoicesRepository {
       return Left(EntityMappingFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, Map<String, String>>> getContactNames() async {
+    try {
+      final rawContacts = await _apiDataSource.getContacts();
+      final nameMap = <String, String>{};
+
+      for (final json in rawContacts) {
+        final content = json['content'] as Map<String, dynamic>?;
+        final main = content?['main'] as Map<String, dynamic>? ?? {};
+        final uuid = content?['uuid'] as String? ?? '';
+        final title = main['title'] as String?;
+        final name = main['name'] as String?;
+        final displayName = (title != null && title.isNotEmpty) ? title : name;
+
+        if (uuid.isNotEmpty && displayName != null && displayName.isNotEmpty) {
+          nameMap[uuid] = displayName;
+        }
+      }
+
+      return Right(nameMap);
+    } on ServerException {
+      return Left(ServerFailure());
+    } on NetworkException {
+      return Left(NetworkFailure());
+    }
+  }
 }

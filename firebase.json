@@ -12,7 +12,6 @@
     }
   },
   "firestore": {
-    "database": "servicebo",
     "rules": "firestore.rules"
   },
   "database": {
