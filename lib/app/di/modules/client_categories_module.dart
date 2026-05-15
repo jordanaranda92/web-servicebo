@@ -14,7 +14,7 @@ import '../../../features/client_categories/presentation/bloc/client_categories_
 void registerClientCategoriesModule(GetIt sl) {
   // Data — DataSource
   sl.registerLazySingleton<ClientCategoryFirestoreDataSource>(
-    () => ClientCategoryFirestoreDataSourceImpl(sl()),
+    () => ClientCategoryFirestoreDataSourceImpl(sl(), sl()),
   );
 
   // Data — Repository

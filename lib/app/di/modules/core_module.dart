@@ -26,9 +26,13 @@ Future<void> registerCoreModule(
         AppLogger(enabled: config.enableLogging, minLevel: config.logMinLevel),
   );
 
+  sl.registerLazySingleton<FirebaseOperationsLogger>(
+    () => FirebaseOperationsLogger(sl()),
+  );
+
   // FacturaDirecta API DataSource
   sl.registerLazySingleton<FacturaDirectaApiDataSource>(
-    () => FacturaDirectaApiDataSourceImpl(sl()),
+    () => FacturaDirectaApiDataSourceImpl(sl(), sl()),
   );
 
   // FacturaDirecta Repository

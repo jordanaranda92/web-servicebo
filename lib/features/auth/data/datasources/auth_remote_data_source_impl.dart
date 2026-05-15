@@ -3,16 +3,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/log/app_logger.dart';
+import '../../../../core/log/firebase_operations_logger.dart';
 import '../../domain/entities/app_user.dart';
 import '../../domain/entities/user_role.dart';
 import 'auth_remote_data_source.dart';
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
-  AuthRemoteDataSourceImpl(this._firebaseAuth, this._firestore, this._logger);
+  AuthRemoteDataSourceImpl(
+    this._firebaseAuth,
+    this._firestore,
+    this._logger,
+    this._fbLogger,
+  );
 
   final FirebaseAuth _firebaseAuth;
   final FirebaseFirestore _firestore;
   final AppLogger _logger;
+  final FirebaseOperationsLogger _fbLogger;
 
   CollectionReference<Map<String, dynamic>> get _usersCollection =>
       _firestore.collection('users');
@@ -71,6 +78,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Future<String?> getUserName(String uid) async {
     try {
       final doc = await _usersCollection.doc(uid).get();
+      _fbLogger.logRead('users', doc.exists ? 1 : 0, doc.data());
       if (!doc.exists || doc.data() == null) return null;
       return doc.data()!['userName'] as String?;
     } on FirebaseException catch (e) {
@@ -84,6 +92,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       await _usersCollection.doc(uid).set({
         'userName': name,
       }, SetOptions(merge: true));
+      _fbLogger.logWrite('users', 1, {'userName': name});
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error saving user name: $e');
     }
@@ -92,6 +101,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Future<Map<String, dynamic>> _fetchUserProfile(String uid) async {
     try {
       final doc = await _usersCollection.doc(uid).get();
+      _fbLogger.logRead('users', doc.exists ? 1 : 0, doc.data());
       if (!doc.exists || doc.data() == null) {
         _logger.info(
           '[Auth] No user profile found for uid=$uid, defaulting to employee',

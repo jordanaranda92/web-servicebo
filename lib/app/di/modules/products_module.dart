@@ -15,7 +15,7 @@ import '../../../features/products/presentation/bloc/products_cubit.dart';
 void registerProductsModule(GetIt sl) {
   // Data — DataSources
   sl.registerLazySingleton<ProductFirestoreDataSource>(
-    () => ProductFirestoreDataSourceImpl(sl()),
+    () => ProductFirestoreDataSourceImpl(sl(), sl()),
   );
 
   // Data — Repository

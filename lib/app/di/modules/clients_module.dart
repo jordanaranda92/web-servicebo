@@ -16,7 +16,7 @@ import '../../../features/clients/presentation/bloc/clients_cubit.dart';
 void registerClientsModule(GetIt sl) {
   // Data — DataSources
   sl.registerLazySingleton<ClientFirestoreDataSource>(
-    () => ClientFirestoreDataSourceImpl(sl()),
+    () => ClientFirestoreDataSourceImpl(sl(), sl()),
   );
 
   // Data — Repository

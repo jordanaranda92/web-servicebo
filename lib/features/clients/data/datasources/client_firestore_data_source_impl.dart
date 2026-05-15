@@ -3,13 +3,15 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../../core/error/exceptions.dart';
+import '../../../../core/log/firebase_operations_logger.dart';
 import '../models/client_model.dart';
 import 'client_firestore_data_source.dart';
 
 class ClientFirestoreDataSourceImpl implements ClientFirestoreDataSource {
   final FirebaseFirestore _firestore;
+  final FirebaseOperationsLogger _fbLogger;
 
-  ClientFirestoreDataSourceImpl(this._firestore);
+  ClientFirestoreDataSourceImpl(this._firestore, this._fbLogger);
 
   CollectionReference<Map<String, dynamic>> get _collection =>
       _firestore.collection('clients');
@@ -18,6 +20,11 @@ class ClientFirestoreDataSourceImpl implements ClientFirestoreDataSource {
   Future<List<ClientModel>> getAll() async {
     try {
       final snapshot = await _collection.get();
+      _fbLogger.logRead(
+        'clients',
+        snapshot.docs.length,
+        snapshot.docs.map((d) => d.data()).toList(),
+      );
       return snapshot.docs
           .map((doc) => ClientModel.fromFirestore(doc.id, doc.data()))
           .toList();
@@ -28,11 +35,16 @@ class ClientFirestoreDataSourceImpl implements ClientFirestoreDataSource {
 
   @override
   Stream<List<ClientModel>> watchAll() {
-    return _collection.snapshots().map(
-      (snapshot) => snapshot.docs
+    return _collection.snapshots().map((snapshot) {
+      _fbLogger.logStreamRead(
+        'clients',
+        snapshot.docs.length,
+        snapshot.docs.map((d) => d.data()).toList(),
+      );
+      return snapshot.docs
           .map((doc) => ClientModel.fromFirestore(doc.id, doc.data()))
-          .toList(),
-    );
+          .toList();
+    });
   }
 
   @override
@@ -42,6 +54,7 @@ class ClientFirestoreDataSourceImpl implements ClientFirestoreDataSource {
   }) async {
     try {
       await _collection.doc(id).update(fields);
+      _fbLogger.logWrite('clients', 1, fields);
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error updating client: $e');
     }
@@ -55,6 +68,7 @@ class ClientFirestoreDataSourceImpl implements ClientFirestoreDataSource {
         batch.update(_collection.doc(entry.key), entry.value);
       }
       await batch.commit();
+      _fbLogger.logBatchWrite('clients', updates.length);
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error batch updating clients: $e');
     }
@@ -67,6 +81,11 @@ class ClientFirestoreDataSourceImpl implements ClientFirestoreDataSource {
           .where('facturaDirectaUuid', isEqualTo: facturaDirectaUuid)
           .limit(1)
           .get();
+      _fbLogger.logRead(
+        'clients',
+        snapshot.docs.length,
+        snapshot.docs.map((d) => d.data()).toList(),
+      );
       if (snapshot.docs.isEmpty) return null;
       final doc = snapshot.docs.first;
       return ClientModel.fromFirestore(doc.id, doc.data());
@@ -81,6 +100,7 @@ class ClientFirestoreDataSourceImpl implements ClientFirestoreDataSource {
       await _collection
           .add(client.toMap())
           .timeout(const Duration(seconds: 10));
+      _fbLogger.logWrite('clients', 1, client.toMap());
     } on TimeoutException {
       throw const ServerException(
         message: 'Timeout adding client. Check Firestore rules.',
@@ -98,6 +118,11 @@ class ClientFirestoreDataSourceImpl implements ClientFirestoreDataSource {
         batch.set(_collection.doc(), client.toMap());
       }
       await batch.commit();
+      _fbLogger.logBatchWrite(
+        'clients',
+        clients.length,
+        clients.map((c) => c.toMap()).toList(),
+      );
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error batch adding clients: $e');
     }

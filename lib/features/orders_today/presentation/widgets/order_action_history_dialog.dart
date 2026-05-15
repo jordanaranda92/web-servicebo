@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -10,72 +9,30 @@ class OrderActionHistoryDialog extends StatelessWidget {
   const OrderActionHistoryDialog({
     required this.getActionHistory,
     required this.date,
-    required this.firestore,
     super.key,
   });
 
   final GetActionHistory getActionHistory;
   final DateTime date;
-  final FirebaseFirestore firestore;
 
   static Future<void> show(
     BuildContext context, {
     required GetActionHistory getActionHistory,
     required DateTime date,
-    required FirebaseFirestore firestore,
   }) {
     return showDialog<void>(
       context: context,
       builder: (_) => OrderActionHistoryDialog(
         getActionHistory: getActionHistory,
         date: date,
-        firestore: firestore,
       ),
     );
   }
 
-  /// Reads history + users + clients + products in parallel (one-shot).
-  Future<_HistoryData> _loadData() async {
-    final results = await Future.wait([
-      getActionHistory(GetActionHistoryParams(date: date)),
-      firestore.collection('users').get(),
-      firestore.collection('clients').get(),
-      firestore.collection('products').get(),
-    ]);
-
-    final historyResult = results[0] as dynamic;
-    final usersSnap = results[1] as QuerySnapshot<Map<String, dynamic>>;
-    final clientsSnap = results[2] as QuerySnapshot<Map<String, dynamic>>;
-    final productsSnap = results[3] as QuerySnapshot<Map<String, dynamic>>;
-
-    final entries =
-        historyResult.getOrElse((_) => <OrderActionEntry>[])
-            as List<OrderActionEntry>;
-
-    final userNames = <String, String>{};
-    for (final doc in usersSnap.docs) {
-      final name = doc.data()['userName'] as String?;
-      if (name != null) userNames[doc.id] = name;
-    }
-
-    final clientNames = <String, String>{};
-    for (final doc in clientsSnap.docs) {
-      final name = doc.data()['name'] as String?;
-      if (name != null) clientNames[doc.id] = name;
-    }
-
-    final productNames = <String, String>{};
-    for (final doc in productsSnap.docs) {
-      final name = doc.data()['name'] as String?;
-      if (name != null) productNames[doc.id] = name;
-    }
-
-    return _HistoryData(
-      entries: entries,
-      userNames: userNames,
-      clientNames: clientNames,
-      productNames: productNames,
-    );
+  /// Reads history entries only (names are denormalized in each entry).
+  Future<List<OrderActionEntry>> _loadData() async {
+    final result = await getActionHistory(GetActionHistoryParams(date: date));
+    return result.getOrElse((_) => <OrderActionEntry>[]);
   }
 
   @override
@@ -87,7 +44,7 @@ class OrderActionHistoryDialog extends StatelessWidget {
       content: SizedBox(
         width: 520,
         height: 480,
-        child: FutureBuilder<_HistoryData>(
+        child: FutureBuilder<List<OrderActionEntry>>(
           future: _loadData(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -98,17 +55,11 @@ class OrderActionHistoryDialog extends StatelessWidget {
               return Center(child: Text(l10n.ordersTodayHistoryError));
             }
 
-            final data = snapshot.data!;
-            if (data.entries.isEmpty) {
+            final entries = snapshot.data!;
+            if (entries.isEmpty) {
               return Center(child: Text(l10n.ordersTodayHistoryEmpty));
             }
-            return _HistoryList(
-              entries: data.entries,
-              userNames: data.userNames,
-              clientNames: data.clientNames,
-              productNames: data.productNames,
-              l10n: l10n,
-            );
+            return _HistoryList(entries: entries, l10n: l10n);
           },
         ),
       ),
@@ -125,33 +76,10 @@ class OrderActionHistoryDialog extends StatelessWidget {
   }
 }
 
-class _HistoryData {
-  const _HistoryData({
-    required this.entries,
-    required this.userNames,
-    required this.clientNames,
-    required this.productNames,
-  });
-
-  final List<OrderActionEntry> entries;
-  final Map<String, String> userNames;
-  final Map<String, String> clientNames;
-  final Map<String, String> productNames;
-}
-
 class _HistoryList extends StatefulWidget {
-  const _HistoryList({
-    required this.entries,
-    required this.userNames,
-    required this.clientNames,
-    required this.productNames,
-    required this.l10n,
-  });
+  const _HistoryList({required this.entries, required this.l10n});
 
   final List<OrderActionEntry> entries;
-  final Map<String, String> userNames;
-  final Map<String, String> clientNames;
-  final Map<String, String> productNames;
   final AppLocalizations l10n;
 
   @override
@@ -191,7 +119,7 @@ class _HistoryListState extends State<_HistoryList> {
     final map = <String, String>{};
     for (final entry in widget.entries) {
       if (!map.containsKey(entry.userId)) {
-        map[entry.userId] = widget.userNames[entry.userId] ?? entry.userName;
+        map[entry.userId] = entry.userName;
       }
     }
     return map;
@@ -346,9 +274,7 @@ class _HistoryListState extends State<_HistoryList> {
                                                 const SizedBox(width: 4),
                                                 Expanded(
                                                   child: Text(
-                                                    widget.userNames[entry
-                                                            .userId] ??
-                                                        entry.userName,
+                                                    entry.userName,
                                                     style: theme
                                                         .textTheme
                                                         .bodySmall
@@ -489,19 +415,22 @@ class _HistoryListState extends State<_HistoryList> {
 
   static String _detailLabel(String key) => _detailLabels[key] ?? key;
 
-  String _formatDetails(OrderActionEntry entry) {
+  static String _formatDetails(OrderActionEntry entry) {
     final d = entry.details;
+    final clientName = d['clientName'] ?? d['clientId'] ?? '';
+    final productName = d['productName'] ?? d['productId'] ?? '';
+
     if (entry.actionType == OrderActionType.quantityChanged) {
       return [
-        'Cliente: ${_resolveValue('clientId', d['clientId'] ?? '')}',
-        'Producto: ${_resolveValue('productId', d['productId'] ?? '')}',
+        'Cliente: $clientName',
+        'Producto: $productName',
         'Cantidad anterior: ${d['oldValue'] ?? '0'}',
         'Cantidad nueva: ${d['newValue'] ?? ''}',
       ].join('\n');
     }
     if (entry.actionType == OrderActionType.stockChanged) {
       return [
-        'Producto: ${_resolveValue('productId', d['productId'] ?? '')}',
+        'Producto: $productName',
         'Stock anterior: ${d['oldValue'] ?? '0'}',
         'Stock nuevo: ${d['newValue'] ?? ''}',
       ].join('\n');
@@ -510,18 +439,12 @@ class _HistoryListState extends State<_HistoryList> {
         entry.actionType == OrderActionType.compensationUnmarked ||
         entry.actionType == OrderActionType.reservationMarked ||
         entry.actionType == OrderActionType.reservationUnmarked) {
-      return [
-        'Cliente: ${_resolveValue('clientId', d['clientId'] ?? '')}',
-        'Producto: ${_resolveValue('productId', d['productId'] ?? '')}',
-      ].join('\n');
+      return ['Cliente: $clientName', 'Producto: $productName'].join('\n');
     }
     if (entry.actionType == OrderActionType.refundAdded ||
         entry.actionType == OrderActionType.refundEdited ||
         entry.actionType == OrderActionType.refundRemoved) {
-      final lines = [
-        'Cliente: ${_resolveValue('clientId', d['clientId'] ?? '')}',
-        'Producto: ${_resolveValue('productId', d['productId'] ?? '')}',
-      ];
+      final lines = ['Cliente: $clientName', 'Producto: $productName'];
       if (entry.actionType != OrderActionType.refundRemoved) {
         lines.add('Cantidad: ${d['quantity'] ?? d['newValue'] ?? ''}');
       }
@@ -529,30 +452,26 @@ class _HistoryListState extends State<_HistoryList> {
     }
     if (entry.actionType == OrderActionType.clientsAdded ||
         entry.actionType == OrderActionType.clientsRemoved) {
-      return 'Cliente: ${_resolveValue('clientIds', d['clientIds'] ?? '')}';
+      return 'Cliente: ${d['clientNames'] ?? d['clientIds'] ?? ''}';
     }
+    // Default: show known detail fields
     return d.entries
-        .map((e) => '${_detailLabel(e.key)}: ${_resolveValue(e.key, e.value)}')
+        .where((e) => !_hiddenDetailKeys.contains(e.key))
+        .map((e) => '${_detailLabel(e.key)}: ${e.value}')
         .join(', ');
   }
 
-  /// Resolves comma-separated IDs to names for client/product fields.
-  String _resolveValue(String key, String value) {
-    if (key == 'clientIds' || key == 'clientId') {
-      return _resolveIds(value, widget.clientNames);
-    }
-    if (key == 'productIds' || key == 'productId') {
-      return _resolveIds(value, widget.productNames);
-    }
-    return value;
-  }
-
-  static String _resolveIds(String csv, Map<String, String> nameMap) {
-    return csv
-        .split(',')
-        .map((id) => nameMap[id.trim()] ?? id.trim())
-        .join(', ');
-  }
+  /// Keys that are internal IDs and should not be shown in the default format.
+  static const _hiddenDetailKeys = {
+    'clientId',
+    'productId',
+    'clientIds',
+    'productIds',
+    'clientName',
+    'productName',
+    'clientNames',
+    'productNames',
+  };
 
   static IconData _iconForAction(OrderActionType type) {
     return switch (type) {

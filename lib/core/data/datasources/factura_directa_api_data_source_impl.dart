@@ -2,12 +2,14 @@ import 'package:cloud_functions/cloud_functions.dart';
 
 import '../../error/exceptions.dart';
 import '../../log/app_logger.dart';
+import '../../log/firebase_operations_logger.dart';
 import 'factura_directa_api_data_source.dart';
 
 class FacturaDirectaApiDataSourceImpl implements FacturaDirectaApiDataSource {
-  FacturaDirectaApiDataSourceImpl(this._logger);
+  FacturaDirectaApiDataSourceImpl(this._logger, this._fbLogger);
 
   final AppLogger _logger;
+  final FirebaseOperationsLogger _fbLogger;
 
   /// Calls the Cloud Function proxy with unified error handling.
   Future<Map<String, dynamic>> _callProxy({
@@ -31,6 +33,7 @@ class FacturaDirectaApiDataSourceImpl implements FacturaDirectaApiDataSource {
 
       final result = await callable.call<Map<String, dynamic>>(payload);
       _logger.debug('[FD API] Proxy response keys: ${result.data.keys}');
+      _fbLogger.logCloudFunctionCall('fdProxy', method, path, result.data);
       return result.data;
     } on FirebaseFunctionsException catch (e) {
       _logger.warning('[FD API] CloudFunction error: ${e.code} ${e.message}');

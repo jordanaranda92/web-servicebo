@@ -13,4 +13,5 @@
 library;
 
 export 'app_logger.dart';
+export 'firebase_operations_logger.dart';
 export 'log_level.dart';

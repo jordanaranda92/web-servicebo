@@ -15,7 +15,7 @@ import '../../../features/shipping_methods/presentation/bloc/shipping_methods_cu
 void registerShippingMethodsModule(GetIt sl) {
   // Data — DataSource
   sl.registerLazySingleton<ShippingMethodFirestoreDataSource>(
-    () => ShippingMethodFirestoreDataSourceImpl(sl()),
+    () => ShippingMethodFirestoreDataSourceImpl(sl(), sl()),
   );
 
   // Data — Repository

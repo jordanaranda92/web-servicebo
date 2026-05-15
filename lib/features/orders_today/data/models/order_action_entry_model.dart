@@ -4,7 +4,7 @@ import '../../domain/entities/order_action_entry.dart';
 
 class OrderActionEntryModel {
   final String id;
-  final Timestamp? timestamp;
+  final DateTime? timestamp;
   final String userId;
   final String userName;
   final String actionType;
@@ -19,18 +19,25 @@ class OrderActionEntryModel {
     this.details = const {},
   });
 
-  factory OrderActionEntryModel.fromFirestore(
-    String id,
-    Map<String, dynamic> data,
-  ) {
+  /// Parses an entry from the `entries` array stored in the history document.
+  /// The timestamp is an ISO 8601 string.
+  factory OrderActionEntryModel.fromMap(String id, Map<String, dynamic> data) {
     final rawDetails = data['details'] as Map<String, dynamic>? ?? {};
     final details = rawDetails.map<String, String>(
       (key, value) => MapEntry(key, (value as String?) ?? ''),
     );
 
+    DateTime? ts;
+    final rawTs = data['timestamp'];
+    if (rawTs is Timestamp) {
+      ts = rawTs.toDate();
+    } else if (rawTs is String) {
+      ts = DateTime.tryParse(rawTs);
+    }
+
     return OrderActionEntryModel(
       id: id,
-      timestamp: data['timestamp'] as Timestamp?,
+      timestamp: ts,
       userId: (data['userId'] as String?) ?? '',
       userName: (data['userName'] as String?) ?? '',
       actionType: (data['actionType'] as String?) ?? '',
@@ -38,19 +45,10 @@ class OrderActionEntryModel {
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'timestamp': FieldValue.serverTimestamp(),
-      'userId': userId,
-      'actionType': actionType,
-      'details': details,
-    };
-  }
-
   OrderActionEntry toEntity() {
     return OrderActionEntry(
       id: id,
-      timestamp: timestamp?.toDate() ?? DateTime.now(),
+      timestamp: timestamp ?? DateTime.now(),
       userId: userId,
       userName: userName,
       actionType: OrderActionType.values.firstWhere(

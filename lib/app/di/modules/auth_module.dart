@@ -21,7 +21,7 @@ void registerAuthModule(GetIt sl) {
     () => AuthLocalDataSourceImpl(sl()),
   );
   sl.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(sl(), sl(), sl()),
+    () => AuthRemoteDataSourceImpl(sl(), sl(), sl(), sl()),
   );
 
   // Data — Repository

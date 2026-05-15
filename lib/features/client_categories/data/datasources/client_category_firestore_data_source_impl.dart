@@ -3,14 +3,16 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../../core/error/exceptions.dart';
+import '../../../../core/log/firebase_operations_logger.dart';
 import '../../../clients/domain/entities/client_category.dart';
 import 'client_category_firestore_data_source.dart';
 
 class ClientCategoryFirestoreDataSourceImpl
     implements ClientCategoryFirestoreDataSource {
   final FirebaseFirestore _firestore;
+  final FirebaseOperationsLogger _fbLogger;
 
-  ClientCategoryFirestoreDataSourceImpl(this._firestore);
+  ClientCategoryFirestoreDataSourceImpl(this._firestore, this._fbLogger);
 
   CollectionReference<Map<String, dynamic>> get _collection =>
       _firestore.collection('client_categories');
@@ -19,6 +21,11 @@ class ClientCategoryFirestoreDataSourceImpl
   Future<List<ClientCategory>> getAll() async {
     try {
       final snapshot = await _collection.get();
+      _fbLogger.logRead(
+        'client_categories',
+        snapshot.docs.length,
+        snapshot.docs.map((d) => d.data()).toList(),
+      );
       return snapshot.docs.map((doc) {
         final data = doc.data();
         return ClientCategory(
@@ -34,24 +41,29 @@ class ClientCategoryFirestoreDataSourceImpl
 
   @override
   Stream<List<ClientCategory>> watchAll() {
-    return _collection.snapshots().map(
-      (snapshot) => snapshot.docs.map((doc) {
+    return _collection.snapshots().map((snapshot) {
+      _fbLogger.logStreamRead(
+        'client_categories',
+        snapshot.docs.length,
+        snapshot.docs.map((d) => d.data()).toList(),
+      );
+      return snapshot.docs.map((doc) {
         final data = doc.data();
         return ClientCategory(
           id: doc.id,
           name: data['name'] as String? ?? '',
           color: data['color'] as String?,
         );
-      }).toList(),
-    );
+      }).toList();
+    });
   }
 
   @override
   Future<void> add({required String name, String? color}) async {
     try {
-      await _collection
-          .add({'name': name, if (color != null) 'color': color})
-          .timeout(const Duration(seconds: 10));
+      final data = {'name': name, if (color != null) 'color': color};
+      await _collection.add(data).timeout(const Duration(seconds: 10));
+      _fbLogger.logWrite('client_categories', 1, data);
     } on TimeoutException {
       throw ServerException(
         message: 'Timeout adding client category. Check Firestore rules.',
@@ -68,7 +80,9 @@ class ClientCategoryFirestoreDataSourceImpl
     String? color,
   }) async {
     try {
-      await _collection.doc(id).update({'name': name, 'color': color});
+      final data = {'name': name, 'color': color};
+      await _collection.doc(id).update(data);
+      _fbLogger.logWrite('client_categories', 1, data);
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error updating client category: $e');
     }
@@ -78,6 +92,7 @@ class ClientCategoryFirestoreDataSourceImpl
   Future<void> delete({required String id}) async {
     try {
       await _collection.doc(id).delete();
+      _fbLogger.logDelete('client_categories', 1);
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error deleting client category: $e');
     }

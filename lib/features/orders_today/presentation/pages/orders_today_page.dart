@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -14,6 +13,8 @@ import '../../../../app/theme/theme_constants.dart';
 import '../../../../core/presentation/widgets/page_header.dart';
 import '../../../../core/utils/app_date_formats.dart';
 import '../../../auth/domain/repositories/auth_repository.dart';
+import '../../../auth/presentation/bloc/auth_cubit.dart';
+import '../../../auth/presentation/bloc/auth_state.dart';
 import '../../../invoices/presentation/bloc/provisional_invoice_cubit.dart';
 import '../../../invoices/presentation/bloc/provisional_invoice_state.dart';
 import '../../../invoices/presentation/widgets/provisional_invoice_dialog.dart';
@@ -34,6 +35,7 @@ import '../../../../core/utils/web_open_url_stub.dart'
     if (dart.library.html) '../../../../core/utils/web_open_url_web.dart';
 import '../../domain/repositories/orders_presence_repository.dart';
 import '../../domain/services/order_sheet_excel_generator.dart';
+import '../../domain/entities/order_action_entry.dart';
 import '../../domain/usecases/get_action_history.dart';
 import '../widgets/order_action_history_dialog.dart';
 import '../widgets/orders_table.dart';
@@ -254,6 +256,11 @@ class _OrdersTodayContent extends StatefulWidget {
 class _OrdersTodayContentState extends State<_OrdersTodayContent> {
   bool _isExporting = false;
 
+  bool _isAdmin(BuildContext context) {
+    final authState = context.read<AuthCubit>().state;
+    return authState is AuthAuthenticated && authState.user.isAdmin;
+  }
+
   Future<void> _exportExcel(
     BuildContext context,
     OrdersTodayLoaded state,
@@ -261,10 +268,11 @@ class _OrdersTodayContentState extends State<_OrdersTodayContent> {
     setState(() => _isExporting = true);
     final l10n = AppLocalizations.of(context)!;
     try {
-      final historyResult = await sl<GetActionHistory>()(
-        GetActionHistoryParams(date: DateTime.now()),
-      );
-      final history = historyResult.getOrElse((_) => []);
+      final history = _isAdmin(context)
+          ? (await sl<GetActionHistory>()(
+              GetActionHistoryParams(date: DateTime.now()),
+            )).getOrElse((_) => [])
+          : <OrderActionEntry>[];
 
       final bytes = await sl<OrderSheetExcelGenerator>().generate(
         orderSheet: state.orderSheet,
@@ -348,26 +356,27 @@ class _OrdersTodayContentState extends State<_OrdersTodayContent> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                IconButton.filled(
-                  onPressed: () {
-                    OrderActionHistoryDialog.show(
-                      context,
-                      getActionHistory: sl<GetActionHistory>(),
-                      date: DateTime.now(),
-                      firestore: sl<FirebaseFirestore>(),
-                    );
-                  },
-                  style: IconButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                if (_isAdmin(context)) ...[
+                  IconButton.filled(
+                    onPressed: () {
+                      OrderActionHistoryDialog.show(
+                        context,
+                        getActionHistory: sl<GetActionHistory>(),
+                        date: DateTime.now(),
+                      );
+                    },
+                    style: IconButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
+                    icon: const Icon(Icons.history),
+                    tooltip: AppLocalizations.of(
+                      context,
+                    )!.ordersTodayHistoryButton,
                   ),
-                  icon: const Icon(Icons.history),
-                  tooltip: AppLocalizations.of(
-                    context,
-                  )!.ordersTodayHistoryButton,
-                ),
-                const SizedBox(width: 8),
+                  const SizedBox(width: 8),
+                ],
                 IconButton.filled(
                   onPressed: () {
                     openUrlInNewTab(AppRoutes.ordersTodayView);

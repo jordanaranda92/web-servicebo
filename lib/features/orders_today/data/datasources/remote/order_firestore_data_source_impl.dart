@@ -2,16 +2,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../../../core/auth/current_user_provider.dart';
 import '../../../../../core/error/exceptions.dart';
+import '../../../../../core/log/firebase_operations_logger.dart';
 import '../../models/order_action_entry_model.dart';
 import '../../models/order_document_model.dart';
 import '../../models/order_row_model.dart';
 import 'order_firestore_data_source.dart';
 
 class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
-  OrderFirestoreDataSourceImpl(this._firestore, this._userProvider);
+  OrderFirestoreDataSourceImpl(
+    this._firestore,
+    this._userProvider,
+    this._fbLogger,
+  );
 
   final FirebaseFirestore _firestore;
   final CurrentUserProvider _userProvider;
+  final FirebaseOperationsLogger _fbLogger;
 
   DocumentReference<Map<String, dynamic>> _orderDoc(String date) =>
       _firestore.collection('orders').doc(date);
@@ -19,29 +25,109 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
   CollectionReference<Map<String, dynamic>> _rowsCol(String date) =>
       _orderDoc(date).collection('rows');
 
-  CollectionReference<Map<String, dynamic>> _historyCol(String date) =>
-      _orderDoc(date).collection('history');
+  DocumentReference<Map<String, dynamic>> _historyDoc(String date) =>
+      _orderDoc(date).collection('meta').doc('history');
 
-  /// Appends a history entry to the batch. Best-effort: silently skipped
-  /// if user info is unavailable.
-  void _addHistoryToBatch({
+  /// Maximum number of history entries stored per day.
+  static const _maxHistoryEntries = 2000;
+
+  /// Appends a history entry to the batch using a single document with
+  /// an `entries` array. Reads the current array, prepends the new entry,
+  /// and truncates to [_maxHistoryEntries] oldest-first.
+  ///
+  /// Best-effort: silently skipped if user info is unavailable.
+  Future<void> _addHistoryToBatch({
     required WriteBatch batch,
     required String date,
     required String actionType,
     Map<String, String> details = const {},
-  }) {
+  }) async {
     try {
       final user = _userProvider.currentUser;
       if (user == null) return;
-      batch.set(_historyCol(date).doc(), {
-        'timestamp': FieldValue.serverTimestamp(),
+
+      final docRef = _historyDoc(date);
+      final snap = await docRef.get();
+      final existing =
+          (snap.data()?['entries'] as List<dynamic>?) ?? <dynamic>[];
+
+      final newEntry = <String, dynamic>{
+        'timestamp': DateTime.now().toUtc().toIso8601String(),
         'userId': user.uid,
+        'userName': user.userName,
         'actionType': actionType,
         'details': details,
-      });
+      };
+
+      // Prepend (newest first) and truncate
+      final updated = <dynamic>[newEntry, ...existing];
+      if (updated.length > _maxHistoryEntries) {
+        updated.removeRange(_maxHistoryEntries, updated.length);
+      }
+
+      batch.set(docRef, {'entries': updated});
     } on Exception {
       // Best-effort: do not break the main operation
     }
+  }
+
+  /// Resolves client/product names from Firestore and merges them into
+  /// the details map. Call this **before** `_addHistoryToBatch` to
+  /// denormalize names.
+  Future<Map<String, String>> _enrichDetails(
+    Map<String, String> details,
+  ) async {
+    final enriched = Map<String, String>.from(details);
+    try {
+      // Single clientId
+      final clientId = details['clientId'];
+      if (clientId != null && clientId.isNotEmpty) {
+        final doc = await _firestore.collection('clients').doc(clientId).get();
+        _fbLogger.logRead('clients', doc.exists ? 1 : 0, doc.data());
+        final name = doc.data()?['name'] as String?;
+        if (name != null) enriched['clientName'] = name;
+      }
+      // Comma-separated clientIds
+      final clientIds = details['clientIds'];
+      if (clientIds != null && clientIds.isNotEmpty) {
+        final ids = clientIds.split(',').map((e) => e.trim()).toList();
+        final names = <String>[];
+        for (final id in ids) {
+          final doc = await _firestore.collection('clients').doc(id).get();
+          _fbLogger.logRead('clients', doc.exists ? 1 : 0, doc.data());
+          final name = doc.data()?['name'] as String?;
+          names.add(name ?? id);
+        }
+        enriched['clientNames'] = names.join(',');
+      }
+      // Single productId
+      final productId = details['productId'];
+      if (productId != null && productId.isNotEmpty) {
+        final doc = await _firestore
+            .collection('products')
+            .doc(productId)
+            .get();
+        _fbLogger.logRead('products', doc.exists ? 1 : 0, doc.data());
+        final name = doc.data()?['name'] as String?;
+        if (name != null) enriched['productName'] = name;
+      }
+      // Comma-separated productIds
+      final productIds = details['productIds'];
+      if (productIds != null && productIds.isNotEmpty) {
+        final ids = productIds.split(',').map((e) => e.trim()).toList();
+        final names = <String>[];
+        for (final id in ids) {
+          final doc = await _firestore.collection('products').doc(id).get();
+          _fbLogger.logRead('products', doc.exists ? 1 : 0, doc.data());
+          final name = doc.data()?['name'] as String?;
+          names.add(name ?? id);
+        }
+        enriched['productNames'] = names.join(',');
+      }
+    } on Exception {
+      // Best-effort: return whatever we have
+    }
+    return enriched;
   }
 
   // ── exists ──────────────────────────────────────────────────────
@@ -50,6 +136,7 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
   Future<bool> exists(String date) async {
     try {
       final snap = await _orderDoc(date).get();
+      _fbLogger.logRead('orders', 1, snap.data());
       return snap.exists;
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error checking order existence: $e');
@@ -62,6 +149,7 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
   Future<OrderDocumentModel?> getOrderDocument(String date) async {
     try {
       final snap = await _orderDoc(date).get();
+      _fbLogger.logRead('orders', snap.exists ? 1 : 0, snap.data());
       if (!snap.exists || snap.data() == null) return null;
       return OrderDocumentModel.fromFirestore(snap.id, snap.data()!);
     } on FirebaseException catch (e) {
@@ -75,6 +163,11 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
   Future<List<OrderRowModel>> getOrderRows(String date) async {
     try {
       final snap = await _rowsCol(date).get();
+      _fbLogger.logRead(
+        'orders/{date}/rows',
+        snap.docs.length,
+        snap.docs.map((d) => d.data()).toList(),
+      );
       return snap.docs
           .map((doc) => OrderRowModel.fromFirestore(doc.id, doc.data()))
           .toList();
@@ -111,7 +204,7 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
         }, SetOptions(merge: true));
       }
 
-      _addHistoryToBatch(
+      await _addHistoryToBatch(
         batch: batch,
         date: date,
         actionType: 'orderSheetCreated',
@@ -122,6 +215,10 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
       );
 
       await batch.commit();
+      _fbLogger.logBatchWrite(
+        'orders + orders/{date}/rows',
+        1 + productIds.length,
+      );
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error creating order: $e');
     }
@@ -139,9 +236,13 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
     try {
       // Read old value before writing
       final rowSnap = await _rowsCol(date).doc(productId).get();
+      _fbLogger.logRead('orders/{date}/rows', 1, rowSnap.data());
       final quantities =
           rowSnap.data()?['quantities'] as Map<String, dynamic>? ?? {};
       final oldValue = (quantities[clientId] as num?) ?? 0;
+
+      // No-op: skip if value hasn't changed
+      if (oldValue == value) return;
 
       final batch = _firestore.batch();
 
@@ -161,19 +262,22 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
         'lastModifiedAt': FieldValue.serverTimestamp(),
       });
 
-      _addHistoryToBatch(
+      final quantityDetails = await _enrichDetails({
+        'productId': productId,
+        'clientId': clientId,
+        'oldValue': oldValue.toString(),
+        'newValue': value.toString(),
+      });
+
+      await _addHistoryToBatch(
         batch: batch,
         date: date,
         actionType: 'quantityChanged',
-        details: {
-          'productId': productId,
-          'clientId': clientId,
-          'oldValue': oldValue.toString(),
-          'newValue': value.toString(),
-        },
+        details: quantityDetails,
       );
 
       await batch.commit();
+      _fbLogger.logBatchWrite('orders/{date}/rows + orders', 2);
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error updating quantity: $e');
     }
@@ -190,7 +294,11 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
     try {
       // Read old value before writing
       final rowSnap = await _rowsCol(date).doc(productId).get();
+      _fbLogger.logRead('orders/{date}/rows', 1, rowSnap.data());
       final oldValue = (rowSnap.data()?['stock'] as num?) ?? 0;
+
+      // No-op: skip if value hasn't changed
+      if (oldValue == value) return;
 
       final batch = _firestore.batch();
 
@@ -199,18 +307,21 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
         'lastModifiedAt': FieldValue.serverTimestamp(),
       });
 
-      _addHistoryToBatch(
+      final stockDetails = await _enrichDetails({
+        'productId': productId,
+        'oldValue': oldValue.toString(),
+        'newValue': value.toString(),
+      });
+
+      await _addHistoryToBatch(
         batch: batch,
         date: date,
         actionType: 'stockChanged',
-        details: {
-          'productId': productId,
-          'oldValue': oldValue.toString(),
-          'newValue': value.toString(),
-        },
+        details: stockDetails,
       );
 
       await batch.commit();
+      _fbLogger.logBatchWrite('orders/{date}/rows + orders', 2);
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error updating stock: $e');
     }
@@ -285,6 +396,8 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
       }
 
       await batch.commit();
+      final totalOps = 1 + productsToAdd.length + productsToRemove.length;
+      _fbLogger.logBatchWrite('orders + orders/{date}/rows', totalOps);
       return true;
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error syncing active entities: $e');
@@ -337,14 +450,19 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
         }
       }
 
-      _addHistoryToBatch(
+      final removeClientDetails = await _enrichDetails({
+        'clientIds': clientIds.join(','),
+      });
+
+      await _addHistoryToBatch(
         batch: batch,
         date: date,
         actionType: 'clientsRemoved',
-        details: {'clientIds': clientIds.join(',')},
+        details: removeClientDetails,
       );
 
       await batch.commit();
+      _fbLogger.logBatchWrite('orders + orders/{date}/rows', 1 + rows.length);
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error removing clients: $e');
     }
@@ -378,14 +496,23 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
         batch.delete(_rowsCol(date).doc(productId));
       }
 
-      _addHistoryToBatch(
+      final removeProductDetails = await _enrichDetails({
+        'productIds': productIds.join(','),
+      });
+
+      await _addHistoryToBatch(
         batch: batch,
         date: date,
         actionType: 'productsRemoved',
-        details: {'productIds': productIds.join(',')},
+        details: removeProductDetails,
       );
 
       await batch.commit();
+      _fbLogger.logBatchWrite(
+        'orders + orders/{date}/rows',
+        1 + productIds.length,
+      );
+      _fbLogger.logDelete('orders/{date}/rows', productIds.length);
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error removing products: $e');
     }
@@ -408,13 +535,17 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
         'clientIds': updatedClientIds,
         'lastModifiedAt': FieldValue.serverTimestamp(),
       });
+      _fbLogger.logWrite('orders', 1);
 
       // History entry (standalone, not in batch)
+      final addClientDetails = await _enrichDetails({
+        'clientIds': clientIds.join(','),
+      });
       await addHistoryEntry(
         date: date,
         actionType: 'clientsAdded',
         userId: _userProvider.currentUser?.uid ?? '',
-        details: {'clientIds': clientIds.join(',')},
+        details: addClientDetails,
       );
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error adding clients: $e');
@@ -449,14 +580,22 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
         });
       }
 
-      _addHistoryToBatch(
+      final addProductDetails = await _enrichDetails({
+        'productIds': productIds.join(','),
+      });
+
+      await _addHistoryToBatch(
         batch: batch,
         date: date,
         actionType: 'productsAdded',
-        details: {'productIds': productIds.join(',')},
+        details: addProductDetails,
       );
 
       await batch.commit();
+      _fbLogger.logBatchWrite(
+        'orders + orders/{date}/rows',
+        1 + productIds.length,
+      );
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error adding products: $e');
     }
@@ -467,6 +606,7 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
   @override
   Stream<OrderDocumentModel?> watchOrderDocument(String date) {
     return _orderDoc(date).snapshots().map((snap) {
+      _fbLogger.logStreamRead('orders', snap.exists ? 1 : 0, snap.data());
       if (!snap.exists || snap.data() == null) return null;
       return OrderDocumentModel.fromFirestore(snap.id, snap.data()!);
     });
@@ -477,6 +617,11 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
   @override
   Stream<List<OrderRowModel>> watchOrderRows(String date) {
     return _rowsCol(date).snapshots().map((snap) {
+      _fbLogger.logStreamRead(
+        'orders/{date}/rows',
+        snap.docs.length,
+        snap.docs.map((d) => d.data()).toList(),
+      );
       return snap.docs
           .map((doc) => OrderRowModel.fromFirestore(doc.id, doc.data()))
           .toList();
@@ -517,18 +662,20 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
       } else {
         historyAction = 'reservationMarked';
       }
-      _addHistoryToBatch(
+      final flagDetails = await _enrichDetails({
+        'productId': productId,
+        'clientId': clientId,
+        if (flagType != null) 'flagType': flagType,
+      });
+      await _addHistoryToBatch(
         batch: batch,
         date: date,
         actionType: historyAction,
-        details: {
-          'productId': productId,
-          'clientId': clientId,
-          if (flagType != null) 'flagType': flagType,
-        },
+        details: flagDetails,
       );
 
       await batch.commit();
+      _fbLogger.logBatchWrite('orders/{date}/rows + orders', 2);
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error updating flag: $e');
     }
@@ -551,14 +698,16 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
         'lastModifiedAt': FieldValue.serverTimestamp(),
       });
 
-      _addHistoryToBatch(
+      final strictDetails = await _enrichDetails({'productId': productId});
+      await _addHistoryToBatch(
         batch: batch,
         date: date,
         actionType: strictStock ? 'strictStockMarked' : 'strictStockUnmarked',
-        details: {'productId': productId},
+        details: strictDetails,
       );
 
       await batch.commit();
+      _fbLogger.logBatchWrite('orders/{date}/rows + orders', 2);
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error updating strict stock: $e');
     }
@@ -589,6 +738,7 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
       });
 
       await batch.commit();
+      _fbLogger.logBatchWrite('orders/{date}/rows + orders', 2);
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error updating note: $e');
     }
@@ -626,18 +776,20 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
       } else {
         refundAction = 'refundAdded';
       }
-      _addHistoryToBatch(
+      final refundDetails = await _enrichDetails({
+        'productId': productId,
+        'clientId': clientId,
+        if (quantity != null && quantity > 0) 'quantity': quantity.toString(),
+      });
+      await _addHistoryToBatch(
         batch: batch,
         date: date,
         actionType: refundAction,
-        details: {
-          'productId': productId,
-          'clientId': clientId,
-          if (quantity != null && quantity > 0) 'quantity': quantity.toString(),
-        },
+        details: refundDetails,
       );
 
       await batch.commit();
+      _fbLogger.logBatchWrite('orders/{date}/rows + orders', 2);
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error updating refund: $e');
     }
@@ -679,14 +831,19 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
         'lastModifiedAt': FieldValue.serverTimestamp(),
       });
 
-      _addHistoryToBatch(
+      final resetDetails = await _enrichDetails({
+        'clientIds': clientIds.join(','),
+      });
+
+      await _addHistoryToBatch(
         batch: batch,
         date: date,
         actionType: 'ordersReset',
-        details: {'clientIds': clientIds.join(',')},
+        details: resetDetails,
       );
 
       await batch.commit();
+      _fbLogger.logBatchWrite('orders/{date}/rows + orders', rows.length + 1);
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error resetting client orders: $e');
     }
@@ -711,13 +868,15 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
         },
         'lastModifiedAt': FieldValue.serverTimestamp(),
       });
+      _fbLogger.logWrite('orders', 1);
 
       // History entry (standalone)
+      final invoiceDetails = await _enrichDetails({'clientId': clientId});
       await addHistoryEntry(
         date: date,
         actionType: 'provisionalInvoiceGenerated',
         userId: userId,
-        details: {'clientId': clientId},
+        details: invoiceDetails,
       );
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error updating invoicedBy: $e');
@@ -730,6 +889,11 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
   Future<List<OrderDocumentModel>> getAllOrderDocuments() async {
     try {
       final snap = await _firestore.collection('orders').get();
+      _fbLogger.logRead(
+        'orders',
+        snap.docs.length,
+        snap.docs.map((d) => d.data()).toList(),
+      );
       return snap.docs
           .map((doc) => OrderDocumentModel.fromFirestore(doc.id, doc.data()))
           .toList();
@@ -749,12 +913,27 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
   }) async {
     try {
       if (userId.isEmpty) return;
-      await _historyCol(date).doc().set({
-        'timestamp': FieldValue.serverTimestamp(),
+      final userName = _userProvider.currentUser?.userName ?? '';
+
+      final docRef = _historyDoc(date);
+      final snap = await docRef.get();
+      final existing =
+          (snap.data()?['entries'] as List<dynamic>?) ?? <dynamic>[];
+
+      final newEntry = <String, dynamic>{
+        'timestamp': DateTime.now().toUtc().toIso8601String(),
         'userId': userId,
+        'userName': userName,
         'actionType': actionType,
         'details': details,
-      });
+      };
+
+      final updated = <dynamic>[newEntry, ...existing];
+      if (updated.length > _maxHistoryEntries) {
+        updated.removeRange(_maxHistoryEntries, updated.length);
+      }
+
+      await docRef.set({'entries': updated});
     } on FirebaseException {
       // Best-effort: do not throw
     }
@@ -763,12 +942,14 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
   @override
   Future<List<OrderActionEntryModel>> getHistory(String date) async {
     try {
-      final snap = await _historyCol(
-        date,
-      ).orderBy('timestamp', descending: true).get();
-      return snap.docs
-          .map((doc) => OrderActionEntryModel.fromFirestore(doc.id, doc.data()))
-          .toList();
+      final snap = await _historyDoc(date).get();
+      _fbLogger.logRead('orders/{date}/meta', 1, snap.data());
+      final entries =
+          (snap.data()?['entries'] as List<dynamic>?) ?? <dynamic>[];
+      return entries.asMap().entries.map((e) {
+        final data = Map<String, dynamic>.from(e.value as Map);
+        return OrderActionEntryModel.fromMap(e.key.toString(), data);
+      }).toList();
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error reading history: $e');
     }

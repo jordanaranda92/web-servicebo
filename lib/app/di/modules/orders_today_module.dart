@@ -46,6 +46,7 @@ void registerOrdersTodayModule(GetIt sl) {
     () => OrderFirestoreDataSourceImpl(
       sl<FirebaseFirestore>(),
       sl<CurrentUserProvider>(),
+      sl(),
     ),
   );
 
