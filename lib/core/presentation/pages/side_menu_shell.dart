@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../app/di/injection.dart';
-import '../../../../app/localization/l10n/app_localizations.dart';
-import '../../../../app/router/router.dart';
-import '../../../../app/theme/theme_constants.dart';
-import '../../../../core/services/navigation_guard.dart';
-import '../../../auth/presentation/bloc/auth_cubit.dart';
-import '../../../auth/presentation/bloc/auth_state.dart';
+import '../../../app/di/injection.dart';
+import '../../../app/localization/l10n/app_localizations.dart';
+import '../../../app/router/router.dart';
+import '../../../app/theme/theme_constants.dart';
+import '../../services/navigation_guard.dart';
+import '../../../features/auth/presentation/bloc/auth_cubit.dart';
+import '../../../features/auth/presentation/bloc/auth_state.dart';
 import '../bloc/side_menu_cubit.dart';
 import '../bloc/side_menu_state.dart';
 import '../widgets/side_menu.dart';
@@ -250,7 +250,6 @@ class SideMenuShell extends StatelessWidget {
     required bool isAdmin,
   }) {
     final titles = [
-      l10n.menuHome,
       l10n.menuOrdersToday,
       l10n.menuOrdersHistory,
       l10n.menuClients,

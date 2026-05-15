@@ -15,8 +15,8 @@ const _colorQuedanPositive = 'FFC8E6C9'; // Verde claro (quedan >= 0)
 const _colorPedidos = 'FFF5F0C0'; // Amarillo crema (PEDIDOS)
 const _colorHeaderProduct = 'FF37474F'; // Azul gris (col producto)
 const _colorHeaderPedidos = 'FF6A5ACD'; // Morado (PEDIDOS)
-const _colorHeaderStocks = 'FFE8A87C'; // Naranja claro (STOCKS)
-const _colorHeaderQuedan = 'FFE8A87C'; // Naranja claro (QUEDAN)
+const _colorHeaderStocks = 'FFD32F2F'; // Rojo (STOCKS)
+const _colorHeaderQuedan = 'FF00ACC1'; // Azul cyan (QUEDAN)
 
 class OrderSheetExcelService implements OrderSheetExcelGenerator {
   /// Genera el archivo .xlsx en memoria para el [orderSheet] dado.

@@ -13,6 +13,8 @@ class OrderSheetPdfService implements OrderSheetPdfGenerator {
     required int orderNumber,
     required List<OrderSheetPdfRow> rows,
     String? shippingMethod,
+    int? totalProducts,
+    String? subtotal,
   }) async {
     final pdf = pw.Document();
 
@@ -25,6 +27,12 @@ class OrderSheetPdfService implements OrderSheetPdfGenerator {
       fontSize: 11,
     );
     final headerValueStyle = const pw.TextStyle(fontSize: 11);
+
+    final summaryLabelStyle = pw.TextStyle(
+      fontWeight: pw.FontWeight.bold,
+      fontSize: 13,
+    );
+    final summaryValueStyle = const pw.TextStyle(fontSize: 13);
 
     final tableHeaderStyle = pw.TextStyle(
       fontWeight: pw.FontWeight.bold,
@@ -99,23 +107,40 @@ class OrderSheetPdfService implements OrderSheetPdfGenerator {
                 .toList(),
           ),
 
-          // ── Shipping method ───────────────────────────────────
-          if (shippingMethod != null) ...[
+          // ── Summary rows (shipping, total, subtotal) ────────────
+          if (shippingMethod != null ||
+              totalProducts != null ||
+              subtotal != null) ...[
             pw.SizedBox(height: 24),
             pw.Table(
               border: pw.TableBorder.all(color: PdfColors.grey400),
               defaultVerticalAlignment: pw.TableCellVerticalAlignment.full,
               columnWidths: {
-                0: const pw.FlexColumnWidth(1),
-                1: const pw.FlexColumnWidth(3),
+                0: const pw.FlexColumnWidth(1.5),
+                1: const pw.FlexColumnWidth(2.5),
               },
               children: [
-                _headerRow(
-                  'Método de envío',
-                  shippingMethod,
-                  headerLabelStyle,
-                  headerValueStyle,
-                ),
+                if (shippingMethod != null)
+                  _headerRow(
+                    'Método de envío',
+                    shippingMethod,
+                    summaryLabelStyle,
+                    summaryValueStyle,
+                  ),
+                if (totalProducts != null)
+                  _headerRow(
+                    'Cantidad de productos',
+                    '$totalProducts',
+                    summaryLabelStyle,
+                    summaryValueStyle,
+                  ),
+                if (subtotal != null)
+                  _headerRow(
+                    'Subtotal',
+                    subtotal,
+                    summaryLabelStyle,
+                    summaryValueStyle,
+                  ),
               ],
             ),
           ],

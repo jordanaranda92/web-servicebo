@@ -21,5 +21,7 @@ abstract class OrderSheetPdfGenerator {
     required int orderNumber,
     required List<OrderSheetPdfRow> rows,
     String? shippingMethod,
+    int? totalProducts,
+    String? subtotal,
   });
 }

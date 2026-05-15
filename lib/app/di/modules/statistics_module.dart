@@ -1,12 +1,9 @@
 import 'package:get_it/get_it.dart';
 
-import '../../../core/presentation/bloc/side_menu_cubit.dart';
 import '../../../features/statistics/presentation/bloc/fd_counters_cubit.dart';
 
-/// Registers home/navigation feature dependencies.
-void registerHomeModule(GetIt sl) {
-  sl.registerLazySingleton(() => SideMenuCubit(sl()));
-
+/// Registers statistics feature dependencies.
+void registerStatisticsModule(GetIt sl) {
   // Presentation — Cubit (factory: one per screen lifecycle)
   sl.registerFactory(() => FdCountersCubit(getInvoicesByDateRange: sl()));
 }

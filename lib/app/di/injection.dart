@@ -5,7 +5,7 @@ import 'modules/auth_module.dart';
 import 'modules/client_categories_module.dart';
 import 'modules/clients_module.dart';
 import 'modules/core_module.dart';
-import 'modules/home_module.dart';
+import 'modules/navigation_module.dart';
 import 'modules/invoices_module.dart';
 import 'modules/locale_module.dart';
 import 'modules/orders_history_module.dart';
@@ -13,6 +13,7 @@ import 'modules/orders_today_module.dart';
 import 'modules/products_module.dart';
 import 'modules/settings_module.dart';
 import 'modules/shipping_methods_module.dart';
+import 'modules/statistics_module.dart';
 
 final sl = GetIt.instance;
 
@@ -34,7 +35,7 @@ Future<void> initDI(AppConfig config, {bool firebaseAvailable = false}) async {
 
   // Register feature modules
   registerAuthModule(sl);
-  registerHomeModule(sl);
+  registerNavigationModule(sl);
   registerSettingsModule(sl);
   registerOrdersTodayModule(sl);
   registerOrdersHistoryModule(sl);
@@ -43,4 +44,5 @@ Future<void> initDI(AppConfig config, {bool firebaseAvailable = false}) async {
   registerShippingMethodsModule(sl);
   registerProductsModule(sl);
   registerInvoicesModule(sl);
+  registerStatisticsModule(sl);
 }

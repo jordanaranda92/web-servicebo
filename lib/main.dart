@@ -18,7 +18,7 @@ import 'app/localization/l10n/app_localizations.dart';
 import 'app/theme/app_theme.dart';
 import 'core/log/app_logger.dart';
 import 'core/usecase/usecase.dart';
-import 'features/home/presentation/bloc/side_menu_cubit.dart';
+import 'core/presentation/bloc/side_menu_cubit.dart';
 import 'features/locale/presentation/bloc/locale_cubit.dart';
 import 'features/locale/presentation/bloc/locale_state.dart';
 
@@ -104,7 +104,7 @@ Future<String> _initializeServices(AppConfig config) async {
       // Resolve current user name from Firestore for action history.
       await sl<CurrentUserProvider>().resolve();
 
-      return AppRoutes.home;
+      return AppRoutes.ordersToday;
     }
   }
 

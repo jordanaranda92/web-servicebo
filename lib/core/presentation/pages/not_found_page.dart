@@ -41,7 +41,7 @@ class NotFoundPage extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.xl),
             FilledButton.icon(
-              onPressed: () => AppRouter.go(context, AppRoutes.home),
+              onPressed: () => AppRouter.go(context, AppRoutes.ordersToday),
               icon: const Icon(Icons.home_rounded),
               label: Text(l10n.notFoundGoHome),
             ),

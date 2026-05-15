@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../app/localization/l10n/app_localizations.dart';
+import '../../../../app/theme/app_colors.dart';
 import '../../domain/entities/order_action_entry.dart';
 import '../../domain/usecases/get_action_history.dart';
 
@@ -356,13 +357,13 @@ class _HistoryListState extends State<_HistoryList> {
     Map<String, String> availableUsers,
   ) {
     final actionLabel = _selectedActions.isEmpty
-        ? 'Todas las acciones'
+        ? l10n.orderActionFilterAllActions
         : _selectedActions.length == 1
         ? _localizedAction(_selectedActions.first, l10n)
         : '${_selectedActions.length} acciones';
 
     final userLabel = _selectedUserIds.isEmpty
-        ? 'Todos los usuarios'
+        ? l10n.orderActionFilterAllUsers
         : _selectedUserIds.length == 1
         ? availableUsers[_selectedUserIds.first] ?? ''
         : '${_selectedUserIds.length} usuarios';
@@ -498,31 +499,7 @@ class _HistoryListState extends State<_HistoryList> {
   }
 
   static Color _colorForAction(OrderActionType type) {
-    return switch (type) {
-      OrderActionType.quantityChanged => const Color(0xFF1976D2), // blue
-      OrderActionType.stockChanged => const Color(0xFF00838F), // teal
-      OrderActionType.compensationMarked ||
-      OrderActionType.compensationUnmarked => const Color(0xFF7B1FA2), // purple
-      OrderActionType.reservationMarked ||
-      OrderActionType.reservationUnmarked => const Color(
-        0xFF0277BD,
-      ), // light blue
-      OrderActionType.strictStockMarked ||
-      OrderActionType.strictStockUnmarked => const Color(0xFF4E342E), // brown
-      OrderActionType.refundAdded ||
-      OrderActionType.refundEdited ||
-      OrderActionType.refundRemoved => const Color(0xFFC62828), // red
-      OrderActionType.ordersReset => const Color(0xFFE65100), // deep orange
-      OrderActionType.clientsAdded => const Color(0xFF2E7D32), // green
-      OrderActionType.clientsRemoved => const Color(0xFFAD1457), // pink
-      OrderActionType.productsAdded => const Color(0xFF558B2F), // light green
-      OrderActionType.productsRemoved => const Color(0xFF6A1B9A), // deep purple
-      OrderActionType.orderSheetCreated => const Color(0xFF00695C), // teal dark
-      OrderActionType.orderSheetGenerated => const Color(0xFF283593), // indigo
-      OrderActionType.provisionalInvoiceGenerated => const Color(
-        0xFFF57F17,
-      ), // amber dark
-    };
+    return OrderActionColors.forType(type);
   }
 
   String _localizedAction(OrderActionType type, AppLocalizations l10n) {

@@ -11,8 +11,7 @@ import '../../features/client_categories/presentation/pages/client_categories_pa
 import '../../features/clients/domain/entities/client.dart';
 import '../../features/clients/presentation/pages/client_detail_page.dart';
 import '../../features/clients/presentation/pages/clients_page.dart';
-import '../../features/home/presentation/pages/home_page.dart';
-import '../../features/home/presentation/pages/side_menu_shell.dart';
+import '../../core/presentation/pages/side_menu_shell.dart';
 import '../../features/invoices/presentation/pages/invoice_detail_page.dart';
 import '../../features/invoices/presentation/pages/invoices_page.dart';
 import '../../features/orders_history/presentation/pages/orders_history_page.dart';
@@ -42,7 +41,6 @@ abstract class AppRoutes {
 
   /// Base menu paths (without admin-only items).
   static const List<String> _baseMenuPaths = [
-    home,
     ordersToday,
     ordersHistory,
     clients,
@@ -97,15 +95,15 @@ GoRouter createRouter({required String initialLocation}) {
       final goingToLogin = state.matchedLocation == AppRoutes.login;
 
       if (!loggedIn && !goingToLogin) return AppRoutes.login;
-      if (loggedIn && goingToLogin) return AppRoutes.home;
-      if (state.matchedLocation == '/') return AppRoutes.home;
+      if (loggedIn && goingToLogin) return AppRoutes.ordersToday;
+      if (state.matchedLocation == '/') return AppRoutes.ordersToday;
 
       // Role-based guard: redirect non-admin users away from /statistics
       if (state.matchedLocation == AppRoutes.statistics) {
         final authState = sl<AuthCubit>().state;
         final isAdmin =
             authState is AuthAuthenticated && authState.user.isAdmin;
-        if (!isAdmin) return AppRoutes.home;
+        if (!isAdmin) return AppRoutes.ordersToday;
       }
 
       return null;
@@ -120,14 +118,10 @@ GoRouter createRouter({required String initialLocation}) {
         path: AppRoutes.ordersTodayView,
         builder: (context, state) => const OrdersTodayReadonlyPage(),
       ),
+      GoRoute(path: AppRoutes.home, redirect: (_, _) => AppRoutes.ordersToday),
       ShellRoute(
         builder: (context, state, child) => SideMenuShell(child: child),
         routes: [
-          GoRoute(
-            path: AppRoutes.home,
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: HomePage()),
-          ),
           GoRoute(
             path: AppRoutes.ordersToday,
             pageBuilder: (context, state) =>

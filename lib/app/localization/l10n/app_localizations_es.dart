@@ -27,7 +27,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get menuSettings => 'Ajustes';
 
   @override
-  String get settingsFacturaDirectaTitle => 'FacturaDirecta';
+  String get settingsFacturaDirectaTitle => 'Factura Directa';
 
   @override
   String get settingsFacturaDirectaDescription =>
@@ -1456,6 +1456,25 @@ class AppLocalizationsEs extends AppLocalizations {
       'La gestión de pedidos de hoy solo está disponible en pantallas de mayor tamaño. Por favor, accede desde un ordenador o una tablet.';
 
   @override
+  String get ordersTodayMobileNoOrders => 'No hay pedidos registrados hoy';
+
+  @override
+  String ordersTodayMobileProductCount(String count) {
+    return '$count uds.';
+  }
+
+  @override
+  String get ordersTodayMobileReservation => 'Reserva';
+
+  @override
+  String get ordersTodayMobileCompensation => 'Compensación';
+
+  @override
+  String ordersTodayMobileRefund(String quantity) {
+    return 'Abono: $quantity';
+  }
+
+  @override
   String ordersTodayLastModified(String date) {
     return 'Última actualización: $date';
   }
@@ -1595,4 +1614,10 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get orderActionProvisionalInvoiceGenerated =>
       'Albarán provisional generado';
+
+  @override
+  String get orderActionFilterAllActions => 'Todas las acciones';
+
+  @override
+  String get orderActionFilterAllUsers => 'Todos los usuarios';
 }

@@ -908,8 +908,6 @@ class _OrdersTableState extends State<OrdersTable> {
         : isStocks
         ? l10n.ordersTodayColumnStocks
         : l10n.ordersTodayColumnQuedan;
-    final warningHeaderColor =
-        _customColors?.warningHeader ?? const Color.fromARGB(190, 217, 121, 53);
     Color summaryHeaderColor;
     Color summaryTextColor;
     if (isColHighlighted) {
@@ -918,9 +916,12 @@ class _OrdersTableState extends State<OrdersTable> {
     } else if (isPedidos) {
       summaryHeaderColor = _colorScheme.tertiary.withValues(alpha: 1);
       summaryTextColor = _colorScheme.onTertiary;
+    } else if (isStocks) {
+      summaryHeaderColor = const Color(0xFFD32F2F);
+      summaryTextColor = _colorScheme.onPrimary;
     } else {
-      // STOCKS and QUEDAN columns — orange
-      summaryHeaderColor = warningHeaderColor;
+      // QUEDAN column
+      summaryHeaderColor = const Color(0xFF00ACC1);
       summaryTextColor = _colorScheme.onPrimary;
     }
 
@@ -942,7 +943,7 @@ class _OrdersTableState extends State<OrdersTable> {
             style: _textTheme.labelSmall?.copyWith(
               fontWeight: FontWeight.bold,
               color: summaryTextColor,
-              fontSize: 13,
+              fontSize: 18,
             ),
           ),
         ),

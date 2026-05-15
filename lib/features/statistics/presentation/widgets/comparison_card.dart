@@ -4,7 +4,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/theme_constants.dart';
 import '../../../../app/theme/theme_extensions.dart';
-import '../utils/format_utils.dart';
+import '../../../../core/presentation/utils/format_utils.dart';
 
 enum TrendDirection { up, down, neutral }
 

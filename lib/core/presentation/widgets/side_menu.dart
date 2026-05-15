@@ -28,11 +28,6 @@ class SideMenu extends StatelessWidget {
 
     final items = [
       _MenuItemData(
-        icon: Icons.home_rounded,
-        label: l10n.menuHome,
-        hasDividerAfter: true,
-      ),
-      _MenuItemData(
         icon: Icons.receipt_long_rounded,
         label: l10n.menuOrdersToday,
       ),

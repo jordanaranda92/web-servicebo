@@ -55,6 +55,7 @@ class OrdersTodayPage extends StatefulWidget {
 class _OrdersTodayPageState extends State<OrdersTodayPage> {
   bool _isFirebaseAvailable = false;
   String? _resolvedUserName;
+  bool _userNameResolved = false;
 
   // Cached date string — the day doesn't change during widget lifetime.
   late final String _formattedDate = () {
@@ -101,18 +102,31 @@ class _OrdersTodayPageState extends State<OrdersTodayPage> {
   Future<void> _resolveUserName() async {
     final firebaseAuth = sl<FirebaseAuth>();
     final uid = firebaseAuth.currentUser?.uid;
-    if (uid == null) return;
+    if (uid == null) {
+      if (mounted) setState(() => _userNameResolved = true);
+      return;
+    }
 
     final result = await sl<AuthRepository>().getUserName(uid);
     if (!mounted) return;
-    result.fold((_) {}, (name) {
-      if (name != null && name.isNotEmpty) {
-        // Close stale cubit so it's recreated with the resolved userName
-        _presenceCubit?.close();
-        _presenceCubit = null;
-        setState(() => _resolvedUserName = name);
-      }
-    });
+    result.fold(
+      (_) {
+        setState(() => _userNameResolved = true);
+      },
+      (name) {
+        if (name != null && name.isNotEmpty) {
+          // Close stale cubit so it's recreated with the resolved userName
+          _presenceCubit?.close();
+          _presenceCubit = null;
+          setState(() {
+            _resolvedUserName = name;
+            _userNameResolved = true;
+          });
+        } else {
+          setState(() => _userNameResolved = true);
+        }
+      },
+    );
   }
 
   @override
@@ -224,7 +238,7 @@ class _OrdersTodayPageState extends State<OrdersTodayPage> {
       child: const _OrdersTodayContent(),
     );
 
-    if (hasPresence) {
+    if (hasPresence && _userNameResolved) {
       _presenceCubit ??= () {
         final firebaseAuth = sl<FirebaseAuth>();
         final currentUser = firebaseAuth.currentUser;
@@ -267,8 +281,9 @@ class _OrdersTodayContentState extends State<_OrdersTodayContent> {
   ) async {
     setState(() => _isExporting = true);
     final l10n = AppLocalizations.of(context)!;
+    final isAdmin = _isAdmin(context);
     try {
-      final history = _isAdmin(context)
+      final history = isAdmin
           ? (await sl<GetActionHistory>()(
               GetActionHistoryParams(date: DateTime.now()),
             )).getOrElse((_) => [])

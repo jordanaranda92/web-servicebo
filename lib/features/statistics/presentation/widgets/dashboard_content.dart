@@ -1,108 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../../app/di/injection.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/router/router.dart';
 import '../../../../app/theme/theme_constants.dart';
 import '../bloc/fd_counters_cubit.dart';
 import '../bloc/fd_counters_state.dart';
-import '../utils/format_utils.dart';
-import '../widgets/comparison_card.dart';
+import '../../../../core/presentation/utils/format_utils.dart';
+import 'comparison_card.dart';
 
-/// Home page - dashboard with daily stats and comparisons.
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  late final FdCountersCubit _fdCubit;
-
-  @override
-  void initState() {
-    super.initState();
-    _fdCubit = sl<FdCountersCubit>();
-    _fdCubit.load();
-  }
-
-  @override
-  void dispose() {
-    _fdCubit.close();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-
-    final isMobile =
-        MediaQuery.sizeOf(context).width <= AppSideMenu.mobileBreakpoint;
-
-    return BlocProvider.value(
-      value: _fdCubit,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (!isMobile) _buildDateHeader(context),
-          Expanded(
-            child: _DashboardContent(l10n: l10n, isMobile: isMobile),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDateHeader(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final now = DateTime.now();
-    final weekday = localizedWeekdays(l10n)[now.weekday - 1];
-    final month = localizedMonths(l10n)[now.month - 1];
-    final dateStr = l10n.dashboardDateFormat(now.day, month);
-
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.xl,
-        AppSpacing.lg,
-        AppSpacing.xl,
-        AppSpacing.sm,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            l10n.dashboardToday,
-            style: textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.w800,
-              color: colorScheme.onSurface,
-            ),
-          ),
-          Text(
-            '$weekday $dateStr',
-            style: textTheme.titleLarge?.copyWith(
-              color: colorScheme.onSurfaceVariant,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _DashboardContent extends StatelessWidget {
-  const _DashboardContent({required this.l10n, this.isMobile = false});
+class DashboardContent extends StatelessWidget {
+  const DashboardContent({super.key, required this.l10n});
 
   final AppLocalizations l10n;
-  final bool isMobile;
 
   @override
   Widget build(BuildContext context) {
@@ -116,17 +28,10 @@ class _DashboardContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (isMobile) ...[
-            _buildMobileDateSection(context),
-            const SizedBox(height: AppSpacing.md),
-          ],
           _buildInvoicesCombinedCard(context),
-          if (!isMobile) ...[
-            const SizedBox(height: AppSpacing.xl),
-            Divider(color: colorScheme.outlineVariant.withValues(alpha: 0.3)),
-            const SizedBox(height: AppSpacing.lg),
-          ] else
-            const SizedBox(height: AppSpacing.xl),
+          const SizedBox(height: AppSpacing.xl),
+          Divider(color: colorScheme.outlineVariant.withValues(alpha: 0.3)),
+          const SizedBox(height: AppSpacing.lg),
           _SectionHeader(
             title: l10n.dashboardComparisons,
             icon: Icons.compare_arrows_rounded,
@@ -136,18 +41,6 @@ class _DashboardContent extends StatelessWidget {
           const SizedBox(height: AppSpacing.xl),
         ],
       ),
-    );
-  }
-
-  Widget _buildMobileDateSection(BuildContext context) {
-    final now = DateTime.now();
-    final weekday = localizedWeekdays(l10n)[now.weekday - 1];
-    final month = localizedMonths(l10n)[now.month - 1];
-    final dateStr = l10n.dashboardDateFormat(now.day, month);
-
-    return _SectionHeader(
-      title: '${l10n.dashboardToday} $weekday $dateStr',
-      icon: Icons.calendar_today_rounded,
     );
   }
 

@@ -16,8 +16,9 @@ class InvoiceStatusChip extends StatelessWidget {
     final customColors = Theme.of(context).extension<CustomColors>();
     final l10n = AppLocalizations.of(context)!;
     final successColor = customColors?.success ?? Colors.green;
-    final pendingColor = Colors.orange;
+    final pendingColor = customColors?.warning ?? Colors.orange;
     final dangerColor = customColors?.danger ?? Colors.red;
+    final overpaidColor = colorScheme.tertiary;
     final (label, bgColor, fgColor) = switch (status.toLowerCase()) {
       'paid' => (
         l10n.invoiceStatusPaid,
@@ -46,8 +47,8 @@ class InvoiceStatusChip extends StatelessWidget {
       ),
       'overpaid' => (
         l10n.invoiceStatusOverpaid,
-        Colors.purple.shade100,
-        Colors.purple.shade900,
+        overpaidColor.withValues(alpha: 0.15),
+        overpaidColor,
       ),
       _ => (
         status,

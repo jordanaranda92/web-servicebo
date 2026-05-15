@@ -7,6 +7,7 @@ import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../core/log/app_logger.dart';
 import '../../../../core/utils/day_utils.dart';
 import '../../../clients/domain/repositories/clients_repository.dart';
+import '../../../products/domain/repositories/products_repository.dart';
 import '../../../shipping_methods/domain/entities/shipping_method.dart';
 import '../../../shipping_methods/data/datasources/shipping_method_firestore_data_source.dart';
 import '../../domain/entities/order_sheet.dart';
@@ -29,20 +30,27 @@ Future<void> showOrderSheetPdfDialog(
       : '';
 
   final rows = <OrderSheetPdfRow>[];
+  var totalProducts = 0;
   for (var p = 0; p < orderSheet.products.length; p++) {
     final qty = orderSheet.quantities[p][col];
-    if (qty > 0) {
+    final refund = (p < orderSheet.cellRefunds.length && clientId.isNotEmpty)
+        ? (orderSheet.cellRefunds[p][clientId] ?? 0)
+        : 0;
+
+    if (qty > 0 || refund > 0) {
       String? note;
       if (p < orderSheet.cellNotes.length) {
         note = orderSheet.cellNotes[p][clientId];
       }
+      final displayQty = qty + refund;
       rows.add(
         OrderSheetPdfRow(
           product: orderSheet.products[p],
-          quantity: formatNum(qty),
+          quantity: formatNum(displayQty),
           notes: note,
         ),
       );
+      totalProducts += (qty + refund).toInt();
     }
   }
 
@@ -82,6 +90,58 @@ Future<void> showOrderSheetPdfDialog(
   if (shippingMethodName == null) return;
   if (!context.mounted) return;
 
+  // ── Calculate subtotal from FD prices ────────────────────────
+  String? subtotalFormatted;
+  try {
+    final productsRepo = sl<ProductsRepository>();
+    final productsResult = await productsRepo.getProducts();
+    final fdResult = await productsRepo.getFdProducts();
+
+    var hasError = false;
+    final productIdToFdUuid = <String, String>{};
+    final fdUuidToPrice = <String, double>{};
+
+    productsResult.fold((_) => hasError = true, (products) {
+      for (final p in products) {
+        if (p.facturaDirectaUuid.isNotEmpty) {
+          productIdToFdUuid[p.id] = p.facturaDirectaUuid;
+        }
+      }
+    });
+
+    fdResult.fold((_) => hasError = true, (fdProducts) {
+      for (final fp in fdProducts) {
+        fdUuidToPrice[fp.uuid] = fp.salesPrice ?? 0.0;
+      }
+    });
+
+    if (hasError) {
+      subtotalFormatted =
+          'No se han podido obtener los precios desde Factura Directa';
+    } else {
+      var subtotalValue = 0.0;
+      for (var p = 0; p < orderSheet.products.length; p++) {
+        final qty = orderSheet.quantities[p][col];
+        if (qty > 0) {
+          final productId = p < orderSheet.productIds.length
+              ? orderSheet.productIds[p]
+              : '';
+          final fdUuid = productIdToFdUuid[productId] ?? '';
+          final price = fdUuidToPrice[fdUuid] ?? 0.0;
+          subtotalValue += qty * price;
+        }
+      }
+      final formatter = NumberFormat('#,##0.00', 'es_ES');
+      subtotalFormatted = '${formatter.format(subtotalValue)} EUR';
+    }
+  } on Exception catch (e, st) {
+    sl<AppLogger>().error('Error fetching FD products for subtotal', e, st);
+    subtotalFormatted =
+        'No se han podido obtener los precios desde Factura Directa';
+  }
+
+  if (!context.mounted) return;
+
   try {
     final pdfBytes = await sl<OrderSheetPdfGenerator>().generate(
       clientName: clientName,
@@ -89,6 +149,8 @@ Future<void> showOrderSheetPdfDialog(
       orderNumber: orderNumber,
       rows: rows,
       shippingMethod: shippingMethodName,
+      totalProducts: totalProducts,
+      subtotal: subtotalFormatted,
     );
 
     final fileName =

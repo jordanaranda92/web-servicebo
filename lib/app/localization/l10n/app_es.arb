@@ -24,7 +24,7 @@
   "@menuSettings": {
     "description": "Ítem de menú: Ajustes"
   },
-  "settingsFacturaDirectaTitle": "FacturaDirecta",
+  "settingsFacturaDirectaTitle": "Factura Directa",
   "@settingsFacturaDirectaTitle": {
     "description": "Título de la sección de FacturaDirecta en Ajustes"
   },
@@ -1838,6 +1838,38 @@
   "@ordersTodayMobileDescription": {
     "description": "Descripción del placeholder cuando se accede a Pedidos de hoy desde un dispositivo con pantalla pequeña"
   },
+  "ordersTodayMobileNoOrders": "No hay pedidos registrados hoy",
+  "@ordersTodayMobileNoOrders": {
+    "description": "Mensaje cuando el fichero de pedidos existe pero ningún cliente tiene datos"
+  },
+  "ordersTodayMobileProductCount": "{count} uds.",
+  "@ordersTodayMobileProductCount": {
+    "description": "Total de productos (cantidades + abonos) en la tarjeta colapsada del cliente",
+    "placeholders": {
+      "count": {
+        "type": "String",
+        "example": "12"
+      }
+    }
+  },
+  "ordersTodayMobileReservation": "Reserva",
+  "@ordersTodayMobileReservation": {
+    "description": "Etiqueta del badge de reserva en la vista móvil de pedidos"
+  },
+  "ordersTodayMobileCompensation": "Compensación",
+  "@ordersTodayMobileCompensation": {
+    "description": "Etiqueta del badge de compensación en la vista móvil de pedidos"
+  },
+  "ordersTodayMobileRefund": "Abono: {quantity}",
+  "@ordersTodayMobileRefund": {
+    "description": "Etiqueta del badge de abono con cantidad en la vista móvil de pedidos",
+    "placeholders": {
+      "quantity": {
+        "type": "String",
+        "example": "3"
+      }
+    }
+  },
   "ordersTodayLastModified": "Última actualización: {date}",
   "@ordersTodayLastModified": {
     "description": "Fecha y hora de la última modificación del documento de pedidos",
@@ -2043,5 +2075,13 @@
   "orderActionProvisionalInvoiceGenerated": "Albarán provisional generado",
   "@orderActionProvisionalInvoiceGenerated": {
     "description": "Acción: generar albarán provisional"
+  },
+  "orderActionFilterAllActions": "Todas las acciones",
+  "@orderActionFilterAllActions": {
+    "description": "Etiqueta del filtro cuando no se ha seleccionado ninguna acción"
+  },
+  "orderActionFilterAllUsers": "Todos los usuarios",
+  "@orderActionFilterAllUsers": {
+    "description": "Etiqueta del filtro cuando no se ha seleccionado ningún usuario"
   }
 }

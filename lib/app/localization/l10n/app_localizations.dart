@@ -133,7 +133,7 @@ abstract class AppLocalizations {
   /// Título de la sección de FacturaDirecta en Ajustes
   ///
   /// In es, this message translates to:
-  /// **'FacturaDirecta'**
+  /// **'Factura Directa'**
   String get settingsFacturaDirectaTitle;
 
   /// Descripción de la sección de FacturaDirecta
@@ -2674,6 +2674,36 @@ abstract class AppLocalizations {
   /// **'La gestión de pedidos de hoy solo está disponible en pantallas de mayor tamaño. Por favor, accede desde un ordenador o una tablet.'**
   String get ordersTodayMobileDescription;
 
+  /// Mensaje cuando el fichero de pedidos existe pero ningún cliente tiene datos
+  ///
+  /// In es, this message translates to:
+  /// **'No hay pedidos registrados hoy'**
+  String get ordersTodayMobileNoOrders;
+
+  /// Total de productos (cantidades + abonos) en la tarjeta colapsada del cliente
+  ///
+  /// In es, this message translates to:
+  /// **'{count} uds.'**
+  String ordersTodayMobileProductCount(String count);
+
+  /// Etiqueta del badge de reserva en la vista móvil de pedidos
+  ///
+  /// In es, this message translates to:
+  /// **'Reserva'**
+  String get ordersTodayMobileReservation;
+
+  /// Etiqueta del badge de compensación en la vista móvil de pedidos
+  ///
+  /// In es, this message translates to:
+  /// **'Compensación'**
+  String get ordersTodayMobileCompensation;
+
+  /// Etiqueta del badge de abono con cantidad en la vista móvil de pedidos
+  ///
+  /// In es, this message translates to:
+  /// **'Abono: {quantity}'**
+  String ordersTodayMobileRefund(String quantity);
+
   /// Fecha y hora de la última modificación del documento de pedidos
   ///
   /// In es, this message translates to:
@@ -2937,6 +2967,18 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Albarán provisional generado'**
   String get orderActionProvisionalInvoiceGenerated;
+
+  /// Etiqueta del filtro cuando no se ha seleccionado ninguna acción
+  ///
+  /// In es, this message translates to:
+  /// **'Todas las acciones'**
+  String get orderActionFilterAllActions;
+
+  /// Etiqueta del filtro cuando no se ha seleccionado ningún usuario
+  ///
+  /// In es, this message translates to:
+  /// **'Todos los usuarios'**
+  String get orderActionFilterAllUsers;
 }
 
 class _AppLocalizationsDelegate

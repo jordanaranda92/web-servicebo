@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/entities/cell_lock.dart';
 import '../../domain/entities/remote_cursor.dart';
 import '../../domain/repositories/orders_presence_repository.dart';
+import '../../../../app/theme/app_colors.dart';
 import 'orders_presence_state.dart';
 
 class OrdersPresenceCubit extends Cubit<OrdersPresenceState> {
@@ -26,20 +27,7 @@ class OrdersPresenceCubit extends Cubit<OrdersPresenceState> {
   /// Color assigned to the current user locally.
   late final Color myColor;
 
-  static const _colorPalette = [
-    Color(0xFFFF5722),
-    Color(0xFFE91E63),
-    Color(0xFF9C27B0),
-    Color(0xFF673AB7),
-    Color(0xFF3F51B5),
-    Color(0xFF2196F3),
-    Color(0xFF009688),
-    Color(0xFF4CAF50),
-    Color(0xFFFF9800),
-    Color(0xFF795548),
-    Color(0xFF607D8B),
-    Color(0xFFF44336),
-  ];
+  static const _colorPalette = PresenceColors.palette;
 
   /// Map of userId → locally-assigned Color (no two users share a color).
   final Map<String, Color> _assignedColors = {};
