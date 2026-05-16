@@ -10,7 +10,6 @@ import '../../../clients/data/datasources/client_firestore_data_source.dart';
 import '../../../clients/data/models/client_model.dart';
 import '../../../products/data/datasources/product_firestore_data_source.dart';
 import '../../../products/data/models/product_model.dart';
-import '../../domain/entities/order_action_entry.dart';
 import '../../domain/entities/order_sheet.dart';
 import '../../domain/repositories/orders_today_repository.dart';
 import '../datasources/remote/order_firestore_data_source.dart';
@@ -374,7 +373,29 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
       return Left(InternalFailure());
     }
   }
+  // ── updateClientNote ─────────────────────────────────────────────
 
+  @override
+  Future<Either<Failure, Unit>> updateClientNote({
+    required String clientId,
+    required String? note,
+    required DateTime date,
+  }) async {
+    try {
+      final dateStr = _formatDate(date);
+      await _firestoreDataSource.updateClientNote(
+        date: dateStr,
+        clientId: clientId,
+        note: note,
+      );
+      return const Right(unit);
+    } on ServerException {
+      return Left(ServerFailure());
+    } on Exception catch (e, st) {
+      _logger.error('Error updating client note', e, st);
+      return Left(ServerFailure());
+    }
+  }
   // ── Private helpers ─────────────────────────────────────────────
 
   OrderSheet _buildOrderSheet(
@@ -593,6 +614,41 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
     }
   }
 
+  // ── replaceClient ───────────────────────────────────────────────
+
+  @override
+  Future<Either<Failure, OrderSheet>> replaceClient({
+    required int clientIndex,
+    required String newClientId,
+    required DateTime date,
+  }) async {
+    try {
+      final dateStr = _formatDate(date);
+      final doc = await _firestoreDataSource.getOrderDocument(dateStr);
+      if (doc == null) return Left(ServerFailure());
+
+      final orderedClientIds = List<String>.from(doc.clientIds);
+      if (clientIndex >= orderedClientIds.length) {
+        return Left(ServerFailure());
+      }
+
+      final oldClientId = orderedClientIds[clientIndex];
+
+      await _firestoreDataSource.replaceClient(
+        date: dateStr,
+        oldClientId: oldClientId,
+        newClientId: newClientId,
+      );
+
+      return _readOrderSheetWithoutSync(dateStr);
+    } on ServerException {
+      return Left(ServerFailure());
+    } on Exception catch (e, st) {
+      _logger.error('Error replacing client', e, st);
+      return Left(InternalFailure());
+    }
+  }
+
   // ── watchTodayOrders ──────────────────────────────────────────
 
   @override
@@ -660,23 +716,5 @@ class OrdersTodayRepositoryImpl implements OrdersTodayRepository {
       if (a[i] != b[i]) return false;
     }
     return true;
-  }
-
-  // ── getActionHistory ───────────────────────────────────────
-
-  @override
-  Future<Either<Failure, List<OrderActionEntry>>> getActionHistory(
-    DateTime date,
-  ) async {
-    try {
-      final dateStr = _formatDate(date);
-      final models = await _firestoreDataSource.getHistory(dateStr);
-      return Right(models.map((m) => m.toEntity()).toList());
-    } on ServerException {
-      return Left(ServerFailure());
-    } on Exception catch (e, st) {
-      _logger.error('Error getting action history', e, st);
-      return Left(InternalFailure());
-    }
   }
 }

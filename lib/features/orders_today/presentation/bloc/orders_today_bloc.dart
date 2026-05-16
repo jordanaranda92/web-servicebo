@@ -13,10 +13,12 @@ import '../../domain/usecases/create_today_file.dart';
 import '../../domain/usecases/get_today_orders.dart';
 import '../../domain/usecases/remove_order_clients.dart';
 import '../../domain/usecases/remove_order_products.dart';
+import '../../domain/usecases/replace_order_client.dart';
 import '../../domain/usecases/reset_client_orders.dart';
 import '../../domain/usecases/update_cell_flag.dart';
 import '../../domain/usecases/update_cell_note.dart';
 import '../../domain/usecases/update_cell_refund.dart';
+import '../../domain/usecases/update_client_note.dart';
 import '../../domain/usecases/update_order_cell.dart';
 import 'orders_today_event.dart';
 import 'orders_today_state.dart';
@@ -29,11 +31,13 @@ class OrdersTodayBloc extends Bloc<OrdersTodayEvent, OrdersTodayState> {
     required UpdateCellFlag updateCellFlag,
     required UpdateCellNote updateCellNote,
     required UpdateCellRefund updateCellRefund,
+    required UpdateClientNote updateClientNote,
     required ResetClientOrders resetClientOrders,
     required RemoveOrderClients removeOrderClients,
     required RemoveOrderProducts removeOrderProducts,
     required AddOrderClients addOrderClients,
     required AddOrderProducts addOrderProducts,
+    required ReplaceOrderClient replaceOrderClient,
     required OrdersTodayRepository repository,
     required AppLogger logger,
   }) : _getTodayOrders = getTodayOrders,
@@ -42,11 +46,13 @@ class OrdersTodayBloc extends Bloc<OrdersTodayEvent, OrdersTodayState> {
        _updateCellFlag = updateCellFlag,
        _updateCellNote = updateCellNote,
        _updateCellRefund = updateCellRefund,
+       _updateClientNote = updateClientNote,
        _resetClientOrders = resetClientOrders,
        _removeOrderClients = removeOrderClients,
        _removeOrderProducts = removeOrderProducts,
        _addOrderClients = addOrderClients,
        _addOrderProducts = addOrderProducts,
+       _replaceOrderClient = replaceOrderClient,
        _repository = repository,
        _logger = logger,
        super(const OrdersTodayInitial()) {
@@ -64,6 +70,8 @@ class OrdersTodayBloc extends Bloc<OrdersTodayEvent, OrdersTodayState> {
     on<OrdersTodayCellRefundUpdateRequested>(_onCellRefundUpdate);
     on<OrdersTodayResetOrdersRequested>(_onResetOrders);
     on<OrdersTodaySaveInvoicedByRequested>(_onSaveInvoicedBy);
+    on<OrdersTodayClientNoteUpdateRequested>(_onClientNoteUpdate);
+    on<OrdersTodayReplaceClientRequested>(_onReplaceClient);
   }
 
   final GetTodayOrders _getTodayOrders;
@@ -72,11 +80,13 @@ class OrdersTodayBloc extends Bloc<OrdersTodayEvent, OrdersTodayState> {
   final UpdateCellFlag _updateCellFlag;
   final UpdateCellNote _updateCellNote;
   final UpdateCellRefund _updateCellRefund;
+  final UpdateClientNote _updateClientNote;
   final ResetClientOrders _resetClientOrders;
   final RemoveOrderClients _removeOrderClients;
   final RemoveOrderProducts _removeOrderProducts;
   final AddOrderClients _addOrderClients;
   final AddOrderProducts _addOrderProducts;
+  final ReplaceOrderClient _replaceOrderClient;
   final OrdersTodayRepository _repository;
   final AppLogger _logger;
 
@@ -88,7 +98,10 @@ class OrdersTodayBloc extends Bloc<OrdersTodayEvent, OrdersTodayState> {
   /// Pending write — stores the latest params to write.
   UpdateOrderCellParams? _pendingWrite;
 
-  static const _syncDelay = Duration(milliseconds: 500);
+  /// Snapshot of the optimistic cell change applied locally while a write is
+  /// pending. Used to re-apply the pending change on top of any remote update
+  /// that arrives before the write completes.
+  OrdersTodayCellUpdateRequested? _pendingOptimisticEvent;
 
   Future<void> _onLoad(
     OrdersTodayLoadRequested event,
@@ -210,6 +223,22 @@ class OrdersTodayBloc extends Bloc<OrdersTodayEvent, OrdersTodayState> {
     if (current is! OrdersTodayLoaded) return;
 
     final sheet = current.orderSheet;
+    final numClients = sheet.clients.length;
+
+    // No-op: skip if value hasn't changed (avoids unnecessary Firestore write)
+    final isStocksColCheck = event.clientCol == numClients + 1;
+    if (isStocksColCheck) {
+      if (event.productRow < sheet.stocks.length &&
+          sheet.stocks[event.productRow] == event.value) {
+        return;
+      }
+    } else {
+      if (event.productRow < sheet.quantities.length &&
+          event.clientCol < sheet.quantities[event.productRow].length &&
+          sheet.quantities[event.productRow][event.clientCol] == event.value) {
+        return;
+      }
+    }
 
     // Optimistic update: apply changes locally and emit immediately
     final optimistic = _applyOptimisticUpdate(sheet, event);
@@ -219,7 +248,6 @@ class OrdersTodayBloc extends Bloc<OrdersTodayEvent, OrdersTodayState> {
     if (event.productRow >= sheet.productIds.length) return;
     final productId = sheet.productIds[event.productRow];
 
-    final numClients = sheet.clients.length;
     final isStocksCol = event.clientCol == numClients + 1;
     final String? clientId;
     if (isStocksCol) {
@@ -229,21 +257,23 @@ class OrdersTodayBloc extends Bloc<OrdersTodayEvent, OrdersTodayState> {
       clientId = sheet.clientIds[event.clientCol];
     }
 
-    // Debounced sync with Firestore — avoids bursts during fast navigation
+    // Sync immediately with Firestore
     _pendingWrite = UpdateOrderCellParams(
       productId: productId,
       clientId: clientId,
       value: event.value,
       date: DateTime.now(),
     );
+    _pendingOptimisticEvent = event;
     _syncTimer?.cancel();
-    _syncTimer = Timer(_syncDelay, _flushPendingWrite);
+    _flushPendingWrite();
   }
 
   void _flushPendingWrite() {
     final params = _pendingWrite;
     if (params == null) return;
     _pendingWrite = null;
+    _pendingOptimisticEvent = null;
 
     _updateOrderCell(params).then((result) {
       if (isClosed) return;
@@ -311,15 +341,21 @@ class OrdersTodayBloc extends Bloc<OrdersTodayEvent, OrdersTodayState> {
       return;
     }
 
+    var orderSheet = event.orderSheet;
+    if (orderSheet == null) return;
+
+    // If there is a pending write, re-apply the optimistic change on top of
+    // the remote data so the local edit is not visually lost.
+    final pendingEvent = _pendingOptimisticEvent;
+    if (pendingEvent != null) {
+      orderSheet = _applyOptimisticUpdate(orderSheet, pendingEvent);
+    }
+
     final current = state;
-    if (current is OrdersTodayLoaded &&
-        current.orderSheet == event.orderSheet) {
+    if (current is OrdersTodayLoaded && current.orderSheet == orderSheet) {
       // Deduplicate: same data (e.g. own optimistic update confirmed)
       return;
     }
-
-    final orderSheet = event.orderSheet;
-    if (orderSheet == null) return;
 
     emit(OrdersTodayLoaded(orderSheet: orderSheet));
   }
@@ -634,6 +670,64 @@ class OrdersTodayBloc extends Bloc<OrdersTodayEvent, OrdersTodayState> {
       userId: event.userId,
       userName: event.userName,
       color: event.color,
+    );
+  }
+  // ── Client Note Update ─────────────────────────────────────────
+
+  Future<void> _onClientNoteUpdate(
+    OrdersTodayClientNoteUpdateRequested event,
+    Emitter<OrdersTodayState> emit,
+  ) async {
+    final current = state;
+    if (current is! OrdersTodayLoaded) return;
+
+    final sheet = current.orderSheet;
+    if (event.clientCol >= sheet.clientIds.length) return;
+
+    final clientId = sheet.clientIds[event.clientCol];
+
+    // Optimistic update
+    final newClientNotes = Map<String, String>.from(sheet.clientNotes);
+    final note = event.note;
+    if (note == null || note.isEmpty) {
+      newClientNotes.remove(clientId);
+    } else {
+      newClientNotes[clientId] = note;
+    }
+
+    await _optimisticWrite(
+      emit: emit,
+      sheet: sheet,
+      optimistic: sheet.copyWith(clientNotes: newClientNotes),
+      write: () => _updateClientNote(
+        UpdateClientNoteParams(
+          clientId: clientId,
+          note: event.note,
+          date: DateTime.now(),
+        ),
+      ),
+      failureMessage: 'Failed to update client note',
+    );
+  }
+
+  Future<void> _onReplaceClient(
+    OrdersTodayReplaceClientRequested event,
+    Emitter<OrdersTodayState> emit,
+  ) async {
+    final current = state;
+    if (current is! OrdersTodayLoaded) return;
+
+    final result = await _replaceOrderClient(
+      ReplaceOrderClientParams(
+        clientIndex: event.clientCol,
+        newClientId: event.newClientId,
+        date: DateTime.now(),
+      ),
+    );
+
+    result.fold(
+      (failure) => _logger.warning('Failed to replace client', failure),
+      (sheet) => emit(OrdersTodayLoaded(orderSheet: sheet)),
     );
   }
 

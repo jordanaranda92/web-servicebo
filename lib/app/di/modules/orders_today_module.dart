@@ -21,14 +21,15 @@ import '../../../features/orders_today/domain/services/order_sheet_pdf_generator
 import '../../../features/orders_today/domain/usecases/add_order_clients.dart';
 import '../../../features/orders_today/domain/usecases/add_order_products.dart';
 import '../../../features/orders_today/domain/usecases/create_today_file.dart';
-import '../../../features/orders_today/domain/usecases/get_action_history.dart';
 import '../../../features/orders_today/domain/usecases/get_today_orders.dart';
 import '../../../features/orders_today/domain/usecases/remove_order_clients.dart';
 import '../../../features/orders_today/domain/usecases/remove_order_products.dart';
+import '../../../features/orders_today/domain/usecases/replace_order_client.dart';
 import '../../../features/orders_today/domain/usecases/reset_client_orders.dart';
 import '../../../features/orders_today/domain/usecases/update_cell_flag.dart';
 import '../../../features/orders_today/domain/usecases/update_cell_note.dart';
 import '../../../features/orders_today/domain/usecases/update_cell_refund.dart';
+import '../../../features/orders_today/domain/usecases/update_client_note.dart';
 import '../../../features/orders_today/domain/usecases/update_order_cell.dart';
 import '../../../features/orders_today/presentation/bloc/orders_today_bloc.dart';
 
@@ -43,11 +44,7 @@ void registerOrdersTodayModule(GetIt sl) {
 
   // Data — Firestore DataSource
   sl.registerLazySingleton<OrderFirestoreDataSource>(
-    () => OrderFirestoreDataSourceImpl(
-      sl<FirebaseFirestore>(),
-      sl<CurrentUserProvider>(),
-      sl(),
-    ),
+    () => OrderFirestoreDataSourceImpl(sl<FirebaseFirestore>(), sl()),
   );
 
   // Data — RTDB DataSource (only if Firebase is available)
@@ -77,12 +74,13 @@ void registerOrdersTodayModule(GetIt sl) {
   sl.registerLazySingleton(() => UpdateCellFlag(sl()));
   sl.registerLazySingleton(() => UpdateCellNote(sl()));
   sl.registerLazySingleton(() => UpdateCellRefund(sl()));
+  sl.registerLazySingleton(() => UpdateClientNote(sl()));
   sl.registerLazySingleton(() => RemoveOrderClients(sl()));
   sl.registerLazySingleton(() => RemoveOrderProducts(sl()));
   sl.registerLazySingleton(() => ResetClientOrders(sl()));
   sl.registerLazySingleton(() => AddOrderClients(sl()));
   sl.registerLazySingleton(() => AddOrderProducts(sl()));
-  sl.registerLazySingleton(() => GetActionHistory(sl()));
+  sl.registerLazySingleton(() => ReplaceOrderClient(sl()));
 
   // Data — Services
   sl.registerLazySingleton<OrderSheetExcelGenerator>(
@@ -101,11 +99,13 @@ void registerOrdersTodayModule(GetIt sl) {
       updateCellFlag: sl(),
       updateCellNote: sl(),
       updateCellRefund: sl(),
+      updateClientNote: sl(),
       resetClientOrders: sl(),
       removeOrderClients: sl(),
       removeOrderProducts: sl(),
       addOrderClients: sl(),
       addOrderProducts: sl(),
+      replaceOrderClient: sl(),
       repository: sl(),
       logger: sl(),
     ),

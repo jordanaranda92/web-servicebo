@@ -15,8 +15,6 @@ import '../../../../core/presentation/widgets/page_header.dart';
 import '../../../../core/utils/app_date_formats.dart';
 import '../../../../core/utils/category_color_utils.dart';
 import '../../../auth/domain/repositories/auth_repository.dart';
-import '../../../auth/presentation/bloc/auth_cubit.dart';
-import '../../../auth/presentation/bloc/auth_state.dart';
 import '../../../invoices/presentation/bloc/provisional_invoice_cubit.dart';
 import '../../../invoices/presentation/bloc/provisional_invoice_state.dart';
 import '../../../invoices/presentation/widgets/provisional_invoice_dialog.dart';
@@ -25,6 +23,7 @@ import '../bloc/orders_today_bloc.dart';
 import '../bloc/orders_today_event.dart';
 import '../bloc/orders_today_state.dart';
 import '../widgets/multi_select_entity_dialog.dart';
+import '../widgets/single_select_entity_dialog.dart';
 import '../widgets/orders_empty_state.dart';
 import '../widgets/orders_error_state.dart';
 import '../widgets/orders_preparing_state.dart';
@@ -35,12 +34,15 @@ import '../../../../core/utils/web_download_stub.dart'
 import '../../../../core/utils/web_open_url_stub.dart'
     // ignore: uri_does_not_exist
     if (dart.library.html) '../../../../core/utils/web_open_url_web.dart';
+import '../../domain/entities/order_sheet.dart';
 import '../../domain/repositories/orders_presence_repository.dart';
 import '../../domain/services/order_sheet_excel_generator.dart';
-import '../../domain/entities/order_action_entry.dart';
-import '../../domain/usecases/get_action_history.dart';
-import '../widgets/order_action_history_dialog.dart';
+import '../../../client_categories/domain/usecases/get_client_categories.dart';
+import '../../../clients/domain/repositories/clients_repository.dart';
+import '../../../../core/usecase/usecase.dart';
+import '../widgets/client_category_filter_dialog.dart';
 import '../widgets/orders_table.dart';
+import '../widgets/orders_today_mobile_view.dart';
 
 /// Default color hex for invoice user badge when no presence color is available.
 const _kDefaultInvoiceColor = '#607D8B';
@@ -163,42 +165,42 @@ class _OrdersTodayPageState extends State<OrdersTodayPage> {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    // Mobile placeholder
     final isMobile =
         MediaQuery.sizeOf(context).width <= AppSideMenu.mobileBreakpoint;
-    if (isMobile) {
-      return Center(
-        child: Padding(
-          padding: const EdgeInsets.all(AppSpacing.xl),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.desktop_windows_outlined,
-                size: AppIconSizes.xl,
-                color: colorScheme.onSurfaceVariant,
-              ),
-              const SizedBox(height: AppSpacing.md),
-              Text(
-                l10n.ordersTodayMobileTitle,
-                style: textTheme.titleMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: AppSpacing.sm),
-              Text(
-                l10n.ordersTodayMobileDescription,
-                style: textTheme.bodyMedium?.copyWith(
+
+    // Firebase not available — show message (both mobile and desktop)
+    if (!_isFirebaseAvailable) {
+      if (isMobile) {
+        return Center(
+          child: Padding(
+            padding: const EdgeInsets.all(AppSpacing.xl),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.cloud_off_rounded,
+                  size: AppIconSizes.xl,
                   color: colorScheme.onSurfaceVariant,
                 ),
-                textAlign: TextAlign.center,
-              ),
-            ],
+                const SizedBox(height: AppSpacing.md),
+                Text(
+                  l10n.ordersTodayNoFolderTitle,
+                  style: textTheme.titleMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: AppSpacing.sm),
+                Text(
+                  l10n.ordersTodayNoFolderMessage,
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
           ),
-        ),
-      );
-    }
-
-    if (!_isFirebaseAvailable) {
+        );
+      }
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -242,9 +244,19 @@ class _OrdersTodayPageState extends State<OrdersTodayPage> {
       );
     }
 
-    final hasPresence = sl.isRegistered<OrdersPresenceRepository>();
-
+    // Initialize BLoC once (shared between mobile and desktop)
     _bloc ??= sl<OrdersTodayBloc>()..add(const OrdersTodayLoadRequested());
+
+    // Mobile: read-only card view (no presence)
+    if (isMobile) {
+      return BlocProvider<OrdersTodayBloc>.value(
+        value: _bloc!,
+        child: const OrdersTodayMobileView(),
+      );
+    }
+
+    // Desktop: full editing table with presence
+    final hasPresence = sl.isRegistered<OrdersPresenceRepository>();
 
     Widget content = BlocProvider<OrdersTodayBloc>.value(
       value: _bloc!,
@@ -287,10 +299,91 @@ class _OrdersTodayContent extends StatefulWidget {
 
 class _OrdersTodayContentState extends State<_OrdersTodayContent> {
   bool _isExporting = false;
+  Set<String> _selectedCategoryIds = {};
+  Map<String, String?> _clientCategoryIdMap = const {};
 
-  bool _isAdmin(BuildContext context) {
-    final authState = context.read<AuthCubit>().state;
-    return authState is AuthAuthenticated && authState.user.isAdmin;
+  @override
+  void initState() {
+    super.initState();
+    _loadClientCategoryMap();
+  }
+
+  Future<void> _loadClientCategoryMap() async {
+    final result = await sl<ClientsRepository>().getClients();
+    result.fold((_) {}, (clients) {
+      final map = <String, String?>{};
+      for (final client in clients) {
+        map[client.id] = client.clientCategoryId;
+      }
+      if (mounted) setState(() => _clientCategoryIdMap = map);
+    });
+  }
+
+  Future<void> _openCategoryFilter(BuildContext context) async {
+    final result = await sl<GetClientCategories>()(NoParams());
+    if (!context.mounted) return;
+
+    final categories = result.getOrElse((_) => []);
+    final selected = await showDialog<Set<String>>(
+      context: context,
+      builder: (_) => ClientCategoryFilterDialog(
+        categories: categories,
+        selectedIds: _selectedCategoryIds,
+      ),
+    );
+    if (selected != null && mounted) {
+      setState(() => _selectedCategoryIds = selected);
+    }
+  }
+
+  OrderSheet _buildFilteredOrderSheet(OrderSheet sheet, List<int> indices) {
+    return sheet.copyWith(
+      clients: [for (final i in indices) sheet.clients[i]],
+      clientIds: [for (final i in indices) sheet.clientIds[i]],
+      clientOrders: [for (final i in indices) sheet.clientOrders[i]],
+      quantities: [
+        for (final row in sheet.quantities) [for (final i in indices) row[i]],
+      ],
+      cellFlags: [
+        for (final flagRow in sheet.cellFlags)
+          {
+            for (final i in indices)
+              if (i < sheet.clientIds.length &&
+                  flagRow.containsKey(sheet.clientIds[i]))
+                sheet.clientIds[i]: flagRow[sheet.clientIds[i]]!,
+          },
+      ],
+      cellNotes: [
+        for (final noteRow in sheet.cellNotes)
+          {
+            for (final i in indices)
+              if (i < sheet.clientIds.length &&
+                  noteRow.containsKey(sheet.clientIds[i]))
+                sheet.clientIds[i]: noteRow[sheet.clientIds[i]]!,
+          },
+      ],
+      cellRefunds: [
+        for (final refundRow in sheet.cellRefunds)
+          {
+            for (final i in indices)
+              if (i < sheet.clientIds.length &&
+                  refundRow.containsKey(sheet.clientIds[i]))
+                sheet.clientIds[i]: refundRow[sheet.clientIds[i]]!,
+          },
+      ],
+      invoicedBy: {
+        for (final i in indices)
+          if (i < sheet.clientIds.length &&
+              sheet.invoicedBy.containsKey(sheet.clientIds[i]))
+            sheet.clientIds[i]: sheet.invoicedBy[sheet.clientIds[i]]!,
+      },
+      clientNotes: {
+        for (final i in indices)
+          if (i < sheet.clientIds.length &&
+              sheet.clientNotes.containsKey(sheet.clientIds[i]))
+            sheet.clientIds[i]: sheet.clientNotes[sheet.clientIds[i]]!,
+      },
+    );
   }
 
   Future<void> _exportExcel(
@@ -299,19 +392,16 @@ class _OrdersTodayContentState extends State<_OrdersTodayContent> {
   ) async {
     setState(() => _isExporting = true);
     final l10n = AppLocalizations.of(context)!;
-    final isAdmin = _isAdmin(context);
     try {
-      final history = isAdmin
-          ? (await sl<GetActionHistory>()(
-              GetActionHistoryParams(date: DateTime.now()),
-            )).getOrElse((_) => [])
-          : <OrderActionEntry>[];
-
+      final sheet = state.orderSheet;
+      final filteredIndices = _computeFilteredClientIndices(sheet);
+      final exportSheet = filteredIndices.length == sheet.clients.length
+          ? sheet
+          : _buildFilteredOrderSheet(sheet, filteredIndices);
       final bytes = await sl<OrderSheetExcelGenerator>().generate(
-        orderSheet: state.orderSheet,
-        history: history,
+        orderSheet: exportSheet,
       );
-      final fileName = 'Pedidos_${state.orderSheet.date}.xlsx';
+      final fileName = 'Pedidos_${sheet.date}.xlsx';
 
       if (!context.mounted) return;
 
@@ -341,6 +431,22 @@ class _OrdersTodayContentState extends State<_OrdersTodayContent> {
     downloadFileOnWeb(bytes, fileName);
   }
 
+  List<int> _computeFilteredClientIndices(OrderSheet sheet) {
+    if (_selectedCategoryIds.isEmpty) {
+      return List.generate(sheet.clients.length, (i) => i);
+    }
+    final indices = <int>[];
+    for (var i = 0; i < sheet.clientIds.length; i++) {
+      final catId = _clientCategoryIdMap[sheet.clientIds[i]];
+      if (catId != null && _selectedCategoryIds.contains(catId)) {
+        indices.add(i);
+      } else if (catId == null && _selectedCategoryIds.contains(noCategoryId)) {
+        indices.add(i);
+      }
+    }
+    return indices;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<OrdersTodayBloc, OrdersTodayState>(
@@ -365,9 +471,23 @@ class _OrdersTodayContentState extends State<_OrdersTodayContent> {
           ),
           OrdersTodayLoaded(:final orderSheet) => OrdersTable(
             orderSheet: orderSheet,
+            selectedCategoryIds: _selectedCategoryIds,
+            clientCategoryIdMap: _clientCategoryIdMap,
             footerTrailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
+                FilledButton.icon(
+                  onPressed: () => _openCategoryFilter(context),
+                  icon: const Icon(Icons.filter_alt_outlined, size: 18),
+                  label: Text(
+                    _selectedCategoryIds.isNotEmpty
+                        ? '${AppLocalizations.of(context)!.ordersTodayFilterClients} (${_selectedCategoryIds.length})'
+                        : AppLocalizations.of(
+                            context,
+                          )!.ordersTodayFilterClients,
+                  ),
+                ),
+                const SizedBox(width: 8),
                 FilledButton.icon(
                   onPressed: _isExporting
                       ? null
@@ -389,27 +509,6 @@ class _OrdersTodayContentState extends State<_OrdersTodayContent> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                if (_isAdmin(context)) ...[
-                  IconButton.filled(
-                    onPressed: () {
-                      OrderActionHistoryDialog.show(
-                        context,
-                        getActionHistory: sl<GetActionHistory>(),
-                        date: DateTime.now(),
-                      );
-                    },
-                    style: IconButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    icon: const Icon(Icons.history),
-                    tooltip: AppLocalizations.of(
-                      context,
-                    )!.ordersTodayHistoryButton,
-                  ),
-                  const SizedBox(width: 8),
-                ],
                 IconButton.filled(
                   onPressed: () {
                     openUrlInNewTab(AppRoutes.ordersTodayView);
@@ -586,6 +685,37 @@ class _OrdersTodayContentState extends State<_OrdersTodayContent> {
                 invoiceSub?.cancel();
                 cubit.close();
               });
+            },
+            onClientNoteUpdated: (clientCol, note) {
+              context.read<OrdersTodayBloc>().add(
+                OrdersTodayClientNoteUpdateRequested(
+                  clientCol: clientCol,
+                  note: note,
+                ),
+              );
+            },
+            onChangeClient: (col) async {
+              final bloc = context.read<OrdersTodayBloc>();
+              final available = await bloc.getAvailableClients();
+              if (!context.mounted) return;
+              final l10n = AppLocalizations.of(context)!;
+              final selected = await showDialog<String>(
+                context: context,
+                builder: (_) => SingleSelectEntityDialog(
+                  title: l10n.ordersTodayChangeClientDialogTitle,
+                  items: available,
+                  emptyIcon: Icons.person_off_outlined,
+                  confirmLabel: l10n.ordersTodayChangeClientDialogConfirm,
+                ),
+              );
+              if (selected != null && context.mounted) {
+                context.read<OrdersTodayBloc>().add(
+                  OrdersTodayReplaceClientRequested(
+                    clientCol: col,
+                    newClientId: selected,
+                  ),
+                );
+              }
             },
           ),
         };

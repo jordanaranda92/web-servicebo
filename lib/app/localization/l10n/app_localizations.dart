@@ -292,6 +292,54 @@ abstract class AppLocalizations {
   /// **'Mostrar preview'**
   String get ordersTodayShowPreview;
 
+  /// Botón para filtrar clientes por categoría en la tabla de pedidos de hoy
+  ///
+  /// In es, this message translates to:
+  /// **'Filtrar clientes'**
+  String get ordersTodayFilterClients;
+
+  /// Título del diálogo de filtro de clientes por categoría
+  ///
+  /// In es, this message translates to:
+  /// **'Filtrar por categoría de cliente'**
+  String get ordersTodayFilterClientsDialogTitle;
+
+  /// Botón para seleccionar todas las categorías en el filtro
+  ///
+  /// In es, this message translates to:
+  /// **'Seleccionar todas'**
+  String get ordersTodayFilterSelectAll;
+
+  /// Botón para limpiar la selección de categorías en el filtro
+  ///
+  /// In es, this message translates to:
+  /// **'Limpiar selección'**
+  String get ordersTodayFilterClearAll;
+
+  /// Botón para aplicar el filtro de categorías
+  ///
+  /// In es, this message translates to:
+  /// **'Aplicar'**
+  String get ordersTodayFilterApply;
+
+  /// Botón para cancelar el filtro de categorías
+  ///
+  /// In es, this message translates to:
+  /// **'Cancelar'**
+  String get ordersTodayFilterCancel;
+
+  /// Mensaje cuando no existen categorías de clientes
+  ///
+  /// In es, this message translates to:
+  /// **'No hay categorías configuradas'**
+  String get ordersTodayFilterNoCategories;
+
+  /// Etiqueta para clientes sin categoría asignada en el filtro
+  ///
+  /// In es, this message translates to:
+  /// **'Sin categoría'**
+  String get ordersTodayFilterNoCategoryLabel;
+
   /// Título del diálogo de confirmación para eliminar clientes
   ///
   /// In es, this message translates to:
@@ -1678,6 +1726,54 @@ abstract class AppLocalizations {
   /// **'Generar factura provisional'**
   String get ordersTodayContextMenuGenerateProvisionalInvoice;
 
+  /// Opción del menú contextual de cliente para añadir una nota de cliente
+  ///
+  /// In es, this message translates to:
+  /// **'Añadir nota'**
+  String get ordersTodayContextMenuAddClientNote;
+
+  /// Opción del menú contextual de cliente para editar una nota de cliente existente
+  ///
+  /// In es, this message translates to:
+  /// **'Editar nota'**
+  String get ordersTodayContextMenuEditClientNote;
+
+  /// Opción del menú contextual de cliente para eliminar una nota de cliente
+  ///
+  /// In es, this message translates to:
+  /// **'Eliminar nota'**
+  String get ordersTodayContextMenuDeleteClientNote;
+
+  /// Título del diálogo de nota de cliente
+  ///
+  /// In es, this message translates to:
+  /// **'Nota de cliente'**
+  String get ordersTodayClientNoteDialogTitle;
+
+  /// Hint del campo de texto en el diálogo de nota de cliente
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe una nota (máx. 200 caracteres)'**
+  String get ordersTodayClientNoteDialogHint;
+
+  /// Opción del menú contextual de cliente para cambiar el cliente de la columna
+  ///
+  /// In es, this message translates to:
+  /// **'Cambiar cliente'**
+  String get ordersTodayContextMenuChangeClient;
+
+  /// Título del diálogo para seleccionar el nuevo cliente
+  ///
+  /// In es, this message translates to:
+  /// **'Cambiar cliente'**
+  String get ordersTodayChangeClientDialogTitle;
+
+  /// Botón de confirmación en el diálogo de cambiar cliente
+  ///
+  /// In es, this message translates to:
+  /// **'Confirmar'**
+  String get ordersTodayChangeClientDialogConfirm;
+
   /// Opción del menú contextual de cliente para restablecer pedido
   ///
   /// In es, this message translates to:
@@ -2817,168 +2913,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Versión de la web {version}'**
   String settingsAppVersionTitle(String version);
-
-  /// Título del diálogo de historial de acciones
-  ///
-  /// In es, this message translates to:
-  /// **'Historial de acciones'**
-  String get ordersTodayHistoryTitle;
-
-  /// Tooltip del botón de historial
-  ///
-  /// In es, this message translates to:
-  /// **'Historial'**
-  String get ordersTodayHistoryButton;
-
-  /// Mensaje cuando el historial está vacío
-  ///
-  /// In es, this message translates to:
-  /// **'No hay acciones registradas hoy.'**
-  String get ordersTodayHistoryEmpty;
-
-  /// Mensaje de error al cargar historial
-  ///
-  /// In es, this message translates to:
-  /// **'Error al cargar el historial.'**
-  String get ordersTodayHistoryError;
-
-  /// Mensaje de carga del historial
-  ///
-  /// In es, this message translates to:
-  /// **'Cargando historial…'**
-  String get ordersTodayHistoryLoading;
-
-  /// Botón cerrar diálogo historial
-  ///
-  /// In es, this message translates to:
-  /// **'Cerrar'**
-  String get ordersTodayHistoryClose;
-
-  /// Acción: cambio de cantidad
-  ///
-  /// In es, this message translates to:
-  /// **'Cantidad modificada'**
-  String get orderActionQuantityChanged;
-
-  /// Acción: cambio de stock
-  ///
-  /// In es, this message translates to:
-  /// **'Stock modificado'**
-  String get orderActionStockChanged;
-
-  /// Acción: marcar compensación
-  ///
-  /// In es, this message translates to:
-  /// **'Compensación marcada'**
-  String get orderActionCompensationMarked;
-
-  /// Acción: desmarcar compensación
-  ///
-  /// In es, this message translates to:
-  /// **'Compensación desmarcada'**
-  String get orderActionCompensationUnmarked;
-
-  /// Acción: marcar reserva
-  ///
-  /// In es, this message translates to:
-  /// **'Reserva marcada'**
-  String get orderActionReservationMarked;
-
-  /// Acción: desmarcar reserva
-  ///
-  /// In es, this message translates to:
-  /// **'Reserva desmarcada'**
-  String get orderActionReservationUnmarked;
-
-  /// Acción: activar stock estricto
-  ///
-  /// In es, this message translates to:
-  /// **'Stock estricto activado'**
-  String get orderActionStrictStockMarked;
-
-  /// Acción: desactivar stock estricto
-  ///
-  /// In es, this message translates to:
-  /// **'Stock estricto desactivado'**
-  String get orderActionStrictStockUnmarked;
-
-  /// Acción: añadir devolución
-  ///
-  /// In es, this message translates to:
-  /// **'Abono creado'**
-  String get orderActionRefundAdded;
-
-  /// Acción: editar devolución
-  ///
-  /// In es, this message translates to:
-  /// **'Abono editado'**
-  String get orderActionRefundEdited;
-
-  /// Acción: eliminar devolución
-  ///
-  /// In es, this message translates to:
-  /// **'Abono eliminado'**
-  String get orderActionRefundRemoved;
-
-  /// Acción: reiniciar pedidos
-  ///
-  /// In es, this message translates to:
-  /// **'Pedido restablecido'**
-  String get orderActionOrdersReset;
-
-  /// Acción: añadir clientes
-  ///
-  /// In es, this message translates to:
-  /// **'Cliente añadido'**
-  String get orderActionClientsAdded;
-
-  /// Acción: eliminar clientes
-  ///
-  /// In es, this message translates to:
-  /// **'Cliente eliminado'**
-  String get orderActionClientsRemoved;
-
-  /// Acción: añadir productos
-  ///
-  /// In es, this message translates to:
-  /// **'Productos añadidos'**
-  String get orderActionProductsAdded;
-
-  /// Acción: eliminar productos
-  ///
-  /// In es, this message translates to:
-  /// **'Productos eliminados'**
-  String get orderActionProductsRemoved;
-
-  /// Acción: generar hoja de pedido
-  ///
-  /// In es, this message translates to:
-  /// **'Hoja de pedido generada'**
-  String get orderActionOrderSheetGenerated;
-
-  /// Acción: creación de la hoja de pedido del día
-  ///
-  /// In es, this message translates to:
-  /// **'Hoja de pedido creada'**
-  String get orderActionOrderSheetCreated;
-
-  /// Acción: generar albarán provisional
-  ///
-  /// In es, this message translates to:
-  /// **'Albarán provisional generado'**
-  String get orderActionProvisionalInvoiceGenerated;
-
-  /// Etiqueta del filtro cuando no se ha seleccionado ninguna acción
-  ///
-  /// In es, this message translates to:
-  /// **'Todas las acciones'**
-  String get orderActionFilterAllActions;
-
-  /// Etiqueta del filtro cuando no se ha seleccionado ningún usuario
-  ///
-  /// In es, this message translates to:
-  /// **'Todos los usuarios'**
-  String get orderActionFilterAllUsers;
 }
 
 class _AppLocalizationsDelegate

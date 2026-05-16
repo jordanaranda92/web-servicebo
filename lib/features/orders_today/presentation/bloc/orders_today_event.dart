@@ -172,3 +172,35 @@ final class OrdersTodaySaveInvoicedByRequested extends OrdersTodayEvent {
   @override
   List<Object?> get props => [clientId, userId, userName, color];
 }
+
+final class OrdersTodayClientNoteUpdateRequested extends OrdersTodayEvent {
+  const OrdersTodayClientNoteUpdateRequested({
+    required this.clientCol,
+    required this.note,
+  });
+
+  /// Client column index.
+  final int clientCol;
+
+  /// Note text, or `null` to remove the note.
+  final String? note;
+
+  @override
+  List<Object?> get props => [clientCol, note];
+}
+
+final class OrdersTodayReplaceClientRequested extends OrdersTodayEvent {
+  const OrdersTodayReplaceClientRequested({
+    required this.clientCol,
+    required this.newClientId,
+  });
+
+  /// Column index of the client to replace.
+  final int clientCol;
+
+  /// ID of the new client to put in this column.
+  final String newClientId;
+
+  @override
+  List<Object?> get props => [clientCol, newClientId];
+}

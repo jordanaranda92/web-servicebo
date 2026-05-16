@@ -11,6 +11,9 @@ class OrderDocumentModel {
   /// Sparse map of clientId → invoiced-by metadata.
   final Map<String, Map<String, String>> invoicedBy;
 
+  /// Sparse map of clientId → note text for client-level notes.
+  final Map<String, String> clientNotes;
+
   const OrderDocumentModel({
     required this.date,
     required this.createdAt,
@@ -18,6 +21,7 @@ class OrderDocumentModel {
     required this.clientIds,
     required this.productIds,
     this.invoicedBy = const {},
+    this.clientNotes = const {},
   });
 
   factory OrderDocumentModel.fromFirestore(
@@ -30,6 +34,11 @@ class OrderDocumentModel {
       (key, value) => MapEntry(key, Map<String, String>.from(value as Map)),
     );
 
+    final rawClientNotes = data['clientNotes'] as Map<String, dynamic>? ?? {};
+    final clientNotes = rawClientNotes.map(
+      (key, value) => MapEntry(key, value as String),
+    );
+
     return OrderDocumentModel(
       date: id,
       createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
@@ -38,6 +47,7 @@ class OrderDocumentModel {
       clientIds: List<String>.from(data['clientIds'] as List? ?? []),
       productIds: List<String>.from(data['productIds'] as List? ?? []),
       invoicedBy: invoicedBy,
+      clientNotes: clientNotes,
     );
   }
 

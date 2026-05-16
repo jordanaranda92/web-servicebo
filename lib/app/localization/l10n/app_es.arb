@@ -132,6 +132,38 @@
   "@ordersTodayShowPreview": {
     "description": "Botón para mostrar la previsualización de pedidos"
   },
+  "ordersTodayFilterClients": "Filtrar clientes",
+  "@ordersTodayFilterClients": {
+    "description": "Botón para filtrar clientes por categoría en la tabla de pedidos de hoy"
+  },
+  "ordersTodayFilterClientsDialogTitle": "Filtrar por categoría de cliente",
+  "@ordersTodayFilterClientsDialogTitle": {
+    "description": "Título del diálogo de filtro de clientes por categoría"
+  },
+  "ordersTodayFilterSelectAll": "Seleccionar todas",
+  "@ordersTodayFilterSelectAll": {
+    "description": "Botón para seleccionar todas las categorías en el filtro"
+  },
+  "ordersTodayFilterClearAll": "Limpiar selección",
+  "@ordersTodayFilterClearAll": {
+    "description": "Botón para limpiar la selección de categorías en el filtro"
+  },
+  "ordersTodayFilterApply": "Aplicar",
+  "@ordersTodayFilterApply": {
+    "description": "Botón para aplicar el filtro de categorías"
+  },
+  "ordersTodayFilterCancel": "Cancelar",
+  "@ordersTodayFilterCancel": {
+    "description": "Botón para cancelar el filtro de categorías"
+  },
+  "ordersTodayFilterNoCategories": "No hay categorías configuradas",
+  "@ordersTodayFilterNoCategories": {
+    "description": "Mensaje cuando no existen categorías de clientes"
+  },
+  "ordersTodayFilterNoCategoryLabel": "Sin categoría",
+  "@ordersTodayFilterNoCategoryLabel": {
+    "description": "Etiqueta para clientes sin categoría asignada en el filtro"
+  },
   "ordersTodayDeleteConfirmTitle": "Eliminar clientes",
   "@ordersTodayDeleteConfirmTitle": {
     "description": "Título del diálogo de confirmación para eliminar clientes"
@@ -1151,6 +1183,38 @@
   "@ordersTodayContextMenuGenerateProvisionalInvoice": {
     "description": "Opción del menú contextual de cliente para generar factura provisional (deshabilitada)"
   },
+  "ordersTodayContextMenuAddClientNote": "Añadir nota",
+  "@ordersTodayContextMenuAddClientNote": {
+    "description": "Opción del menú contextual de cliente para añadir una nota de cliente"
+  },
+  "ordersTodayContextMenuEditClientNote": "Editar nota",
+  "@ordersTodayContextMenuEditClientNote": {
+    "description": "Opción del menú contextual de cliente para editar una nota de cliente existente"
+  },
+  "ordersTodayContextMenuDeleteClientNote": "Eliminar nota",
+  "@ordersTodayContextMenuDeleteClientNote": {
+    "description": "Opción del menú contextual de cliente para eliminar una nota de cliente"
+  },
+  "ordersTodayClientNoteDialogTitle": "Nota de cliente",
+  "@ordersTodayClientNoteDialogTitle": {
+    "description": "Título del diálogo de nota de cliente"
+  },
+  "ordersTodayClientNoteDialogHint": "Escribe una nota (máx. 200 caracteres)",
+  "@ordersTodayClientNoteDialogHint": {
+    "description": "Hint del campo de texto en el diálogo de nota de cliente"
+  },
+  "ordersTodayContextMenuChangeClient": "Cambiar cliente",
+  "@ordersTodayContextMenuChangeClient": {
+    "description": "Opción del menú contextual de cliente para cambiar el cliente de la columna"
+  },
+  "ordersTodayChangeClientDialogTitle": "Cambiar cliente",
+  "@ordersTodayChangeClientDialogTitle": {
+    "description": "Título del diálogo para seleccionar el nuevo cliente"
+  },
+  "ordersTodayChangeClientDialogConfirm": "Confirmar",
+  "@ordersTodayChangeClientDialogConfirm": {
+    "description": "Botón de confirmación en el diálogo de cambiar cliente"
+  },
   "ordersTodayContextMenuResetOrder": "Restablecer pedido",
   "@ordersTodayContextMenuResetOrder": {
     "description": "Opción del menú contextual de cliente para restablecer pedido"
@@ -1975,113 +2039,5 @@
         "type": "String"
       }
     }
-  },
-  "ordersTodayHistoryTitle": "Historial de acciones",
-  "@ordersTodayHistoryTitle": {
-    "description": "Título del diálogo de historial de acciones"
-  },
-  "ordersTodayHistoryButton": "Historial",
-  "@ordersTodayHistoryButton": {
-    "description": "Tooltip del botón de historial"
-  },
-  "ordersTodayHistoryEmpty": "No hay acciones registradas hoy.",
-  "@ordersTodayHistoryEmpty": {
-    "description": "Mensaje cuando el historial está vacío"
-  },
-  "ordersTodayHistoryError": "Error al cargar el historial.",
-  "@ordersTodayHistoryError": {
-    "description": "Mensaje de error al cargar historial"
-  },
-  "ordersTodayHistoryLoading": "Cargando historial…",
-  "@ordersTodayHistoryLoading": {
-    "description": "Mensaje de carga del historial"
-  },
-  "ordersTodayHistoryClose": "Cerrar",
-  "@ordersTodayHistoryClose": {
-    "description": "Botón cerrar diálogo historial"
-  },
-  "orderActionQuantityChanged": "Cantidad modificada",
-  "@orderActionQuantityChanged": {
-    "description": "Acción: cambio de cantidad"
-  },
-  "orderActionStockChanged": "Stock modificado",
-  "@orderActionStockChanged": {
-    "description": "Acción: cambio de stock"
-  },
-  "orderActionCompensationMarked": "Compensación marcada",
-  "@orderActionCompensationMarked": {
-    "description": "Acción: marcar compensación"
-  },
-  "orderActionCompensationUnmarked": "Compensación desmarcada",
-  "@orderActionCompensationUnmarked": {
-    "description": "Acción: desmarcar compensación"
-  },
-  "orderActionReservationMarked": "Reserva marcada",
-  "@orderActionReservationMarked": {
-    "description": "Acción: marcar reserva"
-  },
-  "orderActionReservationUnmarked": "Reserva desmarcada",
-  "@orderActionReservationUnmarked": {
-    "description": "Acción: desmarcar reserva"
-  },
-  "orderActionStrictStockMarked": "Stock estricto activado",
-  "@orderActionStrictStockMarked": {
-    "description": "Acción: activar stock estricto"
-  },
-  "orderActionStrictStockUnmarked": "Stock estricto desactivado",
-  "@orderActionStrictStockUnmarked": {
-    "description": "Acción: desactivar stock estricto"
-  },
-  "orderActionRefundAdded": "Abono creado",
-  "@orderActionRefundAdded": {
-    "description": "Acción: añadir devolución"
-  },
-  "orderActionRefundEdited": "Abono editado",
-  "@orderActionRefundEdited": {
-    "description": "Acción: editar devolución"
-  },
-  "orderActionRefundRemoved": "Abono eliminado",
-  "@orderActionRefundRemoved": {
-    "description": "Acción: eliminar devolución"
-  },
-  "orderActionOrdersReset": "Pedido restablecido",
-  "@orderActionOrdersReset": {
-    "description": "Acción: reiniciar pedidos"
-  },
-  "orderActionClientsAdded": "Cliente añadido",
-  "@orderActionClientsAdded": {
-    "description": "Acción: añadir clientes"
-  },
-  "orderActionClientsRemoved": "Cliente eliminado",
-  "@orderActionClientsRemoved": {
-    "description": "Acción: eliminar clientes"
-  },
-  "orderActionProductsAdded": "Productos añadidos",
-  "@orderActionProductsAdded": {
-    "description": "Acción: añadir productos"
-  },
-  "orderActionProductsRemoved": "Productos eliminados",
-  "@orderActionProductsRemoved": {
-    "description": "Acción: eliminar productos"
-  },
-  "orderActionOrderSheetGenerated": "Hoja de pedido generada",
-  "@orderActionOrderSheetGenerated": {
-    "description": "Acción: generar hoja de pedido"
-  },
-  "orderActionOrderSheetCreated": "Hoja de pedido creada",
-  "@orderActionOrderSheetCreated": {
-    "description": "Acción: creación de la hoja de pedido del día"
-  },
-  "orderActionProvisionalInvoiceGenerated": "Albarán provisional generado",
-  "@orderActionProvisionalInvoiceGenerated": {
-    "description": "Acción: generar albarán provisional"
-  },
-  "orderActionFilterAllActions": "Todas las acciones",
-  "@orderActionFilterAllActions": {
-    "description": "Etiqueta del filtro cuando no se ha seleccionado ninguna acción"
-  },
-  "orderActionFilterAllUsers": "Todos los usuarios",
-  "@orderActionFilterAllUsers": {
-    "description": "Etiqueta del filtro cuando no se ha seleccionado ningún usuario"
   }
 }

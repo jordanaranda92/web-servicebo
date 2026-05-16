@@ -95,11 +95,6 @@ service cloud.firestore {
       match /rows/{productId} {
         allow read, write: if isAuthenticated();
       }
-
-      match /meta/{docId} {
-        allow read: if isAdmin();
-        allow write: if isAuthenticated();
-      }
     }
 
     // ── factura_directa_configuration/{docId} ─────────────────────

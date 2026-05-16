@@ -80,6 +80,7 @@ OrderSheet buildOrderSheet(
           color: entry.value['color'] ?? '',
         ),
     },
+    clientNotes: Map<String, String>.from(doc.clientNotes),
     lastModifiedAt: doc.lastModifiedAt,
   );
 }

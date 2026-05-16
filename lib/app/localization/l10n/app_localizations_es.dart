@@ -115,6 +115,31 @@ class AppLocalizationsEs extends AppLocalizations {
   String get ordersTodayShowPreview => 'Mostrar preview';
 
   @override
+  String get ordersTodayFilterClients => 'Filtrar clientes';
+
+  @override
+  String get ordersTodayFilterClientsDialogTitle =>
+      'Filtrar por categoría de cliente';
+
+  @override
+  String get ordersTodayFilterSelectAll => 'Seleccionar todas';
+
+  @override
+  String get ordersTodayFilterClearAll => 'Limpiar selección';
+
+  @override
+  String get ordersTodayFilterApply => 'Aplicar';
+
+  @override
+  String get ordersTodayFilterCancel => 'Cancelar';
+
+  @override
+  String get ordersTodayFilterNoCategories => 'No hay categorías configuradas';
+
+  @override
+  String get ordersTodayFilterNoCategoryLabel => 'Sin categoría';
+
+  @override
   String get ordersTodayDeleteConfirmTitle => 'Eliminar clientes';
 
   @override
@@ -914,6 +939,31 @@ class AppLocalizationsEs extends AppLocalizations {
       'Generar factura provisional';
 
   @override
+  String get ordersTodayContextMenuAddClientNote => 'Añadir nota';
+
+  @override
+  String get ordersTodayContextMenuEditClientNote => 'Editar nota';
+
+  @override
+  String get ordersTodayContextMenuDeleteClientNote => 'Eliminar nota';
+
+  @override
+  String get ordersTodayClientNoteDialogTitle => 'Nota de cliente';
+
+  @override
+  String get ordersTodayClientNoteDialogHint =>
+      'Escribe una nota (máx. 200 caracteres)';
+
+  @override
+  String get ordersTodayContextMenuChangeClient => 'Cambiar cliente';
+
+  @override
+  String get ordersTodayChangeClientDialogTitle => 'Cambiar cliente';
+
+  @override
+  String get ordersTodayChangeClientDialogConfirm => 'Confirmar';
+
+  @override
   String get ordersTodayContextMenuResetOrder => 'Restablecer pedido';
 
   @override
@@ -1538,86 +1588,4 @@ class AppLocalizationsEs extends AppLocalizations {
   String settingsAppVersionTitle(String version) {
     return 'Versión de la web $version';
   }
-
-  @override
-  String get ordersTodayHistoryTitle => 'Historial de acciones';
-
-  @override
-  String get ordersTodayHistoryButton => 'Historial';
-
-  @override
-  String get ordersTodayHistoryEmpty => 'No hay acciones registradas hoy.';
-
-  @override
-  String get ordersTodayHistoryError => 'Error al cargar el historial.';
-
-  @override
-  String get ordersTodayHistoryLoading => 'Cargando historial…';
-
-  @override
-  String get ordersTodayHistoryClose => 'Cerrar';
-
-  @override
-  String get orderActionQuantityChanged => 'Cantidad modificada';
-
-  @override
-  String get orderActionStockChanged => 'Stock modificado';
-
-  @override
-  String get orderActionCompensationMarked => 'Compensación marcada';
-
-  @override
-  String get orderActionCompensationUnmarked => 'Compensación desmarcada';
-
-  @override
-  String get orderActionReservationMarked => 'Reserva marcada';
-
-  @override
-  String get orderActionReservationUnmarked => 'Reserva desmarcada';
-
-  @override
-  String get orderActionStrictStockMarked => 'Stock estricto activado';
-
-  @override
-  String get orderActionStrictStockUnmarked => 'Stock estricto desactivado';
-
-  @override
-  String get orderActionRefundAdded => 'Abono creado';
-
-  @override
-  String get orderActionRefundEdited => 'Abono editado';
-
-  @override
-  String get orderActionRefundRemoved => 'Abono eliminado';
-
-  @override
-  String get orderActionOrdersReset => 'Pedido restablecido';
-
-  @override
-  String get orderActionClientsAdded => 'Cliente añadido';
-
-  @override
-  String get orderActionClientsRemoved => 'Cliente eliminado';
-
-  @override
-  String get orderActionProductsAdded => 'Productos añadidos';
-
-  @override
-  String get orderActionProductsRemoved => 'Productos eliminados';
-
-  @override
-  String get orderActionOrderSheetGenerated => 'Hoja de pedido generada';
-
-  @override
-  String get orderActionOrderSheetCreated => 'Hoja de pedido creada';
-
-  @override
-  String get orderActionProvisionalInvoiceGenerated =>
-      'Albarán provisional generado';
-
-  @override
-  String get orderActionFilterAllActions => 'Todas las acciones';
-
-  @override
-  String get orderActionFilterAllUsers => 'Todos los usuarios';
 }

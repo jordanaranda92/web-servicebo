@@ -1,7 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 
 import '../../../../core/error/failure.dart';
-import '../entities/order_action_entry.dart';
 import '../entities/order_sheet.dart';
 
 abstract class OrdersTodayRepository {
@@ -104,10 +103,22 @@ abstract class OrdersTodayRepository {
     required String color,
   });
 
-  /// Returns the action history for the given date's order.
-  Future<Either<Failure, List<OrderActionEntry>>> getActionHistory(
-    DateTime date,
-  );
+  /// Updates a client-level note on the root order document.
+  /// If [note] is `null` or empty, the note is removed.
+  Future<Either<Failure, Unit>> updateClientNote({
+    required String clientId,
+    required String? note,
+    required DateTime date,
+  });
+
+  /// Replaces the client at [clientIndex] with [newClientId], transferring
+  /// all associated data (quantities, flags, notes, refunds, client notes).
+  /// Removes any `invoicedBy` entry for the old client.
+  Future<Either<Failure, OrderSheet>> replaceClient({
+    required int clientIndex,
+    required String newClientId,
+    required DateTime date,
+  });
 
   /// Releases resources (e.g. catalogue cache subscriptions).
   void dispose();

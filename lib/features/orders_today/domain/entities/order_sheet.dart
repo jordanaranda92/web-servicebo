@@ -50,6 +50,10 @@ class OrderSheet extends Equatable {
   /// Only clients with a generated provisional invoice are present.
   final Map<String, InvoicedByInfo> invoicedBy;
 
+  /// Client-level notes: sparse map of `clientId → noteText`.
+  /// Only clients with a note are present.
+  final Map<String, String> clientNotes;
+
   /// Timestamp of the last modification from Firestore.
   final DateTime? lastModifiedAt;
 
@@ -69,6 +73,7 @@ class OrderSheet extends Equatable {
     this.cellNotes = const [],
     this.cellRefunds = const [],
     this.invoicedBy = const {},
+    this.clientNotes = const {},
     this.lastModifiedAt,
   });
 
@@ -88,6 +93,7 @@ class OrderSheet extends Equatable {
     List<Map<String, String>>? cellNotes,
     List<Map<String, num>>? cellRefunds,
     Map<String, InvoicedByInfo>? invoicedBy,
+    Map<String, String>? clientNotes,
     DateTime? lastModifiedAt,
   }) {
     return OrderSheet(
@@ -106,6 +112,7 @@ class OrderSheet extends Equatable {
       cellNotes: cellNotes ?? this.cellNotes,
       cellRefunds: cellRefunds ?? this.cellRefunds,
       invoicedBy: invoicedBy ?? this.invoicedBy,
+      clientNotes: clientNotes ?? this.clientNotes,
       lastModifiedAt: lastModifiedAt ?? this.lastModifiedAt,
     );
   }
@@ -127,6 +134,7 @@ class OrderSheet extends Equatable {
     cellNotes,
     cellRefunds,
     invoicedBy,
+    clientNotes,
     lastModifiedAt,
   ];
 }

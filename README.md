@@ -260,5 +260,8 @@ APIKEY DdaxdT.4QY1XXjF3qd3pRDGMEvvarMb5uxyllsx
 Pendiente:
 
 - Posibilidad de eliminar clientes de Firestore.
-- Asignar color a usuarios.
 - posibilidad de cambiar un cliente en la pantalla de pedidos de hoy.
+
+Correcciones:
+
+- No se ven

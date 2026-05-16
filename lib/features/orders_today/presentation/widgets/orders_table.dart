@@ -1,11 +1,13 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../core/utils/prevent_context_menu_stub.dart'
+    if (dart.library.js_interop) '../../../../core/utils/prevent_context_menu_web.dart';
 
 import '../../../../app/di/injection.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
@@ -13,11 +15,13 @@ import '../../../../app/theme/theme_constants.dart';
 import '../../../../app/theme/theme_extensions.dart';
 import '../../../../core/utils/app_date_formats.dart';
 import '../../../../core/utils/cell_key_utils.dart';
+import '../../../clients/domain/repositories/clients_repository.dart';
 import '../../domain/entities/order_sheet.dart';
 import '../../domain/entities/remote_cursor.dart';
 import '../bloc/orders_presence_cubit.dart';
 import '../bloc/orders_presence_state.dart';
 import 'order_sheet_pdf_dialog.dart';
+import 'client_note_dialog.dart';
 import 'orders_note_dialog.dart';
 import 'orders_refund_dialog.dart';
 import 'orders_table_footer.dart';
@@ -30,6 +34,8 @@ class OrdersTable extends StatefulWidget {
     required this.orderSheet,
     this.readOnly = false,
     this.searchFilter = '',
+    this.selectedCategoryIds = const {},
+    this.clientCategoryIdMap = const {},
     this.onCellUpdated,
     this.onCellFlagUpdated,
     this.onCellNoteUpdated,
@@ -40,12 +46,20 @@ class OrdersTable extends StatefulWidget {
     this.onAddClient,
     this.onAddProduct,
     this.onGenerateProvisionalInvoice,
+    this.onClientNoteUpdated,
+    this.onChangeClient,
     this.footerTrailing,
   });
 
   final OrderSheet orderSheet;
   final bool readOnly;
   final String searchFilter;
+
+  /// IDs of selected categories. Empty = no filter (show all).
+  final Set<String> selectedCategoryIds;
+
+  /// Map of clientId → clientCategoryId (null if client has no category).
+  final Map<String, String?> clientCategoryIdMap;
 
   /// Called when a cell value is committed.
   /// Parameters: productIndex, clientIndex, newValue.
@@ -84,6 +98,13 @@ class OrdersTable extends StatefulWidget {
 
   /// Called when the user requests to generate a provisional invoice.
   final void Function(int clientCol)? onGenerateProvisionalInvoice;
+
+  /// Called when a client-level note is added/edited/removed.
+  /// [note] is `null` to remove.
+  final void Function(int clientCol, String? note)? onClientNoteUpdated;
+
+  /// Called when the user requests to change the client in a column.
+  final void Function(int clientCol)? onChangeClient;
 
   /// Widget opcional que se muestra a la derecha del footer.
   final Widget? footerTrailing;
@@ -133,9 +154,11 @@ class _OrdersTableState extends State<OrdersTable> {
   // ── Cached filtered indices ─────────────────────────────────────
   List<int> _filteredIndices = [];
 
+  // ── Cached filtered client (column) indices ─────────────────────
+  List<int> _filteredClientIndices = [];
+
   // ── Cached orderSheet references (avoid repeated property access) ──
   late List<List<num>> _quantities;
-  late List<String> _clients;
   late List<String> _clientIds;
   late List<String> _productIds;
   late List<num> _pedidos;
@@ -146,6 +169,11 @@ class _OrdersTableState extends State<OrdersTable> {
   late List<Map<String, String>> _cellNotes;
   late List<Map<String, num>> _cellRefunds;
   late Map<String, InvoicedByInfo> _invoicedBy;
+  late Map<String, String> _clientNotes;
+
+  // ── Client category colors & names ────────────────────────────
+  Map<String, String?> _clientCategoryColors = const {};
+  Map<String, String?> _clientCategoryNames = const {};
 
   // ── Remote cursor state (rebuilt on presence changes) ──────
   StreamSubscription<OrdersPresenceState>? _presenceSub;
@@ -205,13 +233,35 @@ class _OrdersTableState extends State<OrdersTable> {
     _headerHorizontalController.addListener(_syncDataHorizontal);
     _dataHorizontalController.addListener(_syncHeaderHorizontal);
     _updateFilteredIndices();
+    _updateFilteredClientIndices();
     _cacheOrderSheetRefs();
 
     // Subscribe to cursor changes for remote cursor rendering
     _initPresenceSubscription();
 
-    // Disable browser context menu on web
-    if (kIsWeb) BrowserContextMenu.disableContextMenu();
+    // Disable browser context menu (direct JS listener, immune to counter
+    // de-sync caused by EditableText focus changes)
+    preventBrowserContextMenu();
+
+    _loadCategoryColors();
+  }
+
+  Future<void> _loadCategoryColors() async {
+    final result = await sl<ClientsRepository>().getClients();
+    result.fold((_) {}, (clients) {
+      final colorMap = <String, String?>{};
+      final nameMap = <String, String?>{};
+      for (final client in clients) {
+        colorMap[client.id] = client.categoryColor;
+        nameMap[client.id] = client.categoryName;
+      }
+      if (mounted) {
+        setState(() {
+          _clientCategoryColors = colorMap;
+          _clientCategoryNames = nameMap;
+        });
+      }
+    });
   }
 
   void _initPresenceSubscription() {
@@ -257,7 +307,6 @@ class _OrdersTableState extends State<OrdersTable> {
   void _cacheOrderSheetRefs() {
     final sheet = widget.orderSheet;
     _quantities = sheet.quantities;
-    _clients = sheet.clients;
     _clientIds = sheet.clientIds;
     _productIds = sheet.productIds;
     _pedidos = sheet.pedidos;
@@ -268,6 +317,7 @@ class _OrdersTableState extends State<OrdersTable> {
     _cellNotes = sheet.cellNotes;
     _cellRefunds = sheet.cellRefunds;
     _invoicedBy = sheet.invoicedBy;
+    _clientNotes = sheet.clientNotes;
   }
 
   @override
@@ -294,6 +344,17 @@ class _OrdersTableState extends State<OrdersTable> {
     if (oldWidget.searchFilter != widget.searchFilter ||
         oldWidget.orderSheet.products != widget.orderSheet.products) {
       _updateFilteredIndices();
+    }
+    if (oldWidget.selectedCategoryIds != widget.selectedCategoryIds ||
+        oldWidget.clientCategoryIdMap != widget.clientCategoryIdMap ||
+        oldWidget.orderSheet.clientIds != widget.orderSheet.clientIds) {
+      _updateFilteredClientIndices();
+      // Clear editing when client columns change due to filter
+      if (oldWidget.selectedCategoryIds != widget.selectedCategoryIds) {
+        _editingRow = null;
+        _editingCol = null;
+        _releaseLockIfNeeded();
+      }
     }
     // Clear selections and editing when structure changes (e.g. remote update)
     if (oldWidget.orderSheet.clients.length !=
@@ -395,7 +456,7 @@ class _OrdersTableState extends State<OrdersTable> {
     _headerHeight.dispose();
     _productColWidth.dispose();
     _presenceSub?.cancel();
-    if (kIsWeb) BrowserContextMenu.enableContextMenu();
+    restoreBrowserContextMenu();
     _editController.dispose();
     _editFocusNode.dispose();
     super.dispose();
@@ -419,13 +480,14 @@ class _OrdersTableState extends State<OrdersTable> {
     }
   }
 
-  String _cellKeyForEditing(int productIdx, int col) {
+  String _cellKeyForEditing(int productIdx, int visualCol) {
     final sheet = widget.orderSheet;
-    final numClients = sheet.clients.length;
-    final isStock = col == numClients + 1;
+    final filteredClientCount = _filteredClientIndices.length;
+    final isStock = visualCol == filteredClientCount + 1;
     final productId = sheet.productIds[productIdx];
     if (isStock) return stockKey(productId);
-    final clientId = sheet.clientIds[col];
+    final realCol = _filteredClientIndices[visualCol];
+    final clientId = sheet.clientIds[realCol];
     return cellKey(productId, clientId);
   }
 
@@ -499,7 +561,11 @@ class _OrdersTableState extends State<OrdersTable> {
     if (_editingRow == null || _editingCol == null) return;
     final value = _parseEditValue();
     final productIdx = _filteredIndices[_editingRow!];
-    widget.onCellUpdated?.call(productIdx, _editingCol!, value);
+    final filteredClientCount = _filteredClientIndices.length;
+    final realCol = _editingCol! < filteredClientCount
+        ? _filteredClientIndices[_editingCol!]
+        : _editingCol! - filteredClientCount + widget.orderSheet.clients.length;
+    widget.onCellUpdated?.call(productIdx, realCol, value);
     _releaseLockIfNeeded();
     _tryGetPresenceCubit()?.updateMyPosition(null, null);
     setState(() {
@@ -514,16 +580,19 @@ class _OrdersTableState extends State<OrdersTable> {
     // Commit current cell
     final value = _parseEditValue();
     final productIdx = _filteredIndices[_editingRow!];
-    widget.onCellUpdated?.call(productIdx, _editingCol!, value);
+    final filteredClientCount = _filteredClientIndices.length;
+    final realEditCol = _editingCol! < filteredClientCount
+        ? _filteredClientIndices[_editingCol!]
+        : _editingCol! - filteredClientCount + widget.orderSheet.clients.length;
+    widget.onCellUpdated?.call(productIdx, realEditCol, value);
 
-    // Calculate new position
+    // Calculate new position (in visual indices)
     final newRow = _editingRow! + dRow;
     final newCol = _editingCol! + dCol;
-    final clients = widget.orderSheet.clients;
-    final stocksCol = clients.length + 1;
+    final stocksCol = filteredClientCount + 1;
 
     final isNewColEditable =
-        (newCol >= 0 && newCol < clients.length) || newCol == stocksCol;
+        (newCol >= 0 && newCol < filteredClientCount) || newCol == stocksCol;
 
     if (newRow < 0 ||
         newRow >= _filteredIndices.length ||
@@ -540,8 +609,8 @@ class _OrdersTableState extends State<OrdersTable> {
 
     // Skip PEDIDOS column when navigating horizontally
     int effectiveCol = newCol;
-    if (newCol == clients.length) {
-      effectiveCol = dCol > 0 ? stocksCol : clients.length - 1;
+    if (newCol == filteredClientCount) {
+      effectiveCol = dCol > 0 ? stocksCol : filteredClientCount - 1;
       if (effectiveCol < 0) {
         _releaseLockIfNeeded();
         _tryGetPresenceCubit()?.updateMyPosition(null, null);
@@ -560,11 +629,12 @@ class _OrdersTableState extends State<OrdersTable> {
       final stocks = widget.orderSheet.stocks;
       currentValue = newProductIdx < stocks.length ? stocks[newProductIdx] : 0;
     } else {
+      final realNewCol = _filteredClientIndices[effectiveCol];
       final quantities = widget.orderSheet.quantities;
       final rowQ = newProductIdx < quantities.length
           ? quantities[newProductIdx]
           : <num>[];
-      currentValue = effectiveCol < rowQ.length ? rowQ[effectiveCol] : 0;
+      currentValue = realNewCol < rowQ.length ? rowQ[realNewCol] : 0;
     }
 
     // Handle lock transition: release old, acquire new
@@ -606,6 +676,25 @@ class _OrdersTableState extends State<OrdersTable> {
       }
     }
     _filteredIndices = indices;
+  }
+
+  void _updateFilteredClientIndices() {
+    final clientIds = widget.orderSheet.clientIds;
+    final selected = widget.selectedCategoryIds;
+    if (selected.isEmpty) {
+      _filteredClientIndices = List.generate(clientIds.length, (i) => i);
+      return;
+    }
+    final indices = <int>[];
+    for (var i = 0; i < clientIds.length; i++) {
+      final catId = widget.clientCategoryIdMap[clientIds[i]];
+      if (catId != null && selected.contains(catId)) {
+        indices.add(i);
+      } else if (catId == null && selected.contains('__no_category__')) {
+        indices.add(i);
+      }
+    }
+    _filteredClientIndices = indices;
   }
 
   // ── Cell builder methods ────────────────────────────────────────
@@ -806,11 +895,12 @@ class _OrdersTableState extends State<OrdersTable> {
   Widget _buildScrollableHeader(int col, {AppLocalizations? l10nOverride}) {
     final l10n = l10nOverride ?? AppLocalizations.of(context)!;
     final clients = widget.orderSheet.clients;
+    final filteredClientCount = _filteredClientIndices.length;
 
-    final isClient = col < clients.length;
-    final isPedidos = col == clients.length;
-    final isStocks = col == clients.length + 1;
-    final isEditingStocks = _editingCol == clients.length + 1;
+    final isClient = col < filteredClientCount;
+    final isPedidos = col == filteredClientCount;
+    final isStocks = col == filteredClientCount + 1;
+    final isEditingStocks = _editingCol == filteredClientCount + 1;
     final isColHighlighted =
         _editingCol != null && _editingCol == col && !isEditingStocks;
 
@@ -822,9 +912,10 @@ class _OrdersTableState extends State<OrdersTable> {
     }
 
     if (isClient) {
-      final orderNum = col + 1;
+      final realCol = _filteredClientIndices[col];
+      final orderNum = realCol + 1;
       // Check if this client has been invoiced
-      final clientId = col < _clientIds.length ? _clientIds[col] : null;
+      final clientId = realCol < _clientIds.length ? _clientIds[realCol] : null;
       final invoiceInfo = clientId != null ? _invoicedBy[clientId] : null;
       Color? invoicedColor;
       if (invoiceInfo != null && invoiceInfo.color.isNotEmpty) {
@@ -835,10 +926,12 @@ class _OrdersTableState extends State<OrdersTable> {
       return GestureDetector(
         onSecondaryTapDown: widget.readOnly
             ? null
-            : (details) => _showClientContextMenu(details.globalPosition, col),
+            : (details) =>
+                  _showClientContextMenu(details.globalPosition, realCol),
         onLongPressStart: widget.readOnly
             ? null
-            : (details) => _showClientContextMenu(details.globalPosition, col),
+            : (details) =>
+                  _showClientContextMenu(details.globalPosition, realCol),
         child: SizedBox(
           width: _dataColWidth,
           child: Material(
@@ -869,11 +962,55 @@ class _OrdersTableState extends State<OrdersTable> {
                       ),
                     ),
                   ),
+                  // Category color stripe
+                  Builder(
+                    builder: (_) {
+                      final catHex = clientId != null
+                          ? _clientCategoryColors[clientId]
+                          : null;
+                      final catName = clientId != null
+                          ? _clientCategoryNames[clientId]
+                          : null;
+                      Color? catColor;
+                      if (catHex != null && catHex.isNotEmpty) {
+                        final hex = catHex.replaceFirst('#', '');
+                        catColor = Color(int.parse('FF$hex', radix: 16));
+                      }
+                      final stripe = Container(
+                        width: double.infinity,
+                        height: 12,
+                        color: catColor,
+                      );
+                      if (catName != null && catName.isNotEmpty) {
+                        return Tooltip(message: catName, child: stripe);
+                      }
+                      return stripe;
+                    },
+                  ),
                   Divider(
                     height: 1,
                     thickness: 1,
                     color: _colorScheme.outlineVariant.withValues(alpha: 0.5),
                   ),
+                  // Client note indicator
+                  if (clientId != null &&
+                      _clientNotes[clientId] != null &&
+                      _clientNotes[clientId]!.isNotEmpty)
+                    Tooltip(
+                      message: _clientNotes[clientId]!,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 3),
+                        child: Container(
+                          width: 14,
+                          height: 14,
+                          decoration: BoxDecoration(
+                            color: Colors.amber,
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.black, width: 1.5),
+                          ),
+                        ),
+                      ),
+                    ),
                   Expanded(
                     child: RotatedBox(
                       quarterTurns: -1,
@@ -882,7 +1019,7 @@ class _OrdersTableState extends State<OrdersTable> {
                         child: Padding(
                           padding: const EdgeInsets.only(left: AppSpacing.sm),
                           child: Text(
-                            clients[col],
+                            clients[realCol],
                             style: _textTheme.labelSmall?.copyWith(
                               fontWeight: FontWeight.w600,
                               color: _colorScheme.onSurfaceVariant,
@@ -995,23 +1132,26 @@ class _OrdersTableState extends State<OrdersTable> {
     final l10n = l10nOverride ?? AppLocalizations.of(context)!;
     final productIdx = _filteredIndices[rowIdx];
     final quantities = _quantities;
-    final clients = _clients;
     final pedidos = _pedidos;
     final stocks = _stocks;
     final quedan = _quedan;
+    final filteredClientCount = _filteredClientIndices.length;
 
     final productQuantities = productIdx < quantities.length
         ? quantities[productIdx]
         : <num>[];
 
-    final isClient = col < clients.length;
-    final isPedidos = col == clients.length;
-    final isStocks = col == clients.length + 1;
+    final isClient = col < filteredClientCount;
+    final isPedidos = col == filteredClientCount;
+    final isStocks = col == filteredClientCount + 1;
     final isQuedan = !isClient && !isPedidos && !isStocks;
 
+    // Map visual col to real col for data access
+    final realCol = isClient ? _filteredClientIndices[col] : col;
+
     // Resolve per-cell metadata
-    final clientId = isClient && col < _clientIds.length
-        ? _clientIds[col]
+    final clientId = isClient && realCol < _clientIds.length
+        ? _clientIds[realCol]
         : null;
     final cellFlag = _resolveCellFlag(isClient, productIdx, clientId);
     final isStrictStock = _resolveStrictStock(isStocks, productIdx);
@@ -1024,7 +1164,7 @@ class _OrdersTableState extends State<OrdersTable> {
       isPedidos: isPedidos,
       isStocks: isStocks,
       productIdx: productIdx,
-      col: col,
+      col: realCol,
       productQuantities: productQuantities,
       pedidos: pedidos,
       stocks: stocks,
@@ -1051,7 +1191,7 @@ class _OrdersTableState extends State<OrdersTable> {
     final isColHighlighted =
         _editingCol != null &&
         _editingCol == col &&
-        _editingCol != clients.length + 1 &&
+        _editingCol != filteredClientCount + 1 &&
         _editingRow != null &&
         rowIdx < _editingRow!;
 
@@ -1060,7 +1200,7 @@ class _OrdersTableState extends State<OrdersTable> {
       isClient,
       isStocks,
       productIdx,
-      col,
+      realCol,
     );
 
     // Build inner content
@@ -1069,7 +1209,7 @@ class _OrdersTableState extends State<OrdersTable> {
       isClient: isClient,
       isStocks: isStocks,
       productIdx: productIdx,
-      col: col,
+      col: realCol,
       value: displayValue,
       style: effectiveStyle,
       cellFlag: cellFlag,
@@ -1092,6 +1232,7 @@ class _OrdersTableState extends State<OrdersTable> {
       child: child,
       rowIdx: rowIdx,
       col: col,
+      realCol: realCol,
       value: displayValue,
       isQuedan: isQuedan,
       isPedidos: isPedidos,
@@ -1326,6 +1467,7 @@ class _OrdersTableState extends State<OrdersTable> {
     required Widget child,
     required int rowIdx,
     required int col,
+    required int realCol,
     required num value,
     required bool isQuedan,
     required bool isPedidos,
@@ -1352,7 +1494,7 @@ class _OrdersTableState extends State<OrdersTable> {
           ? (details) => _showCellContextMenu(
               details.globalPosition,
               productIdx,
-              col,
+              realCol,
               isClient: isClient,
               isStocks: isStocks,
               cellFlag: cellFlag,
@@ -1365,7 +1507,7 @@ class _OrdersTableState extends State<OrdersTable> {
           ? (details) => _showCellContextMenu(
               details.globalPosition,
               productIdx,
-              col,
+              realCol,
               isClient: isClient,
               isStocks: isStocks,
               cellFlag: cellFlag,
@@ -1923,6 +2065,10 @@ class _OrdersTableState extends State<OrdersTable> {
 
   void _showClientContextMenu(Offset globalPosition, int col) {
     final l10n = AppLocalizations.of(context)!;
+    final clientId = col < _clientIds.length ? _clientIds[col] : null;
+    final existingNote = clientId != null ? _clientNotes[clientId] : null;
+    final hasNote = existingNote != null && existingNote.isNotEmpty;
+
     final items = <PopupMenuEntry<String>>[
       PopupMenuItem<String>(
         value: 'generate_order_sheet',
@@ -1953,6 +2099,53 @@ class _OrdersTableState extends State<OrdersTable> {
         ),
       ),
       const PopupMenuDivider(),
+      PopupMenuItem<String>(
+        value: 'add_edit_client_note',
+        child: Row(
+          children: [
+            Icon(
+              hasNote ? Icons.edit_note : Icons.note_add_outlined,
+              size: 20,
+              color: _colorScheme.onSurface,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              hasNote
+                  ? l10n.ordersTodayContextMenuEditClientNote
+                  : l10n.ordersTodayContextMenuAddClientNote,
+            ),
+          ],
+        ),
+      ),
+      if (hasNote)
+        PopupMenuItem<String>(
+          value: 'delete_client_note',
+          child: Row(
+            children: [
+              Icon(
+                Icons.note_alt_outlined,
+                size: 20,
+                color: _colorScheme.error,
+              ),
+              const SizedBox(width: 8),
+              Text(l10n.ordersTodayContextMenuDeleteClientNote),
+            ],
+          ),
+        ),
+      const PopupMenuDivider(),
+      if (widget.onChangeClient != null) ...[
+        PopupMenuItem<String>(
+          value: 'change_client',
+          child: Row(
+            children: [
+              Icon(Icons.swap_horiz, size: 20, color: _colorScheme.onSurface),
+              const SizedBox(width: 8),
+              Text(l10n.ordersTodayContextMenuChangeClient),
+            ],
+          ),
+        ),
+        const PopupMenuDivider(),
+      ],
       if (widget.onResetOrders != null)
         PopupMenuItem<String>(
           value: 'reset_order',
@@ -1995,6 +2188,12 @@ class _OrdersTableState extends State<OrdersTable> {
           _generateOrderSheetPdf(col);
         case 'generate_provisional_invoice':
           widget.onGenerateProvisionalInvoice?.call(col);
+        case 'add_edit_client_note':
+          _showClientNoteDialog(col, existingNote);
+        case 'delete_client_note':
+          widget.onClientNoteUpdated?.call(col, null);
+        case 'change_client':
+          widget.onChangeClient?.call(col);
         case 'reset_order':
           _showResetConfirmation([col], 1);
         case 'delete_client':
@@ -2010,6 +2209,16 @@ class _OrdersTableState extends State<OrdersTable> {
       col: col,
       formatNum: _formatNum,
     );
+  }
+
+  Future<void> _showClientNoteDialog(int col, String? existingNote) async {
+    final note = await showClientNoteDialog(
+      context,
+      existingNote: existingNote,
+    );
+    if (note == null && existingNote == null)
+      return; // cancelled with no prior note
+    widget.onClientNoteUpdated?.call(col, note);
   }
 
   void _showProductContextMenu(Offset globalPosition, int productIdx) {
@@ -2209,9 +2418,9 @@ class _OrdersTableState extends State<OrdersTable> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final clients = widget.orderSheet.clients;
     final filteredIndices = _filteredIndices;
-    final scrollColCount = clients.length;
+    final filteredClientIndices = _filteredClientIndices;
+    final scrollColCount = filteredClientIndices.length;
     const summaryColCount = 3; // PEDIDOS, STOCKS, QUEDAN
 
     // ── Layout: 6 quadrants ────────────────────────────────────────
@@ -2262,7 +2471,7 @@ class _OrdersTableState extends State<OrdersTable> {
                                   _buildProductHeader(),
                                   _buildProductColResizeHandle(),
                                   Expanded(
-                                    child: clients.isEmpty
+                                    child: filteredClientIndices.isEmpty
                                         ? Container(color: _headerColor)
                                         : SingleChildScrollView(
                                             controller:
@@ -2271,10 +2480,11 @@ class _OrdersTableState extends State<OrdersTable> {
                                             child: Row(
                                               children: List.generate(
                                                 scrollColCount,
-                                                (col) => _buildScrollableHeader(
-                                                  col,
-                                                  l10nOverride: l10n,
-                                                ),
+                                                (visCol) =>
+                                                    _buildScrollableHeader(
+                                                      visCol,
+                                                      l10nOverride: l10n,
+                                                    ),
                                               ),
                                             ),
                                           ),
@@ -2282,7 +2492,7 @@ class _OrdersTableState extends State<OrdersTable> {
                                   ...List.generate(
                                     summaryColCount,
                                     (i) => _buildScrollableHeader(
-                                      clients.length + i,
+                                      scrollColCount + i,
                                       l10nOverride: l10n,
                                     ),
                                   ),
@@ -2299,7 +2509,7 @@ class _OrdersTableState extends State<OrdersTable> {
                               _buildFrozenProductColumn(filteredIndices),
                               _buildProductColResizeHandle(),
                               Expanded(
-                                child: clients.isEmpty
+                                child: filteredClientIndices.isEmpty
                                     ? _buildEmptyClientsPlaceholder(l10n)
                                     : _buildScrollableDataArea(
                                         scrollColCount,
@@ -2309,7 +2519,7 @@ class _OrdersTableState extends State<OrdersTable> {
                               ),
                               _buildFrozenSummaryColumns(
                                 summaryColCount,
-                                clients.length,
+                                scrollColCount,
                                 filteredIndices,
                                 l10n,
                               ),

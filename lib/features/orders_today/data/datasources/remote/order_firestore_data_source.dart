@@ -1,4 +1,3 @@
-import '../../models/order_action_entry_model.dart';
 import '../../models/order_document_model.dart';
 import '../../models/order_row_model.dart';
 
@@ -8,7 +7,6 @@ import '../../models/order_row_model.dart';
 /// ```
 /// orders/{YYYY-MM-DD}              → OrderDocumentModel
 /// orders/{YYYY-MM-DD}/rows/{id}    → OrderRowModel
-/// orders/{YYYY-MM-DD}/history/{id} → OrderActionEntryModel
 /// ```
 abstract class OrderFirestoreDataSource {
   /// Returns `true` if the order document for [date] exists.
@@ -138,20 +136,25 @@ abstract class OrderFirestoreDataSource {
     required String color,
   });
 
+  /// Updates a client-level note on the root order document.
+  /// If [note] is `null` or empty, the note is removed.
+  Future<void> updateClientNote({
+    required String date,
+    required String clientId,
+    required String? note,
+  });
+
   /// Returns all root order documents (without subcollections).
   /// Used by the history feature to list available dates.
   Future<List<OrderDocumentModel>> getAllOrderDocuments();
 
-  // ── Action History ────────────────────────────────────────────
-
-  /// Adds a history entry to the order's history subcollection.
-  Future<void> addHistoryEntry({
+  /// Replaces [oldClientId] with [newClientId] in the order document and
+  /// transfers all associated data (quantities, flags, notes, refunds,
+  /// clientNotes) atomically. Removes any `invoicedBy` entry for the old
+  /// client.
+  Future<void> replaceClient({
     required String date,
-    required String actionType,
-    required String userId,
-    required Map<String, String> details,
+    required String oldClientId,
+    required String newClientId,
   });
-
-  /// Reads all history entries for a given date, ordered by timestamp desc.
-  Future<List<OrderActionEntryModel>> getHistory(String date);
 }
