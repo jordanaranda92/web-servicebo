@@ -7,4 +7,5 @@ abstract class AuthRemoteDataSource {
   Future<AppUser?> getCurrentUserWithProfile();
   Future<String?> getUserName(String uid);
   Future<void> saveUserName(String uid, String name);
+  Future<String?> getUserColor(String uid);
 }

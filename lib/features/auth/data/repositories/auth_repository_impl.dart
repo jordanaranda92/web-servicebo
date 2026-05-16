@@ -108,6 +108,19 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<Either<Failure, String?>> getUserColor(String uid) async {
+    try {
+      final color = await _remoteDataSource.getUserColor(uid);
+      return Right(color);
+    } on ServerException {
+      return Left(ServerFailure());
+    } on Exception catch (e, st) {
+      dev.log('[Auth] getUserColor unexpected error', error: e, stackTrace: st);
+      return Left(InternalFailure());
+    }
+  }
+
+  @override
   bool isRememberMeEnabled() => _localDataSource.getRememberMe();
 
   @override

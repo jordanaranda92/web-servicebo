@@ -19,6 +19,8 @@ abstract class AuthRepository {
 
   Future<Either<Failure, Unit>> saveUserName(String uid, String name);
 
+  Future<Either<Failure, String?>> getUserColor(String uid);
+
   bool isRememberMeEnabled();
 
   Future<void> setRememberMe(bool value);

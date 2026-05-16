@@ -31,11 +31,10 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
   /// Maximum number of history entries stored per day.
   static const _maxHistoryEntries = 2000;
 
-  /// Appends a history entry to the batch using a single document with
-  /// an `entries` array. Reads the current array, prepends the new entry,
-  /// and truncates to [_maxHistoryEntries] oldest-first.
-  ///
-  /// Best-effort: silently skipped if user info is unavailable.
+  /// Appends a history entry using a Firestore transaction to guarantee
+  /// atomicity when multiple users write concurrently.
+  /// The [batch] parameter is kept for API compatibility but the history
+  /// write is performed independently via a transaction (best-effort).
   Future<void> _addHistoryToBatch({
     required WriteBatch batch,
     required String date,
@@ -47,9 +46,6 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
       if (user == null) return;
 
       final docRef = _historyDoc(date);
-      final snap = await docRef.get();
-      final existing =
-          (snap.data()?['entries'] as List<dynamic>?) ?? <dynamic>[];
 
       final newEntry = <String, dynamic>{
         'timestamp': DateTime.now().toUtc().toIso8601String(),
@@ -59,13 +55,18 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
         'details': details,
       };
 
-      // Prepend (newest first) and truncate
-      final updated = <dynamic>[newEntry, ...existing];
-      if (updated.length > _maxHistoryEntries) {
-        updated.removeRange(_maxHistoryEntries, updated.length);
-      }
+      await _firestore.runTransaction((transaction) async {
+        final snap = await transaction.get(docRef);
+        final existing =
+            (snap.data()?['entries'] as List<dynamic>?) ?? <dynamic>[];
 
-      batch.set(docRef, {'entries': updated});
+        final updated = <dynamic>[newEntry, ...existing];
+        if (updated.length > _maxHistoryEntries) {
+          updated.removeRange(_maxHistoryEntries, updated.length);
+        }
+
+        transaction.set(docRef, {'entries': updated});
+      });
     } on Exception {
       // Best-effort: do not break the main operation
     }
@@ -916,9 +917,6 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
       final userName = _userProvider.currentUser?.userName ?? '';
 
       final docRef = _historyDoc(date);
-      final snap = await docRef.get();
-      final existing =
-          (snap.data()?['entries'] as List<dynamic>?) ?? <dynamic>[];
 
       final newEntry = <String, dynamic>{
         'timestamp': DateTime.now().toUtc().toIso8601String(),
@@ -928,12 +926,18 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
         'details': details,
       };
 
-      final updated = <dynamic>[newEntry, ...existing];
-      if (updated.length > _maxHistoryEntries) {
-        updated.removeRange(_maxHistoryEntries, updated.length);
-      }
+      await _firestore.runTransaction((transaction) async {
+        final snap = await transaction.get(docRef);
+        final existing =
+            (snap.data()?['entries'] as List<dynamic>?) ?? <dynamic>[];
 
-      await docRef.set({'entries': updated});
+        final updated = <dynamic>[newEntry, ...existing];
+        if (updated.length > _maxHistoryEntries) {
+          updated.removeRange(_maxHistoryEntries, updated.length);
+        }
+
+        transaction.set(docRef, {'entries': updated});
+      });
     } on FirebaseException {
       // Best-effort: do not throw
     }

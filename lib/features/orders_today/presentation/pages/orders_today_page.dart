@@ -10,8 +10,10 @@ import '../../../../app/di/injection.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/router/router.dart';
 import '../../../../app/theme/theme_constants.dart';
+import '../../../../app/theme/app_colors.dart';
 import '../../../../core/presentation/widgets/page_header.dart';
 import '../../../../core/utils/app_date_formats.dart';
+import '../../../../core/utils/category_color_utils.dart';
 import '../../../auth/domain/repositories/auth_repository.dart';
 import '../../../auth/presentation/bloc/auth_cubit.dart';
 import '../../../auth/presentation/bloc/auth_state.dart';
@@ -55,6 +57,7 @@ class OrdersTodayPage extends StatefulWidget {
 class _OrdersTodayPageState extends State<OrdersTodayPage> {
   bool _isFirebaseAvailable = false;
   String? _resolvedUserName;
+  Color? _resolvedUserColor;
   bool _userNameResolved = false;
 
   // Cached date string — the day doesn't change during widget lifetime.
@@ -107,8 +110,18 @@ class _OrdersTodayPageState extends State<OrdersTodayPage> {
       return;
     }
 
-    final result = await sl<AuthRepository>().getUserName(uid);
+    final authRepo = sl<AuthRepository>();
+    final result = await authRepo.getUserName(uid);
     if (!mounted) return;
+
+    // Resolve color in parallel-safe manner
+    final colorResult = await authRepo.getUserColor(uid);
+    if (!mounted) return;
+    colorResult.fold((_) {}, (colorHex) {
+      _resolvedUserColor =
+          tryParseHex(colorHex) ?? PresenceColors.palette.first;
+    });
+
     result.fold(
       (_) {
         setState(() => _userNameResolved = true);
@@ -248,6 +261,11 @@ class _OrdersTodayPageState extends State<OrdersTodayPage> {
           repository: sl<OrdersPresenceRepository>(),
           userId: uid,
           userName: _resolvedUserName ?? email,
+          userColor: _resolvedUserColor ?? PresenceColors.palette.first,
+          resolveUserColor: (remoteUid) async {
+            final result = await sl<AuthRepository>().getUserColor(remoteUid);
+            return result.getOrElse((_) => null);
+          },
         )..init();
       }();
       content = BlocProvider<OrdersPresenceCubit>.value(

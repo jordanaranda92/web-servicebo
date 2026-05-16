@@ -41,6 +41,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         email: user.email ?? email,
         userName: profile['userName'] as String?,
         role: UserRole.fromString(profile['role'] as String?),
+        color: profile['color'] as String?,
       );
     } on FirebaseAuthException {
       rethrow;
@@ -71,6 +72,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       email: user.email ?? '',
       userName: profile['userName'] as String?,
       role: UserRole.fromString(profile['role'] as String?),
+      color: profile['color'] as String?,
     );
   }
 
@@ -95,6 +97,18 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       _fbLogger.logWrite('users', 1, {'userName': name});
     } on FirebaseException catch (e) {
       throw ServerException(message: 'Error saving user name: $e');
+    }
+  }
+
+  @override
+  Future<String?> getUserColor(String uid) async {
+    try {
+      final doc = await _usersCollection.doc(uid).get();
+      _fbLogger.logRead('users', doc.exists ? 1 : 0, doc.data());
+      if (!doc.exists || doc.data() == null) return null;
+      return doc.data()!['color'] as String?;
+    } on FirebaseException catch (e) {
+      throw ServerException(message: 'Error reading user color: $e');
     }
   }
 

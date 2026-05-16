@@ -7,6 +7,7 @@ import '../../domain/entities/cell_lock.dart';
 import '../../domain/entities/remote_cursor.dart';
 import '../../domain/repositories/orders_presence_repository.dart';
 import '../../../../app/theme/app_colors.dart';
+import '../../../../core/utils/category_color_utils.dart';
 import 'orders_presence_state.dart';
 
 class OrdersPresenceCubit extends Cubit<OrdersPresenceState> {
@@ -14,7 +15,10 @@ class OrdersPresenceCubit extends Cubit<OrdersPresenceState> {
     required OrdersPresenceRepository repository,
     required this.userId,
     required this.userName,
+    required this.userColor,
+    required Future<String?> Function(String uid) resolveUserColor,
   }) : _repository = repository,
+       _resolveUserColor = resolveUserColor,
        super(const OrdersPresenceState());
 
   final OrdersPresenceRepository _repository;
@@ -24,31 +28,35 @@ class OrdersPresenceCubit extends Cubit<OrdersPresenceState> {
   StreamSubscription<CellLockChange>? _lockSub;
   StreamSubscription<RemoteCursorChange>? _cursorSub;
 
-  /// Color assigned to the current user locally.
-  late final Color myColor;
+  /// Persistent color for the current user (from Firestore).
+  final Color userColor;
 
-  static const _colorPalette = PresenceColors.palette;
+  /// Alias for backward-compat: current user's persistent color.
+  Color get myColor => userColor;
 
-  /// Map of userId → locally-assigned Color (no two users share a color).
-  final Map<String, Color> _assignedColors = {};
+  final Future<String?> Function(String uid) _resolveUserColor;
 
-  /// Pick the next palette color not already assigned.
-  Color _assignColor(String uid) {
-    if (_assignedColors.containsKey(uid)) return _assignedColors[uid]!;
-    final usedColors = _assignedColors.values.toSet();
-    final available = _colorPalette.where((c) => !usedColors.contains(c));
-    final color = available.isNotEmpty
-        ? available.elementAt(uid.hashCode.abs() % available.length)
-        : _colorPalette[uid.hashCode.abs() % _colorPalette.length];
-    _assignedColors[uid] = color;
-    return color;
+  static final Color _fallbackColor = PresenceColors.palette.first;
+
+  /// Cache of resolved remote user colors (uid → Color).
+  final Map<String, Color> _remoteColorCache = {};
+
+  /// Resolve a remote user's color from Firestore, with cache.
+  Future<Color> _getRemoteColor(String uid) async {
+    if (_remoteColorCache.containsKey(uid)) return _remoteColorCache[uid]!;
+    try {
+      final hex = await _resolveUserColor(uid);
+      final color = tryParseHex(hex) ?? _fallbackColor;
+      _remoteColorCache[uid] = color;
+      return color;
+    } on Exception {
+      _remoteColorCache[uid] = _fallbackColor;
+      return _fallbackColor;
+    }
   }
 
   /// Initialize presence: register cursor, subscribe to changes.
   Future<void> init() async {
-    // Assign own color first so it's reserved
-    myColor = _assignColor(userId);
-
     await _repository.setupDisconnectCleanup(userId);
     await _repository.updateMyCursor(
       userId: userId,
@@ -65,13 +73,12 @@ class OrdersPresenceCubit extends Cubit<OrdersPresenceState> {
     final lockEntities = await _repository.getAllLocks();
     final allCursors = await _repository.getAllCursors();
 
-    // Remove own cursor from remote list and assign local colors
+    // Remove own cursor from remote list and resolve persistent colors
     final cursorEntities = <String, RemoteCursor>{};
     for (final entry in allCursors.entries) {
       if (entry.key == userId) continue;
-      cursorEntities[entry.key] = entry.value.withColor(
-        _assignColor(entry.key),
-      );
+      final color = await _getRemoteColor(entry.key);
+      cursorEntities[entry.key] = entry.value.withColor(color);
     }
 
     if (isClosed) return;
@@ -97,23 +104,23 @@ class OrdersPresenceCubit extends Cubit<OrdersPresenceState> {
     emit(state.copyWith(locks: newLocks));
   }
 
-  void _onCursorUpdate(RemoteCursorChange change) {
+  void _onCursorUpdate(RemoteCursorChange change) async {
     if (isClosed) return;
     final newCursors = Map<String, RemoteCursor>.from(state.cursors);
     var count = state.connectedUsers;
 
     if (change.removed) {
       newCursors.remove(change.userId);
-      _assignedColors.remove(change.userId);
+      _remoteColorCache.remove(change.userId);
       count = (count - 1).clamp(0, 999);
     } else if (change.cursor case final cursor?) {
       if (change.userId == userId) {
         // Don't add own cursor to remote list, but count it
         count = newCursors.length + 1;
       } else {
-        newCursors[change.userId] = cursor.withColor(
-          _assignColor(change.userId),
-        );
+        final color = await _getRemoteColor(change.userId);
+        if (isClosed) return;
+        newCursors[change.userId] = cursor.withColor(color);
         count = newCursors.length + 1; // +1 for self
       }
     }

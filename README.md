@@ -259,13 +259,6 @@ APIKEY DdaxdT.4QY1XXjF3qd3pRDGMEvvarMb5uxyllsx
 
 Pendiente:
 
-- Pantalla visualización de pedidos de hoy (solo lectura)
-- Opción de exportar pedidos de hoy a Excel
-- Mejorar vista de facturas
-- Crear detalles de factura\
-
-  Hoja de pedido:
-- Poder asociar a los clientes MRW o GLS y en la hoja de pedido indicarlo. Los
-  domingos es siempre con GLS (opcional).
-  - Nombre más grande.
-  - Número de pedido: número que aparece encima del cliente en la tabla.
+- Posibilidad de eliminar clientes de Firestore.
+- Asignar color a usuarios.
+- posibilidad de cambiar un cliente en la pantalla de pedidos de hoy.

@@ -833,10 +833,12 @@ class _OrdersTableState extends State<OrdersTable> {
       }
 
       return GestureDetector(
-        onSecondaryTapDown: (details) =>
-            _showClientContextMenu(details.globalPosition, col),
-        onLongPressStart: (details) =>
-            _showClientContextMenu(details.globalPosition, col),
+        onSecondaryTapDown: widget.readOnly
+            ? null
+            : (details) => _showClientContextMenu(details.globalPosition, col),
+        onLongPressStart: widget.readOnly
+            ? null
+            : (details) => _showClientContextMenu(details.globalPosition, col),
         child: SizedBox(
           width: _dataColWidth,
           child: Material(
@@ -956,11 +958,11 @@ class _OrdersTableState extends State<OrdersTable> {
     final isRowHighlighted = _editingRow == rowIdx;
 
     return GestureDetector(
-      onSecondaryTapDown: widget.onDeleteProducts != null
+      onSecondaryTapDown: !widget.readOnly && widget.onDeleteProducts != null
           ? (details) =>
                 _showProductContextMenu(details.globalPosition, productIdx)
           : null,
-      onLongPressStart: widget.onDeleteProducts != null
+      onLongPressStart: !widget.readOnly && widget.onDeleteProducts != null
           ? (details) =>
                 _showProductContextMenu(details.globalPosition, productIdx)
           : null,
@@ -1030,8 +1032,19 @@ class _OrdersTableState extends State<OrdersTable> {
       isStrictStock: isStrictStock,
     );
 
+    // ── ReadOnly: consolidar abono en el valor mostrado ──
+    final displayValue = widget.readOnly && isClient
+        ? value + (cellRefund ?? 0)
+        : value;
+    final effectiveStyle = widget.readOnly && isClient && displayValue != value
+        ? style?.copyWith(
+            fontSize: displayValue != 0 ? 12 : 10,
+            fontWeight: displayValue != 0 ? FontWeight.bold : null,
+          )
+        : style;
+
     final isEditing = _editingRow == rowIdx && _editingCol == col;
-    final isEditable = isClient || isStocks;
+    final isEditable = !widget.readOnly && (isClient || isStocks);
     final isSelected = isEditing && isEditable;
     final isRowHighlighted =
         _editingRow == rowIdx && _editingCol != null && col < _editingCol!;
@@ -1057,8 +1070,8 @@ class _OrdersTableState extends State<OrdersTable> {
       isStocks: isStocks,
       productIdx: productIdx,
       col: col,
-      value: value,
-      style: style,
+      value: displayValue,
+      style: effectiveStyle,
       cellFlag: cellFlag,
       isStrictStock: isStrictStock,
       cellNote: cellNote,
@@ -1070,8 +1083,8 @@ class _OrdersTableState extends State<OrdersTable> {
       l10n,
       cellFlag,
       isStrictStock,
-      cellNote,
-      cellRefund,
+      widget.readOnly ? null : cellNote,
+      widget.readOnly ? null : cellRefund,
     );
 
     // Wrap in GestureDetector + Container
@@ -1079,7 +1092,7 @@ class _OrdersTableState extends State<OrdersTable> {
       child: child,
       rowIdx: rowIdx,
       col: col,
-      value: value,
+      value: displayValue,
       isQuedan: isQuedan,
       isPedidos: isPedidos,
       isSelected: isSelected,
@@ -1244,8 +1257,8 @@ class _OrdersTableState extends State<OrdersTable> {
       );
     }
 
-    final hasNote = cellNote != null && cellNote.isNotEmpty;
-    final hasRefund = cellRefund != null && cellRefund > 0;
+    final hasNote = !widget.readOnly && cellNote != null && cellNote.isNotEmpty;
+    final hasRefund = !widget.readOnly && cellRefund != null && cellRefund > 0;
     final cellContent = isClient && value == 0
         ? const SizedBox.shrink()
         : Text(_formatNum(value), style: style);
