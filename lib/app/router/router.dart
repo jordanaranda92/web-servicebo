@@ -14,9 +14,8 @@ import '../../features/clients/presentation/pages/clients_page.dart';
 import '../../core/presentation/pages/side_menu_shell.dart';
 import '../../features/invoices/presentation/pages/invoice_detail_page.dart';
 import '../../features/invoices/presentation/pages/invoices_page.dart';
-import '../../features/orders_history/presentation/pages/orders_history_page.dart';
-import '../../features/orders_today/presentation/pages/orders_today_page.dart';
-import '../../features/orders_today/presentation/pages/orders_today_readonly_page.dart';
+import '../../features/orders/presentation/pages/orders_page.dart';
+import '../../features/orders/presentation/pages/orders_readonly_page.dart';
 import '../../features/products/presentation/pages/products_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
 import '../../features/shipping_methods/presentation/pages/shipping_methods_page.dart';
@@ -25,8 +24,7 @@ import '../../features/statistics/presentation/pages/statistics_page.dart';
 /// Route paths as constants for type-safe navigation.
 abstract class AppRoutes {
   static const String home = '/home';
-  static const String ordersToday = '/orders-today';
-  static const String ordersHistory = '/orders-history';
+  static const String orders = '/orders';
   static const String clients = '/clients';
   static const String clientDetail = '/clients/:id/detail';
   static const String clientCategories = '/client-categories';
@@ -36,13 +34,12 @@ abstract class AppRoutes {
   static const String invoiceDetail = '/invoices/:id/detail';
   static const String statistics = '/statistics';
   static const String settings = '/settings';
-  static const String ordersTodayView = '/orders-today/view';
+  static const String ordersView = '/orders/view';
   static const String login = '/login';
 
   /// Base menu paths (without admin-only items).
   static const List<String> _baseMenuPaths = [
-    ordersToday,
-    ordersHistory,
+    orders,
     clients,
     clientCategories,
     shippingMethods,
@@ -95,15 +92,15 @@ GoRouter createRouter({required String initialLocation}) {
       final goingToLogin = state.matchedLocation == AppRoutes.login;
 
       if (!loggedIn && !goingToLogin) return AppRoutes.login;
-      if (loggedIn && goingToLogin) return AppRoutes.ordersToday;
-      if (state.matchedLocation == '/') return AppRoutes.ordersToday;
+      if (loggedIn && goingToLogin) return AppRoutes.orders;
+      if (state.matchedLocation == '/') return AppRoutes.orders;
 
       // Role-based guard: redirect non-admin users away from /statistics
       if (state.matchedLocation == AppRoutes.statistics) {
         final authState = sl<AuthCubit>().state;
         final isAdmin =
             authState is AuthAuthenticated && authState.user.isAdmin;
-        if (!isAdmin) return AppRoutes.ordersToday;
+        if (!isAdmin) return AppRoutes.orders;
       }
 
       return null;
@@ -115,22 +112,17 @@ GoRouter createRouter({required String initialLocation}) {
         builder: (context, state) => const LoginPage(),
       ),
       GoRoute(
-        path: AppRoutes.ordersTodayView,
-        builder: (context, state) => const OrdersTodayReadonlyPage(),
+        path: AppRoutes.ordersView,
+        builder: (context, state) => const OrdersReadonlyPage(),
       ),
-      GoRoute(path: AppRoutes.home, redirect: (_, _) => AppRoutes.ordersToday),
+      GoRoute(path: AppRoutes.home, redirect: (_, _) => AppRoutes.orders),
       ShellRoute(
         builder: (context, state, child) => SideMenuShell(child: child),
         routes: [
           GoRoute(
-            path: AppRoutes.ordersToday,
+            path: AppRoutes.orders,
             pageBuilder: (context, state) =>
-                const NoTransitionPage(child: OrdersTodayPage()),
-          ),
-          GoRoute(
-            path: AppRoutes.ordersHistory,
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: OrdersHistoryPage()),
+                const NoTransitionPage(child: OrdersPage()),
           ),
           GoRoute(
             path: AppRoutes.clients,

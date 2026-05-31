@@ -15,13 +15,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get menuHome => 'Inicio';
 
   @override
-  String get menuOrdersToday => 'Pedidos de hoy';
+  String get menuOrders => 'Pedidos';
 
   @override
-  String get ordersTodayHeaderLabel => 'HOY';
-
-  @override
-  String get menuOrdersHistory => 'Historial de pedidos';
+  String get ordersHeaderLabel => 'HOY';
 
   @override
   String get menuSettings => 'Ajustes';
@@ -53,97 +50,97 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsCancel => 'Cancelar';
 
   @override
-  String get ordersTodayNoFolderTitle => 'Carpeta de trabajo no configurada';
+  String get ordersNoFolderTitle => 'Carpeta de trabajo no configurada';
 
   @override
-  String get ordersTodayNoFolderMessage =>
+  String get ordersNoFolderMessage =>
       'Configura la carpeta de trabajo en Ajustes para poder ver los pedidos.';
 
   @override
-  String get ordersTodayGoToSettings => 'Ir a Ajustes';
+  String get ordersGoToSettings => 'Ir a Ajustes';
 
   @override
-  String get ordersTodayNoFileTitle => 'No hay pedidos para hoy';
+  String get ordersNoFileTitle => 'No hay pedidos para hoy';
 
   @override
-  String get ordersTodayNoFileMessage =>
+  String get ordersNoFileMessage =>
       'El archivo de pedidos de hoy aún no existe. Puedes crearlo a partir de la plantilla.';
 
   @override
-  String get ordersTodayCreateFile => 'Crear pedido de hoy';
+  String get ordersCreateFile => 'Crear pedido de hoy';
 
   @override
-  String get ordersTodayErrorTemplateNotFound =>
+  String get ordersErrorTemplateNotFound =>
       'No se encontró la plantilla (plantilla.xlsx) en la carpeta de trabajo.';
 
   @override
-  String get ordersTodayErrorFileSystem =>
+  String get ordersErrorFileSystem =>
       'Error al acceder a los archivos. Verifica los permisos de la carpeta de trabajo.';
 
   @override
-  String get ordersTodayErrorInvalidFormat =>
+  String get ordersErrorInvalidFormat =>
       'El archivo Excel tiene un formato no válido.';
 
   @override
-  String get ordersTodayErrorUnknown => 'Ha ocurrido un error inesperado.';
+  String get ordersErrorUnknown => 'Ha ocurrido un error inesperado.';
 
   @override
-  String get ordersTodayColumnPedidos => 'PEDIDOS';
+  String get ordersColumnPedidos => 'PEDIDOS';
 
   @override
-  String get ordersTodayColumnStocks => 'STOCKS';
+  String get ordersColumnStocks => 'STOCKS';
 
   @override
-  String get ordersTodayColumnQuedan => 'QUEDAN';
+  String get ordersColumnQuedan => 'QUEDAN';
 
   @override
-  String get ordersTodayRetry => 'Reintentar';
+  String get ordersRetry => 'Reintentar';
 
   @override
-  String get ordersTodayDelete => 'Eliminar';
+  String get ordersDelete => 'Eliminar';
 
   @override
-  String get ordersTodayExportExcel => 'Exportar Excel';
+  String get ordersExportExcel => 'Exportar Excel';
 
   @override
-  String get ordersTodayExportExcelSuccess => 'Excel exportado correctamente';
+  String get ordersExportExcelSuccess => 'Excel exportado correctamente';
 
   @override
-  String get ordersTodayExportExcelError => 'Error al exportar el Excel';
+  String get ordersExportExcelError => 'Error al exportar el Excel';
 
   @override
-  String get ordersTodayShowPreview => 'Mostrar preview';
+  String get ordersShowPreview => 'Mostrar preview';
 
   @override
-  String get ordersTodayFilterClients => 'Filtrar clientes';
+  String get ordersFilterClients => 'Filtrar clientes';
 
   @override
-  String get ordersTodayFilterClientsDialogTitle =>
+  String get ordersFilterClientsDialogTitle =>
       'Filtrar por categoría de cliente';
 
   @override
-  String get ordersTodayFilterSelectAll => 'Seleccionar todas';
+  String get ordersFilterSelectAll => 'Seleccionar todas';
 
   @override
-  String get ordersTodayFilterClearAll => 'Limpiar selección';
+  String get ordersFilterClearAll => 'Limpiar selección';
 
   @override
-  String get ordersTodayFilterApply => 'Aplicar';
+  String get ordersFilterApply => 'Aplicar';
 
   @override
-  String get ordersTodayFilterCancel => 'Cancelar';
+  String get ordersFilterCancel => 'Cancelar';
 
   @override
-  String get ordersTodayFilterNoCategories => 'No hay categorías configuradas';
+  String get ordersFilterNoCategories => 'No hay categorías configuradas';
 
   @override
-  String get ordersTodayFilterNoCategoryLabel => 'Sin categoría';
+  String get ordersFilterNoCategoryLabel => 'Sin categoría';
 
   @override
-  String get ordersTodayDeleteConfirmTitle => 'Eliminar clientes';
+  String get ordersDeleteConfirmTitle => 'Eliminar clientes';
 
   @override
-  String ordersTodayDeleteConfirmMessage(int count) {
+  String ordersDeleteConfirmMessage(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
@@ -156,52 +153,7 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get ordersTodayDeleteConfirm => 'Eliminar';
-
-  @override
-  String get ordersHistoryEmptyTitle => 'Sin pedidos anteriores';
-
-  @override
-  String get ordersHistoryEmptyMessage =>
-      'No hay pedidos de días anteriores registrados.';
-
-  @override
-  String get ordersHistoryErrorServer =>
-      'Error al conectar con el servidor. Comprueba tu conexión e inténtalo de nuevo.';
-
-  @override
-  String get ordersHistoryErrorUnknown => 'Ha ocurrido un error inesperado.';
-
-  @override
-  String get ordersHistoryRetry => 'Reintentar';
-
-  @override
-  String get ordersHistoryBackToList => 'Volver al listado';
-
-  @override
-  String get ordersHistorySearchClient => 'Buscar cliente...';
-
-  @override
-  String get ordersHistoryColumnClient => 'Cliente';
-
-  @override
-  String get ordersHistoryColumnTotal => 'Total';
-
-  @override
-  String get ordersHistoryRowTotals => 'Totales';
-
-  @override
-  String ordersHistoryDateClients(int count) {
-    return '$count clientes';
-  }
-
-  @override
-  String ordersHistoryDateProducts(int count) {
-    return '$count productos';
-  }
-
-  @override
-  String get ordersHistoryLastWeek => 'Última semana';
+  String get ordersDeleteConfirm => 'Eliminar';
 
   @override
   String get dashboardInvoices => 'Número de facturas';
@@ -723,52 +675,52 @@ class AppLocalizationsEs extends AppLocalizations {
   String get clientsSelectCategoryEmpty => 'No hay categorías disponibles';
 
   @override
-  String get ordersTodayResetOrders => 'Restablecer pedidos';
+  String get ordersResetOrders => 'Restablecer pedidos';
 
   @override
-  String get ordersTodayAdd => 'Añadir';
+  String get ordersAdd => 'Añadir';
 
   @override
-  String get ordersTodayAddClient => 'Añadir cliente';
+  String get ordersAddClient => 'Añadir cliente';
 
   @override
-  String get ordersTodayAddProduct => 'Añadir producto';
+  String get ordersAddProduct => 'Añadir producto';
 
   @override
-  String get ordersTodayAddClientDialogTitle => 'Añadir clientes';
+  String get ordersAddClientDialogTitle => 'Añadir clientes';
 
   @override
-  String get ordersTodayAddProductDialogTitle => 'Añadir productos';
+  String get ordersAddProductDialogTitle => 'Añadir productos';
 
   @override
-  String get ordersTodayAddDialogEmpty =>
+  String get ordersAddDialogEmpty =>
       'Todos los elementos activos ya están en el pedido';
 
   @override
-  String get ordersTodayAddDialogSearch => 'Buscar...';
+  String get ordersAddDialogSearch => 'Buscar...';
 
   @override
-  String get ordersTodayAddDialogColumnName => 'Nombre';
+  String get ordersAddDialogColumnName => 'Nombre';
 
   @override
-  String get ordersTodayAddDialogNoResults => 'Sin resultados';
+  String get ordersAddDialogNoResults => 'Sin resultados';
 
   @override
-  String ordersTodayAddDialogConfirm(int count) {
+  String ordersAddDialogConfirm(int count) {
     return 'Añadir ($count)';
   }
 
   @override
-  String get ordersTodayExport => 'Exportar';
+  String get ordersExport => 'Exportar';
 
   @override
-  String get ordersTodayRemoveFromTable => 'Quitar de la tabla';
+  String get ordersRemoveFromTable => 'Quitar de la tabla';
 
   @override
-  String get ordersTodayDeleteProductsConfirmTitle => 'Quitar productos';
+  String get ordersDeleteProductsConfirmTitle => 'Quitar productos';
 
   @override
-  String ordersTodayDeleteProductsConfirmMessage(int count) {
+  String ordersDeleteProductsConfirmMessage(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
@@ -781,10 +733,10 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get ordersTodayResetConfirmTitle => 'Restablecer pedidos';
+  String get ordersResetConfirmTitle => 'Restablecer pedidos';
 
   @override
-  String ordersTodayResetConfirmMessage(int count) {
+  String ordersResetConfirmMessage(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
@@ -797,7 +749,7 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get ordersTodayResetConfirm => 'Restablecer';
+  String get ordersResetConfirm => 'Restablecer';
 
   @override
   String get settingsUserIdentityTitle => 'Identidad de usuario';
@@ -810,12 +762,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsUserNameLabel => 'Nombre de usuario';
 
   @override
-  String ordersTodayCellLocked(String user) {
+  String ordersCellLocked(String user) {
     return 'Celda bloqueada por $user';
   }
 
   @override
-  String ordersTodayConnectedUsers(int count) {
+  String ordersConnectedUsers(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
@@ -845,234 +797,227 @@ class AppLocalizationsEs extends AppLocalizations {
   String get invoiceStatusOverpaid => 'Sobrepagada';
 
   @override
-  String get ordersHistoryNavigation => 'Navegación';
-
-  @override
   String productsLinkDialogSubtitle(String productName) {
     return 'Para vincular a: $productName';
   }
 
   @override
-  String get ordersTodayNoClients => 'No hay clientes añadidos';
+  String get ordersNoClients => 'No hay clientes añadidos';
 
   @override
-  String get ordersTodayNoClientsHint =>
+  String get ordersNoClientsHint =>
       'Pulsa el botón + de la cabecera para añadir clientes.';
 
   @override
-  String get ordersTodayMarkCompensation => 'Marcar como compensación';
+  String get ordersMarkCompensation => 'Marcar como compensación';
 
   @override
-  String get ordersTodayUnmarkCompensation => 'Desmarcar como compensación';
+  String get ordersUnmarkCompensation => 'Desmarcar como compensación';
 
   @override
-  String get ordersTodayMarkReservation => 'Marcar como reserva';
+  String get ordersMarkReservation => 'Marcar como reserva';
 
   @override
-  String get ordersTodayUnmarkReservation => 'Desmarcar como reserva';
+  String get ordersUnmarkReservation => 'Desmarcar como reserva';
 
   @override
-  String get ordersTodayMarkStrictStock => 'Marcar como stock estricto';
+  String get ordersMarkStrictStock => 'Marcar como stock estricto';
 
   @override
-  String get ordersTodayUnmarkStrictStock => 'Desmarcar como stock estricto';
+  String get ordersUnmarkStrictStock => 'Desmarcar como stock estricto';
 
   @override
-  String get ordersTodayTooltipCompensation => 'Compensación';
+  String get ordersTooltipCompensation => 'Compensación';
 
   @override
-  String get ordersTodayTooltipReservation => 'Reserva';
+  String get ordersTooltipReservation => 'Reserva';
 
   @override
-  String get ordersTodayTooltipStrictStock => 'Stock estricto';
+  String get ordersTooltipStrictStock => 'Stock estricto';
 
   @override
-  String get ordersTodayAddNote => 'Añadir nota';
+  String get ordersAddNote => 'Añadir nota';
 
   @override
-  String get ordersTodayEditNote => 'Editar nota';
+  String get ordersEditNote => 'Editar nota';
 
   @override
-  String get ordersTodayRemoveNote => 'Eliminar nota';
+  String get ordersRemoveNote => 'Eliminar nota';
 
   @override
-  String get ordersTodayNoteDialogTitle => 'Nota';
+  String get ordersNoteDialogTitle => 'Nota';
 
   @override
-  String get ordersTodayNoteDialogHint =>
-      'Escribe una nota (máx. 100 caracteres)';
+  String get ordersNoteDialogHint => 'Escribe una nota (máx. 100 caracteres)';
 
   @override
-  String get ordersTodayNoteDialogSave => 'Guardar';
+  String get ordersNoteDialogSave => 'Guardar';
 
   @override
-  String get ordersTodayNoteDialogCancel => 'Cancelar';
+  String get ordersNoteDialogCancel => 'Cancelar';
 
   @override
-  String get ordersTodayAddRefund => 'Añadir abono';
+  String get ordersAddRefund => 'Añadir abono';
 
   @override
-  String get ordersTodayEditRefund => 'Editar abono';
+  String get ordersEditRefund => 'Editar abono';
 
   @override
-  String get ordersTodayRemoveRefund => 'Eliminar abono';
+  String get ordersRemoveRefund => 'Eliminar abono';
 
   @override
-  String get ordersTodayRefundDialogTitle => 'Abono';
+  String get ordersRefundDialogTitle => 'Abono';
 
   @override
-  String get ordersTodayRefundDialogLabel => 'Cantidad de productos';
+  String get ordersRefundDialogLabel => 'Cantidad de productos';
 
   @override
-  String get ordersTodayTooltipRefund => 'Abono';
+  String get ordersTooltipRefund => 'Abono';
 
   @override
-  String get ordersTodayContextMenuGenerateOrderSheet =>
-      'Generar hoja de pedido';
+  String get ordersContextMenuGenerateOrderSheet => 'Generar hoja de pedido';
 
   @override
-  String get ordersTodayGenerateOrderSheetEmpty =>
+  String get ordersGenerateOrderSheetEmpty =>
       'Este cliente no tiene productos con cantidad asignada.';
 
   @override
-  String get ordersTodayContextMenuGenerateProvisionalInvoice =>
+  String get ordersContextMenuGenerateProvisionalInvoice =>
       'Generar factura provisional';
 
   @override
-  String get ordersTodayContextMenuAddClientNote => 'Añadir nota';
+  String get ordersContextMenuAddClientNote => 'Añadir nota';
 
   @override
-  String get ordersTodayContextMenuEditClientNote => 'Editar nota';
+  String get ordersContextMenuEditClientNote => 'Editar nota';
 
   @override
-  String get ordersTodayContextMenuDeleteClientNote => 'Eliminar nota';
+  String get ordersContextMenuDeleteClientNote => 'Eliminar nota';
 
   @override
-  String get ordersTodayClientNoteDialogTitle => 'Nota de cliente';
+  String get ordersClientNoteDialogTitle => 'Nota de cliente';
 
   @override
-  String get ordersTodayClientNoteDialogHint =>
+  String get ordersClientNoteDialogHint =>
       'Escribe una nota (máx. 200 caracteres)';
 
   @override
-  String get ordersTodayContextMenuChangeClient => 'Cambiar cliente';
+  String get ordersContextMenuChangeClient => 'Cambiar cliente';
 
   @override
-  String get ordersTodayChangeClientDialogTitle => 'Cambiar cliente';
+  String get ordersChangeClientDialogTitle => 'Cambiar cliente';
 
   @override
-  String get ordersTodayChangeClientDialogConfirm => 'Confirmar';
+  String get ordersChangeClientDialogConfirm => 'Confirmar';
 
   @override
-  String get ordersTodayContextMenuResetOrder => 'Restablecer pedido';
+  String get ordersContextMenuResetOrder => 'Restablecer pedido';
 
   @override
-  String get ordersTodayContextMenuDeleteClient => 'Eliminar cliente';
+  String get ordersContextMenuDeleteClient => 'Eliminar cliente';
 
   @override
-  String get ordersTodayContextMenuDeleteProduct => 'Eliminar producto';
+  String get ordersContextMenuDeleteProduct => 'Eliminar producto';
 
   @override
-  String get ordersTodayInfoDialogTitle => 'Ayuda de la tabla de pedidos';
+  String get ordersInfoDialogTitle => 'Ayuda de la tabla de pedidos';
 
   @override
-  String get ordersTodayInfoDialogClose => 'Entendido';
+  String get ordersInfoDialogClose => 'Entendido';
 
   @override
-  String get ordersTodayInfoAddClientTitle => 'Añadir un cliente';
+  String get ordersInfoAddClientTitle => 'Añadir un cliente';
 
   @override
-  String get ordersTodayInfoAddClientDesc =>
+  String get ordersInfoAddClientDesc =>
       'Pulsa el botón «+ Añadir cliente» en la parte superior derecha de la tabla.';
 
   @override
-  String get ordersTodayInfoAddProductTitle => 'Añadir un producto';
+  String get ordersInfoAddProductTitle => 'Añadir un producto';
 
   @override
-  String get ordersTodayInfoAddProductDesc =>
+  String get ordersInfoAddProductDesc =>
       'Pulsa el botón «+ Añadir producto» en la parte inferior izquierda de la tabla.';
 
   @override
-  String get ordersTodayInfoEditStockTitle => 'Modificar el stock';
+  String get ordersInfoEditStockTitle => 'Modificar el stock';
 
   @override
-  String get ordersTodayInfoEditStockDesc =>
+  String get ordersInfoEditStockDesc =>
       'Haz clic sobre la celda de la columna STOCKS del producto que deseas modificar e introduce el nuevo valor.';
 
   @override
-  String get ordersTodayInfoStrictStockTitle => 'Poner stock como estricto';
+  String get ordersInfoStrictStockTitle => 'Poner stock como estricto';
 
   @override
-  String get ordersTodayInfoStrictStockDesc =>
+  String get ordersInfoStrictStockDesc =>
       'Haz clic derecho (o mantén pulsado en tablet) sobre la celda de stock de un producto y selecciona «Marcar stock estricto» en el menú contextual.';
 
   @override
-  String get ordersTodayInfoAssignQtyTitle => 'Asignar cantidad a un cliente';
+  String get ordersInfoAssignQtyTitle => 'Asignar cantidad a un cliente';
 
   @override
-  String get ordersTodayInfoAssignQtyDesc =>
+  String get ordersInfoAssignQtyDesc =>
       'Haz clic sobre la celda en la intersección del producto y el cliente, e introduce la cantidad deseada. Usa las flechas del teclado o Tab para moverte entre celdas.';
 
   @override
-  String get ordersTodayInfoCompensationTitle => 'Marcar compensación';
+  String get ordersInfoCompensationTitle => 'Marcar compensación';
 
   @override
-  String get ordersTodayInfoCompensationDesc =>
+  String get ordersInfoCompensationDesc =>
       'Haz clic derecho (o mantén pulsado en tablet) sobre una celda de cantidad de un cliente y selecciona «Marcar compensación» en el menú contextual.';
 
   @override
-  String get ordersTodayInfoReservationTitle => 'Marcar reserva';
+  String get ordersInfoReservationTitle => 'Marcar reserva';
 
   @override
-  String get ordersTodayInfoReservationDesc =>
+  String get ordersInfoReservationDesc =>
       'Haz clic derecho (o mantén pulsado en tablet) sobre una celda de cantidad de un cliente y selecciona «Marcar reserva» en el menú contextual.';
 
   @override
-  String get ordersTodayInfoRemoveClientTitle => 'Quitar un cliente';
+  String get ordersInfoRemoveClientTitle => 'Quitar un cliente';
 
   @override
-  String get ordersTodayInfoRemoveClientDesc =>
+  String get ordersInfoRemoveClientDesc =>
       'Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera de la tabla y selecciona «Eliminar cliente» en el menú contextual.';
 
   @override
-  String get ordersTodayInfoRemoveProductTitle => 'Quitar un producto';
+  String get ordersInfoRemoveProductTitle => 'Quitar un producto';
 
   @override
-  String get ordersTodayInfoRemoveProductDesc =>
+  String get ordersInfoRemoveProductDesc =>
       'Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del producto en la columna izquierda y selecciona «Eliminar producto» en el menú contextual.';
 
   @override
-  String get ordersTodayInfoResetOrderTitle =>
-      'Restablecer pedido de un cliente';
+  String get ordersInfoResetOrderTitle => 'Restablecer pedido de un cliente';
 
   @override
-  String get ordersTodayInfoResetOrderDesc =>
+  String get ordersInfoResetOrderDesc =>
       'Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera y selecciona «Restablecer pedido» en el menú contextual. Esto pondrá a cero todas las cantidades de ese cliente.';
 
   @override
-  String get ordersTodayInfoOrderSheetTitle => 'Generar hoja de pedido';
+  String get ordersInfoOrderSheetTitle => 'Generar hoja de pedido';
 
   @override
-  String get ordersTodayInfoOrderSheetDesc =>
+  String get ordersInfoOrderSheetDesc =>
       'Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera y selecciona «Generar hoja de pedido». Genera un documento con las cantidades de productos solicitadas por el cliente, útil para que los trabajadores preparen el pedido.';
 
   @override
-  String get ordersTodayInfoProvisionalInvoiceTitle =>
-      'Generar factura provisional';
+  String get ordersInfoProvisionalInvoiceTitle => 'Generar factura provisional';
 
   @override
-  String get ordersTodayInfoProvisionalInvoiceDesc =>
+  String get ordersInfoProvisionalInvoiceDesc =>
       'Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera y selecciona «Generar factura provisional». Crea la factura en estado provisional en Factura Directa con los productos y cantidades del pedido del cliente.';
 
   @override
-  String get ordersTodayInfoCellNoteTitle => 'Crear una nota en una celda';
+  String get ordersInfoCellNoteTitle => 'Crear una nota en una celda';
 
   @override
-  String get ordersTodayInfoCellNoteDesc =>
+  String get ordersInfoCellNoteDesc =>
       'Haz clic derecho (o mantén pulsado en tablet) sobre una celda de cantidad de un cliente y selecciona «Añadir nota». La nota se mostrará como un indicador en la celda y podrás verla al pasar el cursor por encima. Para editarla o eliminarla, vuelve a abrir el menú sobre la misma celda.';
 
   @override
-  String get ordersTodayPreparingTemplate =>
+  String get ordersPreparingTemplate =>
       'Preparando plantilla para pedidos de hoy…';
 
   @override
@@ -1499,44 +1444,44 @@ class AppLocalizationsEs extends AppLocalizations {
   String get clientSaveSuccess => 'Cambios guardados correctamente';
 
   @override
-  String get ordersTodayMobileTitle => 'Pantalla no disponible';
+  String get ordersMobileTitle => 'Pantalla no disponible';
 
   @override
-  String get ordersTodayMobileDescription =>
+  String get ordersMobileDescription =>
       'La gestión de pedidos de hoy solo está disponible en pantallas de mayor tamaño. Por favor, accede desde un ordenador o una tablet.';
 
   @override
-  String get ordersTodayMobileNoOrders => 'No hay pedidos registrados hoy';
+  String get ordersMobileNoOrders => 'No hay pedidos registrados hoy';
 
   @override
-  String ordersTodayMobileProductCount(String count) {
+  String ordersMobileProductCount(String count) {
     return '$count uds.';
   }
 
   @override
-  String get ordersTodayMobileReservation => 'Reserva';
+  String get ordersMobileReservation => 'Reserva';
 
   @override
-  String get ordersTodayMobileCompensation => 'Compensación';
+  String get ordersMobileCompensation => 'Compensación';
 
   @override
-  String ordersTodayMobileRefund(String quantity) {
+  String ordersMobileRefund(String quantity) {
     return 'Abono: $quantity';
   }
 
   @override
-  String ordersTodayLastModified(String date) {
+  String ordersLastModified(String date) {
     return 'Última actualización: $date';
   }
 
   @override
-  String get ordersTodayNoOrdersToday => 'No hay pedidos para hoy';
+  String get ordersNoOrdersToday => 'No hay pedidos para hoy';
 
   @override
-  String get ordersTodayLiveConnected => 'Conectado en tiempo real';
+  String get ordersLiveConnected => 'Conectado en tiempo real';
 
   @override
-  String get ordersTodayLiveDisconnected => 'Desconectado';
+  String get ordersLiveDisconnected => 'Desconectado';
 
   @override
   String get statisticsComingSoon => 'Próximamente';
@@ -1588,4 +1533,64 @@ class AppLocalizationsEs extends AppLocalizations {
   String settingsAppVersionTitle(String version) {
     return 'Versión de la web $version';
   }
+
+  @override
+  String get ordersDateSelectorTitle => 'Seleccionar fecha';
+
+  @override
+  String get ordersDateSelectorAccept => 'Aceptar';
+
+  @override
+  String get ordersDateSelectorCancel => 'Cancelar';
+
+  @override
+  String ordersDateSelectorClients(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count clientes',
+      one: '1 cliente',
+      zero: 'Sin clientes',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get ordersDateSelectorNoOrders => 'Sin pedidos';
+
+  @override
+  String get ordersDateSelectorToday => 'HOY';
+
+  @override
+  String get ordersDateSelectorChange => 'Cambiar fecha';
+
+  @override
+  String get ordersPdfLabelClient => 'Cliente';
+
+  @override
+  String get ordersPdfLabelDateTime => 'Fecha y hora';
+
+  @override
+  String get ordersPdfLabelOrderNumber => 'Número de pedido';
+
+  @override
+  String get ordersPdfLabelProduct => 'Producto';
+
+  @override
+  String get ordersPdfLabelQuantity => 'Cantidad';
+
+  @override
+  String get ordersPdfLabelNotes => 'Notas';
+
+  @override
+  String get ordersPdfLabelShippingMethod => 'Método de envío';
+
+  @override
+  String get ordersPdfLabelTotalProducts => 'Cantidad de productos';
+
+  @override
+  String get ordersPdfLabelSubtotal => 'Subtotal';
+
+  @override
+  String get ordersExcelSheetName => 'Pedidos';
 }

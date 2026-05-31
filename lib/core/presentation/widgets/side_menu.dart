@@ -29,11 +29,7 @@ class SideMenu extends StatelessWidget {
     final items = [
       _MenuItemData(
         icon: Icons.receipt_long_rounded,
-        label: l10n.menuOrdersToday,
-      ),
-      _MenuItemData(
-        icon: Icons.history_rounded,
-        label: l10n.menuOrdersHistory,
+        label: l10n.menuOrders,
         hasDividerAfter: true,
       ),
       _MenuItemData(icon: Icons.people_rounded, label: l10n.menuClients),

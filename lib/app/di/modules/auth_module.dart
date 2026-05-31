@@ -8,6 +8,7 @@ import '../../../features/auth/data/repositories/auth_repository_impl.dart';
 import '../../../features/auth/domain/repositories/auth_repository.dart';
 import '../../../features/auth/domain/usecases/check_auto_login.dart';
 import '../../../features/auth/domain/usecases/get_current_user.dart';
+import '../../../features/auth/domain/usecases/get_user_color.dart';
 import '../../../features/auth/domain/usecases/get_user_name.dart';
 import '../../../features/auth/domain/usecases/save_user_name.dart';
 import '../../../features/auth/domain/usecases/sign_in.dart';
@@ -34,6 +35,7 @@ void registerAuthModule(GetIt sl) {
   sl.registerLazySingleton(() => SignOut(sl()));
   sl.registerLazySingleton(() => GetCurrentUser(sl()));
   sl.registerLazySingleton(() => GetUserName(sl()));
+  sl.registerLazySingleton(() => GetUserColor(sl()));
   sl.registerLazySingleton(() => SaveUserName(sl()));
   sl.registerLazySingleton(() => CheckAutoLogin(sl()));
 

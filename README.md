@@ -91,7 +91,7 @@ lib/
 ├── features/
 │   ├── auth/                # 🔐 Autenticación (Firebase Auth)
 │   ├── home/                # 📊 Dashboard con contadores
-│   ├── orders_today/        # 📋 Pedidos del día (Excel)
+│   ├── orders/        # 📋 Pedidos del día (Excel)
 │   ├── orders_history/      # 📈 Historial de pedidos
 │   ├── clients/             # 👥 Gestión de clientes
 │   ├── client_categories/   # 🏷️ Categorías de clientes

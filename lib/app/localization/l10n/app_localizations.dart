@@ -106,23 +106,17 @@ abstract class AppLocalizations {
   /// **'Inicio'**
   String get menuHome;
 
-  /// Ítem de menú: Pedidos de hoy
+  /// Ítem de menú: Pedidos
   ///
   /// In es, this message translates to:
-  /// **'Pedidos de hoy'**
-  String get menuOrdersToday;
+  /// **'Pedidos'**
+  String get menuOrders;
 
   /// Etiqueta superior del header de pedidos de hoy
   ///
   /// In es, this message translates to:
   /// **'HOY'**
-  String get ordersTodayHeaderLabel;
-
-  /// Ítem de menú: Historial de pedidos
-  ///
-  /// In es, this message translates to:
-  /// **'Historial de pedidos'**
-  String get menuOrdersHistory;
+  String get ordersHeaderLabel;
 
   /// Ítem de menú: Ajustes
   ///
@@ -182,259 +176,181 @@ abstract class AppLocalizations {
   ///
   /// In es, this message translates to:
   /// **'Carpeta de trabajo no configurada'**
-  String get ordersTodayNoFolderTitle;
+  String get ordersNoFolderTitle;
 
   /// Mensaje cuando no hay carpeta de trabajo configurada
   ///
   /// In es, this message translates to:
   /// **'Configura la carpeta de trabajo en Ajustes para poder ver los pedidos.'**
-  String get ordersTodayNoFolderMessage;
+  String get ordersNoFolderMessage;
 
   /// Botón para navegar a la página de ajustes desde pedidos de hoy
   ///
   /// In es, this message translates to:
   /// **'Ir a Ajustes'**
-  String get ordersTodayGoToSettings;
+  String get ordersGoToSettings;
 
   /// Título cuando no existe el archivo del día
   ///
   /// In es, this message translates to:
   /// **'No hay pedidos para hoy'**
-  String get ordersTodayNoFileTitle;
+  String get ordersNoFileTitle;
 
   /// Mensaje cuando no existe el archivo del día
   ///
   /// In es, this message translates to:
   /// **'El archivo de pedidos de hoy aún no existe. Puedes crearlo a partir de la plantilla.'**
-  String get ordersTodayNoFileMessage;
+  String get ordersNoFileMessage;
 
   /// Botón para crear el archivo del día desde la plantilla
   ///
   /// In es, this message translates to:
   /// **'Crear pedido de hoy'**
-  String get ordersTodayCreateFile;
+  String get ordersCreateFile;
 
   /// Error cuando falta la plantilla
   ///
   /// In es, this message translates to:
   /// **'No se encontró la plantilla (plantilla.xlsx) en la carpeta de trabajo.'**
-  String get ordersTodayErrorTemplateNotFound;
+  String get ordersErrorTemplateNotFound;
 
   /// Error de acceso a archivos
   ///
   /// In es, this message translates to:
   /// **'Error al acceder a los archivos. Verifica los permisos de la carpeta de trabajo.'**
-  String get ordersTodayErrorFileSystem;
+  String get ordersErrorFileSystem;
 
   /// Error de formato del Excel
   ///
   /// In es, this message translates to:
   /// **'El archivo Excel tiene un formato no válido.'**
-  String get ordersTodayErrorInvalidFormat;
+  String get ordersErrorInvalidFormat;
 
   /// Error desconocido en pedidos de hoy
   ///
   /// In es, this message translates to:
   /// **'Ha ocurrido un error inesperado.'**
-  String get ordersTodayErrorUnknown;
+  String get ordersErrorUnknown;
 
   /// Cabecera de la columna de pedidos totales por producto
   ///
   /// In es, this message translates to:
   /// **'PEDIDOS'**
-  String get ordersTodayColumnPedidos;
+  String get ordersColumnPedidos;
 
   /// Cabecera de la columna de stock disponible
   ///
   /// In es, this message translates to:
   /// **'STOCKS'**
-  String get ordersTodayColumnStocks;
+  String get ordersColumnStocks;
 
   /// Cabecera de la columna de unidades restantes (stocks - pedidos)
   ///
   /// In es, this message translates to:
   /// **'QUEDAN'**
-  String get ordersTodayColumnQuedan;
+  String get ordersColumnQuedan;
 
   /// Botón para reintentar la carga
   ///
   /// In es, this message translates to:
   /// **'Reintentar'**
-  String get ordersTodayRetry;
+  String get ordersRetry;
 
   /// Botón para eliminar filas seleccionadas
   ///
   /// In es, this message translates to:
   /// **'Eliminar'**
-  String get ordersTodayDelete;
+  String get ordersDelete;
 
   /// Botón para exportar la tabla de pedidos de hoy como Excel
   ///
   /// In es, this message translates to:
   /// **'Exportar Excel'**
-  String get ordersTodayExportExcel;
+  String get ordersExportExcel;
 
   /// Mensaje de éxito al exportar el Excel
   ///
   /// In es, this message translates to:
   /// **'Excel exportado correctamente'**
-  String get ordersTodayExportExcelSuccess;
+  String get ordersExportExcelSuccess;
 
   /// Mensaje de error al exportar el Excel
   ///
   /// In es, this message translates to:
   /// **'Error al exportar el Excel'**
-  String get ordersTodayExportExcelError;
+  String get ordersExportExcelError;
 
   /// Botón para mostrar la previsualización de pedidos
   ///
   /// In es, this message translates to:
   /// **'Mostrar preview'**
-  String get ordersTodayShowPreview;
+  String get ordersShowPreview;
 
   /// Botón para filtrar clientes por categoría en la tabla de pedidos de hoy
   ///
   /// In es, this message translates to:
   /// **'Filtrar clientes'**
-  String get ordersTodayFilterClients;
+  String get ordersFilterClients;
 
   /// Título del diálogo de filtro de clientes por categoría
   ///
   /// In es, this message translates to:
   /// **'Filtrar por categoría de cliente'**
-  String get ordersTodayFilterClientsDialogTitle;
+  String get ordersFilterClientsDialogTitle;
 
   /// Botón para seleccionar todas las categorías en el filtro
   ///
   /// In es, this message translates to:
   /// **'Seleccionar todas'**
-  String get ordersTodayFilterSelectAll;
+  String get ordersFilterSelectAll;
 
   /// Botón para limpiar la selección de categorías en el filtro
   ///
   /// In es, this message translates to:
   /// **'Limpiar selección'**
-  String get ordersTodayFilterClearAll;
+  String get ordersFilterClearAll;
 
   /// Botón para aplicar el filtro de categorías
   ///
   /// In es, this message translates to:
   /// **'Aplicar'**
-  String get ordersTodayFilterApply;
+  String get ordersFilterApply;
 
   /// Botón para cancelar el filtro de categorías
   ///
   /// In es, this message translates to:
   /// **'Cancelar'**
-  String get ordersTodayFilterCancel;
+  String get ordersFilterCancel;
 
   /// Mensaje cuando no existen categorías de clientes
   ///
   /// In es, this message translates to:
   /// **'No hay categorías configuradas'**
-  String get ordersTodayFilterNoCategories;
+  String get ordersFilterNoCategories;
 
   /// Etiqueta para clientes sin categoría asignada en el filtro
   ///
   /// In es, this message translates to:
   /// **'Sin categoría'**
-  String get ordersTodayFilterNoCategoryLabel;
+  String get ordersFilterNoCategoryLabel;
 
   /// Título del diálogo de confirmación para eliminar clientes
   ///
   /// In es, this message translates to:
   /// **'Eliminar clientes'**
-  String get ordersTodayDeleteConfirmTitle;
+  String get ordersDeleteConfirmTitle;
 
   /// Mensaje del diálogo de confirmación para eliminar clientes
   ///
   /// In es, this message translates to:
   /// **'{count, plural, =1{¿Eliminar el cliente seleccionado?\nEsta acción no se puede deshacer.} other{¿Eliminar los {count} clientes seleccionados?\nEsta acción no se puede deshacer.}}'**
-  String ordersTodayDeleteConfirmMessage(int count);
+  String ordersDeleteConfirmMessage(int count);
 
   /// Botón de confirmar eliminación en el diálogo
   ///
   /// In es, this message translates to:
   /// **'Eliminar'**
-  String get ordersTodayDeleteConfirm;
-
-  /// Título cuando no hay archivos históricos
-  ///
-  /// In es, this message translates to:
-  /// **'Sin pedidos anteriores'**
-  String get ordersHistoryEmptyTitle;
-
-  /// Mensaje cuando no hay pedidos históricos
-  ///
-  /// In es, this message translates to:
-  /// **'No hay pedidos de días anteriores registrados.'**
-  String get ordersHistoryEmptyMessage;
-
-  /// Error de servidor en historial
-  ///
-  /// In es, this message translates to:
-  /// **'Error al conectar con el servidor. Comprueba tu conexión e inténtalo de nuevo.'**
-  String get ordersHistoryErrorServer;
-
-  /// Error desconocido en historial
-  ///
-  /// In es, this message translates to:
-  /// **'Ha ocurrido un error inesperado.'**
-  String get ordersHistoryErrorUnknown;
-
-  /// Botón para reintentar la carga en historial
-  ///
-  /// In es, this message translates to:
-  /// **'Reintentar'**
-  String get ordersHistoryRetry;
-
-  /// Botón para volver al listado de fechas
-  ///
-  /// In es, this message translates to:
-  /// **'Volver al listado'**
-  String get ordersHistoryBackToList;
-
-  /// Placeholder del campo de búsqueda de clientes en historial
-  ///
-  /// In es, this message translates to:
-  /// **'Buscar cliente...'**
-  String get ordersHistorySearchClient;
-
-  /// Cabecera de la columna de clientes en historial
-  ///
-  /// In es, this message translates to:
-  /// **'Cliente'**
-  String get ordersHistoryColumnClient;
-
-  /// Cabecera de la columna de totales en historial
-  ///
-  /// In es, this message translates to:
-  /// **'Total'**
-  String get ordersHistoryColumnTotal;
-
-  /// Etiqueta de la fila de totales en historial
-  ///
-  /// In es, this message translates to:
-  /// **'Totales'**
-  String get ordersHistoryRowTotals;
-
-  /// Conteo de clientes en el listado de fechas
-  ///
-  /// In es, this message translates to:
-  /// **'{count} clientes'**
-  String ordersHistoryDateClients(int count);
-
-  /// Conteo de productos en el listado de fechas
-  ///
-  /// In es, this message translates to:
-  /// **'{count} productos'**
-  String ordersHistoryDateProducts(int count);
-
-  /// Etiqueta para la sección de la última semana en el historial
-  ///
-  /// In es, this message translates to:
-  /// **'Última semana'**
-  String get ordersHistoryLastWeek;
+  String get ordersDeleteConfirm;
 
   /// Etiqueta del contador de facturas del día en el dashboard
   ///
@@ -1382,109 +1298,109 @@ abstract class AppLocalizations {
   ///
   /// In es, this message translates to:
   /// **'Restablecer pedidos'**
-  String get ordersTodayResetOrders;
+  String get ordersResetOrders;
 
   /// Botón para añadir cliente o producto
   ///
   /// In es, this message translates to:
   /// **'Añadir'**
-  String get ordersTodayAdd;
+  String get ordersAdd;
 
   /// Opción del menú para añadir un cliente
   ///
   /// In es, this message translates to:
   /// **'Añadir cliente'**
-  String get ordersTodayAddClient;
+  String get ordersAddClient;
 
   /// Opción del menú para añadir un producto
   ///
   /// In es, this message translates to:
   /// **'Añadir producto'**
-  String get ordersTodayAddProduct;
+  String get ordersAddProduct;
 
   /// Título del diálogo para seleccionar clientes a añadir
   ///
   /// In es, this message translates to:
   /// **'Añadir clientes'**
-  String get ordersTodayAddClientDialogTitle;
+  String get ordersAddClientDialogTitle;
 
   /// Título del diálogo para seleccionar productos a añadir
   ///
   /// In es, this message translates to:
   /// **'Añadir productos'**
-  String get ordersTodayAddProductDialogTitle;
+  String get ordersAddProductDialogTitle;
 
   /// Mensaje cuando no hay elementos disponibles para añadir
   ///
   /// In es, this message translates to:
   /// **'Todos los elementos activos ya están en el pedido'**
-  String get ordersTodayAddDialogEmpty;
+  String get ordersAddDialogEmpty;
 
   /// Placeholder del campo de búsqueda en el diálogo de añadir
   ///
   /// In es, this message translates to:
   /// **'Buscar...'**
-  String get ordersTodayAddDialogSearch;
+  String get ordersAddDialogSearch;
 
   /// Cabecera de la columna de nombre en el diálogo de añadir
   ///
   /// In es, this message translates to:
   /// **'Nombre'**
-  String get ordersTodayAddDialogColumnName;
+  String get ordersAddDialogColumnName;
 
   /// Mensaje cuando la búsqueda no encuentra coincidencias
   ///
   /// In es, this message translates to:
   /// **'Sin resultados'**
-  String get ordersTodayAddDialogNoResults;
+  String get ordersAddDialogNoResults;
 
   /// Botón de confirmar en el diálogo de añadir con contador
   ///
   /// In es, this message translates to:
   /// **'Añadir ({count})'**
-  String ordersTodayAddDialogConfirm(int count);
+  String ordersAddDialogConfirm(int count);
 
   /// Botón desplegable para exportar pedidos
   ///
   /// In es, this message translates to:
   /// **'Exportar'**
-  String get ordersTodayExport;
+  String get ordersExport;
 
   /// Botón para quitar clientes seleccionados de la tabla
   ///
   /// In es, this message translates to:
   /// **'Quitar de la tabla'**
-  String get ordersTodayRemoveFromTable;
+  String get ordersRemoveFromTable;
 
   /// Título del diálogo de confirmación para quitar productos
   ///
   /// In es, this message translates to:
   /// **'Quitar productos'**
-  String get ordersTodayDeleteProductsConfirmTitle;
+  String get ordersDeleteProductsConfirmTitle;
 
   /// Mensaje del diálogo de confirmación para quitar productos
   ///
   /// In es, this message translates to:
   /// **'{count, plural, =1{¿Quitar el producto seleccionado de la tabla?\nEsta acción no se puede deshacer.} other{¿Quitar los {count} productos seleccionados de la tabla?\nEsta acción no se puede deshacer.}}'**
-  String ordersTodayDeleteProductsConfirmMessage(int count);
+  String ordersDeleteProductsConfirmMessage(int count);
 
   /// Título del diálogo de confirmación para restablecer pedidos
   ///
   /// In es, this message translates to:
   /// **'Restablecer pedidos'**
-  String get ordersTodayResetConfirmTitle;
+  String get ordersResetConfirmTitle;
 
   /// Mensaje del diálogo de confirmación para restablecer pedidos
   ///
   /// In es, this message translates to:
   /// **'{count, plural, =1{¿Restablecer los pedidos del cliente seleccionado? Los valores se pondrán a cero.} other{¿Restablecer los pedidos de los {count} clientes seleccionados? Los valores se pondrán a cero.}}'**
-  String ordersTodayResetConfirmMessage(int count);
+  String ordersResetConfirmMessage(int count);
 
   /// Botón de confirmar restablecimiento en el diálogo
   ///
   /// In es, this message translates to:
   /// **'Restablecer'**
-  String get ordersTodayResetConfirm;
+  String get ordersResetConfirm;
 
   /// Título de la sección de identidad de usuario en ajustes
   ///
@@ -1508,13 +1424,13 @@ abstract class AppLocalizations {
   ///
   /// In es, this message translates to:
   /// **'Celda bloqueada por {user}'**
-  String ordersTodayCellLocked(String user);
+  String ordersCellLocked(String user);
 
   /// Indicador de usuarios conectados en pedidos de hoy
   ///
   /// In es, this message translates to:
   /// **'{count, plural, =0{Sin usuarios} =1{1 usuario conectado} other{{count} usuarios conectados}}'**
-  String ordersTodayConnectedUsers(int count);
+  String ordersConnectedUsers(int count);
 
   /// Estado de factura: pagada
   ///
@@ -1552,12 +1468,6 @@ abstract class AppLocalizations {
   /// **'Sobrepagada'**
   String get invoiceStatusOverpaid;
 
-  /// Título del panel de navegación en historial de pedidos
-  ///
-  /// In es, this message translates to:
-  /// **'Navegación'**
-  String get ordersHistoryNavigation;
-
   /// Subtítulo del diálogo de vinculación de producto FD
   ///
   /// In es, this message translates to:
@@ -1568,403 +1478,403 @@ abstract class AppLocalizations {
   ///
   /// In es, this message translates to:
   /// **'No hay clientes añadidos'**
-  String get ordersTodayNoClients;
+  String get ordersNoClients;
 
   /// Hint debajo del placeholder de no clientes indicando cómo añadir uno
   ///
   /// In es, this message translates to:
   /// **'Pulsa el botón + de la cabecera para añadir clientes.'**
-  String get ordersTodayNoClientsHint;
+  String get ordersNoClientsHint;
 
   /// Opción del menú contextual para marcar una celda como compensación
   ///
   /// In es, this message translates to:
   /// **'Marcar como compensación'**
-  String get ordersTodayMarkCompensation;
+  String get ordersMarkCompensation;
 
   /// Opción del menú contextual para desmarcar una celda como compensación
   ///
   /// In es, this message translates to:
   /// **'Desmarcar como compensación'**
-  String get ordersTodayUnmarkCompensation;
+  String get ordersUnmarkCompensation;
 
   /// Opción del menú contextual para marcar una celda como reserva
   ///
   /// In es, this message translates to:
   /// **'Marcar como reserva'**
-  String get ordersTodayMarkReservation;
+  String get ordersMarkReservation;
 
   /// Opción del menú contextual para desmarcar una celda como reserva
   ///
   /// In es, this message translates to:
   /// **'Desmarcar como reserva'**
-  String get ordersTodayUnmarkReservation;
+  String get ordersUnmarkReservation;
 
   /// Opción del menú contextual para marcar stock estricto
   ///
   /// In es, this message translates to:
   /// **'Marcar como stock estricto'**
-  String get ordersTodayMarkStrictStock;
+  String get ordersMarkStrictStock;
 
   /// Opción del menú contextual para desmarcar stock estricto
   ///
   /// In es, this message translates to:
   /// **'Desmarcar como stock estricto'**
-  String get ordersTodayUnmarkStrictStock;
+  String get ordersUnmarkStrictStock;
 
   /// Tooltip para celda marcada como compensación
   ///
   /// In es, this message translates to:
   /// **'Compensación'**
-  String get ordersTodayTooltipCompensation;
+  String get ordersTooltipCompensation;
 
   /// Tooltip para celda marcada como reserva
   ///
   /// In es, this message translates to:
   /// **'Reserva'**
-  String get ordersTodayTooltipReservation;
+  String get ordersTooltipReservation;
 
   /// Tooltip para celda marcada como stock estricto
   ///
   /// In es, this message translates to:
   /// **'Stock estricto'**
-  String get ordersTodayTooltipStrictStock;
+  String get ordersTooltipStrictStock;
 
   /// Opción del menú contextual para añadir nota a una celda
   ///
   /// In es, this message translates to:
   /// **'Añadir nota'**
-  String get ordersTodayAddNote;
+  String get ordersAddNote;
 
   /// Opción del menú contextual para editar nota existente
   ///
   /// In es, this message translates to:
   /// **'Editar nota'**
-  String get ordersTodayEditNote;
+  String get ordersEditNote;
 
   /// Opción del menú contextual para eliminar nota de una celda
   ///
   /// In es, this message translates to:
   /// **'Eliminar nota'**
-  String get ordersTodayRemoveNote;
+  String get ordersRemoveNote;
 
   /// Título del diálogo para añadir o editar nota
   ///
   /// In es, this message translates to:
   /// **'Nota'**
-  String get ordersTodayNoteDialogTitle;
+  String get ordersNoteDialogTitle;
 
   /// Hint del campo de texto en el diálogo de nota
   ///
   /// In es, this message translates to:
   /// **'Escribe una nota (máx. 100 caracteres)'**
-  String get ordersTodayNoteDialogHint;
+  String get ordersNoteDialogHint;
 
   /// Botón de guardar en el diálogo de nota
   ///
   /// In es, this message translates to:
   /// **'Guardar'**
-  String get ordersTodayNoteDialogSave;
+  String get ordersNoteDialogSave;
 
   /// Botón de cancelar en el diálogo de nota
   ///
   /// In es, this message translates to:
   /// **'Cancelar'**
-  String get ordersTodayNoteDialogCancel;
+  String get ordersNoteDialogCancel;
 
   /// Opción del menú contextual para añadir abono
   ///
   /// In es, this message translates to:
   /// **'Añadir abono'**
-  String get ordersTodayAddRefund;
+  String get ordersAddRefund;
 
   /// Opción del menú contextual para editar abono existente
   ///
   /// In es, this message translates to:
   /// **'Editar abono'**
-  String get ordersTodayEditRefund;
+  String get ordersEditRefund;
 
   /// Opción del menú contextual para eliminar abono
   ///
   /// In es, this message translates to:
   /// **'Eliminar abono'**
-  String get ordersTodayRemoveRefund;
+  String get ordersRemoveRefund;
 
   /// Título del diálogo de abono
   ///
   /// In es, this message translates to:
   /// **'Abono'**
-  String get ordersTodayRefundDialogTitle;
+  String get ordersRefundDialogTitle;
 
   /// Label del campo de texto en el diálogo de abono
   ///
   /// In es, this message translates to:
   /// **'Cantidad de productos'**
-  String get ordersTodayRefundDialogLabel;
+  String get ordersRefundDialogLabel;
 
   /// Tooltip para celda con abono
   ///
   /// In es, this message translates to:
   /// **'Abono'**
-  String get ordersTodayTooltipRefund;
+  String get ordersTooltipRefund;
 
   /// Opción del menú contextual de cliente para generar hoja de pedido
   ///
   /// In es, this message translates to:
   /// **'Generar hoja de pedido'**
-  String get ordersTodayContextMenuGenerateOrderSheet;
+  String get ordersContextMenuGenerateOrderSheet;
 
   /// Mensaje cuando se intenta generar hoja de pedido de un cliente sin productos
   ///
   /// In es, this message translates to:
   /// **'Este cliente no tiene productos con cantidad asignada.'**
-  String get ordersTodayGenerateOrderSheetEmpty;
+  String get ordersGenerateOrderSheetEmpty;
 
   /// Opción del menú contextual de cliente para generar factura provisional (deshabilitada)
   ///
   /// In es, this message translates to:
   /// **'Generar factura provisional'**
-  String get ordersTodayContextMenuGenerateProvisionalInvoice;
+  String get ordersContextMenuGenerateProvisionalInvoice;
 
   /// Opción del menú contextual de cliente para añadir una nota de cliente
   ///
   /// In es, this message translates to:
   /// **'Añadir nota'**
-  String get ordersTodayContextMenuAddClientNote;
+  String get ordersContextMenuAddClientNote;
 
   /// Opción del menú contextual de cliente para editar una nota de cliente existente
   ///
   /// In es, this message translates to:
   /// **'Editar nota'**
-  String get ordersTodayContextMenuEditClientNote;
+  String get ordersContextMenuEditClientNote;
 
   /// Opción del menú contextual de cliente para eliminar una nota de cliente
   ///
   /// In es, this message translates to:
   /// **'Eliminar nota'**
-  String get ordersTodayContextMenuDeleteClientNote;
+  String get ordersContextMenuDeleteClientNote;
 
   /// Título del diálogo de nota de cliente
   ///
   /// In es, this message translates to:
   /// **'Nota de cliente'**
-  String get ordersTodayClientNoteDialogTitle;
+  String get ordersClientNoteDialogTitle;
 
   /// Hint del campo de texto en el diálogo de nota de cliente
   ///
   /// In es, this message translates to:
   /// **'Escribe una nota (máx. 200 caracteres)'**
-  String get ordersTodayClientNoteDialogHint;
+  String get ordersClientNoteDialogHint;
 
   /// Opción del menú contextual de cliente para cambiar el cliente de la columna
   ///
   /// In es, this message translates to:
   /// **'Cambiar cliente'**
-  String get ordersTodayContextMenuChangeClient;
+  String get ordersContextMenuChangeClient;
 
   /// Título del diálogo para seleccionar el nuevo cliente
   ///
   /// In es, this message translates to:
   /// **'Cambiar cliente'**
-  String get ordersTodayChangeClientDialogTitle;
+  String get ordersChangeClientDialogTitle;
 
   /// Botón de confirmación en el diálogo de cambiar cliente
   ///
   /// In es, this message translates to:
   /// **'Confirmar'**
-  String get ordersTodayChangeClientDialogConfirm;
+  String get ordersChangeClientDialogConfirm;
 
   /// Opción del menú contextual de cliente para restablecer pedido
   ///
   /// In es, this message translates to:
   /// **'Restablecer pedido'**
-  String get ordersTodayContextMenuResetOrder;
+  String get ordersContextMenuResetOrder;
 
   /// Opción del menú contextual de cliente para eliminar cliente
   ///
   /// In es, this message translates to:
   /// **'Eliminar cliente'**
-  String get ordersTodayContextMenuDeleteClient;
+  String get ordersContextMenuDeleteClient;
 
   /// Opción del menú contextual de producto para eliminar producto
   ///
   /// In es, this message translates to:
   /// **'Eliminar producto'**
-  String get ordersTodayContextMenuDeleteProduct;
+  String get ordersContextMenuDeleteProduct;
 
   /// Título del diálogo de ayuda informativa de la tabla de pedidos
   ///
   /// In es, this message translates to:
   /// **'Ayuda de la tabla de pedidos'**
-  String get ordersTodayInfoDialogTitle;
+  String get ordersInfoDialogTitle;
 
   /// Botón para cerrar el diálogo de ayuda informativa
   ///
   /// In es, this message translates to:
   /// **'Entendido'**
-  String get ordersTodayInfoDialogClose;
+  String get ordersInfoDialogClose;
 
   /// Título de la acción añadir cliente en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Añadir un cliente'**
-  String get ordersTodayInfoAddClientTitle;
+  String get ordersInfoAddClientTitle;
 
   /// Descripción de la acción añadir cliente en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Pulsa el botón «+ Añadir cliente» en la parte superior derecha de la tabla.'**
-  String get ordersTodayInfoAddClientDesc;
+  String get ordersInfoAddClientDesc;
 
   /// Título de la acción añadir producto en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Añadir un producto'**
-  String get ordersTodayInfoAddProductTitle;
+  String get ordersInfoAddProductTitle;
 
   /// Descripción de la acción añadir producto en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Pulsa el botón «+ Añadir producto» en la parte inferior izquierda de la tabla.'**
-  String get ordersTodayInfoAddProductDesc;
+  String get ordersInfoAddProductDesc;
 
   /// Título de la acción modificar stock en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Modificar el stock'**
-  String get ordersTodayInfoEditStockTitle;
+  String get ordersInfoEditStockTitle;
 
   /// Descripción de la acción modificar stock en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Haz clic sobre la celda de la columna STOCKS del producto que deseas modificar e introduce el nuevo valor.'**
-  String get ordersTodayInfoEditStockDesc;
+  String get ordersInfoEditStockDesc;
 
   /// Título de la acción stock estricto en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Poner stock como estricto'**
-  String get ordersTodayInfoStrictStockTitle;
+  String get ordersInfoStrictStockTitle;
 
   /// Descripción de la acción stock estricto en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Haz clic derecho (o mantén pulsado en tablet) sobre la celda de stock de un producto y selecciona «Marcar stock estricto» en el menú contextual.'**
-  String get ordersTodayInfoStrictStockDesc;
+  String get ordersInfoStrictStockDesc;
 
   /// Título de la acción asignar cantidad en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Asignar cantidad a un cliente'**
-  String get ordersTodayInfoAssignQtyTitle;
+  String get ordersInfoAssignQtyTitle;
 
   /// Descripción de la acción asignar cantidad en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Haz clic sobre la celda en la intersección del producto y el cliente, e introduce la cantidad deseada. Usa las flechas del teclado o Tab para moverte entre celdas.'**
-  String get ordersTodayInfoAssignQtyDesc;
+  String get ordersInfoAssignQtyDesc;
 
   /// Título de la acción compensación en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Marcar compensación'**
-  String get ordersTodayInfoCompensationTitle;
+  String get ordersInfoCompensationTitle;
 
   /// Descripción de la acción compensación en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Haz clic derecho (o mantén pulsado en tablet) sobre una celda de cantidad de un cliente y selecciona «Marcar compensación» en el menú contextual.'**
-  String get ordersTodayInfoCompensationDesc;
+  String get ordersInfoCompensationDesc;
 
   /// Título de la acción reserva en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Marcar reserva'**
-  String get ordersTodayInfoReservationTitle;
+  String get ordersInfoReservationTitle;
 
   /// Descripción de la acción reserva en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Haz clic derecho (o mantén pulsado en tablet) sobre una celda de cantidad de un cliente y selecciona «Marcar reserva» en el menú contextual.'**
-  String get ordersTodayInfoReservationDesc;
+  String get ordersInfoReservationDesc;
 
   /// Título de la acción quitar cliente en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Quitar un cliente'**
-  String get ordersTodayInfoRemoveClientTitle;
+  String get ordersInfoRemoveClientTitle;
 
   /// Descripción de la acción quitar cliente en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera de la tabla y selecciona «Eliminar cliente» en el menú contextual.'**
-  String get ordersTodayInfoRemoveClientDesc;
+  String get ordersInfoRemoveClientDesc;
 
   /// Título de la acción quitar producto en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Quitar un producto'**
-  String get ordersTodayInfoRemoveProductTitle;
+  String get ordersInfoRemoveProductTitle;
 
   /// Descripción de la acción quitar producto en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del producto en la columna izquierda y selecciona «Eliminar producto» en el menú contextual.'**
-  String get ordersTodayInfoRemoveProductDesc;
+  String get ordersInfoRemoveProductDesc;
 
   /// Título de la acción restablecer pedido en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Restablecer pedido de un cliente'**
-  String get ordersTodayInfoResetOrderTitle;
+  String get ordersInfoResetOrderTitle;
 
   /// Descripción de la acción restablecer pedido en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera y selecciona «Restablecer pedido» en el menú contextual. Esto pondrá a cero todas las cantidades de ese cliente.'**
-  String get ordersTodayInfoResetOrderDesc;
+  String get ordersInfoResetOrderDesc;
 
   /// Título de la acción generar hoja de pedido en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Generar hoja de pedido'**
-  String get ordersTodayInfoOrderSheetTitle;
+  String get ordersInfoOrderSheetTitle;
 
   /// Descripción de la acción generar hoja de pedido en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera y selecciona «Generar hoja de pedido». Genera un documento con las cantidades de productos solicitadas por el cliente, útil para que los trabajadores preparen el pedido.'**
-  String get ordersTodayInfoOrderSheetDesc;
+  String get ordersInfoOrderSheetDesc;
 
   /// Título de la acción generar factura provisional en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Generar factura provisional'**
-  String get ordersTodayInfoProvisionalInvoiceTitle;
+  String get ordersInfoProvisionalInvoiceTitle;
 
   /// Descripción de la acción generar factura provisional en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera y selecciona «Generar factura provisional». Crea la factura en estado provisional en Factura Directa con los productos y cantidades del pedido del cliente.'**
-  String get ordersTodayInfoProvisionalInvoiceDesc;
+  String get ordersInfoProvisionalInvoiceDesc;
 
   /// Título de la acción crear nota en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Crear una nota en una celda'**
-  String get ordersTodayInfoCellNoteTitle;
+  String get ordersInfoCellNoteTitle;
 
   /// Descripción de la acción crear nota en el diálogo de ayuda
   ///
   /// In es, this message translates to:
   /// **'Haz clic derecho (o mantén pulsado en tablet) sobre una celda de cantidad de un cliente y selecciona «Añadir nota». La nota se mostrará como un indicador en la celda y podrás verla al pasar el cursor por encima. Para editarla o eliminarla, vuelve a abrir el menú sobre la misma celda.'**
-  String get ordersTodayInfoCellNoteDesc;
+  String get ordersInfoCellNoteDesc;
 
   /// Mensaje mostrado durante la animación de auto-creación del documento de pedidos del día
   ///
   /// In es, this message translates to:
   /// **'Preparando plantilla para pedidos de hoy…'**
-  String get ordersTodayPreparingTemplate;
+  String get ordersPreparingTemplate;
 
   /// Mensaje de carga mientras se prepara la preview de factura
   ///
@@ -2762,67 +2672,67 @@ abstract class AppLocalizations {
   ///
   /// In es, this message translates to:
   /// **'Pantalla no disponible'**
-  String get ordersTodayMobileTitle;
+  String get ordersMobileTitle;
 
   /// Descripción del placeholder cuando se accede a Pedidos de hoy desde un dispositivo con pantalla pequeña
   ///
   /// In es, this message translates to:
   /// **'La gestión de pedidos de hoy solo está disponible en pantallas de mayor tamaño. Por favor, accede desde un ordenador o una tablet.'**
-  String get ordersTodayMobileDescription;
+  String get ordersMobileDescription;
 
   /// Mensaje cuando el fichero de pedidos existe pero ningún cliente tiene datos
   ///
   /// In es, this message translates to:
   /// **'No hay pedidos registrados hoy'**
-  String get ordersTodayMobileNoOrders;
+  String get ordersMobileNoOrders;
 
   /// Total de productos (cantidades + abonos) en la tarjeta colapsada del cliente
   ///
   /// In es, this message translates to:
   /// **'{count} uds.'**
-  String ordersTodayMobileProductCount(String count);
+  String ordersMobileProductCount(String count);
 
   /// Etiqueta del badge de reserva en la vista móvil de pedidos
   ///
   /// In es, this message translates to:
   /// **'Reserva'**
-  String get ordersTodayMobileReservation;
+  String get ordersMobileReservation;
 
   /// Etiqueta del badge de compensación en la vista móvil de pedidos
   ///
   /// In es, this message translates to:
   /// **'Compensación'**
-  String get ordersTodayMobileCompensation;
+  String get ordersMobileCompensation;
 
   /// Etiqueta del badge de abono con cantidad en la vista móvil de pedidos
   ///
   /// In es, this message translates to:
   /// **'Abono: {quantity}'**
-  String ordersTodayMobileRefund(String quantity);
+  String ordersMobileRefund(String quantity);
 
   /// Fecha y hora de la última modificación del documento de pedidos
   ///
   /// In es, this message translates to:
   /// **'Última actualización: {date}'**
-  String ordersTodayLastModified(String date);
+  String ordersLastModified(String date);
 
   /// Mensaje cuando no existe el documento de pedidos del día en la vista de solo lectura
   ///
   /// In es, this message translates to:
   /// **'No hay pedidos para hoy'**
-  String get ordersTodayNoOrdersToday;
+  String get ordersNoOrdersToday;
 
   /// Tooltip del indicador de conexión en vivo
   ///
   /// In es, this message translates to:
   /// **'Conectado en tiempo real'**
-  String get ordersTodayLiveConnected;
+  String get ordersLiveConnected;
 
   /// Tooltip del indicador cuando se pierde la conexión
   ///
   /// In es, this message translates to:
   /// **'Desconectado'**
-  String get ordersTodayLiveDisconnected;
+  String get ordersLiveDisconnected;
 
   /// Texto placeholder en la página de estadísticas
   ///
@@ -2913,6 +2823,108 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Versión de la web {version}'**
   String settingsAppVersionTitle(String version);
+
+  /// Título del dialog de selección de fecha de pedidos
+  ///
+  /// In es, this message translates to:
+  /// **'Seleccionar fecha'**
+  String get ordersDateSelectorTitle;
+
+  /// Botón aceptar del dialog de selección de fecha
+  ///
+  /// In es, this message translates to:
+  /// **'Aceptar'**
+  String get ordersDateSelectorAccept;
+
+  /// Botón cancelar del dialog de selección de fecha
+  ///
+  /// In es, this message translates to:
+  /// **'Cancelar'**
+  String get ordersDateSelectorCancel;
+
+  /// Resumen de clientes en el día seleccionado
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =0{Sin clientes} =1{1 cliente} other{{count} clientes}}'**
+  String ordersDateSelectorClients(int count);
+
+  /// Texto cuando no hay archivo de pedidos para la fecha seleccionada
+  ///
+  /// In es, this message translates to:
+  /// **'Sin pedidos'**
+  String get ordersDateSelectorNoOrders;
+
+  /// Etiqueta para indicar que la fecha seleccionada es hoy
+  ///
+  /// In es, this message translates to:
+  /// **'HOY'**
+  String get ordersDateSelectorToday;
+
+  /// Texto del badge para abrir el selector de fecha en la tabla
+  ///
+  /// In es, this message translates to:
+  /// **'Cambiar fecha'**
+  String get ordersDateSelectorChange;
+
+  /// Etiqueta 'Cliente' en la hoja de pedido PDF
+  ///
+  /// In es, this message translates to:
+  /// **'Cliente'**
+  String get ordersPdfLabelClient;
+
+  /// Etiqueta 'Fecha y hora' en la hoja de pedido PDF
+  ///
+  /// In es, this message translates to:
+  /// **'Fecha y hora'**
+  String get ordersPdfLabelDateTime;
+
+  /// Etiqueta 'Número de pedido' en la hoja de pedido PDF
+  ///
+  /// In es, this message translates to:
+  /// **'Número de pedido'**
+  String get ordersPdfLabelOrderNumber;
+
+  /// Cabecera de columna 'Producto' en la tabla del PDF
+  ///
+  /// In es, this message translates to:
+  /// **'Producto'**
+  String get ordersPdfLabelProduct;
+
+  /// Cabecera de columna 'Cantidad' en la tabla del PDF
+  ///
+  /// In es, this message translates to:
+  /// **'Cantidad'**
+  String get ordersPdfLabelQuantity;
+
+  /// Cabecera de columna 'Notas' en la tabla del PDF
+  ///
+  /// In es, this message translates to:
+  /// **'Notas'**
+  String get ordersPdfLabelNotes;
+
+  /// Etiqueta 'Método de envío' en el resumen del PDF
+  ///
+  /// In es, this message translates to:
+  /// **'Método de envío'**
+  String get ordersPdfLabelShippingMethod;
+
+  /// Etiqueta 'Cantidad de productos' en el resumen del PDF
+  ///
+  /// In es, this message translates to:
+  /// **'Cantidad de productos'**
+  String get ordersPdfLabelTotalProducts;
+
+  /// Etiqueta 'Subtotal' en el resumen del PDF
+  ///
+  /// In es, this message translates to:
+  /// **'Subtotal'**
+  String get ordersPdfLabelSubtotal;
+
+  /// Nombre de la hoja en el archivo Excel exportado
+  ///
+  /// In es, this message translates to:
+  /// **'Pedidos'**
+  String get ordersExcelSheetName;
 }
 
 class _AppLocalizationsDelegate

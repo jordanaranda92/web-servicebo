@@ -8,17 +8,13 @@
   "@menuHome": {
     "description": "Ítem de menú: Inicio"
   },
-  "menuOrdersToday": "Pedidos de hoy",
-  "@menuOrdersToday": {
-    "description": "Ítem de menú: Pedidos de hoy"
+  "menuOrders": "Pedidos",
+  "@menuOrders": {
+    "description": "Ítem de menú: Pedidos"
   },
-  "ordersTodayHeaderLabel": "HOY",
-  "@ordersTodayHeaderLabel": {
+  "ordersHeaderLabel": "HOY",
+  "@ordersHeaderLabel": {
     "description": "Etiqueta superior del header de pedidos de hoy"
-  },
-  "menuOrdersHistory": "Historial de pedidos",
-  "@menuOrdersHistory": {
-    "description": "Ítem de menú: Historial de pedidos"
   },
   "menuSettings": "Ajustes",
   "@menuSettings": {
@@ -56,120 +52,120 @@
   "@settingsCancel": {
     "description": "Botón para cancelar una acción"
   },
-  "ordersTodayNoFolderTitle": "Carpeta de trabajo no configurada",
-  "@ordersTodayNoFolderTitle": {
+  "ordersNoFolderTitle": "Carpeta de trabajo no configurada",
+  "@ordersNoFolderTitle": {
     "description": "Título cuando no hay carpeta de trabajo configurada en pedidos de hoy"
   },
-  "ordersTodayNoFolderMessage": "Configura la carpeta de trabajo en Ajustes para poder ver los pedidos.",
-  "@ordersTodayNoFolderMessage": {
+  "ordersNoFolderMessage": "Configura la carpeta de trabajo en Ajustes para poder ver los pedidos.",
+  "@ordersNoFolderMessage": {
     "description": "Mensaje cuando no hay carpeta de trabajo configurada"
   },
-  "ordersTodayGoToSettings": "Ir a Ajustes",
-  "@ordersTodayGoToSettings": {
+  "ordersGoToSettings": "Ir a Ajustes",
+  "@ordersGoToSettings": {
     "description": "Botón para navegar a la página de ajustes desde pedidos de hoy"
   },
-  "ordersTodayNoFileTitle": "No hay pedidos para hoy",
-  "@ordersTodayNoFileTitle": {
+  "ordersNoFileTitle": "No hay pedidos para hoy",
+  "@ordersNoFileTitle": {
     "description": "Título cuando no existe el archivo del día"
   },
-  "ordersTodayNoFileMessage": "El archivo de pedidos de hoy aún no existe. Puedes crearlo a partir de la plantilla.",
-  "@ordersTodayNoFileMessage": {
+  "ordersNoFileMessage": "El archivo de pedidos de hoy aún no existe. Puedes crearlo a partir de la plantilla.",
+  "@ordersNoFileMessage": {
     "description": "Mensaje cuando no existe el archivo del día"
   },
-  "ordersTodayCreateFile": "Crear pedido de hoy",
-  "@ordersTodayCreateFile": {
+  "ordersCreateFile": "Crear pedido de hoy",
+  "@ordersCreateFile": {
     "description": "Botón para crear el archivo del día desde la plantilla"
   },
-  "ordersTodayErrorTemplateNotFound": "No se encontró la plantilla (plantilla.xlsx) en la carpeta de trabajo.",
-  "@ordersTodayErrorTemplateNotFound": {
+  "ordersErrorTemplateNotFound": "No se encontró la plantilla (plantilla.xlsx) en la carpeta de trabajo.",
+  "@ordersErrorTemplateNotFound": {
     "description": "Error cuando falta la plantilla"
   },
-  "ordersTodayErrorFileSystem": "Error al acceder a los archivos. Verifica los permisos de la carpeta de trabajo.",
-  "@ordersTodayErrorFileSystem": {
+  "ordersErrorFileSystem": "Error al acceder a los archivos. Verifica los permisos de la carpeta de trabajo.",
+  "@ordersErrorFileSystem": {
     "description": "Error de acceso a archivos"
   },
-  "ordersTodayErrorInvalidFormat": "El archivo Excel tiene un formato no válido.",
-  "@ordersTodayErrorInvalidFormat": {
+  "ordersErrorInvalidFormat": "El archivo Excel tiene un formato no válido.",
+  "@ordersErrorInvalidFormat": {
     "description": "Error de formato del Excel"
   },
-  "ordersTodayErrorUnknown": "Ha ocurrido un error inesperado.",
-  "@ordersTodayErrorUnknown": {
+  "ordersErrorUnknown": "Ha ocurrido un error inesperado.",
+  "@ordersErrorUnknown": {
     "description": "Error desconocido en pedidos de hoy"
   },
-  "ordersTodayColumnPedidos": "PEDIDOS",
-  "@ordersTodayColumnPedidos": {
+  "ordersColumnPedidos": "PEDIDOS",
+  "@ordersColumnPedidos": {
     "description": "Cabecera de la columna de pedidos totales por producto"
   },
-  "ordersTodayColumnStocks": "STOCKS",
-  "@ordersTodayColumnStocks": {
+  "ordersColumnStocks": "STOCKS",
+  "@ordersColumnStocks": {
     "description": "Cabecera de la columna de stock disponible"
   },
-  "ordersTodayColumnQuedan": "QUEDAN",
-  "@ordersTodayColumnQuedan": {
+  "ordersColumnQuedan": "QUEDAN",
+  "@ordersColumnQuedan": {
     "description": "Cabecera de la columna de unidades restantes (stocks - pedidos)"
   },
-  "ordersTodayRetry": "Reintentar",
-  "@ordersTodayRetry": {
+  "ordersRetry": "Reintentar",
+  "@ordersRetry": {
     "description": "Botón para reintentar la carga"
   },
-  "ordersTodayDelete": "Eliminar",
-  "@ordersTodayDelete": {
+  "ordersDelete": "Eliminar",
+  "@ordersDelete": {
     "description": "Botón para eliminar filas seleccionadas"
   },
-  "ordersTodayExportExcel": "Exportar Excel",
-  "@ordersTodayExportExcel": {
+  "ordersExportExcel": "Exportar Excel",
+  "@ordersExportExcel": {
     "description": "Botón para exportar la tabla de pedidos de hoy como Excel"
   },
-  "ordersTodayExportExcelSuccess": "Excel exportado correctamente",
-  "@ordersTodayExportExcelSuccess": {
+  "ordersExportExcelSuccess": "Excel exportado correctamente",
+  "@ordersExportExcelSuccess": {
     "description": "Mensaje de éxito al exportar el Excel"
   },
-  "ordersTodayExportExcelError": "Error al exportar el Excel",
-  "@ordersTodayExportExcelError": {
+  "ordersExportExcelError": "Error al exportar el Excel",
+  "@ordersExportExcelError": {
     "description": "Mensaje de error al exportar el Excel"
   },
-  "ordersTodayShowPreview": "Mostrar preview",
-  "@ordersTodayShowPreview": {
+  "ordersShowPreview": "Mostrar preview",
+  "@ordersShowPreview": {
     "description": "Botón para mostrar la previsualización de pedidos"
   },
-  "ordersTodayFilterClients": "Filtrar clientes",
-  "@ordersTodayFilterClients": {
+  "ordersFilterClients": "Filtrar clientes",
+  "@ordersFilterClients": {
     "description": "Botón para filtrar clientes por categoría en la tabla de pedidos de hoy"
   },
-  "ordersTodayFilterClientsDialogTitle": "Filtrar por categoría de cliente",
-  "@ordersTodayFilterClientsDialogTitle": {
+  "ordersFilterClientsDialogTitle": "Filtrar por categoría de cliente",
+  "@ordersFilterClientsDialogTitle": {
     "description": "Título del diálogo de filtro de clientes por categoría"
   },
-  "ordersTodayFilterSelectAll": "Seleccionar todas",
-  "@ordersTodayFilterSelectAll": {
+  "ordersFilterSelectAll": "Seleccionar todas",
+  "@ordersFilterSelectAll": {
     "description": "Botón para seleccionar todas las categorías en el filtro"
   },
-  "ordersTodayFilterClearAll": "Limpiar selección",
-  "@ordersTodayFilterClearAll": {
+  "ordersFilterClearAll": "Limpiar selección",
+  "@ordersFilterClearAll": {
     "description": "Botón para limpiar la selección de categorías en el filtro"
   },
-  "ordersTodayFilterApply": "Aplicar",
-  "@ordersTodayFilterApply": {
+  "ordersFilterApply": "Aplicar",
+  "@ordersFilterApply": {
     "description": "Botón para aplicar el filtro de categorías"
   },
-  "ordersTodayFilterCancel": "Cancelar",
-  "@ordersTodayFilterCancel": {
+  "ordersFilterCancel": "Cancelar",
+  "@ordersFilterCancel": {
     "description": "Botón para cancelar el filtro de categorías"
   },
-  "ordersTodayFilterNoCategories": "No hay categorías configuradas",
-  "@ordersTodayFilterNoCategories": {
+  "ordersFilterNoCategories": "No hay categorías configuradas",
+  "@ordersFilterNoCategories": {
     "description": "Mensaje cuando no existen categorías de clientes"
   },
-  "ordersTodayFilterNoCategoryLabel": "Sin categoría",
-  "@ordersTodayFilterNoCategoryLabel": {
+  "ordersFilterNoCategoryLabel": "Sin categoría",
+  "@ordersFilterNoCategoryLabel": {
     "description": "Etiqueta para clientes sin categoría asignada en el filtro"
   },
-  "ordersTodayDeleteConfirmTitle": "Eliminar clientes",
-  "@ordersTodayDeleteConfirmTitle": {
+  "ordersDeleteConfirmTitle": "Eliminar clientes",
+  "@ordersDeleteConfirmTitle": {
     "description": "Título del diálogo de confirmación para eliminar clientes"
   },
-  "ordersTodayDeleteConfirmMessage": "{count, plural, =1{¿Eliminar el cliente seleccionado?\nEsta acción no se puede deshacer.} other{¿Eliminar los {count} clientes seleccionados?\nEsta acción no se puede deshacer.}}",
-  "@ordersTodayDeleteConfirmMessage": {
+  "ordersDeleteConfirmMessage": "{count, plural, =1{¿Eliminar el cliente seleccionado?\nEsta acción no se puede deshacer.} other{¿Eliminar los {count} clientes seleccionados?\nEsta acción no se puede deshacer.}}",
+  "@ordersDeleteConfirmMessage": {
     "description": "Mensaje del diálogo de confirmación para eliminar clientes",
     "placeholders": {
       "count": {
@@ -177,71 +173,9 @@
       }
     }
   },
-  "ordersTodayDeleteConfirm": "Eliminar",
-  "@ordersTodayDeleteConfirm": {
+  "ordersDeleteConfirm": "Eliminar",
+  "@ordersDeleteConfirm": {
     "description": "Botón de confirmar eliminación en el diálogo"
-  },
-  "ordersHistoryEmptyTitle": "Sin pedidos anteriores",
-  "@ordersHistoryEmptyTitle": {
-    "description": "Título cuando no hay archivos históricos"
-  },
-  "ordersHistoryEmptyMessage": "No hay pedidos de días anteriores registrados.",
-  "@ordersHistoryEmptyMessage": {
-    "description": "Mensaje cuando no hay pedidos históricos"
-  },
-  "ordersHistoryErrorServer": "Error al conectar con el servidor. Comprueba tu conexión e inténtalo de nuevo.",
-  "@ordersHistoryErrorServer": {
-    "description": "Error de servidor en historial"
-  },
-  "ordersHistoryErrorUnknown": "Ha ocurrido un error inesperado.",
-  "@ordersHistoryErrorUnknown": {
-    "description": "Error desconocido en historial"
-  },
-  "ordersHistoryRetry": "Reintentar",
-  "@ordersHistoryRetry": {
-    "description": "Botón para reintentar la carga en historial"
-  },
-  "ordersHistoryBackToList": "Volver al listado",
-  "@ordersHistoryBackToList": {
-    "description": "Botón para volver al listado de fechas"
-  },
-  "ordersHistorySearchClient": "Buscar cliente...",
-  "@ordersHistorySearchClient": {
-    "description": "Placeholder del campo de búsqueda de clientes en historial"
-  },
-  "ordersHistoryColumnClient": "Cliente",
-  "@ordersHistoryColumnClient": {
-    "description": "Cabecera de la columna de clientes en historial"
-  },
-  "ordersHistoryColumnTotal": "Total",
-  "@ordersHistoryColumnTotal": {
-    "description": "Cabecera de la columna de totales en historial"
-  },
-  "ordersHistoryRowTotals": "Totales",
-  "@ordersHistoryRowTotals": {
-    "description": "Etiqueta de la fila de totales en historial"
-  },
-  "ordersHistoryDateClients": "{count} clientes",
-  "@ordersHistoryDateClients": {
-    "description": "Conteo de clientes en el listado de fechas",
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "ordersHistoryDateProducts": "{count} productos",
-  "@ordersHistoryDateProducts": {
-    "description": "Conteo de productos en el listado de fechas",
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "ordersHistoryLastWeek": "Última semana",
-  "@ordersHistoryLastWeek": {
-    "description": "Etiqueta para la sección de la última semana en el historial"
   },
   "dashboardInvoices": "Número de facturas",
   "@dashboardInvoices": {
@@ -921,48 +855,48 @@
   "@clientsSelectCategoryEmpty": {
     "description": "Mensaje cuando no hay categorías"
   },
-  "ordersTodayResetOrders": "Restablecer pedidos",
-  "@ordersTodayResetOrders": {
+  "ordersResetOrders": "Restablecer pedidos",
+  "@ordersResetOrders": {
     "description": "Botón para restablecer los pedidos de los clientes seleccionados"
   },
-  "ordersTodayAdd": "Añadir",
-  "@ordersTodayAdd": {
+  "ordersAdd": "Añadir",
+  "@ordersAdd": {
     "description": "Botón para añadir cliente o producto"
   },
-  "ordersTodayAddClient": "Añadir cliente",
-  "@ordersTodayAddClient": {
+  "ordersAddClient": "Añadir cliente",
+  "@ordersAddClient": {
     "description": "Opción del menú para añadir un cliente"
   },
-  "ordersTodayAddProduct": "Añadir producto",
-  "@ordersTodayAddProduct": {
+  "ordersAddProduct": "Añadir producto",
+  "@ordersAddProduct": {
     "description": "Opción del menú para añadir un producto"
   },
-  "ordersTodayAddClientDialogTitle": "Añadir clientes",
-  "@ordersTodayAddClientDialogTitle": {
+  "ordersAddClientDialogTitle": "Añadir clientes",
+  "@ordersAddClientDialogTitle": {
     "description": "Título del diálogo para seleccionar clientes a añadir"
   },
-  "ordersTodayAddProductDialogTitle": "Añadir productos",
-  "@ordersTodayAddProductDialogTitle": {
+  "ordersAddProductDialogTitle": "Añadir productos",
+  "@ordersAddProductDialogTitle": {
     "description": "Título del diálogo para seleccionar productos a añadir"
   },
-  "ordersTodayAddDialogEmpty": "Todos los elementos activos ya están en el pedido",
-  "@ordersTodayAddDialogEmpty": {
+  "ordersAddDialogEmpty": "Todos los elementos activos ya están en el pedido",
+  "@ordersAddDialogEmpty": {
     "description": "Mensaje cuando no hay elementos disponibles para añadir"
   },
-  "ordersTodayAddDialogSearch": "Buscar...",
-  "@ordersTodayAddDialogSearch": {
+  "ordersAddDialogSearch": "Buscar...",
+  "@ordersAddDialogSearch": {
     "description": "Placeholder del campo de búsqueda en el diálogo de añadir"
   },
-  "ordersTodayAddDialogColumnName": "Nombre",
-  "@ordersTodayAddDialogColumnName": {
+  "ordersAddDialogColumnName": "Nombre",
+  "@ordersAddDialogColumnName": {
     "description": "Cabecera de la columna de nombre en el diálogo de añadir"
   },
-  "ordersTodayAddDialogNoResults": "Sin resultados",
-  "@ordersTodayAddDialogNoResults": {
+  "ordersAddDialogNoResults": "Sin resultados",
+  "@ordersAddDialogNoResults": {
     "description": "Mensaje cuando la búsqueda no encuentra coincidencias"
   },
-  "ordersTodayAddDialogConfirm": "Añadir ({count})",
-  "@ordersTodayAddDialogConfirm": {
+  "ordersAddDialogConfirm": "Añadir ({count})",
+  "@ordersAddDialogConfirm": {
     "description": "Botón de confirmar en el diálogo de añadir con contador",
     "placeholders": {
       "count": {
@@ -970,20 +904,20 @@
       }
     }
   },
-  "ordersTodayExport": "Exportar",
-  "@ordersTodayExport": {
+  "ordersExport": "Exportar",
+  "@ordersExport": {
     "description": "Botón desplegable para exportar pedidos"
   },
-  "ordersTodayRemoveFromTable": "Quitar de la tabla",
-  "@ordersTodayRemoveFromTable": {
+  "ordersRemoveFromTable": "Quitar de la tabla",
+  "@ordersRemoveFromTable": {
     "description": "Botón para quitar clientes seleccionados de la tabla"
   },
-  "ordersTodayDeleteProductsConfirmTitle": "Quitar productos",
-  "@ordersTodayDeleteProductsConfirmTitle": {
+  "ordersDeleteProductsConfirmTitle": "Quitar productos",
+  "@ordersDeleteProductsConfirmTitle": {
     "description": "Título del diálogo de confirmación para quitar productos"
   },
-  "ordersTodayDeleteProductsConfirmMessage": "{count, plural, =1{¿Quitar el producto seleccionado de la tabla?\nEsta acción no se puede deshacer.} other{¿Quitar los {count} productos seleccionados de la tabla?\nEsta acción no se puede deshacer.}}",
-  "@ordersTodayDeleteProductsConfirmMessage": {
+  "ordersDeleteProductsConfirmMessage": "{count, plural, =1{¿Quitar el producto seleccionado de la tabla?\nEsta acción no se puede deshacer.} other{¿Quitar los {count} productos seleccionados de la tabla?\nEsta acción no se puede deshacer.}}",
+  "@ordersDeleteProductsConfirmMessage": {
     "description": "Mensaje del diálogo de confirmación para quitar productos",
     "placeholders": {
       "count": {
@@ -991,12 +925,12 @@
       }
     }
   },
-  "ordersTodayResetConfirmTitle": "Restablecer pedidos",
-  "@ordersTodayResetConfirmTitle": {
+  "ordersResetConfirmTitle": "Restablecer pedidos",
+  "@ordersResetConfirmTitle": {
     "description": "Título del diálogo de confirmación para restablecer pedidos"
   },
-  "ordersTodayResetConfirmMessage": "{count, plural, =1{¿Restablecer los pedidos del cliente seleccionado? Los valores se pondrán a cero.} other{¿Restablecer los pedidos de los {count} clientes seleccionados? Los valores se pondrán a cero.}}",
-  "@ordersTodayResetConfirmMessage": {
+  "ordersResetConfirmMessage": "{count, plural, =1{¿Restablecer los pedidos del cliente seleccionado? Los valores se pondrán a cero.} other{¿Restablecer los pedidos de los {count} clientes seleccionados? Los valores se pondrán a cero.}}",
+  "@ordersResetConfirmMessage": {
     "description": "Mensaje del diálogo de confirmación para restablecer pedidos",
     "placeholders": {
       "count": {
@@ -1004,8 +938,8 @@
       }
     }
   },
-  "ordersTodayResetConfirm": "Restablecer",
-  "@ordersTodayResetConfirm": {
+  "ordersResetConfirm": "Restablecer",
+  "@ordersResetConfirm": {
     "description": "Botón de confirmar restablecimiento en el diálogo"
   },
   "settingsUserIdentityTitle": "Identidad de usuario",
@@ -1020,8 +954,8 @@
   "@settingsUserNameLabel": {
     "description": "Label del campo de nombre de usuario"
   },
-  "ordersTodayCellLocked": "Celda bloqueada por {user}",
-  "@ordersTodayCellLocked": {
+  "ordersCellLocked": "Celda bloqueada por {user}",
+  "@ordersCellLocked": {
     "description": "Mensaje cuando una celda está bloqueada por otro usuario",
     "placeholders": {
       "user": {
@@ -1029,8 +963,8 @@
       }
     }
   },
-  "ordersTodayConnectedUsers": "{count, plural, =0{Sin usuarios} =1{1 usuario conectado} other{{count} usuarios conectados}}",
-  "@ordersTodayConnectedUsers": {
+  "ordersConnectedUsers": "{count, plural, =0{Sin usuarios} =1{1 usuario conectado} other{{count} usuarios conectados}}",
+  "@ordersConnectedUsers": {
     "description": "Indicador de usuarios conectados en pedidos de hoy",
     "placeholders": {
       "count": {
@@ -1062,10 +996,6 @@
   "@invoiceStatusOverpaid": {
     "description": "Estado de factura: sobrepagada"
   },
-  "ordersHistoryNavigation": "Navegación",
-  "@ordersHistoryNavigation": {
-    "description": "Título del panel de navegación en historial de pedidos"
-  },
   "productsLinkDialogSubtitle": "Para vincular a: {productName}",
   "@productsLinkDialogSubtitle": {
     "description": "Subtítulo del diálogo de vinculación de producto FD",
@@ -1075,272 +1005,272 @@
       }
     }
   },
-  "ordersTodayNoClients": "No hay clientes añadidos",
-  "@ordersTodayNoClients": {
+  "ordersNoClients": "No hay clientes añadidos",
+  "@ordersNoClients": {
     "description": "Placeholder en la tabla de pedidos cuando no hay clientes"
   },
-  "ordersTodayNoClientsHint": "Pulsa el botón + de la cabecera para añadir clientes.",
-  "@ordersTodayNoClientsHint": {
+  "ordersNoClientsHint": "Pulsa el botón + de la cabecera para añadir clientes.",
+  "@ordersNoClientsHint": {
     "description": "Hint debajo del placeholder de no clientes indicando cómo añadir uno"
   },
-  "ordersTodayMarkCompensation": "Marcar como compensación",
-  "@ordersTodayMarkCompensation": {
+  "ordersMarkCompensation": "Marcar como compensación",
+  "@ordersMarkCompensation": {
     "description": "Opción del menú contextual para marcar una celda como compensación"
   },
-  "ordersTodayUnmarkCompensation": "Desmarcar como compensación",
-  "@ordersTodayUnmarkCompensation": {
+  "ordersUnmarkCompensation": "Desmarcar como compensación",
+  "@ordersUnmarkCompensation": {
     "description": "Opción del menú contextual para desmarcar una celda como compensación"
   },
-  "ordersTodayMarkReservation": "Marcar como reserva",
-  "@ordersTodayMarkReservation": {
+  "ordersMarkReservation": "Marcar como reserva",
+  "@ordersMarkReservation": {
     "description": "Opción del menú contextual para marcar una celda como reserva"
   },
-  "ordersTodayUnmarkReservation": "Desmarcar como reserva",
-  "@ordersTodayUnmarkReservation": {
+  "ordersUnmarkReservation": "Desmarcar como reserva",
+  "@ordersUnmarkReservation": {
     "description": "Opción del menú contextual para desmarcar una celda como reserva"
   },
-  "ordersTodayMarkStrictStock": "Marcar como stock estricto",
-  "@ordersTodayMarkStrictStock": {
+  "ordersMarkStrictStock": "Marcar como stock estricto",
+  "@ordersMarkStrictStock": {
     "description": "Opción del menú contextual para marcar stock estricto"
   },
-  "ordersTodayUnmarkStrictStock": "Desmarcar como stock estricto",
-  "@ordersTodayUnmarkStrictStock": {
+  "ordersUnmarkStrictStock": "Desmarcar como stock estricto",
+  "@ordersUnmarkStrictStock": {
     "description": "Opción del menú contextual para desmarcar stock estricto"
   },
-  "ordersTodayTooltipCompensation": "Compensación",
-  "@ordersTodayTooltipCompensation": {
+  "ordersTooltipCompensation": "Compensación",
+  "@ordersTooltipCompensation": {
     "description": "Tooltip para celda marcada como compensación"
   },
-  "ordersTodayTooltipReservation": "Reserva",
-  "@ordersTodayTooltipReservation": {
+  "ordersTooltipReservation": "Reserva",
+  "@ordersTooltipReservation": {
     "description": "Tooltip para celda marcada como reserva"
   },
-  "ordersTodayTooltipStrictStock": "Stock estricto",
-  "@ordersTodayTooltipStrictStock": {
+  "ordersTooltipStrictStock": "Stock estricto",
+  "@ordersTooltipStrictStock": {
     "description": "Tooltip para celda marcada como stock estricto"
   },
-  "ordersTodayAddNote": "Añadir nota",
-  "@ordersTodayAddNote": {
+  "ordersAddNote": "Añadir nota",
+  "@ordersAddNote": {
     "description": "Opción del menú contextual para añadir nota a una celda"
   },
-  "ordersTodayEditNote": "Editar nota",
-  "@ordersTodayEditNote": {
+  "ordersEditNote": "Editar nota",
+  "@ordersEditNote": {
     "description": "Opción del menú contextual para editar nota existente"
   },
-  "ordersTodayRemoveNote": "Eliminar nota",
-  "@ordersTodayRemoveNote": {
+  "ordersRemoveNote": "Eliminar nota",
+  "@ordersRemoveNote": {
     "description": "Opción del menú contextual para eliminar nota de una celda"
   },
-  "ordersTodayNoteDialogTitle": "Nota",
-  "@ordersTodayNoteDialogTitle": {
+  "ordersNoteDialogTitle": "Nota",
+  "@ordersNoteDialogTitle": {
     "description": "Título del diálogo para añadir o editar nota"
   },
-  "ordersTodayNoteDialogHint": "Escribe una nota (máx. 100 caracteres)",
-  "@ordersTodayNoteDialogHint": {
+  "ordersNoteDialogHint": "Escribe una nota (máx. 100 caracteres)",
+  "@ordersNoteDialogHint": {
     "description": "Hint del campo de texto en el diálogo de nota"
   },
-  "ordersTodayNoteDialogSave": "Guardar",
-  "@ordersTodayNoteDialogSave": {
+  "ordersNoteDialogSave": "Guardar",
+  "@ordersNoteDialogSave": {
     "description": "Botón de guardar en el diálogo de nota"
   },
-  "ordersTodayNoteDialogCancel": "Cancelar",
-  "@ordersTodayNoteDialogCancel": {
+  "ordersNoteDialogCancel": "Cancelar",
+  "@ordersNoteDialogCancel": {
     "description": "Botón de cancelar en el diálogo de nota"
   },
-  "ordersTodayAddRefund": "Añadir abono",
-  "@ordersTodayAddRefund": {
+  "ordersAddRefund": "Añadir abono",
+  "@ordersAddRefund": {
     "description": "Opción del menú contextual para añadir abono"
   },
-  "ordersTodayEditRefund": "Editar abono",
-  "@ordersTodayEditRefund": {
+  "ordersEditRefund": "Editar abono",
+  "@ordersEditRefund": {
     "description": "Opción del menú contextual para editar abono existente"
   },
-  "ordersTodayRemoveRefund": "Eliminar abono",
-  "@ordersTodayRemoveRefund": {
+  "ordersRemoveRefund": "Eliminar abono",
+  "@ordersRemoveRefund": {
     "description": "Opción del menú contextual para eliminar abono"
   },
-  "ordersTodayRefundDialogTitle": "Abono",
-  "@ordersTodayRefundDialogTitle": {
+  "ordersRefundDialogTitle": "Abono",
+  "@ordersRefundDialogTitle": {
     "description": "Título del diálogo de abono"
   },
-  "ordersTodayRefundDialogLabel": "Cantidad de productos",
-  "@ordersTodayRefundDialogLabel": {
+  "ordersRefundDialogLabel": "Cantidad de productos",
+  "@ordersRefundDialogLabel": {
     "description": "Label del campo de texto en el diálogo de abono"
   },
-  "ordersTodayTooltipRefund": "Abono",
-  "@ordersTodayTooltipRefund": {
+  "ordersTooltipRefund": "Abono",
+  "@ordersTooltipRefund": {
     "description": "Tooltip para celda con abono"
   },
-  "ordersTodayContextMenuGenerateOrderSheet": "Generar hoja de pedido",
-  "@ordersTodayContextMenuGenerateOrderSheet": {
+  "ordersContextMenuGenerateOrderSheet": "Generar hoja de pedido",
+  "@ordersContextMenuGenerateOrderSheet": {
     "description": "Opción del menú contextual de cliente para generar hoja de pedido"
   },
-  "ordersTodayGenerateOrderSheetEmpty": "Este cliente no tiene productos con cantidad asignada.",
-  "@ordersTodayGenerateOrderSheetEmpty": {
+  "ordersGenerateOrderSheetEmpty": "Este cliente no tiene productos con cantidad asignada.",
+  "@ordersGenerateOrderSheetEmpty": {
     "description": "Mensaje cuando se intenta generar hoja de pedido de un cliente sin productos"
   },
-  "ordersTodayContextMenuGenerateProvisionalInvoice": "Generar factura provisional",
-  "@ordersTodayContextMenuGenerateProvisionalInvoice": {
+  "ordersContextMenuGenerateProvisionalInvoice": "Generar factura provisional",
+  "@ordersContextMenuGenerateProvisionalInvoice": {
     "description": "Opción del menú contextual de cliente para generar factura provisional (deshabilitada)"
   },
-  "ordersTodayContextMenuAddClientNote": "Añadir nota",
-  "@ordersTodayContextMenuAddClientNote": {
+  "ordersContextMenuAddClientNote": "Añadir nota",
+  "@ordersContextMenuAddClientNote": {
     "description": "Opción del menú contextual de cliente para añadir una nota de cliente"
   },
-  "ordersTodayContextMenuEditClientNote": "Editar nota",
-  "@ordersTodayContextMenuEditClientNote": {
+  "ordersContextMenuEditClientNote": "Editar nota",
+  "@ordersContextMenuEditClientNote": {
     "description": "Opción del menú contextual de cliente para editar una nota de cliente existente"
   },
-  "ordersTodayContextMenuDeleteClientNote": "Eliminar nota",
-  "@ordersTodayContextMenuDeleteClientNote": {
+  "ordersContextMenuDeleteClientNote": "Eliminar nota",
+  "@ordersContextMenuDeleteClientNote": {
     "description": "Opción del menú contextual de cliente para eliminar una nota de cliente"
   },
-  "ordersTodayClientNoteDialogTitle": "Nota de cliente",
-  "@ordersTodayClientNoteDialogTitle": {
+  "ordersClientNoteDialogTitle": "Nota de cliente",
+  "@ordersClientNoteDialogTitle": {
     "description": "Título del diálogo de nota de cliente"
   },
-  "ordersTodayClientNoteDialogHint": "Escribe una nota (máx. 200 caracteres)",
-  "@ordersTodayClientNoteDialogHint": {
+  "ordersClientNoteDialogHint": "Escribe una nota (máx. 200 caracteres)",
+  "@ordersClientNoteDialogHint": {
     "description": "Hint del campo de texto en el diálogo de nota de cliente"
   },
-  "ordersTodayContextMenuChangeClient": "Cambiar cliente",
-  "@ordersTodayContextMenuChangeClient": {
+  "ordersContextMenuChangeClient": "Cambiar cliente",
+  "@ordersContextMenuChangeClient": {
     "description": "Opción del menú contextual de cliente para cambiar el cliente de la columna"
   },
-  "ordersTodayChangeClientDialogTitle": "Cambiar cliente",
-  "@ordersTodayChangeClientDialogTitle": {
+  "ordersChangeClientDialogTitle": "Cambiar cliente",
+  "@ordersChangeClientDialogTitle": {
     "description": "Título del diálogo para seleccionar el nuevo cliente"
   },
-  "ordersTodayChangeClientDialogConfirm": "Confirmar",
-  "@ordersTodayChangeClientDialogConfirm": {
+  "ordersChangeClientDialogConfirm": "Confirmar",
+  "@ordersChangeClientDialogConfirm": {
     "description": "Botón de confirmación en el diálogo de cambiar cliente"
   },
-  "ordersTodayContextMenuResetOrder": "Restablecer pedido",
-  "@ordersTodayContextMenuResetOrder": {
+  "ordersContextMenuResetOrder": "Restablecer pedido",
+  "@ordersContextMenuResetOrder": {
     "description": "Opción del menú contextual de cliente para restablecer pedido"
   },
-  "ordersTodayContextMenuDeleteClient": "Eliminar cliente",
-  "@ordersTodayContextMenuDeleteClient": {
+  "ordersContextMenuDeleteClient": "Eliminar cliente",
+  "@ordersContextMenuDeleteClient": {
     "description": "Opción del menú contextual de cliente para eliminar cliente"
   },
-  "ordersTodayContextMenuDeleteProduct": "Eliminar producto",
-  "@ordersTodayContextMenuDeleteProduct": {
+  "ordersContextMenuDeleteProduct": "Eliminar producto",
+  "@ordersContextMenuDeleteProduct": {
     "description": "Opción del menú contextual de producto para eliminar producto"
   },
-  "ordersTodayInfoDialogTitle": "Ayuda de la tabla de pedidos",
-  "@ordersTodayInfoDialogTitle": {
+  "ordersInfoDialogTitle": "Ayuda de la tabla de pedidos",
+  "@ordersInfoDialogTitle": {
     "description": "Título del diálogo de ayuda informativa de la tabla de pedidos"
   },
-  "ordersTodayInfoDialogClose": "Entendido",
-  "@ordersTodayInfoDialogClose": {
+  "ordersInfoDialogClose": "Entendido",
+  "@ordersInfoDialogClose": {
     "description": "Botón para cerrar el diálogo de ayuda informativa"
   },
-  "ordersTodayInfoAddClientTitle": "Añadir un cliente",
-  "@ordersTodayInfoAddClientTitle": {
+  "ordersInfoAddClientTitle": "Añadir un cliente",
+  "@ordersInfoAddClientTitle": {
     "description": "Título de la acción añadir cliente en el diálogo de ayuda"
   },
-  "ordersTodayInfoAddClientDesc": "Pulsa el botón «+ Añadir cliente» en la parte superior derecha de la tabla.",
-  "@ordersTodayInfoAddClientDesc": {
+  "ordersInfoAddClientDesc": "Pulsa el botón «+ Añadir cliente» en la parte superior derecha de la tabla.",
+  "@ordersInfoAddClientDesc": {
     "description": "Descripción de la acción añadir cliente en el diálogo de ayuda"
   },
-  "ordersTodayInfoAddProductTitle": "Añadir un producto",
-  "@ordersTodayInfoAddProductTitle": {
+  "ordersInfoAddProductTitle": "Añadir un producto",
+  "@ordersInfoAddProductTitle": {
     "description": "Título de la acción añadir producto en el diálogo de ayuda"
   },
-  "ordersTodayInfoAddProductDesc": "Pulsa el botón «+ Añadir producto» en la parte inferior izquierda de la tabla.",
-  "@ordersTodayInfoAddProductDesc": {
+  "ordersInfoAddProductDesc": "Pulsa el botón «+ Añadir producto» en la parte inferior izquierda de la tabla.",
+  "@ordersInfoAddProductDesc": {
     "description": "Descripción de la acción añadir producto en el diálogo de ayuda"
   },
-  "ordersTodayInfoEditStockTitle": "Modificar el stock",
-  "@ordersTodayInfoEditStockTitle": {
+  "ordersInfoEditStockTitle": "Modificar el stock",
+  "@ordersInfoEditStockTitle": {
     "description": "Título de la acción modificar stock en el diálogo de ayuda"
   },
-  "ordersTodayInfoEditStockDesc": "Haz clic sobre la celda de la columna STOCKS del producto que deseas modificar e introduce el nuevo valor.",
-  "@ordersTodayInfoEditStockDesc": {
+  "ordersInfoEditStockDesc": "Haz clic sobre la celda de la columna STOCKS del producto que deseas modificar e introduce el nuevo valor.",
+  "@ordersInfoEditStockDesc": {
     "description": "Descripción de la acción modificar stock en el diálogo de ayuda"
   },
-  "ordersTodayInfoStrictStockTitle": "Poner stock como estricto",
-  "@ordersTodayInfoStrictStockTitle": {
+  "ordersInfoStrictStockTitle": "Poner stock como estricto",
+  "@ordersInfoStrictStockTitle": {
     "description": "Título de la acción stock estricto en el diálogo de ayuda"
   },
-  "ordersTodayInfoStrictStockDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre la celda de stock de un producto y selecciona «Marcar stock estricto» en el menú contextual.",
-  "@ordersTodayInfoStrictStockDesc": {
+  "ordersInfoStrictStockDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre la celda de stock de un producto y selecciona «Marcar stock estricto» en el menú contextual.",
+  "@ordersInfoStrictStockDesc": {
     "description": "Descripción de la acción stock estricto en el diálogo de ayuda"
   },
-  "ordersTodayInfoAssignQtyTitle": "Asignar cantidad a un cliente",
-  "@ordersTodayInfoAssignQtyTitle": {
+  "ordersInfoAssignQtyTitle": "Asignar cantidad a un cliente",
+  "@ordersInfoAssignQtyTitle": {
     "description": "Título de la acción asignar cantidad en el diálogo de ayuda"
   },
-  "ordersTodayInfoAssignQtyDesc": "Haz clic sobre la celda en la intersección del producto y el cliente, e introduce la cantidad deseada. Usa las flechas del teclado o Tab para moverte entre celdas.",
-  "@ordersTodayInfoAssignQtyDesc": {
+  "ordersInfoAssignQtyDesc": "Haz clic sobre la celda en la intersección del producto y el cliente, e introduce la cantidad deseada. Usa las flechas del teclado o Tab para moverte entre celdas.",
+  "@ordersInfoAssignQtyDesc": {
     "description": "Descripción de la acción asignar cantidad en el diálogo de ayuda"
   },
-  "ordersTodayInfoCompensationTitle": "Marcar compensación",
-  "@ordersTodayInfoCompensationTitle": {
+  "ordersInfoCompensationTitle": "Marcar compensación",
+  "@ordersInfoCompensationTitle": {
     "description": "Título de la acción compensación en el diálogo de ayuda"
   },
-  "ordersTodayInfoCompensationDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre una celda de cantidad de un cliente y selecciona «Marcar compensación» en el menú contextual.",
-  "@ordersTodayInfoCompensationDesc": {
+  "ordersInfoCompensationDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre una celda de cantidad de un cliente y selecciona «Marcar compensación» en el menú contextual.",
+  "@ordersInfoCompensationDesc": {
     "description": "Descripción de la acción compensación en el diálogo de ayuda"
   },
-  "ordersTodayInfoReservationTitle": "Marcar reserva",
-  "@ordersTodayInfoReservationTitle": {
+  "ordersInfoReservationTitle": "Marcar reserva",
+  "@ordersInfoReservationTitle": {
     "description": "Título de la acción reserva en el diálogo de ayuda"
   },
-  "ordersTodayInfoReservationDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre una celda de cantidad de un cliente y selecciona «Marcar reserva» en el menú contextual.",
-  "@ordersTodayInfoReservationDesc": {
+  "ordersInfoReservationDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre una celda de cantidad de un cliente y selecciona «Marcar reserva» en el menú contextual.",
+  "@ordersInfoReservationDesc": {
     "description": "Descripción de la acción reserva en el diálogo de ayuda"
   },
-  "ordersTodayInfoRemoveClientTitle": "Quitar un cliente",
-  "@ordersTodayInfoRemoveClientTitle": {
+  "ordersInfoRemoveClientTitle": "Quitar un cliente",
+  "@ordersInfoRemoveClientTitle": {
     "description": "Título de la acción quitar cliente en el diálogo de ayuda"
   },
-  "ordersTodayInfoRemoveClientDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera de la tabla y selecciona «Eliminar cliente» en el menú contextual.",
-  "@ordersTodayInfoRemoveClientDesc": {
+  "ordersInfoRemoveClientDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera de la tabla y selecciona «Eliminar cliente» en el menú contextual.",
+  "@ordersInfoRemoveClientDesc": {
     "description": "Descripción de la acción quitar cliente en el diálogo de ayuda"
   },
-  "ordersTodayInfoRemoveProductTitle": "Quitar un producto",
-  "@ordersTodayInfoRemoveProductTitle": {
+  "ordersInfoRemoveProductTitle": "Quitar un producto",
+  "@ordersInfoRemoveProductTitle": {
     "description": "Título de la acción quitar producto en el diálogo de ayuda"
   },
-  "ordersTodayInfoRemoveProductDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del producto en la columna izquierda y selecciona «Eliminar producto» en el menú contextual.",
-  "@ordersTodayInfoRemoveProductDesc": {
+  "ordersInfoRemoveProductDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del producto en la columna izquierda y selecciona «Eliminar producto» en el menú contextual.",
+  "@ordersInfoRemoveProductDesc": {
     "description": "Descripción de la acción quitar producto en el diálogo de ayuda"
   },
-  "ordersTodayInfoResetOrderTitle": "Restablecer pedido de un cliente",
-  "@ordersTodayInfoResetOrderTitle": {
+  "ordersInfoResetOrderTitle": "Restablecer pedido de un cliente",
+  "@ordersInfoResetOrderTitle": {
     "description": "Título de la acción restablecer pedido en el diálogo de ayuda"
   },
-  "ordersTodayInfoResetOrderDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera y selecciona «Restablecer pedido» en el menú contextual. Esto pondrá a cero todas las cantidades de ese cliente.",
-  "@ordersTodayInfoResetOrderDesc": {
+  "ordersInfoResetOrderDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera y selecciona «Restablecer pedido» en el menú contextual. Esto pondrá a cero todas las cantidades de ese cliente.",
+  "@ordersInfoResetOrderDesc": {
     "description": "Descripción de la acción restablecer pedido en el diálogo de ayuda"
   },
-  "ordersTodayInfoOrderSheetTitle": "Generar hoja de pedido",
-  "@ordersTodayInfoOrderSheetTitle": {
+  "ordersInfoOrderSheetTitle": "Generar hoja de pedido",
+  "@ordersInfoOrderSheetTitle": {
     "description": "Título de la acción generar hoja de pedido en el diálogo de ayuda"
   },
-  "ordersTodayInfoOrderSheetDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera y selecciona «Generar hoja de pedido». Genera un documento con las cantidades de productos solicitadas por el cliente, útil para que los trabajadores preparen el pedido.",
-  "@ordersTodayInfoOrderSheetDesc": {
+  "ordersInfoOrderSheetDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera y selecciona «Generar hoja de pedido». Genera un documento con las cantidades de productos solicitadas por el cliente, útil para que los trabajadores preparen el pedido.",
+  "@ordersInfoOrderSheetDesc": {
     "description": "Descripción de la acción generar hoja de pedido en el diálogo de ayuda"
   },
-  "ordersTodayInfoProvisionalInvoiceTitle": "Generar factura provisional",
-  "@ordersTodayInfoProvisionalInvoiceTitle": {
+  "ordersInfoProvisionalInvoiceTitle": "Generar factura provisional",
+  "@ordersInfoProvisionalInvoiceTitle": {
     "description": "Título de la acción generar factura provisional en el diálogo de ayuda"
   },
-  "ordersTodayInfoProvisionalInvoiceDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera y selecciona «Generar factura provisional». Crea la factura en estado provisional en Factura Directa con los productos y cantidades del pedido del cliente.",
-  "@ordersTodayInfoProvisionalInvoiceDesc": {
+  "ordersInfoProvisionalInvoiceDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre el nombre del cliente en la cabecera y selecciona «Generar factura provisional». Crea la factura en estado provisional en Factura Directa con los productos y cantidades del pedido del cliente.",
+  "@ordersInfoProvisionalInvoiceDesc": {
     "description": "Descripción de la acción generar factura provisional en el diálogo de ayuda"
   },
-  "ordersTodayInfoCellNoteTitle": "Crear una nota en una celda",
-  "@ordersTodayInfoCellNoteTitle": {
+  "ordersInfoCellNoteTitle": "Crear una nota en una celda",
+  "@ordersInfoCellNoteTitle": {
     "description": "Título de la acción crear nota en el diálogo de ayuda"
   },
-  "ordersTodayInfoCellNoteDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre una celda de cantidad de un cliente y selecciona «Añadir nota». La nota se mostrará como un indicador en la celda y podrás verla al pasar el cursor por encima. Para editarla o eliminarla, vuelve a abrir el menú sobre la misma celda.",
-  "@ordersTodayInfoCellNoteDesc": {
+  "ordersInfoCellNoteDesc": "Haz clic derecho (o mantén pulsado en tablet) sobre una celda de cantidad de un cliente y selecciona «Añadir nota». La nota se mostrará como un indicador en la celda y podrás verla al pasar el cursor por encima. Para editarla o eliminarla, vuelve a abrir el menú sobre la misma celda.",
+  "@ordersInfoCellNoteDesc": {
     "description": "Descripción de la acción crear nota en el diálogo de ayuda"
   },
-  "ordersTodayPreparingTemplate": "Preparando plantilla para pedidos de hoy…",
-  "@ordersTodayPreparingTemplate": {
+  "ordersPreparingTemplate": "Preparando plantilla para pedidos de hoy…",
+  "@ordersPreparingTemplate": {
     "description": "Mensaje mostrado durante la animación de auto-creación del documento de pedidos del día"
   },
   "provisionalInvoiceLoading": "Preparando factura provisional…",
@@ -1894,20 +1824,20 @@
   "@clientSaveSuccess": {
     "description": "Mensaje de éxito al guardar cambios de un cliente"
   },
-  "ordersTodayMobileTitle": "Pantalla no disponible",
-  "@ordersTodayMobileTitle": {
+  "ordersMobileTitle": "Pantalla no disponible",
+  "@ordersMobileTitle": {
     "description": "Título del placeholder cuando se accede a Pedidos de hoy desde un dispositivo con pantalla pequeña"
   },
-  "ordersTodayMobileDescription": "La gestión de pedidos de hoy solo está disponible en pantallas de mayor tamaño. Por favor, accede desde un ordenador o una tablet.",
-  "@ordersTodayMobileDescription": {
+  "ordersMobileDescription": "La gestión de pedidos de hoy solo está disponible en pantallas de mayor tamaño. Por favor, accede desde un ordenador o una tablet.",
+  "@ordersMobileDescription": {
     "description": "Descripción del placeholder cuando se accede a Pedidos de hoy desde un dispositivo con pantalla pequeña"
   },
-  "ordersTodayMobileNoOrders": "No hay pedidos registrados hoy",
-  "@ordersTodayMobileNoOrders": {
+  "ordersMobileNoOrders": "No hay pedidos registrados hoy",
+  "@ordersMobileNoOrders": {
     "description": "Mensaje cuando el fichero de pedidos existe pero ningún cliente tiene datos"
   },
-  "ordersTodayMobileProductCount": "{count} uds.",
-  "@ordersTodayMobileProductCount": {
+  "ordersMobileProductCount": "{count} uds.",
+  "@ordersMobileProductCount": {
     "description": "Total de productos (cantidades + abonos) en la tarjeta colapsada del cliente",
     "placeholders": {
       "count": {
@@ -1916,16 +1846,16 @@
       }
     }
   },
-  "ordersTodayMobileReservation": "Reserva",
-  "@ordersTodayMobileReservation": {
+  "ordersMobileReservation": "Reserva",
+  "@ordersMobileReservation": {
     "description": "Etiqueta del badge de reserva en la vista móvil de pedidos"
   },
-  "ordersTodayMobileCompensation": "Compensación",
-  "@ordersTodayMobileCompensation": {
+  "ordersMobileCompensation": "Compensación",
+  "@ordersMobileCompensation": {
     "description": "Etiqueta del badge de compensación en la vista móvil de pedidos"
   },
-  "ordersTodayMobileRefund": "Abono: {quantity}",
-  "@ordersTodayMobileRefund": {
+  "ordersMobileRefund": "Abono: {quantity}",
+  "@ordersMobileRefund": {
     "description": "Etiqueta del badge de abono con cantidad en la vista móvil de pedidos",
     "placeholders": {
       "quantity": {
@@ -1934,8 +1864,8 @@
       }
     }
   },
-  "ordersTodayLastModified": "Última actualización: {date}",
-  "@ordersTodayLastModified": {
+  "ordersLastModified": "Última actualización: {date}",
+  "@ordersLastModified": {
     "description": "Fecha y hora de la última modificación del documento de pedidos",
     "placeholders": {
       "date": {
@@ -1944,16 +1874,16 @@
       }
     }
   },
-  "ordersTodayNoOrdersToday": "No hay pedidos para hoy",
-  "@ordersTodayNoOrdersToday": {
+  "ordersNoOrdersToday": "No hay pedidos para hoy",
+  "@ordersNoOrdersToday": {
     "description": "Mensaje cuando no existe el documento de pedidos del día en la vista de solo lectura"
   },
-  "ordersTodayLiveConnected": "Conectado en tiempo real",
-  "@ordersTodayLiveConnected": {
+  "ordersLiveConnected": "Conectado en tiempo real",
+  "@ordersLiveConnected": {
     "description": "Tooltip del indicador de conexión en vivo"
   },
-  "ordersTodayLiveDisconnected": "Desconectado",
-  "@ordersTodayLiveDisconnected": {
+  "ordersLiveDisconnected": "Desconectado",
+  "@ordersLiveDisconnected": {
     "description": "Tooltip del indicador cuando se pierde la conexión"
   },
   "statisticsComingSoon": "Próximamente",
@@ -2039,5 +1969,78 @@
         "type": "String"
       }
     }
+  },
+  "ordersDateSelectorTitle": "Seleccionar fecha",
+  "@ordersDateSelectorTitle": {
+    "description": "Título del dialog de selección de fecha de pedidos"
+  },
+  "ordersDateSelectorAccept": "Aceptar",
+  "@ordersDateSelectorAccept": {
+    "description": "Botón aceptar del dialog de selección de fecha"
+  },
+  "ordersDateSelectorCancel": "Cancelar",
+  "@ordersDateSelectorCancel": {
+    "description": "Botón cancelar del dialog de selección de fecha"
+  },
+  "ordersDateSelectorClients": "{count, plural, =0{Sin clientes} =1{1 cliente} other{{count} clientes}}",
+  "@ordersDateSelectorClients": {
+    "description": "Resumen de clientes en el día seleccionado",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ordersDateSelectorNoOrders": "Sin pedidos",
+  "@ordersDateSelectorNoOrders": {
+    "description": "Texto cuando no hay archivo de pedidos para la fecha seleccionada"
+  },
+  "ordersDateSelectorToday": "HOY",
+  "@ordersDateSelectorToday": {
+    "description": "Etiqueta para indicar que la fecha seleccionada es hoy"
+  },
+  "ordersDateSelectorChange": "Cambiar fecha",
+  "@ordersDateSelectorChange": {
+    "description": "Texto del badge para abrir el selector de fecha en la tabla"
+  },
+  "ordersPdfLabelClient": "Cliente",
+  "@ordersPdfLabelClient": {
+    "description": "Etiqueta 'Cliente' en la hoja de pedido PDF"
+  },
+  "ordersPdfLabelDateTime": "Fecha y hora",
+  "@ordersPdfLabelDateTime": {
+    "description": "Etiqueta 'Fecha y hora' en la hoja de pedido PDF"
+  },
+  "ordersPdfLabelOrderNumber": "Número de pedido",
+  "@ordersPdfLabelOrderNumber": {
+    "description": "Etiqueta 'Número de pedido' en la hoja de pedido PDF"
+  },
+  "ordersPdfLabelProduct": "Producto",
+  "@ordersPdfLabelProduct": {
+    "description": "Cabecera de columna 'Producto' en la tabla del PDF"
+  },
+  "ordersPdfLabelQuantity": "Cantidad",
+  "@ordersPdfLabelQuantity": {
+    "description": "Cabecera de columna 'Cantidad' en la tabla del PDF"
+  },
+  "ordersPdfLabelNotes": "Notas",
+  "@ordersPdfLabelNotes": {
+    "description": "Cabecera de columna 'Notas' en la tabla del PDF"
+  },
+  "ordersPdfLabelShippingMethod": "Método de envío",
+  "@ordersPdfLabelShippingMethod": {
+    "description": "Etiqueta 'Método de envío' en el resumen del PDF"
+  },
+  "ordersPdfLabelTotalProducts": "Cantidad de productos",
+  "@ordersPdfLabelTotalProducts": {
+    "description": "Etiqueta 'Cantidad de productos' en el resumen del PDF"
+  },
+  "ordersPdfLabelSubtotal": "Subtotal",
+  "@ordersPdfLabelSubtotal": {
+    "description": "Etiqueta 'Subtotal' en el resumen del PDF"
+  },
+  "ordersExcelSheetName": "Pedidos",
+  "@ordersExcelSheetName": {
+    "description": "Nombre de la hoja en el archivo Excel exportado"
   }
 }

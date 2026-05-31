@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
         body: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) {
             if (state is LoginSuccess) {
-              context.go(AppRoutes.ordersToday);
+              context.go(AppRoutes.orders);
             }
             if (state is LoginError) {
               ScaffoldMessenger.of(context).showSnackBar(

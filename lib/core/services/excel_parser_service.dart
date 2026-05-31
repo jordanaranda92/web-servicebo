@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import '../../features/orders_today/domain/entities/order_sheet.dart';
+import '../../features/orders/domain/entities/order_sheet.dart';
 
 /// Service for parsing and encoding Excel (.xlsx) bytes to/from [OrderSheet].
 ///

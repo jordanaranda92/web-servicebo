@@ -143,25 +143,30 @@ class SideMenuShell extends StatelessWidget {
       );
     }
 
+    // Orders page provides its own AppBar with date subtitle + calendar action.
+    final isOrdersPage = selectedIndex == 0;
+
     return Scaffold(
       drawerEnableOpenDragGesture: false,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        leading: Builder(
-          builder: (scaffoldContext) {
-            return IconButton(
-              onPressed: () => Scaffold.of(scaffoldContext).openDrawer(),
-              icon: const Icon(Icons.menu_rounded),
-            );
-          },
-        ),
-        title: Text(
-          _mobileTitleForIndex(selectedIndex, l10n, isAdmin: isAdmin),
-        ),
-        titleSpacing: 0,
-        scrolledUnderElevation: 0,
-      ),
+      appBar: isOrdersPage
+          ? null
+          : AppBar(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              foregroundColor: Theme.of(context).colorScheme.onPrimary,
+              leading: Builder(
+                builder: (scaffoldContext) {
+                  return IconButton(
+                    onPressed: () => Scaffold.of(scaffoldContext).openDrawer(),
+                    icon: const Icon(Icons.menu_rounded),
+                  );
+                },
+              ),
+              title: Text(
+                _mobileTitleForIndex(selectedIndex, l10n, isAdmin: isAdmin),
+              ),
+              titleSpacing: 0,
+              scrolledUnderElevation: 0,
+            ),
       drawer: Drawer(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -250,8 +255,7 @@ class SideMenuShell extends StatelessWidget {
     required bool isAdmin,
   }) {
     final titles = [
-      l10n.menuOrdersToday,
-      l10n.menuOrdersHistory,
+      l10n.menuOrders,
       l10n.menuClients,
       l10n.menuClientCategories,
       l10n.menuShippingMethods,

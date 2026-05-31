@@ -104,7 +104,7 @@ Future<String> _initializeServices(AppConfig config) async {
       // Resolve current user name from Firestore for action history.
       await sl<CurrentUserProvider>().resolve();
 
-      return AppRoutes.ordersToday;
+      return AppRoutes.orders;
     }
   }
 
