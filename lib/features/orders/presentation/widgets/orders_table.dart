@@ -334,9 +334,8 @@ class _OrdersTableState extends State<OrdersTable> {
     _dayNameCapitalized = dayName[0].toUpperCase() + dayName.substring(1);
     _datePart = AppDateFormats.dayMonth().format(date);
     final now = DateTime.now();
-    _isSelectedDateToday = date.year == now.year &&
-        date.month == now.month &&
-        date.day == now.day;
+    _isSelectedDateToday =
+        date.year == now.year && date.month == now.month && date.day == now.day;
   }
 
   @override
@@ -794,8 +793,9 @@ class _OrdersTableState extends State<OrdersTable> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Text(
-                                AppLocalizations.of(context)!
-                                    .ordersDateSelectorToday,
+                                AppLocalizations.of(
+                                  context,
+                                )!.ordersDateSelectorToday,
                                 style: _textTheme.labelSmall?.copyWith(
                                   color: _colorScheme.onPrimary,
                                   fontWeight: FontWeight.w700,
@@ -820,8 +820,9 @@ class _OrdersTableState extends State<OrdersTable> {
                           Padding(
                             padding: const EdgeInsets.only(top: 4),
                             child: Material(
-                              color: _colorScheme.primary
-                                  .withValues(alpha: 0.1),
+                              color: _colorScheme.primary.withValues(
+                                alpha: 0.1,
+                              ),
                               borderRadius: BorderRadius.circular(20),
                               child: InkWell(
                                 borderRadius: BorderRadius.circular(20),
@@ -841,14 +842,14 @@ class _OrdersTableState extends State<OrdersTable> {
                                       ),
                                       const SizedBox(width: 4),
                                       Text(
-                                        AppLocalizations.of(context)!
-                                            .ordersDateSelectorChange,
-                                        style: _textTheme.labelSmall
-                                            ?.copyWith(
-                                              color: _colorScheme.primary,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 10,
-                                            ),
+                                        AppLocalizations.of(
+                                          context,
+                                        )!.ordersDateSelectorChange,
+                                        style: _textTheme.labelSmall?.copyWith(
+                                          color: _colorScheme.primary,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 10,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -1109,9 +1110,9 @@ class _OrdersTableState extends State<OrdersTable> {
                           child: Text(
                             clients[realCol],
                             style: _textTheme.labelSmall?.copyWith(
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.bold,
                               color: _colorScheme.onSurfaceVariant,
-                              fontSize: 10,
+                              fontSize: 12,
                             ),
                             overflow: TextOverflow.ellipsis,
                             softWrap: false,
@@ -1206,8 +1207,8 @@ class _OrdersTableState extends State<OrdersTable> {
           child: Text(
             widget.orderSheet.products[productIdx],
             style: _textTheme.bodySmall?.copyWith(
-              fontWeight: isRowHighlighted ? FontWeight.bold : FontWeight.w500,
-              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
             ),
             overflow: TextOverflow.ellipsis,
           ),
@@ -1265,10 +1266,7 @@ class _OrdersTableState extends State<OrdersTable> {
         ? value + (cellRefund ?? 0)
         : value;
     final effectiveStyle = widget.readOnly && isClient && displayValue != value
-        ? style?.copyWith(
-            fontSize: displayValue != 0 ? 12 : 10,
-            fontWeight: displayValue != 0 ? FontWeight.bold : null,
-          )
+        ? style?.copyWith(fontSize: 12, fontWeight: FontWeight.bold)
         : style;
 
     final isEditing = _editingRow == rowIdx && _editingCol == col;
@@ -1386,8 +1384,8 @@ class _OrdersTableState extends State<OrdersTable> {
       return (
         value: value,
         style: _textTheme.bodySmall?.copyWith(
-          fontSize: value != 0 ? 12 : 10,
-          fontWeight: value != 0 ? FontWeight.bold : null,
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
         ),
       );
     } else if (isPedidos) {
@@ -1722,9 +1720,7 @@ class _OrdersTableState extends State<OrdersTable> {
                 color: _colorScheme.primary,
               ),
               const SizedBox(width: 8),
-              Text(
-                hasNote ? l10n.ordersEditNote : l10n.ordersAddNote,
-              ),
+              Text(hasNote ? l10n.ordersEditNote : l10n.ordersAddNote),
             ],
           ),
         ),
@@ -1761,11 +1757,7 @@ class _OrdersTableState extends State<OrdersTable> {
                 color: _colorScheme.primary,
               ),
               const SizedBox(width: 8),
-              Text(
-                hasRefund
-                    ? l10n.ordersEditRefund
-                    : l10n.ordersAddRefund,
-              ),
+              Text(hasRefund ? l10n.ordersEditRefund : l10n.ordersAddRefund),
             ],
           ),
         ),
