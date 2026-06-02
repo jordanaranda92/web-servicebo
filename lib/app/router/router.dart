@@ -37,6 +37,32 @@ abstract class AppRoutes {
   static const String ordersView = '/orders/view';
   static const String login = '/login';
 
+  static String ordersViewPathForDate(DateTime date) {
+    final normalized = DateTime(date.year, date.month, date.day);
+    final month = normalized.month.toString().padLeft(2, '0');
+    final day = normalized.day.toString().padLeft(2, '0');
+    final dateKey = '${normalized.year}-$month-$day';
+    return '$ordersView?date=$dateKey';
+  }
+
+  static DateTime? parseOrdersViewDateParam(String? value) {
+    if (value == null) return null;
+
+    final match = RegExp(r'^(\d{4})-(\d{2})-(\d{2})$').firstMatch(value);
+    if (match == null) return null;
+
+    final year = int.parse(match.group(1)!);
+    final month = int.parse(match.group(2)!);
+    final day = int.parse(match.group(3)!);
+    final parsed = DateTime(year, month, day);
+
+    if (parsed.year != year || parsed.month != month || parsed.day != day) {
+      return null;
+    }
+
+    return parsed;
+  }
+
   /// Base menu paths (without admin-only items).
   static const List<String> _baseMenuPaths = [
     orders,
@@ -113,7 +139,12 @@ GoRouter createRouter({required String initialLocation}) {
       ),
       GoRoute(
         path: AppRoutes.ordersView,
-        builder: (context, state) => const OrdersReadonlyPage(),
+        builder: (context, state) {
+          final dateParam = state.uri.queryParameters['date'];
+          final initialDate =
+              AppRoutes.parseOrdersViewDateParam(dateParam) ?? DateTime.now();
+          return OrdersReadonlyPage(initialDate: initialDate);
+        },
       ),
       GoRoute(path: AppRoutes.home, redirect: (_, _) => AppRoutes.orders),
       ShellRoute(

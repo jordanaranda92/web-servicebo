@@ -4,11 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../app/di/injection.dart';
 import '../../../../app/localization/l10n/app_localizations.dart';
 import '../../../../app/theme/theme_constants.dart';
-import '../../domain/usecases/get_today_orders.dart';
 import '../bloc/orders_bloc.dart';
 import '../bloc/orders_event.dart';
 import '../bloc/orders_state.dart';
-import '../widgets/order_date_selector_dialog.dart';
 import '../widgets/orders_table.dart';
 import '../widgets/readonly_footer.dart';
 
@@ -20,7 +18,9 @@ import '../widgets/readonly_footer.dart';
 /// - Auto-updates via Firestore listeners.
 /// - Shows last modification timestamp with a live indicator.
 class OrdersReadonlyPage extends StatefulWidget {
-  const OrdersReadonlyPage({super.key});
+  const OrdersReadonlyPage({super.key, required this.initialDate});
+
+  final DateTime initialDate;
 
   @override
   State<OrdersReadonlyPage> createState() => _OrdersReadonlyPageState();
@@ -34,7 +34,9 @@ class _OrdersReadonlyPageState extends State<OrdersReadonlyPage> {
   void initState() {
     super.initState();
     _bloc = sl<OrdersBloc>()
-      ..add(const OrdersLoadRequested(createIfMissing: false));
+      ..add(
+        OrdersLoadRequested(createIfMissing: false, date: widget.initialDate),
+      );
   }
 
   @override
@@ -50,15 +52,6 @@ class _OrdersReadonlyPageState extends State<OrdersReadonlyPage> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.calendar_month),
-            tooltip: l10n.ordersDateSelectorTitle,
-            onPressed: () => _openDateSelector(context),
-          ),
-        ],
-      ),
       body: BlocProvider<OrdersBloc>.value(
         value: _bloc,
         child: BlocConsumer<OrdersBloc, OrdersState>(
@@ -126,7 +119,6 @@ class _OrdersReadonlyPageState extends State<OrdersReadonlyPage> {
                 orderSheet: orderSheet,
                 selectedDate: activeDate,
                 readOnly: true,
-                onDateSelectorTap: () => _openDateSelector(context),
                 footerTrailing: ReadonlyFooter(
                   lastModifiedAt: orderSheet.lastModifiedAt,
                   isConnected: _isConnected,
@@ -137,19 +129,5 @@ class _OrdersReadonlyPageState extends State<OrdersReadonlyPage> {
         ),
       ),
     );
-  }
-
-  Future<void> _openDateSelector(BuildContext context) async {
-    final getTodayOrders = sl<GetTodayOrders>();
-    final selectedDate = await showOrderDateSelectorDialog(
-      context,
-      currentDate: _bloc.activeDate,
-      onFetchClientCount: (date) async {
-        final result = await getTodayOrders(GetTodayOrdersParams(date: date));
-        return result.fold((_) => null, (sheet) => sheet?.clients.length);
-      },
-    );
-    if (selectedDate == null || !context.mounted) return;
-    _bloc.add(OrdersDateChanged(date: selectedDate));
   }
 }

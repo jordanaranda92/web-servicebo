@@ -10,14 +10,17 @@ sealed class OrdersEvent extends Equatable {
 }
 
 final class OrdersLoadRequested extends OrdersEvent {
-  const OrdersLoadRequested({this.createIfMissing = true});
+  const OrdersLoadRequested({this.createIfMissing = true, this.date});
 
   /// When `false`, the BLoC will emit [OrdersNoFile] instead of
   /// auto-creating the document if it doesn't exist yet.
   final bool createIfMissing;
 
+  /// Optional date override used before loading orders.
+  final DateTime? date;
+
   @override
-  List<Object?> get props => [createIfMissing];
+  List<Object?> get props => [createIfMissing, date];
 }
 
 final class OrdersCreateFileRequested extends OrdersEvent {

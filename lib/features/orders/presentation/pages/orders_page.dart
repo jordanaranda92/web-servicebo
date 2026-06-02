@@ -548,7 +548,9 @@ class _OrdersContentState extends State<_OrdersContent> {
                 const SizedBox(width: 8),
                 IconButton.filled(
                   onPressed: () {
-                    openUrlInNewTab(AppRoutes.ordersView);
+                    openUrlInNewTab(
+                      AppRoutes.ordersViewPathForDate(activeDate),
+                    );
                   },
                   style: IconButton.styleFrom(
                     shape: RoundedRectangleBorder(

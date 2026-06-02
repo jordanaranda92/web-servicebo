@@ -136,10 +136,11 @@ class _OrdersTableState extends State<OrdersTable> {
   bool _syncingVertical = false;
 
   // ── Constants ───────────────────────────────────────────────────
-  static const double _dataColWidth = 48;
+  static const double _dataColWidth = 38;
   static const double _minHeaderHeight = 180;
   static const double _maxHeaderHeight = 250;
-  static const double _rowHeight = 32;
+  static const double _defaultRowHeight = 32;
+  static const double _compactRowHeight = 24;
   static const double _defaultHeaderHeight = _minHeaderHeight;
   static const String _headerHeightKey = 'orders_table_header_height';
 
@@ -723,6 +724,9 @@ class _OrdersTableState extends State<OrdersTable> {
 
   // ── Cell builder methods ────────────────────────────────────────
 
+  double get _effectiveRowHeight =>
+      widget.readOnly ? _compactRowHeight : _defaultRowHeight;
+
   Widget _buildProductColResizeHandle() {
     return MouseRegion(
       cursor: SystemMouseCursors.resizeColumn,
@@ -1194,7 +1198,7 @@ class _OrdersTableState extends State<OrdersTable> {
           : null,
       child: Container(
         width: _productColWidth.value,
-        height: _rowHeight,
+        height: _effectiveRowHeight,
         padding: const EdgeInsets.only(left: AppSpacing.md),
         decoration: BoxDecoration(
           color: isRowHighlighted
@@ -1605,7 +1609,7 @@ class _OrdersTableState extends State<OrdersTable> {
           : null,
       child: Container(
         width: _dataColWidth,
-        height: _rowHeight,
+        height: _effectiveRowHeight,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: hasRemoteCursor
@@ -2392,7 +2396,7 @@ class _OrdersTableState extends State<OrdersTable> {
           child: ListView.builder(
             controller: _frozenVerticalController,
             itemCount: filteredIndices.length,
-            itemExtent: _rowHeight,
+            itemExtent: _effectiveRowHeight,
             itemBuilder: (_, i) => _buildProductCell(i),
           ),
         ),
@@ -2452,7 +2456,7 @@ class _OrdersTableState extends State<OrdersTable> {
               child: ListView.builder(
                 controller: _verticalController,
                 itemCount: filteredIndices.length,
-                itemExtent: _rowHeight,
+                itemExtent: _effectiveRowHeight,
                 itemBuilder: (_, rowIdx) {
                   return Row(
                     children: List.generate(
@@ -2482,7 +2486,7 @@ class _OrdersTableState extends State<OrdersTable> {
         child: ListView.builder(
           controller: _summaryVerticalController,
           itemCount: filteredIndices.length,
-          itemExtent: _rowHeight,
+          itemExtent: _effectiveRowHeight,
           itemBuilder: (_, rowIdx) {
             return Row(
               children: List.generate(

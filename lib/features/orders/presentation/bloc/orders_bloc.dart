@@ -115,6 +115,14 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
     OrdersLoadRequested event,
     Emitter<OrdersState> emit,
   ) async {
+    if (event.date != null) {
+      final requestedDate = event.date!;
+      _activeDate = DateTime(
+        requestedDate.year,
+        requestedDate.month,
+        requestedDate.day,
+      );
+    }
     emit(const OrdersLoading());
     await _loadOrders(emit, createIfMissing: event.createIfMissing);
   }
@@ -129,8 +137,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
     );
     result.fold(
       (failure) => emit(OrdersError(errorType: _mapFailure(failure))),
-      (sheet) =>
-          emit(OrdersLoaded(orderSheet: sheet, activeDate: _activeDate)),
+      (sheet) => emit(OrdersLoaded(orderSheet: sheet, activeDate: _activeDate)),
     );
   }
 
@@ -150,8 +157,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
       GetTodayOrdersParams(date: _activeDate),
     );
     await result.fold(
-      (failure) async =>
-          emit(OrdersError(errorType: _mapFailure(failure))),
+      (failure) async => emit(OrdersError(errorType: _mapFailure(failure))),
       (sheet) async {
         if (sheet == null) {
           if (!createIfMissing) {
@@ -171,8 +177,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
           // If error, emit immediately without waiting for delay
           if (createResult.isLeft()) {
             createResult.fold(
-              (failure) =>
-                  emit(OrdersError(errorType: _mapFailure(failure))),
+              (failure) => emit(OrdersError(errorType: _mapFailure(failure))),
               (_) {},
             );
             return;
@@ -184,10 +189,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
           createResult.fold((_) {}, (createdSheet) {
             _startWatch();
             emit(
-              OrdersLoaded(
-                orderSheet: createdSheet,
-                activeDate: _activeDate,
-              ),
+              OrdersLoaded(orderSheet: createdSheet, activeDate: _activeDate),
             );
           });
         } else {
@@ -409,8 +411,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
 
     result.fold(
       (failure) => _logger.warning('Failed to reset client orders', failure),
-      (sheet) =>
-          emit(OrdersLoaded(orderSheet: sheet, activeDate: _activeDate)),
+      (sheet) => emit(OrdersLoaded(orderSheet: sheet, activeDate: _activeDate)),
     );
   }
 
@@ -430,8 +431,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
 
     result.fold(
       (failure) => _logger.warning('Failed to remove clients', failure),
-      (sheet) =>
-          emit(OrdersLoaded(orderSheet: sheet, activeDate: _activeDate)),
+      (sheet) => emit(OrdersLoaded(orderSheet: sheet, activeDate: _activeDate)),
     );
   }
 
@@ -451,8 +451,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
 
     result.fold(
       (failure) => _logger.warning('Failed to remove products', failure),
-      (sheet) =>
-          emit(OrdersLoaded(orderSheet: sheet, activeDate: _activeDate)),
+      (sheet) => emit(OrdersLoaded(orderSheet: sheet, activeDate: _activeDate)),
     );
   }
 
@@ -469,8 +468,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
 
     result.fold(
       (failure) => _logger.warning('Failed to add clients', failure),
-      (sheet) =>
-          emit(OrdersLoaded(orderSheet: sheet, activeDate: _activeDate)),
+      (sheet) => emit(OrdersLoaded(orderSheet: sheet, activeDate: _activeDate)),
     );
   }
 
@@ -487,8 +485,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
 
     result.fold(
       (failure) => _logger.warning('Failed to add products', failure),
-      (sheet) =>
-          emit(OrdersLoaded(orderSheet: sheet, activeDate: _activeDate)),
+      (sheet) => emit(OrdersLoaded(orderSheet: sheet, activeDate: _activeDate)),
     );
   }
 
@@ -762,8 +759,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
 
     result.fold(
       (failure) => _logger.warning('Failed to replace client', failure),
-      (sheet) =>
-          emit(OrdersLoaded(orderSheet: sheet, activeDate: _activeDate)),
+      (sheet) => emit(OrdersLoaded(orderSheet: sheet, activeDate: _activeDate)),
     );
   }
 
