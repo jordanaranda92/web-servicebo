@@ -94,6 +94,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get ordersColumnQuedan => 'QUEDAN';
 
   @override
+  String get ordersStickyTotalsLabel => 'TOTALES';
+
+  @override
   String get ordersRetry => 'Reintentar';
 
   @override
@@ -918,6 +921,18 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get ordersContextMenuDeleteProduct => 'Eliminar producto';
+
+  @override
+  String get ordersMarkLimitedProduct => 'Marcar como limitado';
+
+  @override
+  String get ordersUnmarkLimitedProduct => 'Desmarcar como limitado';
+
+  @override
+  String get ordersMarkOutOfBonusProduct => 'Marcar fuera de bono';
+
+  @override
+  String get ordersUnmarkOutOfBonusProduct => 'Desmarcar fuera de bono';
 
   @override
   String get ordersInfoDialogTitle => 'Ayuda de la tabla de pedidos';

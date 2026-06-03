@@ -46,6 +46,10 @@ class OrderSheet extends Equatable {
   /// `{clientId: quantity}`. Only cells with a refund are present.
   final List<Map<String, num>> cellRefunds;
 
+  /// Product mark per row: `productMarks[productIdx]` can be:
+  /// `"limited"`, `"outOfBonus"`, or `null` (no mark).
+  final List<String?> productMarks;
+
   /// Map of clientId → invoiced-by info (userId, userName, color hex).
   /// Only clients with a generated provisional invoice are present.
   final Map<String, InvoicedByInfo> invoicedBy;
@@ -72,6 +76,7 @@ class OrderSheet extends Equatable {
     this.strictStocks = const [],
     this.cellNotes = const [],
     this.cellRefunds = const [],
+    this.productMarks = const [],
     this.invoicedBy = const {},
     this.clientNotes = const {},
     this.lastModifiedAt,
@@ -92,6 +97,7 @@ class OrderSheet extends Equatable {
     List<bool>? strictStocks,
     List<Map<String, String>>? cellNotes,
     List<Map<String, num>>? cellRefunds,
+    List<String?>? productMarks,
     Map<String, InvoicedByInfo>? invoicedBy,
     Map<String, String>? clientNotes,
     DateTime? lastModifiedAt,
@@ -111,6 +117,7 @@ class OrderSheet extends Equatable {
       strictStocks: strictStocks ?? this.strictStocks,
       cellNotes: cellNotes ?? this.cellNotes,
       cellRefunds: cellRefunds ?? this.cellRefunds,
+      productMarks: productMarks ?? this.productMarks,
       invoicedBy: invoicedBy ?? this.invoicedBy,
       clientNotes: clientNotes ?? this.clientNotes,
       lastModifiedAt: lastModifiedAt ?? this.lastModifiedAt,
@@ -133,6 +140,7 @@ class OrderSheet extends Equatable {
     strictStocks,
     cellNotes,
     cellRefunds,
+    productMarks,
     invoicedBy,
     clientNotes,
     lastModifiedAt,

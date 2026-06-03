@@ -20,6 +20,7 @@ import '../../domain/usecases/update_cell_note.dart';
 import '../../domain/usecases/update_cell_refund.dart';
 import '../../domain/usecases/update_client_note.dart';
 import '../../domain/usecases/update_order_cell.dart';
+import '../../domain/usecases/update_product_mark.dart';
 import 'orders_event.dart';
 import 'orders_state.dart';
 
@@ -32,6 +33,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
     required UpdateCellNote updateCellNote,
     required UpdateCellRefund updateCellRefund,
     required UpdateClientNote updateClientNote,
+    required UpdateProductMark updateProductMark,
     required ResetClientOrders resetClientOrders,
     required RemoveOrderClients removeOrderClients,
     required RemoveOrderProducts removeOrderProducts,
@@ -47,6 +49,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
        _updateCellNote = updateCellNote,
        _updateCellRefund = updateCellRefund,
        _updateClientNote = updateClientNote,
+       _updateProductMark = updateProductMark,
        _resetClientOrders = resetClientOrders,
        _removeOrderClients = removeOrderClients,
        _removeOrderProducts = removeOrderProducts,
@@ -68,6 +71,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
     on<OrdersAddClientsRequested>(_onAddClients);
     on<OrdersAddProductsRequested>(_onAddProducts);
     on<OrdersCellFlagUpdateRequested>(_onCellFlagUpdate);
+    on<OrdersProductMarkUpdateRequested>(_onProductMarkUpdate);
     on<OrdersCellNoteUpdateRequested>(_onCellNoteUpdate);
     on<OrdersCellRefundUpdateRequested>(_onCellRefundUpdate);
     on<OrdersResetOrdersRequested>(_onResetOrders);
@@ -83,6 +87,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
   final UpdateCellNote _updateCellNote;
   final UpdateCellRefund _updateCellRefund;
   final UpdateClientNote _updateClientNote;
+  final UpdateProductMark _updateProductMark;
   final ResetClientOrders _resetClientOrders;
   final RemoveOrderClients _removeOrderClients;
   final RemoveOrderProducts _removeOrderProducts;
@@ -579,6 +584,57 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
       }
       return sheet.copyWith(strictStocks: newStrictStocks);
     }
+  }
+
+  Future<void> _onProductMarkUpdate(
+    OrdersProductMarkUpdateRequested event,
+    Emitter<OrdersState> emit,
+  ) async {
+    final current = state;
+    if (current is! OrdersLoaded) return;
+
+    final sheet = current.orderSheet;
+    if (event.productRow >= sheet.productIds.length) return;
+    if (!_isValidProductMark(event.productMark)) return;
+
+    final productId = sheet.productIds[event.productRow];
+
+    await _optimisticWrite(
+      emit: emit,
+      sheet: sheet,
+      optimistic: _applyOptimisticProductMarkUpdate(sheet, event),
+      write: () => _updateProductMark(
+        UpdateProductMarkParams(
+          productId: productId,
+          productMark: event.productMark,
+          date: _activeDate,
+        ),
+      ),
+      failureMessage: 'Failed to update product mark',
+    );
+  }
+
+  bool _isValidProductMark(String? productMark) {
+    return productMark == null ||
+        productMark == 'limited' ||
+        productMark == 'outOfBonus';
+  }
+
+  OrderSheet _applyOptimisticProductMarkUpdate(
+    OrderSheet sheet,
+    OrdersProductMarkUpdateRequested event,
+  ) {
+    final newProductMarks = List<String?>.from(sheet.productMarks);
+
+    while (newProductMarks.length < sheet.productIds.length) {
+      newProductMarks.add(null);
+    }
+
+    if (event.productRow < newProductMarks.length) {
+      newProductMarks[event.productRow] = event.productMark;
+    }
+
+    return sheet.copyWith(productMarks: newProductMarks);
   }
 
   // ── Cell Note Update ───────────────────────────────────────────

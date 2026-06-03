@@ -19,6 +19,7 @@ import '../../../../core/usecase/usecase.dart';
 import '../../../clients/domain/usecases/get_clients.dart';
 import '../../domain/entities/order_sheet.dart';
 import '../../domain/entities/remote_cursor.dart';
+import '../models/orders_sticky_totals.dart';
 import '../bloc/orders_presence_cubit.dart';
 import '../bloc/orders_presence_state.dart';
 import 'order_sheet_pdf_dialog.dart';
@@ -41,6 +42,7 @@ class OrdersTable extends StatefulWidget {
     this.clientCategoryIdMap = const {},
     this.onCellUpdated,
     this.onCellFlagUpdated,
+    this.onProductMarkUpdated,
     this.onCellNoteUpdated,
     this.onCellRefundUpdated,
     this.onDeleteClients,
@@ -75,6 +77,11 @@ class OrdersTable extends StatefulWidget {
   /// [flagType] is `null` to remove a flag.
   final void Function(int productRow, int? clientCol, String? flagType)?
   onCellFlagUpdated;
+
+  /// Called when a product row mark is toggled via product context menu.
+  /// [productMark] supports `limited`, `outOfBonus` or `null` to unmark.
+  final void Function(int productRow, String? productMark)?
+  onProductMarkUpdated;
 
   /// Called when a cell note is added/edited/removed via context menu.
   /// [note] is `null` to remove.
@@ -137,9 +144,11 @@ class _OrdersTableState extends State<OrdersTable> {
 
   // ── Constants ───────────────────────────────────────────────────
   static const double _dataColWidth = 38;
+  static const double _horizontalScrollbarReservedHeight = 16;
+  static const double _stickyContentBottomInset = 4;
   static const double _minHeaderHeight = 180;
   static const double _maxHeaderHeight = 250;
-  static const double _defaultRowHeight = 32;
+  static const double _defaultRowHeight = 30;
   static const double _compactRowHeight = 24;
   static const double _defaultHeaderHeight = _minHeaderHeight;
   static const String _headerHeightKey = 'orders_table_header_height';
@@ -180,6 +189,7 @@ class _OrdersTableState extends State<OrdersTable> {
   late List<bool> _strictStocks;
   late List<Map<String, String>> _cellNotes;
   late List<Map<String, num>> _cellRefunds;
+  late List<String?> _productMarks;
   late Map<String, InvoicedByInfo> _invoicedBy;
   late Map<String, String> _clientNotes;
 
@@ -326,6 +336,7 @@ class _OrdersTableState extends State<OrdersTable> {
     _strictStocks = sheet.strictStocks;
     _cellNotes = sheet.cellNotes;
     _cellRefunds = sheet.cellRefunds;
+    _productMarks = sheet.productMarks;
     _invoicedBy = sheet.invoicedBy;
     _clientNotes = sheet.clientNotes;
   }
@@ -726,6 +737,9 @@ class _OrdersTableState extends State<OrdersTable> {
 
   double get _effectiveRowHeight =>
       widget.readOnly ? _compactRowHeight : _defaultRowHeight;
+
+  double get _stickyRowHeight =>
+      _effectiveRowHeight + _horizontalScrollbarReservedHeight;
 
   Widget _buildProductColResizeHandle() {
     return MouseRegion(
@@ -1186,13 +1200,18 @@ class _OrdersTableState extends State<OrdersTable> {
   Widget _buildProductCell(int rowIdx) {
     final productIdx = _filteredIndices[rowIdx];
     final isRowHighlighted = _editingRow == rowIdx;
+    final productMark = _resolveProductMark(productIdx);
+    final canOpenContextMenu =
+        !widget.readOnly &&
+        (widget.onDeleteProducts != null ||
+            widget.onProductMarkUpdated != null);
 
     return GestureDetector(
-      onSecondaryTapDown: !widget.readOnly && widget.onDeleteProducts != null
+      onSecondaryTapDown: canOpenContextMenu
           ? (details) =>
                 _showProductContextMenu(details.globalPosition, productIdx)
           : null,
-      onLongPressStart: !widget.readOnly && widget.onDeleteProducts != null
+      onLongPressStart: canOpenContextMenu
           ? (details) =>
                 _showProductContextMenu(details.globalPosition, productIdx)
           : null,
@@ -1201,9 +1220,11 @@ class _OrdersTableState extends State<OrdersTable> {
         height: _effectiveRowHeight,
         padding: const EdgeInsets.only(left: AppSpacing.md),
         decoration: BoxDecoration(
-          color: isRowHighlighted
-              ? _highlightColor
-              : (rowIdx.isEven ? null : _colorScheme.surfaceContainerLow),
+          color: _productCellColor(
+            rowIdx: rowIdx,
+            isRowHighlighted: isRowHighlighted,
+            productMark: productMark,
+          ),
           border: Border(bottom: _borderSide, right: _strongBorder),
         ),
         child: Align(
@@ -1369,6 +1390,11 @@ class _OrdersTableState extends State<OrdersTable> {
       return null;
     }
     return _cellRefunds[productIdx][clientId];
+  }
+
+  String? _resolveProductMark(int productIdx) {
+    if (productIdx >= _productMarks.length) return null;
+    return _productMarks[productIdx];
   }
 
   ({num value, TextStyle? style}) _resolveDataCellValueAndStyle({
@@ -1662,6 +1688,21 @@ class _OrdersTableState extends State<OrdersTable> {
       _customColors?.compensation ?? const Color(0xFFC8E6C9);
   Color get _reservationColor =>
       _customColors?.reservation ?? const Color(0xFFBBDEFB);
+  Color get _productLimitedColor =>
+      _customColors?.productLimited ?? const Color(0xFFF527DD);
+  Color get _productOutOfBonusColor =>
+      _customColors?.productOutOfBonus ?? const Color(0xFF6F96F7);
+
+  Color? _productCellColor({
+    required int rowIdx,
+    required bool isRowHighlighted,
+    required String? productMark,
+  }) {
+    if (productMark == 'limited') return _productLimitedColor;
+    if (productMark == 'outOfBonus') return _productOutOfBonusColor;
+    if (isRowHighlighted) return _highlightColor;
+    return rowIdx.isEven ? null : _colorScheme.surfaceContainerLow;
+  }
 
   Color? _dataCellColor({
     required bool isQuedan,
@@ -2309,15 +2350,63 @@ class _OrdersTableState extends State<OrdersTable> {
 
   void _showProductContextMenu(Offset globalPosition, int productIdx) {
     final l10n = AppLocalizations.of(context)!;
-    final overlay =
-        Overlay.of(context).context.findRenderObject()! as RenderBox;
-    showMenu<String>(
-      context: context,
-      position: RelativeRect.fromRect(
-        globalPosition & Size.zero,
-        overlay.localToGlobal(Offset.zero) & overlay.size,
-      ),
-      items: [
+    final currentMark = _resolveProductMark(productIdx);
+    final isLimited = currentMark == 'limited';
+    final isOutOfBonus = currentMark == 'outOfBonus';
+
+    final items = <PopupMenuEntry<String>>[];
+
+    if (widget.onProductMarkUpdated != null) {
+      items.add(
+        PopupMenuItem<String>(
+          value: isLimited ? 'remove_limited' : 'mark_limited',
+          child: Row(
+            children: [
+              Icon(
+                isLimited ? Icons.remove_circle_outline : Icons.flag_outlined,
+                size: 20,
+                color: isLimited ? _colorScheme.error : _colorScheme.primary,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                isLimited
+                    ? l10n.ordersUnmarkLimitedProduct
+                    : l10n.ordersMarkLimitedProduct,
+              ),
+            ],
+          ),
+        ),
+      );
+
+      items.add(
+        PopupMenuItem<String>(
+          value: isOutOfBonus ? 'remove_out_of_bonus' : 'mark_out_of_bonus',
+          child: Row(
+            children: [
+              Icon(
+                isOutOfBonus
+                    ? Icons.remove_circle_outline
+                    : Icons.flag_outlined,
+                size: 20,
+                color: isOutOfBonus ? _colorScheme.error : _colorScheme.primary,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                isOutOfBonus
+                    ? l10n.ordersUnmarkOutOfBonusProduct
+                    : l10n.ordersMarkOutOfBonusProduct,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (widget.onDeleteProducts != null) {
+      if (items.isNotEmpty) {
+        items.add(const PopupMenuDivider());
+      }
+      items.add(
         PopupMenuItem<String>(
           value: 'delete_product',
           child: Row(
@@ -2328,11 +2417,33 @@ class _OrdersTableState extends State<OrdersTable> {
             ],
           ),
         ),
-      ],
+      );
+    }
+
+    if (items.isEmpty) return;
+
+    final overlay =
+        Overlay.of(context).context.findRenderObject()! as RenderBox;
+    showMenu<String>(
+      context: context,
+      position: RelativeRect.fromRect(
+        globalPosition & Size.zero,
+        overlay.localToGlobal(Offset.zero) & overlay.size,
+      ),
+      items: items,
     ).then((selected) {
       if (selected == null) return;
-      if (selected == 'delete_product') {
-        _showDeleteConfirmation([productIdx], 1, isProducts: true);
+      switch (selected) {
+        case 'mark_limited':
+          widget.onProductMarkUpdated?.call(productIdx, 'limited');
+        case 'remove_limited':
+          widget.onProductMarkUpdated?.call(productIdx, null);
+        case 'mark_out_of_bonus':
+          widget.onProductMarkUpdated?.call(productIdx, 'outOfBonus');
+        case 'remove_out_of_bonus':
+          widget.onProductMarkUpdated?.call(productIdx, null);
+        case 'delete_product':
+          _showDeleteConfirmation([productIdx], 1, isProducts: true);
       }
     });
   }
@@ -2380,7 +2491,11 @@ class _OrdersTableState extends State<OrdersTable> {
     );
   }
 
-  Widget _buildFrozenProductColumn(List<int> filteredIndices) {
+  Widget _buildFrozenProductColumn(
+    List<int> filteredIndices, {
+    required bool showStickyTotals,
+    required AppLocalizations l10n,
+  }) {
     return ScrollbarTheme(
       data: ScrollbarThemeData(
         thumbColor: WidgetStatePropertyAll(_colorScheme.primary),
@@ -2390,14 +2505,128 @@ class _OrdersTableState extends State<OrdersTable> {
       ),
       child: SizedBox(
         width: _productColWidth.value,
-        child: Scrollbar(
-          controller: _frozenVerticalController,
-          thumbVisibility: true,
-          child: ListView.builder(
-            controller: _frozenVerticalController,
-            itemCount: filteredIndices.length,
-            itemExtent: _effectiveRowHeight,
-            itemBuilder: (_, i) => _buildProductCell(i),
+        child: Column(
+          children: [
+            Expanded(
+              child: Scrollbar(
+                controller: _frozenVerticalController,
+                thumbVisibility: true,
+                child: ListView.builder(
+                  controller: _frozenVerticalController,
+                  itemCount: filteredIndices.length,
+                  itemExtent: _effectiveRowHeight,
+                  itemBuilder: (_, i) => _buildProductCell(i),
+                ),
+              ),
+            ),
+            if (showStickyTotals) _buildStickyProductTotalsCell(l10n),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStickyProductTotalsCell(AppLocalizations l10n) {
+    return Tooltip(
+      message: l10n.ordersPdfLabelTotalProducts,
+      child: Container(
+        width: _productColWidth.value,
+        height: _stickyRowHeight,
+        decoration: BoxDecoration(
+          color: _colorScheme.surfaceContainerHighest,
+          border: Border(top: _strongBorder, right: _strongBorder),
+        ),
+        child: SizedBox(
+          height: _effectiveRowHeight,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: _stickyContentBottomInset),
+            child: Center(
+              child: Text(
+                l10n.ordersStickyTotalsLabel,
+                style: _textTheme.labelSmall?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: _colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStickyClientTotalCell(num total) {
+    return Container(
+      width: _dataColWidth,
+      height: _stickyRowHeight,
+      decoration: BoxDecoration(
+        color: _colorScheme.surfaceContainerHighest,
+        border: Border(top: _strongBorder, right: _borderSide),
+      ),
+      child: SizedBox(
+        height: _effectiveRowHeight,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: _stickyContentBottomInset),
+          child: Center(
+            child: total == 0
+                ? const SizedBox.shrink()
+                : Text(
+                    _formatNum(total),
+                    style: _textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 12,
+                    ),
+                  ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStickySummaryCell({
+    required int index,
+    required num totalPedidos,
+  }) {
+    final isPedidos = index == 0;
+    final isStocks = index == 1;
+
+    Color bgColor;
+    if (isPedidos) {
+      final warningColor = _customColors?.warning ?? const Color(0xFFFFC107);
+      bgColor = warningColor.withValues(alpha: 0.4);
+    } else if (isStocks) {
+      bgColor = const Color(0xFFD32F2F).withValues(alpha: 0.16);
+    } else {
+      bgColor = (_customColors?.success ?? _colorScheme.tertiary).withValues(
+        alpha: 0.22,
+      );
+    }
+
+    return Container(
+      width: _dataColWidth,
+      height: _stickyRowHeight,
+      decoration: BoxDecoration(
+        color: bgColor,
+        border: Border(
+          top: _strongBorder,
+          right: _borderSide,
+          left: isPedidos ? _strongBorder : BorderSide.none,
+        ),
+      ),
+      child: SizedBox(
+        height: _effectiveRowHeight,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: _stickyContentBottomInset),
+          child: Center(
+            child: isPedidos
+                ? Text(
+                    _formatNum(totalPedidos),
+                    style: _textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 12,
+                    ),
+                  )
+                : const SizedBox.shrink(),
           ),
         ),
       ),
@@ -2432,8 +2661,10 @@ class _OrdersTableState extends State<OrdersTable> {
   Widget _buildScrollableDataArea(
     int scrollColCount,
     List<int> filteredIndices,
-    AppLocalizations l10n,
-  ) {
+    AppLocalizations l10n, {
+    required bool showStickyTotals,
+    required List<num> clientTotals,
+  }) {
     return ScrollbarTheme(
       data: ScrollbarThemeData(
         thumbColor: WidgetStatePropertyAll(_colorScheme.primary),
@@ -2449,23 +2680,37 @@ class _OrdersTableState extends State<OrdersTable> {
           scrollDirection: Axis.horizontal,
           child: SizedBox(
             width: scrollColCount * _dataColWidth,
-            child: ScrollConfiguration(
-              behavior: ScrollConfiguration.of(
-                context,
-              ).copyWith(scrollbars: false),
-              child: ListView.builder(
-                controller: _verticalController,
-                itemCount: filteredIndices.length,
-                itemExtent: _effectiveRowHeight,
-                itemBuilder: (_, rowIdx) {
-                  return Row(
+            child: Column(
+              children: [
+                Expanded(
+                  child: ScrollConfiguration(
+                    behavior: ScrollConfiguration.of(
+                      context,
+                    ).copyWith(scrollbars: false),
+                    child: ListView.builder(
+                      controller: _verticalController,
+                      itemCount: filteredIndices.length,
+                      itemExtent: _effectiveRowHeight,
+                      itemBuilder: (_, rowIdx) {
+                        return Row(
+                          children: List.generate(
+                            scrollColCount,
+                            (col) =>
+                                _buildDataCell(rowIdx, col, l10nOverride: l10n),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                if (showStickyTotals)
+                  Row(
                     children: List.generate(
                       scrollColCount,
-                      (col) => _buildDataCell(rowIdx, col, l10nOverride: l10n),
+                      (col) => _buildStickyClientTotalCell(clientTotals[col]),
                     ),
-                  );
-                },
-              ),
+                  ),
+              ],
             ),
           ),
         ),
@@ -2477,27 +2722,61 @@ class _OrdersTableState extends State<OrdersTable> {
     int summaryColCount,
     int clientCount,
     List<int> filteredIndices,
-    AppLocalizations l10n,
-  ) {
+    AppLocalizations l10n, {
+    required bool showStickyTotals,
+    required num totalPedidos,
+  }) {
     return SizedBox(
       width: summaryColCount * _dataColWidth,
-      child: ScrollConfiguration(
-        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-        child: ListView.builder(
-          controller: _summaryVerticalController,
-          itemCount: filteredIndices.length,
-          itemExtent: _effectiveRowHeight,
-          itemBuilder: (_, rowIdx) {
-            return Row(
+      child: Column(
+        children: [
+          Expanded(
+            child: ScrollConfiguration(
+              behavior: ScrollConfiguration.of(
+                context,
+              ).copyWith(scrollbars: false),
+              child: ListView.builder(
+                controller: _summaryVerticalController,
+                itemCount: filteredIndices.length,
+                itemExtent: _effectiveRowHeight,
+                itemBuilder: (_, rowIdx) {
+                  return Row(
+                    children: List.generate(
+                      summaryColCount,
+                      (i) => _buildDataCell(
+                        rowIdx,
+                        clientCount + i,
+                        l10nOverride: l10n,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          if (showStickyTotals)
+            Row(
               children: List.generate(
                 summaryColCount,
-                (i) =>
-                    _buildDataCell(rowIdx, clientCount + i, l10nOverride: l10n),
+                (i) => _buildStickySummaryCell(
+                  index: i,
+                  totalPedidos: totalPedidos,
+                ),
               ),
-            );
-          },
-        ),
+            ),
+        ],
       ),
+    );
+  }
+
+  OrdersStickyTotals _computeStickyTotals(
+    List<int> filteredIndices,
+    List<int> filteredClientIndices,
+  ) {
+    return computeOrdersStickyTotals(
+      orderSheet: widget.orderSheet,
+      filteredProductIndices: filteredIndices,
+      filteredClientIndices: filteredClientIndices,
     );
   }
 
@@ -2508,6 +2787,12 @@ class _OrdersTableState extends State<OrdersTable> {
     final filteredClientIndices = _filteredClientIndices;
     final scrollColCount = filteredClientIndices.length;
     const summaryColCount = 3; // PEDIDOS, STOCKS, QUEDAN
+
+    final stickyTotals = _computeStickyTotals(
+      filteredIndices,
+      filteredClientIndices,
+    );
+    final showStickyTotals = !widget.readOnly && stickyTotals.shouldRender;
 
     // ── Layout: 6 quadrants ────────────────────────────────────────
     // ┌───────────┬──────────────────────┬─────────────────┐
@@ -2592,7 +2877,11 @@ class _OrdersTableState extends State<OrdersTable> {
                         Expanded(
                           child: Row(
                             children: [
-                              _buildFrozenProductColumn(filteredIndices),
+                              _buildFrozenProductColumn(
+                                filteredIndices,
+                                showStickyTotals: showStickyTotals,
+                                l10n: l10n,
+                              ),
                               _buildProductColResizeHandle(),
                               Expanded(
                                 child: filteredClientIndices.isEmpty
@@ -2601,6 +2890,8 @@ class _OrdersTableState extends State<OrdersTable> {
                                         scrollColCount,
                                         filteredIndices,
                                         l10n,
+                                        showStickyTotals: showStickyTotals,
+                                        clientTotals: stickyTotals.clientTotals,
                                       ),
                               ),
                               _buildFrozenSummaryColumns(
@@ -2608,6 +2899,8 @@ class _OrdersTableState extends State<OrdersTable> {
                                 scrollColCount,
                                 filteredIndices,
                                 l10n,
+                                showStickyTotals: showStickyTotals,
+                                totalPedidos: stickyTotals.totalPedidos,
                               ),
                             ],
                           ),

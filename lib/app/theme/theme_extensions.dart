@@ -14,6 +14,8 @@ class CustomColors extends ThemeExtension<CustomColors> {
   final Color? refund;
   final Color? compensation;
   final Color? reservation;
+  final Color? productLimited;
+  final Color? productOutOfBonus;
   final Color? warningHeader;
 
   const CustomColors({
@@ -24,6 +26,8 @@ class CustomColors extends ThemeExtension<CustomColors> {
     this.refund,
     this.compensation,
     this.reservation,
+    this.productLimited,
+    this.productOutOfBonus,
     this.warningHeader,
   });
 
@@ -36,6 +40,8 @@ class CustomColors extends ThemeExtension<CustomColors> {
     Color? refund,
     Color? compensation,
     Color? reservation,
+    Color? productLimited,
+    Color? productOutOfBonus,
     Color? warningHeader,
   }) {
     return CustomColors(
@@ -46,6 +52,8 @@ class CustomColors extends ThemeExtension<CustomColors> {
       refund: refund ?? this.refund,
       compensation: compensation ?? this.compensation,
       reservation: reservation ?? this.reservation,
+      productLimited: productLimited ?? this.productLimited,
+      productOutOfBonus: productOutOfBonus ?? this.productOutOfBonus,
       warningHeader: warningHeader ?? this.warningHeader,
     );
   }
@@ -61,6 +69,12 @@ class CustomColors extends ThemeExtension<CustomColors> {
       refund: Color.lerp(refund, other.refund, t),
       compensation: Color.lerp(compensation, other.compensation, t),
       reservation: Color.lerp(reservation, other.reservation, t),
+      productLimited: Color.lerp(productLimited, other.productLimited, t),
+      productOutOfBonus: Color.lerp(
+        productOutOfBonus,
+        other.productOutOfBonus,
+        t,
+      ),
       warningHeader: Color.lerp(warningHeader, other.warningHeader, t),
     );
   }
@@ -74,6 +88,8 @@ class CustomColors extends ThemeExtension<CustomColors> {
     refund: Color(0xFFFF9800),
     compensation: Color(0xFFC8E6C9),
     reservation: Color(0xFFBBDEFB),
+    productLimited: Color(0xFFF527DD),
+    productOutOfBonus: Color(0xFF6F96F7),
     warningHeader: Color.fromARGB(190, 217, 121, 53),
   );
 }

@@ -29,6 +29,7 @@ OrderSheet buildOrderSheet(
   final strictStocks = <bool>[];
   final cellNotes = <Map<String, String>>[];
   final cellRefunds = <Map<String, num>>[];
+  final productMarks = <String?>[];
 
   for (final productId in productIds) {
     final row = rowMap[productId];
@@ -52,6 +53,7 @@ OrderSheet buildOrderSheet(
     strictStocks.add(row?.strictStock ?? false);
     cellNotes.add(row?.notes ?? {});
     cellRefunds.add(row?.refunds ?? {});
+    productMarks.add(row?.productMark);
   }
 
   return OrderSheet(
@@ -68,6 +70,7 @@ OrderSheet buildOrderSheet(
     strictStocks: strictStocks,
     cellNotes: cellNotes,
     cellRefunds: cellRefunds,
+    productMarks: productMarks,
     clientOrders: List.generate(clientIds.length, (i) => i + 1),
     invoicedBy: {
       for (final entry in doc.invoicedBy.entries)

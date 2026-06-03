@@ -103,6 +103,15 @@ abstract class OrderFirestoreDataSource {
     required bool strictStock,
   });
 
+  /// Updates the product-level mark for a row.
+  /// If [productMark] is `null`, the mark is removed.
+  /// Allowed values: `"limited"` and `"outOfBonus"`.
+  Future<void> updateProductMark({
+    required String date,
+    required String productId,
+    required String? productMark,
+  });
+
   /// Updates a note for a specific client–product cell.
   /// If [note] is `null` or empty, the note is removed.
   Future<void> updateNote({

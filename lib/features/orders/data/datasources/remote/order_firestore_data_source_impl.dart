@@ -477,6 +477,38 @@ class OrderFirestoreDataSourceImpl implements OrderFirestoreDataSource {
     }
   }
 
+  // ── updateProductMark ───────────────────────────────────────────
+
+  @override
+  Future<void> updateProductMark({
+    required String date,
+    required String productId,
+    required String? productMark,
+  }) async {
+    try {
+      final batch = _firestore.batch();
+
+      if (productMark == null) {
+        batch.update(_rowsCol(date).doc(productId), {
+          'productMark': FieldValue.delete(),
+        });
+      } else {
+        batch.update(_rowsCol(date).doc(productId), {
+          'productMark': productMark,
+        });
+      }
+
+      batch.update(_orderDoc(date), {
+        'lastModifiedAt': FieldValue.serverTimestamp(),
+      });
+
+      await batch.commit();
+      _fbLogger.logBatchWrite('orders/{date}/rows + orders', 2);
+    } on FirebaseException catch (e) {
+      throw ServerException(message: 'Error updating product mark: $e');
+    }
+  }
+
   // ── updateNote ──────────────────────────────────────────────────
 
   @override

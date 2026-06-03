@@ -31,6 +31,7 @@ import '../../../features/orders/domain/usecases/update_cell_note.dart';
 import '../../../features/orders/domain/usecases/update_cell_refund.dart';
 import '../../../features/orders/domain/usecases/update_client_note.dart';
 import '../../../features/orders/domain/usecases/update_order_cell.dart';
+import '../../../features/orders/domain/usecases/update_product_mark.dart';
 import '../../../features/orders/presentation/bloc/orders_bloc.dart';
 
 void registerOrdersModule(GetIt sl) {
@@ -75,6 +76,7 @@ void registerOrdersModule(GetIt sl) {
   sl.registerLazySingleton(() => UpdateCellNote(sl()));
   sl.registerLazySingleton(() => UpdateCellRefund(sl()));
   sl.registerLazySingleton(() => UpdateClientNote(sl()));
+  sl.registerLazySingleton(() => UpdateProductMark(sl()));
   sl.registerLazySingleton(() => RemoveOrderClients(sl()));
   sl.registerLazySingleton(() => RemoveOrderProducts(sl()));
   sl.registerLazySingleton(() => ResetClientOrders(sl()));
@@ -100,6 +102,7 @@ void registerOrdersModule(GetIt sl) {
       updateCellNote: sl(),
       updateCellRefund: sl(),
       updateClientNote: sl(),
+      updateProductMark: sl(),
       resetClientOrders: sl(),
       removeOrderClients: sl(),
       removeOrderProducts: sl(),

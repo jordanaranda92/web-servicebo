@@ -258,6 +258,30 @@ class OrdersRepositoryImpl implements OrdersRepository {
     }
   }
 
+  // ── updateProductMark ───────────────────────────────────────────
+
+  @override
+  Future<Either<Failure, Unit>> updateProductMark({
+    required String productId,
+    required String? productMark,
+    required DateTime date,
+  }) async {
+    try {
+      final dateStr = _formatDate(date);
+      await _firestoreDataSource.updateProductMark(
+        date: dateStr,
+        productId: productId,
+        productMark: productMark,
+      );
+      return const Right(unit);
+    } on ServerException {
+      return Left(ServerFailure());
+    } on Exception catch (e, st) {
+      _logger.error('Error updating product mark', e, st);
+      return Left(ServerFailure());
+    }
+  }
+
   // ── updateCellNote ──────────────────────────────────────────────
 
   @override

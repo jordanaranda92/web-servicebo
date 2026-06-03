@@ -250,6 +250,12 @@ abstract class AppLocalizations {
   /// **'QUEDAN'**
   String get ordersColumnQuedan;
 
+  /// Etiqueta de la fila sticky de totales en pedidos
+  ///
+  /// In es, this message translates to:
+  /// **'TOTALES'**
+  String get ordersStickyTotalsLabel;
+
   /// Botón para reintentar la carga
   ///
   /// In es, this message translates to:
@@ -1701,6 +1707,30 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Eliminar producto'**
   String get ordersContextMenuDeleteProduct;
+
+  /// Opción del menú contextual de producto para marcar como limitado
+  ///
+  /// In es, this message translates to:
+  /// **'Marcar como limitado'**
+  String get ordersMarkLimitedProduct;
+
+  /// Opción del menú contextual de producto para desmarcar como limitado
+  ///
+  /// In es, this message translates to:
+  /// **'Desmarcar como limitado'**
+  String get ordersUnmarkLimitedProduct;
+
+  /// Opción del menú contextual de producto para marcar fuera de bono
+  ///
+  /// In es, this message translates to:
+  /// **'Marcar fuera de bono'**
+  String get ordersMarkOutOfBonusProduct;
+
+  /// Opción del menú contextual de producto para desmarcar fuera de bono
+  ///
+  /// In es, this message translates to:
+  /// **'Desmarcar fuera de bono'**
+  String get ordersUnmarkOutOfBonusProduct;
 
   /// Título del diálogo de ayuda informativa de la tabla de pedidos
   ///

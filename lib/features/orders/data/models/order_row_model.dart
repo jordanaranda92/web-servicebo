@@ -1,5 +1,8 @@
 /// Model for a subdocument at `orders/{YYYY-MM-DD}/rows/{productId}`.
 class OrderRowModel {
+  static const String limitedMark = 'limited';
+  static const String outOfBonusMark = 'outOfBonus';
+
   final String productId;
   final Map<String, num> quantities;
   final num stock;
@@ -20,6 +23,10 @@ class OrderRowModel {
   /// Only cells with a refund are present.
   final Map<String, num> refunds;
 
+  /// Product-level mark used to style the product cell in UI.
+  /// Allowed values: `limited`, `outOfBonus`, or `null`.
+  final String? productMark;
+
   const OrderRowModel({
     required this.productId,
     required this.quantities,
@@ -28,6 +35,7 @@ class OrderRowModel {
     this.strictStock = false,
     this.notes = const {},
     this.refunds = const {},
+    this.productMark,
   });
 
   factory OrderRowModel.fromFirestore(String id, Map<String, dynamic> data) {
@@ -51,6 +59,8 @@ class OrderRowModel {
       (key, value) => MapEntry(key, (value as num?) ?? 0),
     );
 
+    final rawProductMark = data['productMark'] as String?;
+
     return OrderRowModel(
       productId: id,
       quantities: quantities,
@@ -59,7 +69,13 @@ class OrderRowModel {
       strictStock: (data['strictStock'] as bool?) ?? false,
       notes: notes,
       refunds: refunds,
+      productMark: _sanitizeProductMark(rawProductMark),
     );
+  }
+
+  static String? _sanitizeProductMark(String? value) {
+    if (value == limitedMark || value == outOfBonusMark) return value;
+    return null;
   }
 
   Map<String, dynamic> toMap() {
@@ -70,6 +86,7 @@ class OrderRowModel {
       'strictStock': strictStock,
       'notes': notes,
       'refunds': refunds,
+      if (productMark != null) 'productMark': productMark,
     };
   }
 }

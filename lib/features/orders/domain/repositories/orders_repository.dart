@@ -70,6 +70,15 @@ abstract class OrdersRepository {
     required DateTime date,
   });
 
+  /// Updates the product-level mark for a row.
+  /// Allowed values for [productMark]: `"limited"`, `"outOfBonus"`, or
+  /// `null` to remove.
+  Future<Either<Failure, Unit>> updateProductMark({
+    required String productId,
+    required String? productMark,
+    required DateTime date,
+  });
+
   /// Updates a note for a specific client–product cell.
   /// If [note] is `null` or empty, the note is removed.
   Future<Either<Failure, Unit>> updateCellNote({

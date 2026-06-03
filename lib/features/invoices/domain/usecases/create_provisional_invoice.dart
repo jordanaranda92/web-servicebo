@@ -17,6 +17,30 @@ class CreateProvisionalInvoice extends UseCase<Invoice, InvoicePreview> {
 
   CreateProvisionalInvoice(this._invoicesRepo, this._settingsRepo);
 
+  static String calculateDueDateFromInvoiceDate(String invoiceDate) {
+    final parsedDate = DateTime.tryParse(invoiceDate);
+    if (parsedDate == null) {
+      return invoiceDate;
+    }
+
+    final nextMonth = parsedDate.month == DateTime.december
+        ? DateTime(parsedDate.year + 1, DateTime.january)
+        : DateTime(parsedDate.year, parsedDate.month + 1);
+    final lastDayOfNextMonth = DateTime(
+      nextMonth.year,
+      nextMonth.month + 1,
+      0,
+    ).day;
+    final normalizedDay = parsedDate.day > lastDayOfNextMonth
+        ? lastDayOfNextMonth
+        : parsedDate.day;
+    final dueDate = DateTime(nextMonth.year, nextMonth.month, normalizedDay);
+
+    final month = dueDate.month.toString().padLeft(2, '0');
+    final day = dueDate.day.toString().padLeft(2, '0');
+    return '${dueDate.year}-$month-$day';
+  }
+
   @override
   Future<Either<Failure, Invoice>> call(InvoicePreview preview) async {
     dev.log(
@@ -49,6 +73,7 @@ class CreateProvisionalInvoice extends UseCase<Invoice, InvoicePreview> {
             'contact': preview.clientFdUuid,
             'currency': _currency,
             'date': preview.date,
+            'dueDate': calculateDueDateFromInvoiceDate(preview.date),
             'draft': true,
             'lines': lines,
             if (preview.paymentMethod != null)

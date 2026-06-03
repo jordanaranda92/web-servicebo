@@ -580,6 +580,14 @@ class _OrdersContentState extends State<_OrdersContent> {
                 ),
               );
             },
+            onProductMarkUpdated: (productRow, productMark) {
+              context.read<OrdersBloc>().add(
+                OrdersProductMarkUpdateRequested(
+                  productRow: productRow,
+                  productMark: productMark,
+                ),
+              );
+            },
             onCellNoteUpdated: (productRow, clientCol, note) {
               context.read<OrdersBloc>().add(
                 OrdersCellNoteUpdateRequested(

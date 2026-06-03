@@ -113,6 +113,22 @@ final class OrdersCellFlagUpdateRequested extends OrdersEvent {
   List<Object?> get props => [productRow, clientCol, flagType];
 }
 
+final class OrdersProductMarkUpdateRequested extends OrdersEvent {
+  const OrdersProductMarkUpdateRequested({
+    required this.productRow,
+    required this.productMark,
+  });
+
+  /// Product index in the sheet.
+  final int productRow;
+
+  /// Product-level mark value: `"limited"`, `"outOfBonus"`, or `null`.
+  final String? productMark;
+
+  @override
+  List<Object?> get props => [productRow, productMark];
+}
+
 final class OrdersCellNoteUpdateRequested extends OrdersEvent {
   const OrdersCellNoteUpdateRequested({
     required this.productRow,

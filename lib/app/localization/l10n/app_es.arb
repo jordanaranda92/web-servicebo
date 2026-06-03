@@ -104,6 +104,10 @@
   "@ordersColumnQuedan": {
     "description": "Cabecera de la columna de unidades restantes (stocks - pedidos)"
   },
+  "ordersStickyTotalsLabel": "TOTALES",
+  "@ordersStickyTotalsLabel": {
+    "description": "Etiqueta de la fila sticky de totales en pedidos"
+  },
   "ordersRetry": "Reintentar",
   "@ordersRetry": {
     "description": "Botón para reintentar la carga"
@@ -1156,6 +1160,22 @@
   "ordersContextMenuDeleteProduct": "Eliminar producto",
   "@ordersContextMenuDeleteProduct": {
     "description": "Opción del menú contextual de producto para eliminar producto"
+  },
+  "ordersMarkLimitedProduct": "Marcar como limitado",
+  "@ordersMarkLimitedProduct": {
+    "description": "Opción del menú contextual de producto para marcar como limitado"
+  },
+  "ordersUnmarkLimitedProduct": "Desmarcar como limitado",
+  "@ordersUnmarkLimitedProduct": {
+    "description": "Opción del menú contextual de producto para desmarcar como limitado"
+  },
+  "ordersMarkOutOfBonusProduct": "Marcar fuera de bono",
+  "@ordersMarkOutOfBonusProduct": {
+    "description": "Opción del menú contextual de producto para marcar fuera de bono"
+  },
+  "ordersUnmarkOutOfBonusProduct": "Desmarcar fuera de bono",
+  "@ordersUnmarkOutOfBonusProduct": {
+    "description": "Opción del menú contextual de producto para desmarcar fuera de bono"
   },
   "ordersInfoDialogTitle": "Ayuda de la tabla de pedidos",
   "@ordersInfoDialogTitle": {
