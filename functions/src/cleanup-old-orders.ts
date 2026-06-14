@@ -1,5 +1,6 @@
 import {onSchedule} from "firebase-functions/v2/scheduler";
 import {getFirestore} from "firebase-admin/firestore";
+import {DATABASE_ID} from "./database";
 
 const RETENTION_DAYS = 30;
 const BATCH_LIMIT = 500;
@@ -19,7 +20,7 @@ export const cleanupOldOrders = onSchedule(
     region: "europe-west1",
   },
   async () => {
-    const db = getFirestore();
+    const db = getFirestore(DATABASE_ID);
     const cutoff = new Date();
     cutoff.setDate(cutoff.getDate() - RETENTION_DAYS);
     const cutoffStr = cutoff.toISOString().slice(0, 10); // "YYYY-MM-DD"

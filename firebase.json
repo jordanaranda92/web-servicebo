@@ -11,9 +11,12 @@
       }
     }
   },
-  "firestore": {
-    "rules": "firestore.rules"
-  },
+  "firestore": [
+    {
+      "database": "servicebo-main",
+      "rules": "firestore.rules"
+    }
+  ],
   "database": {
     "rules": "database.rules.json"
   },

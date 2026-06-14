@@ -48,7 +48,10 @@ Future<void> registerCoreModule(
     sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
 
     sl.registerLazySingleton<FirebaseFirestore>(
-      () => FirebaseFirestore.instance,
+      () => FirebaseFirestore.instanceFor(
+        app: Firebase.app(),
+        databaseId: 'servicebo-main',
+      ),
     );
 
     sl.registerLazySingleton<FirebaseDatabase>(
