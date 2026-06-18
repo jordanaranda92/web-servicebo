@@ -358,7 +358,7 @@ class _OrdersTableState extends State<OrdersTable> {
     _textTheme = theme.textTheme;
     _customColors = theme.extension<CustomColors>();
     _headerColor = _colorScheme.surfaceContainerHighest;
-    _highlightColor = _colorScheme.outlineVariant.withValues(alpha: 0.7);
+    _highlightColor = _colorScheme.outline.withValues(alpha: 0.5);
     _borderSide = BorderSide(
       color: _colorScheme.outlineVariant.withValues(alpha: 0.5),
     );
@@ -1298,7 +1298,7 @@ class _OrdersTableState extends State<OrdersTable> {
     final isEditable = !widget.readOnly && (isClient || isStocks);
     final isSelected = isEditing && isEditable;
     final isRowHighlighted =
-        _editingRow == rowIdx && _editingCol != null && col < _editingCol!;
+        _editingRow == rowIdx && _editingCol != null && col != _editingCol!;
     final isColHighlighted =
         _editingCol != null &&
         _editingCol == col &&
@@ -1701,7 +1701,7 @@ class _OrdersTableState extends State<OrdersTable> {
     if (productMark == 'limited') return _productLimitedColor;
     if (productMark == 'outOfBonus') return _productOutOfBonusColor;
     if (isRowHighlighted) return _highlightColor;
-    return rowIdx.isEven ? null : _colorScheme.surfaceContainerLow;
+    return rowIdx.isEven ? null : _colorScheme.surfaceContainerHigh;
   }
 
   Color? _dataCellColor({
@@ -1734,7 +1734,7 @@ class _OrdersTableState extends State<OrdersTable> {
     if (cellFlag == 'compensation') return _compensationColor;
     if (cellFlag == 'reservation') return _reservationColor;
     if (isRowHighlighted || isColHighlighted) return _highlightColor;
-    return rowIdx.isEven ? null : _colorScheme.surfaceContainerLow;
+    return rowIdx.isEven ? null : _colorScheme.surfaceContainerHighest;
   }
 
   void _showCellContextMenu(
@@ -2664,6 +2664,7 @@ class _OrdersTableState extends State<OrdersTable> {
     AppLocalizations l10n, {
     required bool showStickyTotals,
     required List<num> clientTotals,
+    double trailingFillerWidth = 0,
   }) {
     return ScrollbarTheme(
       data: ScrollbarThemeData(
@@ -2679,7 +2680,7 @@ class _OrdersTableState extends State<OrdersTable> {
           controller: _dataHorizontalController,
           scrollDirection: Axis.horizontal,
           child: SizedBox(
-            width: scrollColCount * _dataColWidth,
+            width: scrollColCount * _dataColWidth + trailingFillerWidth,
             child: Column(
               children: [
                 Expanded(
@@ -2693,11 +2694,28 @@ class _OrdersTableState extends State<OrdersTable> {
                       itemExtent: _effectiveRowHeight,
                       itemBuilder: (_, rowIdx) {
                         return Row(
-                          children: List.generate(
-                            scrollColCount,
-                            (col) =>
-                                _buildDataCell(rowIdx, col, l10nOverride: l10n),
-                          ),
+                          children: [
+                            ...List.generate(
+                              scrollColCount,
+                              (col) => _buildDataCell(
+                                rowIdx,
+                                col,
+                                l10nOverride: l10n,
+                              ),
+                            ),
+                            if (trailingFillerWidth > 0)
+                              SizedBox(
+                                width: trailingFillerWidth,
+                                height: _effectiveRowHeight,
+                                child: ColoredBox(
+                                  color: _editingRow == rowIdx
+                                      ? _highlightColor
+                                      : rowIdx.isOdd
+                                      ? _colorScheme.surfaceContainerHigh
+                                      : Colors.transparent,
+                                ),
+                              ),
+                          ],
                         );
                       },
                     ),
@@ -2705,10 +2723,20 @@ class _OrdersTableState extends State<OrdersTable> {
                 ),
                 if (showStickyTotals)
                   Row(
-                    children: List.generate(
-                      scrollColCount,
-                      (col) => _buildStickyClientTotalCell(clientTotals[col]),
-                    ),
+                    children: [
+                      ...List.generate(
+                        scrollColCount,
+                        (col) => _buildStickyClientTotalCell(clientTotals[col]),
+                      ),
+                      if (trailingFillerWidth > 0)
+                        SizedBox(
+                          width: trailingFillerWidth,
+                          height: _stickyRowHeight,
+                          child: ColoredBox(
+                            color: _colorScheme.surfaceContainerHighest,
+                          ),
+                        ),
+                    ],
                   ),
               ],
             ),
@@ -2886,12 +2914,24 @@ class _OrdersTableState extends State<OrdersTable> {
                               Expanded(
                                 child: filteredClientIndices.isEmpty
                                     ? _buildEmptyClientsPlaceholder(l10n)
-                                    : _buildScrollableDataArea(
-                                        scrollColCount,
-                                        filteredIndices,
-                                        l10n,
-                                        showStickyTotals: showStickyTotals,
-                                        clientTotals: stickyTotals.clientTotals,
+                                    : LayoutBuilder(
+                                        builder: (context, constraints) {
+                                          final trailingFillerWidth =
+                                              (constraints.maxWidth -
+                                                      scrollColCount *
+                                                          _dataColWidth)
+                                                  .clamp(0.0, double.infinity);
+                                          return _buildScrollableDataArea(
+                                            scrollColCount,
+                                            filteredIndices,
+                                            l10n,
+                                            showStickyTotals: showStickyTotals,
+                                            clientTotals:
+                                                stickyTotals.clientTotals,
+                                            trailingFillerWidth:
+                                                trailingFillerWidth,
+                                          );
+                                        },
                                       ),
                               ),
                               _buildFrozenSummaryColumns(
